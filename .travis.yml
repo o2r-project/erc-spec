@@ -1,0 +1,15 @@
+language: python
+python:
+  - "3.5"
+script: true
+install: "pip install mkdocs"
+after_success:
+  - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.deploy.sh ; fi
+env:
+  global:
+    - SITE_URL: https://o2r-project.github.io/erc-spec
+    - GH_USER_NAME: "Opening Reproducible Research"
+    - GH_USER_EMAIL: openingrr@uni-muenster.de
+    - GH_REF: github.com/o2r-project/erc-spec
+    - secure: "IpTJ0gn6R2ZHU6AIw0v3ru24ahKF8KcV9BRq9Nwv5O7bLcZyyBAH/ihSMeSX3d4Qw1LCCCqyNGxH/3a8RzoTWUQyxUT44P96P9mCTFjE1LV2JYpdgdT5RTbQrup1kqnaxw93tPOxMnE8rpedgyUFwiTlI8scEzfQFJ/RP5FUHw+HAkedHR6eC10HYnal+WXw2/W3n/EMb4Se1frmHjeBQT+r+9asX/5oLibLrict1euVxmiy9T5LfFA0hjCqBf9/YNyOBKEIjMh1Fw2mLX9ebwFMR4b3qQyACSMmtpEfTQlRqUeRdUfrHjDKMEDHuL39TjVdoET6pz7rjpSTuofP4Fi8cHvFOIEy+2qDgGufpEaBHxNig9qe2VL6hbd1aXW+/oBFOSjmPTBei+T4hWyQffqGqiNf2AF/hLUTJY69FSZWhQRu+NQCUKOKm5/heBbxmAAn60k1F2OT0og0doTsvcQCCUMm3XVp5hYinEMXbnpkW8/By9hJ2N9ZJYuW8K55bd3W6Blwm6+LSUzrePCLqtekhJ+Rt8nI4q8aCkMsqUx80xOd4kgCJ3yK+wWk2u/JuFMHGFqTaqsZ4qKvqPc+WnDhw8IjZhUJB/Glk6ZLvrtHPwwU/P59y2h0Mruso5TSmUZoJ1tDr/niZN7CtaLddXBAe/nQiMNunuAEvL4amek="
+

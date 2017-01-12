@@ -1,0 +1,11 @@
+site_name: ERC spec
+pages:
+  - Home: index.md
+  - Specification: spec/index.md
+  - User guide: user-guide/index.md
+  - Developer guide: dev-guide/index.md
+theme: cinder # readthedocs # flatly, cinder
+site_author: o2r project
+site_description: "Executable Research Compendium specification, user guide and developer guide"
+site_dir: site
+extra_css: [erc.css]
