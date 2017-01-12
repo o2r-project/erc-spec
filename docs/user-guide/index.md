@@ -1,3 +1,0 @@
-# ERC user guide
-
-...

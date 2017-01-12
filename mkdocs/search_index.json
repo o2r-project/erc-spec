@@ -1,0 +1,64 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Executable Research Compendium\n\n\n\n\nspecification\n\n\nuser guide\n\n\ndeveloper guide\n\n\n\n\nCredits\n\n\nThis specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research\n\n\n\n\nLicense\n\n\n\n\nThe o2r Executable Research Compendium specification is licensed under \nCreative Commons CC0 1.0 Universal License\n, see file \nLICENSE\n. To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work. This work is published from: Germany.",
+            "title": "Home"
+        },
+        {
+            "location": "/#executable-research-compendium",
+            "text": "specification  user guide  developer guide",
+            "title": "Executable Research Compendium"
+        },
+        {
+            "location": "/#credits",
+            "text": "This specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research",
+            "title": "Credits"
+        },
+        {
+            "location": "/#license",
+            "text": "The o2r Executable Research Compendium specification is licensed under  Creative Commons CC0 1.0 Universal License , see file  LICENSE . To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work. This work is published from: Germany.",
+            "title": "License"
+        },
+        {
+            "location": "/spec/",
+            "text": "ERC specification\n\n\nAn Exectuable Research Compendium (ERC) is a packaging convention for computational research.\nIt provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.\n\n\n\nThis is a draft specification - though nearing v1.0. If you have comments or suggestions please file them in the \nissue tracker\n. If you have explicit changes please fork the \ngit repo\n and submit a pull request.\n\n\n\n\nTable of contents\n\n\n\n\nIntroduction\n\n\nNotational conventions\n\n\nGlossary\n\n\n\n\nNotational conventions\n\n\nThe key words \"MUST\", \"MUST NOT\", \"REQUIRED\", \"SHALL\", \"SHALL NOT\", \"SHOULD\", \"SHOULD NOT\", \"RECOMMENDED\", \"MAY\", and \"OPTIONAL\" are to be interpreted as described in \nRFC 2119\n.\n\n\nThe key words \"unspecified\", \"undefined\", and \"implementation-defined\" are to be interpreted as described in the \nrationale for the C99 standard\n.",
+            "title": "Specification"
+        },
+        {
+            "location": "/spec/#erc-specification",
+            "text": "An Exectuable Research Compendium (ERC) is a packaging convention for computational research.\nIt provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.  \nThis is a draft specification - though nearing v1.0. If you have comments or suggestions please file them in the  issue tracker . If you have explicit changes please fork the  git repo  and submit a pull request.",
+            "title": "ERC specification"
+        },
+        {
+            "location": "/spec/#table-of-contents",
+            "text": "Introduction  Notational conventions  Glossary",
+            "title": "Table of contents"
+        },
+        {
+            "location": "/spec/#notational-conventions",
+            "text": "The key words \"MUST\", \"MUST NOT\", \"REQUIRED\", \"SHALL\", \"SHALL NOT\", \"SHOULD\", \"SHOULD NOT\", \"RECOMMENDED\", \"MAY\", and \"OPTIONAL\" are to be interpreted as described in  RFC 2119 .  The key words \"unspecified\", \"undefined\", and \"implementation-defined\" are to be interpreted as described in the  rationale for the C99 standard .",
+            "title": "Notational conventions"
+        },
+        {
+            "location": "/user-guide/",
+            "text": "ERC user guide\n\n\n...",
+            "title": "User guide"
+        },
+        {
+            "location": "/user-guide/#erc-user-guide",
+            "text": "...",
+            "title": "ERC user guide"
+        },
+        {
+            "location": "/dev-guide/",
+            "text": "ERC developer guide\n\n\n...",
+            "title": "Developer guide"
+        },
+        {
+            "location": "/dev-guide/#erc-developer-guide",
+            "text": "...",
+            "title": "ERC developer guide"
+        }
+    ]
+}

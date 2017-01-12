@@ -1,3 +1,0 @@
-# ERC developer guide
-
-...
