@@ -28,7 +28,7 @@ mkdocs build
 
 Our combination of the `.travis.yml` and `.deploy.sh` will run the `mkdocs` command on every direct commit or merge on the master branch and deploy the rendered HTML documents to the `gh-pages` branch in this repository.
 
-Travis authenticates its push to the `gh-pages` branch using a [personal access token](https://github.com/settings/tokens) of the user [@o2r-user](https://github.com/o2r-user). The access token is encrypted in the `.travis.yml` [using Travis CLI](https://docs.travis-ci.com/user/encryption-keys/):
+Travis authenticates its push to the `gh-pages` branch using a [personal access token](https://github.com/settings/tokens) of the user [@o2r-user](https://github.com/o2r-user), who has write access to this repository. The access token is encrypted in the `.travis.yml` [using Travis CLI](https://docs.travis-ci.com/user/encryption-keys/):
 
 ```bash
 travis encrypt GH_TOKEN=<token here>
@@ -41,6 +41,4 @@ This has some security risks, as described [here](https://gist.github.com/domeni
 
 ## License
 
-The o2r Executable Research Compendium specification is licensed under Creative Commons CC-BY-4.0 License, see file `LICENSE`.
-
-Copyright (C) 2017 - o2r project.
+The o2r Executable Research Compendium specification is licensed under [Creative Commons CC0 1.0 Universal License](https://creativecommons.org/publicdomain/zero/1.0/), see file `LICENSE`. To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work. This work is published from: Germany.
