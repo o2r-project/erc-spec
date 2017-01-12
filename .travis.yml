@@ -7,7 +7,8 @@ after_success:
   - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.deploy.sh ; fi
 env:
   global:
-    - SITE_URL: https://o2r-project.github.io/erc-spec
+    SITE_URL: https://o2r.info/erc-spec
+    #- SITE_URL: https://o2r-project.github.io/erc-spec
     - GH_USER_NAME: "Opening Reproducible Research"
     - GH_USER_EMAIL: openingrr@uni-muenster.de
     - GH_REF: github.com/o2r-project/erc-spec
