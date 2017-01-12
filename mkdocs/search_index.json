@@ -22,17 +22,17 @@
         },
         {
             "location": "/spec/",
-            "text": "ERC specification\n\n\nAn Exectuable Research Compendium (ERC) is a packaging convention for computational research.\nIt provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.\n\n\n\nThis is a draft specification - though nearing v1.0. If you have comments or suggestions please file them in the \nissue tracker\n. If you have explicit changes please fork the \ngit repo\n and submit a pull request.\n\n\n\n\nTable of contents\n\n\n\n\nIntroduction\n\n\nNotational conventions\n\n\nGlossary\n\n\n\n\nNotational conventions\n\n\nThe key words \"MUST\", \"MUST NOT\", \"REQUIRED\", \"SHALL\", \"SHALL NOT\", \"SHOULD\", \"SHOULD NOT\", \"RECOMMENDED\", \"MAY\", and \"OPTIONAL\" are to be interpreted as described in \nRFC 2119\n.\n\n\nThe key words \"unspecified\", \"undefined\", and \"implementation-defined\" are to be interpreted as described in the \nrationale for the C99 standard\n.",
+            "text": "ERC specification\n\n\nAn Exectuable Research Compendium (ERC) is a packaging convention for computational research.\nIt provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.\n\n\n\nThis is a draft specification. If you have comments or suggestions please file them in the \nissue tracker\n. If you have explicit changes please fork the \ngit repo\n and submit a pull request.\n\n\n\n\nTable of contents\n\n\n\n\nIntroduction\n\n\nNotational conventions\n\n\nPurpose\n\n\nFundamental concepts\n\n\nStructure\n\n\nMounting data\n\n\nSecurity\n\n\nBagIt Profile\n\n\nR extension\n\n\nGlossary\n\n\n\n\nNotational conventions\n\n\nThe key words \"MUST\", \"MUST NOT\", \"REQUIRED\", \"SHALL\", \"SHALL NOT\", \"SHOULD\", \"SHOULD NOT\", \"RECOMMENDED\", \"MAY\", and \"OPTIONAL\" are to be interpreted as described in \nRFC 2119\n.\n\n\nThe key words \"unspecified\", \"undefined\", and \"implementation-defined\" are to be interpreted as described in the \nrationale for the C99 standard\n.\n\n\nPurpose\n\n\nThis specification defines a well defined structure to carry and execute simple virtual machines. BagIt is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation. The extension lets a BagIt bag contain scientific data, executables needed to replicate an analysis, and the outputs of the original analysis, so that computational research can be collected in a self-contained fashion, transferred, archived, reproduced, and validated.\n\n\nFundamental concepts\n\n\nThe bagtainer specification is inspired by two approaches to improve development and operation of software.\n\n\nruntime container (inner)\nerc level\nouter container (bagit, research object)\n\n\nHow to interact with a bagtainer?\n\n\nThe interaction steps with a bagtainer to (re-)run the contained analysis are as follows:\n\n\n\n\n(if compressed) open the bag\n\n\nexecute the container\n\n\n(automatically) compare the output contained in the bag with the just created new output",
             "title": "Specification"
         },
         {
             "location": "/spec/#erc-specification",
-            "text": "An Exectuable Research Compendium (ERC) is a packaging convention for computational research.\nIt provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.  \nThis is a draft specification - though nearing v1.0. If you have comments or suggestions please file them in the  issue tracker . If you have explicit changes please fork the  git repo  and submit a pull request.",
+            "text": "An Exectuable Research Compendium (ERC) is a packaging convention for computational research.\nIt provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.  \nThis is a draft specification. If you have comments or suggestions please file them in the  issue tracker . If you have explicit changes please fork the  git repo  and submit a pull request.",
             "title": "ERC specification"
         },
         {
             "location": "/spec/#table-of-contents",
-            "text": "Introduction  Notational conventions  Glossary",
+            "text": "Introduction  Notational conventions  Purpose  Fundamental concepts  Structure  Mounting data  Security  BagIt Profile  R extension  Glossary",
             "title": "Table of contents"
         },
         {
@@ -41,24 +41,99 @@
             "title": "Notational conventions"
         },
         {
+            "location": "/spec/#purpose",
+            "text": "This specification defines a well defined structure to carry and execute simple virtual machines. BagIt is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation. The extension lets a BagIt bag contain scientific data, executables needed to replicate an analysis, and the outputs of the original analysis, so that computational research can be collected in a self-contained fashion, transferred, archived, reproduced, and validated.",
+            "title": "Purpose"
+        },
+        {
+            "location": "/spec/#fundamental-concepts",
+            "text": "The bagtainer specification is inspired by two approaches to improve development and operation of software.  runtime container (inner)\nerc level\nouter container (bagit, research object)",
+            "title": "Fundamental concepts"
+        },
+        {
+            "location": "/spec/#how-to-interact-with-a-bagtainer",
+            "text": "The interaction steps with a bagtainer to (re-)run the contained analysis are as follows:   (if compressed) open the bag  execute the container  (automatically) compare the output contained in the bag with the just created new output",
+            "title": "How to interact with a bagtainer?"
+        },
+        {
             "location": "/user-guide/",
-            "text": "ERC user guide\n\n\n...",
+            "text": "ERC user guide\n\n\nHere are instructions to create an ERC by hand.\n\n\nStep 1: create workspace\n\n\nStep 2: create container for runtime\n\n\nDockerfile\n\n\nStep 3: test container\n\n\n..\n\n\nStep 3: create metadata\n\n\nERC metadata\n\n\nstructural & administrative metadata\n\n\nbagtainer.yml\n or \nerc.json\n\n\ncontainer start command\n\n\nContent metadata\n\n\nerc_metadata.json\n == \nweb-api/<compendium>.metadata.o2r\n, or \nbagit.txt\n?\n\n\ndiscovery metadata\n(mandatory vs. optional)\n\n\nStep 4: create BagIt\n\n\ncreate\n\n\nvalidate",
             "title": "User guide"
         },
         {
             "location": "/user-guide/#erc-user-guide",
-            "text": "...",
+            "text": "Here are instructions to create an ERC by hand.",
             "title": "ERC user guide"
         },
         {
+            "location": "/user-guide/#step-1-create-workspace",
+            "text": "",
+            "title": "Step 1: create workspace"
+        },
+        {
+            "location": "/user-guide/#step-2-create-container-for-runtime",
+            "text": "Dockerfile",
+            "title": "Step 2: create container for runtime"
+        },
+        {
+            "location": "/user-guide/#step-3-test-container",
+            "text": "..",
+            "title": "Step 3: test container"
+        },
+        {
+            "location": "/user-guide/#step-3-create-metadata",
+            "text": "",
+            "title": "Step 3: create metadata"
+        },
+        {
+            "location": "/user-guide/#erc-metadata",
+            "text": "structural & administrative metadata  bagtainer.yml  or  erc.json  container start command",
+            "title": "ERC metadata"
+        },
+        {
+            "location": "/user-guide/#content-metadata",
+            "text": "erc_metadata.json  ==  web-api/<compendium>.metadata.o2r , or  bagit.txt ?  discovery metadata\n(mandatory vs. optional)",
+            "title": "Content metadata"
+        },
+        {
+            "location": "/user-guide/#step-4-create-bagit",
+            "text": "create  validate",
+            "title": "Step 4: create BagIt"
+        },
+        {
             "location": "/dev-guide/",
-            "text": "ERC developer guide\n\n\n...",
+            "text": "ERC developer guide\n\n\nAn introduction to the codemeta project rationale and technology choices targeted at developers who wish to create tools for creating,validating, and consuming ERC\n\n\nWhy BagIt?\n\n\nWhy Docker?\n\n\no2r Platform\n\n\nWeb API\n\n\nArchitecture",
             "title": "Developer guide"
         },
         {
             "location": "/dev-guide/#erc-developer-guide",
-            "text": "...",
+            "text": "An introduction to the codemeta project rationale and technology choices targeted at developers who wish to create tools for creating,validating, and consuming ERC",
             "title": "ERC developer guide"
+        },
+        {
+            "location": "/dev-guide/#why-bagit",
+            "text": "",
+            "title": "Why BagIt?"
+        },
+        {
+            "location": "/dev-guide/#why-docker",
+            "text": "",
+            "title": "Why Docker?"
+        },
+        {
+            "location": "/dev-guide/#o2r-platform",
+            "text": "",
+            "title": "o2r Platform"
+        },
+        {
+            "location": "/dev-guide/#web-api",
+            "text": "",
+            "title": "Web API"
+        },
+        {
+            "location": "/dev-guide/#architecture",
+            "text": "",
+            "title": "Architecture"
         }
     ]
 }

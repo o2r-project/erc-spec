@@ -131,6 +131,15 @@
             <li class="second-level"><a href="#notational-conventions">Notational conventions</a></li>
             
         
+            <li class="second-level"><a href="#purpose">Purpose</a></li>
+            
+        
+            <li class="second-level"><a href="#fundamental-concepts">Fundamental concepts</a></li>
+            
+        
+            <li class="second-level"><a href="#how-to-interact-with-a-bagtainer">How to interact with a bagtainer?</a></li>
+            
+        
     
     </ul>
 </div></div>
@@ -140,18 +149,39 @@
 <p>An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
 It provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.</p>
 <div class="alert note" markdown="block">
-This is a draft specification - though nearing v1.0. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="">git repo</a> and submit a pull request.
+This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="">git repo</a> and submit a pull request.
 </div>
 
 <h2 id="table-of-contents">Table of contents</h2>
 <ul>
 <li><a href="./">Introduction</a></li>
 <li><a href="#notational-conventions">Notational conventions</a></li>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#fundamental-concepts">Fundamental concepts</a></li>
+<li><a href="structure.md">Structure</a></li>
+<li><a href="mounts.md">Mounting data</a></li>
+<li><a href="security.md">Security</a></li>
+<li><a href="bagit.md">BagIt Profile</a></li>
+<li><a href="structure.md">R extension</a></li>
 <li>Glossary</li>
 </ul>
 <h2 id="notational-conventions">Notational conventions</h2>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
-<p>The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p></div>
+<p>The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p>
+<h2 id="purpose">Purpose</h2>
+<p>This specification defines a well defined structure to carry and execute simple virtual machines. BagIt is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation. The extension lets a BagIt bag contain scientific data, executables needed to replicate an analysis, and the outputs of the original analysis, so that computational research can be collected in a self-contained fashion, transferred, archived, reproduced, and validated.</p>
+<h2 id="fundamental-concepts">Fundamental concepts</h2>
+<p>The bagtainer specification is inspired by two approaches to improve development and operation of software.</p>
+<p>runtime container (inner)
+erc level
+outer container (bagit, research object)</p>
+<h2 id="how-to-interact-with-a-bagtainer">How to interact with a bagtainer?</h2>
+<p>The interaction steps with a bagtainer to (re-)run the contained analysis are as follows:</p>
+<ul>
+<li>(if compressed) open the bag</li>
+<li>execute the container</li>
+<li>(automatically) compare the output contained in the bag with the just created new output</li>
+</ul></div>
         
     </div>
 
