@@ -1,8 +1,8 @@
-# Executable Research Compendium
+# Executable Eesearch Compendium
 
-- specification
-- user guide
-- developer guide
+- [Specification](spec/index.md)
+- [User guide](user-guide/index.md)
+- [Developer guide](dev-guide/index.md)
 
 ## Credits
 
@@ -14,4 +14,6 @@ This specification and guides are developed by the members of the DFG-funded pro
 
 ![CC-0 Button](https://licensebuttons.net/p/zero/1.0/88x31.png)
 
-The o2r Executable Research Compendium specification is licensed under [Creative Commons CC0 1.0 Universal License](https://creativecommons.org/publicdomain/zero/1.0/), see file `LICENSE`. To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work. This work is published from: Germany.
+The o2r Executable Research Compendium specification is licensed under [Creative Commons CC0 1.0 Universal License](https://creativecommons.org/publicdomain/zero/1.0/), see file `LICENSE`.
+To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.
+This work is published from: Germany.
