@@ -4,24 +4,23 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Executable Research Compendium specification, user guide and developer guide"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <meta name="author" content="o2r project">  
-    <link rel="shortcut icon" href="./img/favicon.ico">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
 
-    <title>ERC spec</title>
+    <title>R Extension - ERC spec</title>
 
-    <link href="./css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
     <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="./css/base.css" rel="stylesheet">
-    <link href="./css/cinder.css" rel="stylesheet">
-    <link rel="stylesheet" href="./css/highlight.css">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/cinder.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
 
 
-    <link href="./erc.css" rel="stylesheet">
+    <link href="../../erc.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -41,7 +40,7 @@
     
 </head>
 
-<body class="homepage" >
+<body>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -59,7 +58,7 @@
             
 
             <!-- Main title -->
-            <a class="navbar-brand" href=".">ERC spec</a>
+            <a class="navbar-brand" href="../..">ERC spec</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -69,31 +68,31 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li class="active">
-                        <a href=".">Home</a>
+                    <li >
+                        <a href="../..">Home</a>
                     </li>
                 
                 
                 
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">ERC <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="spec/">Specification</a>
+    <a href="../">Specification</a>
 </li>
 
                         
                             
 <li >
-    <a href="spec/bagit/">BagIt Extension</a>
+    <a href="../bagit/">BagIt Extension</a>
 </li>
 
                         
                             
-<li >
-    <a href="spec/r/">R Extension</a>
+<li class="active">
+    <a href="./">R Extension</a>
 </li>
 
                         
@@ -103,19 +102,19 @@
                 
                 
                     <li >
-                        <a href="user-guide/">User guide</a>
+                        <a href="../../user-guide/">User guide</a>
                     </li>
                 
                 
                 
                     <li >
-                        <a href="dev-guide/">Developer guide</a>
+                        <a href="../../dev-guide/">Developer guide</a>
                     </li>
                 
                 
                 
                     <li >
-                        <a href="glossary/">Glossary</a>
+                        <a href="../../glossary/">Glossary</a>
                     </li>
                 
                 
@@ -129,13 +128,13 @@
                     </a>
                 </li>
                 
-                    <li class="disabled">
-                        <a rel="next" >
+                    <li >
+                        <a rel="next" href="../bagit/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="spec/">
+                        <a rel="prev" href="../../user-guide/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -151,33 +150,22 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="first-level active"><a href="#executable-eesearch-compendium">Executable Eesearch Compendium</a></li>
-        
-            <li class="second-level"><a href="#credits">Credits</a></li>
-            
-        
-            <li class="second-level"><a href="#license">License</a></li>
-            
+        <li class="first-level active"><a href="#r-extension">R extension</a></li>
         
     
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="executable-eesearch-compendium">Executable Eesearch Compendium</h1>
+<h1 id="r-extension">R extension</h1>
+<p>How to put R-based analyses in an ERC.</p>
+<p>The ERC MUST contain one weaved document which integrates text and code and can be compiled into an interaction file.</p>
+<p>The weaved document SHOULD have one of the following formats for executable documents:</p>
 <ul>
-<li><a href="spec/">Specification</a></li>
-<li><a href="user-guide/">User guide</a></li>
-<li><a href="dev-guide/">Developer guide</a></li>
+<li><a href="http://rmarkdown.rstudio.com/">RMarkdown</a></li>
+<li>Sweave</li>
 </ul>
-<h2 id="credits">Credits</h2>
-<p>This specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research</p>
-<p><a href="http://o2r.info"><img alt="Opening Reproducible Research" src="./o2r-logo.png" /></a></p>
-<h2 id="license">License</h2>
-<p><img alt="CC-0 Button" src="https://licensebuttons.net/p/zero/1.0/88x31.png" /></p>
-<p>The o2r Executable Research Compendium specification is licensed under <a href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 1.0 Universal License</a>, see file <code>LICENSE</code>.
-To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.
-This work is published from: Germany.</p></div>
+<p>The interaction file SHOULD be <code>HTML</code>.</p></div>
         
     </div>
 
@@ -187,15 +175,15 @@ This work is published from: Germany.</p></div>
         <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
     </footer>
 
-    <script src="./js/jquery-1.10.2.min.js"></script>
-    <script src="./js/bootstrap-3.0.3.min.js"></script>
-    <script src="./js/highlight.pack.js"></script>
+    <script src="../../js/jquery-1.10.2.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script>
-    var base_url = '.';
+    var base_url = '../..';
     </script>
-    <script data-main="./mkdocs/js/search.js" src="./mkdocs/js/require.js"></script>
-    <script src="./js/base.js"></script>
+    <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+    <script src="../../js/base.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
         <div class="modal-dialog">
@@ -227,8 +215,3 @@ This work is published from: Germany.</p></div>
     </body>
 
 </html>
-
-<!--
-MkDocs version : 0.16.1
-Build Date UTC : 2017-01-13 11:43:09
--->

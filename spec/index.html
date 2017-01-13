@@ -74,8 +74,29 @@
                 
                 
                 
-                    <li class="active">
-                        <a href="./">Specification</a>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ERC <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">Specification</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="bagit/">BagIt Extension</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="r/">R Extension</a>
+</li>
+
+                        
+                        </ul>
                     </li>
                 
                 
@@ -88,6 +109,12 @@
                 
                     <li >
                         <a href="../dev-guide/">Developer guide</a>
+                    </li>
+                
+                
+                
+                    <li >
+                        <a href="../glossary/">Glossary</a>
                     </li>
                 
                 
@@ -107,7 +134,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../user-guide/">
+                        <a rel="prev" href="bagit/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -125,6 +152,9 @@
     
         <li class="first-level active"><a href="#erc-specification">ERC specification</a></li>
         
+            <li class="second-level"><a href="#version">Version</a></li>
+            
+        
             <li class="second-level"><a href="#table-of-contents">Table of contents</a></li>
             
         
@@ -137,7 +167,27 @@
             <li class="second-level"><a href="#fundamental-concepts">Fundamental concepts</a></li>
             
         
-            <li class="second-level"><a href="#how-to-interact-with-a-bagtainer">How to interact with a bagtainer?</a></li>
+            <li class="second-level"><a href="#how-to-interact-with-a-bagtainer">How to interact with a bagtainer</a></li>
+            
+        
+            <li class="second-level"><a href="#erc-structure">ERC structure</a></li>
+            
+                <li class="third-level"><a href="#base-directory">Base directory</a></li>
+            
+                <li class="third-level"><a href="#erc-configuration-file">ERC configuration file</a></li>
+            
+                <li class="third-level"><a href="#runtime-container-file">Runtime container file</a></li>
+            
+                <li class="third-level"><a href="#runtime-container-manifest">Runtime container manifest</a></li>
+            
+        
+            <li class="second-level"><a href="#optional-elements">Optional elements</a></li>
+            
+        
+            <li class="second-level"><a href="#mounting-data">Mounting data</a></li>
+            
+        
+            <li class="second-level"><a href="#security-considerations">Security considerations</a></li>
             
         
     
@@ -149,39 +199,94 @@
 <p>An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
 It provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.</p>
 <div class="alert note" markdown="block">
-This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="">git repo</a> and submit a pull request.
+This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 </div>
 
+<h2 id="version">Version</h2>
+<p>This version of this specification is <code>1</code>.</p>
 <h2 id="table-of-contents">Table of contents</h2>
 <ul>
 <li><a href="./">Introduction</a></li>
 <li><a href="#notational-conventions">Notational conventions</a></li>
 <li><a href="#purpose">Purpose</a></li>
 <li><a href="#fundamental-concepts">Fundamental concepts</a></li>
-<li><a href="structure.md">Structure</a></li>
-<li><a href="mounts.md">Mounting data</a></li>
-<li><a href="security.md">Security</a></li>
-<li><a href="bagit.md">BagIt Profile</a></li>
-<li><a href="structure.md">R extension</a></li>
-<li>Glossary</li>
+<li><a href="#erc-structure">Structure</a></li>
+<li><a href="#mounting-data">Mounting data</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="bagit/">BagIt extension</a></li>
+<li><a href="r/">R extension</a></li>
+<li><a href="glossary.md">Glossary</a></li>
 </ul>
 <h2 id="notational-conventions">Notational conventions</h2>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
 <p>The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p>
 <h2 id="purpose">Purpose</h2>
-<p>This specification defines a well defined structure to carry and execute simple virtual machines. BagIt is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation. The extension lets a BagIt bag contain scientific data, executables needed to replicate an analysis, and the outputs of the original analysis, so that computational research can be collected in a self-contained fashion, transferred, archived, reproduced, and validated.</p>
+<p>This specification defines a structure to carry and execute packaged scientific analyses.
+These typically consist of data, the code and libraryies in executable form which are needed to replicate an analysis, and the outputs of the original  analysis.
+This allows to collect  computational  research  in  a self-contained fashion and support transfer, archival, reproduction, and validation.</p>
 <h2 id="fundamental-concepts">Fundamental concepts</h2>
-<p>The bagtainer specification is inspired by two approaches to improve development and operation of software.</p>
-<p>runtime container (inner)
-erc level
-outer container (bagit, research object)</p>
-<h2 id="how-to-interact-with-a-bagtainer">How to interact with a bagtainer?</h2>
+<p>The bagtainer specification is inspired by two approaches to improve development and operation of software.
+First,  <a href="https://en.wikipedia.org/wiki/Convention_over_configuration"><em>"convention  over  configuration"</em></a>, e.g. as  practiced  in  the Java build tool <a href="https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html">Maven</a>.
+Second, <em>"DevOps"</em>, see <a href="https://en.wikipedia.org/wiki/">Wikipedia</a> or <a href="http://dl.acm.org/citation.cfm?id=2723882">Boettiger</a>.</p>
+<p>Another core goal is <em>simplicity</em>, in the sense that this specification should not re-do something that already exists (if it is an open specification or tool) and it must be possible to create a valid and working ERC manually.</p>
+<p>The final important notion is the one of <em>nested containers</em>.
+Acknoledging that well defined standards exist for packaging a set of files, and that different approaches to create an executable code package, the collection of files that make up an ERC comprise one or more containers but are themselves subject to being put into a container.
+We distinguish two containers.
+The inner or "runtime" container and the outer container.</p>
+<h2 id="how-to-interact-with-a-bagtainer">How to interact with a bagtainer</h2>
 <p>The interaction steps with a bagtainer to (re-)run the contained analysis are as follows:</p>
 <ul>
 <li>(if compressed) open the bag</li>
 <li>execute the container</li>
 <li>(automatically) compare the output contained in the bag with the just created new output</li>
-</ul></div>
+</ul>
+<h2 id="erc-structure">ERC structure</h2>
+<h3 id="base-directory">Base directory</h3>
+<p>An ERC must have a <em>base directory</em>, whose name must only container characters, numbers, <code>_</code> (underscore) and <code>-</code> (minus sign).</p>
+<p><strong>Regular expression</strong>: <code>[a-zA-Z0-9\-_]</code></p>
+<p>The base directory MUST contain an <a href="#erc-configuration-file">ERC configuration file</a> named <code>erc.yml</code>.</p>
+<h3 id="erc-configuration-file">ERC configuration file</h3>
+<h4 id="format">Format</h4>
+<p>The file <code>erc.yml</code> MUST be valid <a href="http://yaml.org/">YAML 1.2</a>.</p>
+<h4 id="required-fields">Required fields</h4>
+<p>The first document content of this file MUST contain the following string nodes at the root level.</p>
+<ul>
+<li><code>spec-version</code></li>
+<li><code>id</code></li>
+</ul>
+<p>Minimal example:</p>
+<pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+</code></pre>
+
+<h4 id="metadata">Metadata</h4>
+<p>discovery, control, ...</p>
+<h4 id="comprehensive-example">Comprehensive example</h4>
+<pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+mountpoint: &quot;/erc&quot;
+payload_directory: &quot;data&quot;
+config_file: &quot;erc.yml&quot;
+container_file: &quot;image.tar&quot;
+container_recipe: &quot;Dockerfile&quot;
+command: &quot;rmarkdown::render(input = 'paper.Rmd', output_format = )&quot;
+</code></pre>
+
+<h3 id="runtime-container-file">Runtime container file</h3>
+<p>The base directory MUST contain a tape archive file of a Docker image.</p>
+<p>The file SHOULD be named <code>image.tar</code>.</p>
+<h3 id="runtime-container-manifest">Runtime container manifest</h3>
+<p>The base directory MUST contain a valid Dockerfile.
+The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the <a href="#runtime-container-file">runtime container file</a>.</p>
+<p>The file SHOULD be named <code>Dockerfile</code>.</p>
+<p>The Dockerfile MUST contain ...</p>
+<h2 id="optional-elements">Optional elements</h2>
+<p>...</p>
+<h2 id="mounting-data">Mounting data</h2>
+<p>How is data mounted into the container and where?</p>
+<h2 id="security-considerations">Security considerations</h2>
+<p>Why are ERC not a security risk?</p>
+<p>https://tools.ietf.org/html/draft-kunze-bagit-14#section-6</p></div>
         
     </div>
 
