@@ -96,6 +96,12 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../man/">Manipulation Extension</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
@@ -155,7 +161,7 @@
             <li class="second-level"><a href="#bagit-outer-container">BagIt outer container</a></li>
             
         
-            <li class="second-level"><a href="#bagit-profile">BagIt profile</a></li>
+            <li class="second-level"><a href="#bagit-profile-under-development">BagIt profile - Under Development</a></li>
             
         
     
@@ -188,8 +194,54 @@ ERC-Version: 1
 └── tagmanifest-md5.txt
 </code></pre>
 
-<h2 id="bagit-profile">BagIt profile</h2>
-<p>TBD</p></div>
+<h2 id="bagit-profile-under-development">BagIt profile - <em>Under Development</em></h2>
+<p>A <a href="https://github.com/ruebot/bagit-profiles">Bagit Profile</a> as outlined below could make the requirements of this extension more explicit.</p>
+<pre><code class="json">{
+     &quot;BagIt-Profile-Info&quot;:{
+      &quot;BagIt-Profile-Identifier&quot;:&quot;http://o2r.info/erc-bagit-v1.json&quot;,
+      &quot;Source-Organization&quot;:&quot;o2r.info&quot;,
+      &quot;Contact-Name&quot;:&quot;o2r Team&quot;,
+      &quot;Contact-Email&quot;:&quot;o2r@uni-muenster.de&quot;,
+      &quot;External-Description&quot;:&quot;BagIt profile for packaging executable research compendia.&quot;,
+      &quot;Version&quot;:&quot;1&quot;
+   },
+   &quot;Bag-Info&quot;:{
+      &quot;Contact-Name&quot;:{
+         &quot;required&quot;:true
+      },
+      &quot;Contact-Email&quot;:{
+         &quot;required&quot;:true
+      },
+      &quot;External-Identifier&quot;:{
+         &quot;required&quot;:true
+      },
+      &quot;Bag-Size&quot;:{
+         &quot;required&quot;:true
+      },
+      &quot;Payload-Oxum&quot;:{
+         &quot;required&quot;:true
+      }
+   },
+   &quot;Manifests-Required&quot;:[
+      &quot;md5&quot;
+   ],
+   &quot;Allow-Fetch.txt&quot;:false,
+   &quot;Serialization&quot;:&quot;optional&quot;,
+   &quot;Accept-Serialization&quot;:[
+      &quot;application/zip&quot;
+   ],
+   &quot;Tag-Manifests-Required&quot;:[
+     &quot;md5&quot;
+   ],
+   &quot;Tag-Files-Required&quot;:[
+      &quot;.erc/metadata.json&quot;,
+      &quot;.erc.yml&quot;
+   ],
+   &quot;Accept-BagIt-Version&quot;:[
+      &quot;0.96&quot;
+   ]
+}
+</code></pre></div>
         
     </div>
 

@@ -96,6 +96,12 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../spec/man/">Manipulation Extension</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
@@ -155,10 +161,19 @@
             <li class="second-level"><a href="#convention-over-configuration">Convention over configuration</a></li>
             
         
-            <li class="second-level"><a href="#why-bagit">Why BagIt?</a></li>
+            <li class="second-level"><a href="#reasoning-and-decisions">Reasoning and decisions</a></li>
             
-        
-            <li class="second-level"><a href="#why-docker">Why Docker?</a></li>
+                <li class="third-level"><a href="#why-bagit">Why BagIt</a></li>
+            
+                <li class="third-level"><a href="#why-docker">Why Docker</a></li>
+            
+                <li class="third-level"><a href="#licensing-information">Licensing information</a></li>
+            
+                <li class="third-level"><a href="#put-the-identifier-into-the-erc">Put the identifier into the ERC</a></li>
+            
+                <li class="third-level"><a href="#why-use-bash">Why use bash</a></li>
+            
+                <li class="third-level"><a href="#why-is-validation-happening-outside-the-container-and-not-in-the-container">Why is validation happening outside the container and not in the container</a></li>
             
         
             <li class="second-level"><a href="#o2r-platform">o2r Platform</a></li>
@@ -177,14 +192,39 @@
 <p>An introduction to the ERC rational and the technology choices made within the project <em>Opening Reproducible Research</em>.
 This documents is targeted at developers who wish to create tools for creating, validating, and consuming ERC.</p>
 <h2 id="convention-over-configuration">Convention over configuration</h2>
-<p>We want to create a directory structure with default file names and sensible defaults for settings that require only minimal configuration in 80% of the cases, while allowing to override each of the settings if need be and proving full customizability in the remaining 20%.</p>
+<p>We want to create a directory structure with default file names and sensible defaults.
+This way a typical research workspace should require only minimal configuration in 80% of the cases, while allowing to override each of the settings if need be and providing full customizability in the remaining 20%.</p>
 <p>For example, the main command to compile the text manuscript in a bagtainer could be <code>knitr::knit("&lt;*&gt;.Rmd")</code>, with <code>&lt;*&gt;</code> being replaced by name of the first RMarkdown file.
 However, if a user wants to use <code>rmarkdown::render(..)</code> on a file named <code>publication.md</code>, then the default behaviour can be overwritten.</p>
-<h2 id="why-bagit">Why BagIt?</h2>
-<h2 id="why-docker">Why Docker?</h2>
+<h2 id="reasoning-and-decisions">Reasoning and decisions</h2>
+<h3 id="why-bagit">Why BagIt</h3>
+<p>...</p>
+<h3 id="why-docker">Why Docker</h3>
+<p>...</p>
+<h3 id="licensing-information">Licensing information</h3>
+<p>Without proper license credits, the contents of an ERC would be useless based on today's copyright laws.
+Therefore we rather have the extra work for authors to define a license than to create something that is unusable by others.</p>
+<p>One of the biggest issues is the <strong>scope of licenses</strong>, namely what to do about having multiple pieces of code, text, or data with different licenses.</p>
+<h3 id="put-the-identifier-into-the-erc">Put the identifier into the ERC</h3>
+<ul>
+<li>makes it easier to track across platforms</li>
+<li>is harder for manual creation</li>
+</ul>
+<h3 id="why-use-bash">Why use bash</h3>
+<blockquote>
+<p>"What's oldest lasts longest." <a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#supplementary-materials">via</a></p>
+</blockquote>
+<h3 id="why-is-validation-happening-outside-the-container-and-not-in-the-container">Why is validation happening outside the container and not <em>in</em> the container</h3>
+<ul>
+<li>better user experience (otherwise all info must be transported via stdout)</li>
+<li>to be sure nothing is manipulated within the validation script</li>
+</ul>
 <h2 id="o2r-platform">o2r Platform</h2>
+<p>The software developed by the o2r project is the sole implementation of the ERC specification and hence a kind of reference implementation albeit being at a prototypical stage.</p>
 <h3 id="web-api">Web API</h3>
-<h3 id="architecture">Architecture</h3></div>
+<p><a href="http://o2r.info/o2r-web-api">o2r Web API specification</a></p>
+<h3 id="architecture">Architecture</h3>
+<p><a href="http://o2r.info/architecture/">o2r Architecture documentation</a></p></div>
         
     </div>
 

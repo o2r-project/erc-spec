@@ -96,6 +96,12 @@
 </li>
 
                         
+                            
+<li >
+    <a href="../man/">Manipulation Extension</a>
+</li>
+
+                        
                         </ul>
                     </li>
                 
@@ -134,7 +140,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../../user-guide/">
+                        <a rel="prev" href="../man/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -152,6 +158,18 @@
     
         <li class="first-level active"><a href="#r-extension">R extension</a></li>
         
+            <li class="second-level"><a href="#structure">Structure</a></li>
+            
+        
+            <li class="second-level"><a href="#main-document">Main document</a></li>
+            
+        
+            <li class="second-level"><a href="#interaction-file">Interaction file</a></li>
+            
+        
+            <li class="second-level"><a href="#runtime-container">Runtime container</a></li>
+            
+        
     
     </ul>
 </div></div>
@@ -159,13 +177,39 @@
 
 <h1 id="r-extension">R extension</h1>
 <p>How to put R-based analyses in an ERC.</p>
+<h2 id="structure">Structure</h2>
+<p>The structure within the ERC contents directory are intentionally unspecified.
+However, the contents structure MAY follow conventions or be based on templates for organizing research artefacts.
+If a convention is followed then it SHOULD be referenced in the ERC configuration file as a node <code>convention</code> within the <code>structure</code> section.
+The node's value can be any text string which uniquely identifies a convention, but a URI or URL to either a human-readable description or technical specification is RECOMMENDED.</p>
+<p>A non-exhaustive list of potential conventions <em>for R</em> is as follows:</p>
+<ul>
+<li><a href="https://github.com/ropensci/rrrpkg">ROpenSci rrrpkg</a></li>
+<li><a href="https://github.com/jhollist/manuscriptPackage">Jeff Hollister's manuscriptPackage</a></li>
+<li><a href="https://github.com/cboettig/template">Carl Boettiger's template</a></li>
+<li><a href="https://github.com/Pakillo/template">Francisco Rodriguez-Sanchez's template</a></li>
+<li><a href="https://github.com/benmarwick/template">Ben Marwick's template</a></li>
+</ul>
+<p>Example for using the ROPenSci rrrpkg convention:</p>
+<pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+structure:
+  convention: https://github.com/ropensci/rrrpkg
+</code></pre>
+
+<h2 id="main-document">Main document</h2>
 <p>The ERC MUST contain one weaved document which integrates text and code and can be compiled into an interaction file.</p>
 <p>The weaved document SHOULD have one of the following formats for executable documents:</p>
 <ul>
 <li><a href="http://rmarkdown.rstudio.com/">RMarkdown</a></li>
-<li>Sweave</li>
+<li><a href="http://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a></li>
 </ul>
-<p>The interaction file SHOULD be <code>HTML</code>.</p></div>
+<h2 id="interaction-file">Interaction file</h2>
+<p>The ERC MAY contain a document with interactive figures and control elements for interactive manipulation of the packaged computations.</p>
+<p>The interaction file MUST have <code>HTML</code> format and SHOULD be valid <a href="https://www.w3.org/TR/html5/">HTML5</a>.</p>
+<h2 id="runtime-container">Runtime container</h2>
+<p>The manifest file (Dockerfile) MUST use <code>R --vanilla</code>.</p>
+<p>http://kbroman.org/knitr_knutshell/pages/reproducible.html</p></div>
         
     </div>
 
