@@ -7,6 +7,7 @@ pages:
     - Specification: spec/index.md
     - BagIt Extension: spec/bagit.md
     - R Extension: spec/r.md
+    - Manipulation Extension: spec/man.md
   - User guide: user-guide/index.md
   - Developer guide: dev-guide/index.md
   - Glossary: glossary.md

@@ -6,4 +6,4 @@
 
 ## Pull requests
 
-In your first pull request, please state that you are contributing under the project license.
+In your first pull request, please state you are contributing under the project license.

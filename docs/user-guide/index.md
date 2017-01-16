@@ -1,6 +1,6 @@
 # ERC user guide
 
-This user guide comprises instructions how to create an ERC by hand.
+This user guide comprises instructions how to create an ERC _by hand_.
 It thus limited to mandatory elements in some places.
 However, a fundamental goal of the ERC specification is to be simple enough to allow manualy ERC creation as demonstrated in this document.
 For using tools or services for creation and validation of ERCs, please see the [developer guide](../dev-guide/index.md).
@@ -17,7 +17,7 @@ Dockerfile
 
 ## Step 3: test container
 
-..
+run command and how to compare the output and the original
 
 ## Step 3: create metadata
 
@@ -35,6 +35,10 @@ container start command
 
 discovery metadata
 (mandatory vs. optional)
+
+## Step 5: validate ERC
+
+...
 
 ## Step 4: create BagIt
 

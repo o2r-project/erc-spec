@@ -38,7 +38,7 @@ The variable `GH_TOKEN` is used in the deploy script.
 The token generated on the GitHub website should not be stored anywhere, simply generate a new one if needed.
 
 This has some security risks, as described [here](https://gist.github.com/domenic/ec8b0fc8ab45f39403dd#sign-up-for-travis-and-add-your-project).
-To mitigate these risks, the option "Build pull requests" on the [Travis configuration page for this repo](https://travis-ci.org/o2r-project/erc-spec/settings) must be disabled so that malicious changes to the Travis configuration file will not be build before maintainer inspection.
+To mitigate these risks, the option "Build pull requests" on the [Travis configuration page for this repo](https://travis-ci.org/o2r-project/erc-spec/settings) must be disabled so malicious changes to the Travis configuration file will not be build before maintainer inspection.
 
 ## License
 
