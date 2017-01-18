@@ -35,6 +35,25 @@ The weaved document SHOULD have one of the following formats for executable docu
 - [RMarkdown](http://rmarkdown.rstudio.com/)
 - [Sweave](http://www.statistik.lmu.de/~leisch/Sweave/)
 
+The main document SHOULD NOT contain code that loads pre-computed results from files.
+
+### RMarkdown
+
+The document MUST NOT use `cache=TRUE` on any of the code chunks (see [`knitr` options](https://yihui.name/knitr/options/).
+While the previously cached files (`.rdb` and `.rdx`) may be included, they should not be used during the rendering of the document.
+
+### Sweave
+
+The document MUST NOT use the `cacheSweave` package ([it is archived anyway](https://cran.r-project.org/package=cacheSweave).
+
+## Fixing the environment in code
+
+The time zone MUST be fixed to CET to allow validation of output times (potentially broken by different output formats).
+
+```r
+Sys.setenv("TZ" = "CET")
+```
+
 ## Interaction file
 
 The ERC MAY contain a document with interactive figures and control elements for interactive manipulation of the packaged computations.

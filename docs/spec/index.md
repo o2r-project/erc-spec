@@ -106,9 +106,10 @@ version: 1
 ### Control statements
 
 The configuration file can contain [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) statements to control the runtime container.
-These statements MUST be in a node `command` under the root-level node `execution` in the ERC configuration file.
 
-Default command statements MUST be as shown in the following configuration file.
+These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file.
+
+Default command statements of implemnting tools MUST be as shown in the following configuration file.
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
@@ -116,8 +117,12 @@ version: 1
 execution:
   command:
     - `docker load --input image.tar`
-    - `docker run -it erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
+    - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
 ```
+
+The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
+This includes, for example, setting the time zone via an environment variable `-e TZ=CET` so that output formatting of timestamps does not break validation.
+This can also be handled by the ERC author on script level.
 
 ### Discovery metadata
 
@@ -172,6 +177,30 @@ licenses:
 It is NOT possible to assign one license to a directory and override that assignment or a single file within that directory, nor is it possible to use globs or regular expressions.
 </div>
 
+### Software metadata
+
+An ERC SHOULD provide a machine readable list of software that is contained.
+This list can have different formats for different use cases or depending on the source of information, which is probably a tool rather than manual creation.
+The information can also be quite extensive.
+
+Therefore this information MUST NOT be included in the ERC configuration file but SHOULD be referenced from there to support implementing tools.
+
+The software metadata documents, if present, MUST be listed as paths relative to the base directory.
+
+Information on the format of the files SHOULD be conveyed to both human and machine users based on file name and file extension.
+
+Further details are unspecified here but could be defined in specification extensions.
+
+```yml
+---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+metadata:
+  software:
+    - .erc/software_codemeta.json
+    - dpkg--list.txt
+```
+
 ### Extension metadata
 
 If an extension of the specification is used, it MUST be put into a list under the root-level node `extensions`.
@@ -186,6 +215,9 @@ extensions:
 ```
 
 This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.
+
+If an extension creates further metadata fields, they MUST NOT interfere with the structure defined in this document.
+However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.
 
 ## Runtime container file
 
@@ -246,7 +278,7 @@ ERC validation comprises four steps:
 1. comparing the results of the runtime container execution with the original files
 1. running checks of used extensions
 
-The comparison step SHOULD be based on `md5` checksums.
+The comparison step SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to hash as a comparison_.
 
 The validation MUST NOT fail when files listed in `.ercignore` are failing comparison.
 
