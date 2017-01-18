@@ -77,12 +77,6 @@ The base directory MUST contain an [ERC configuration file](#erc-configuration-f
 
 Besides the files mentioned in this specification, the base directory may contain any other file and directories.
 
-If the base directory contains a script file or source code used to conduct the packaged analysis, it is RECOMMENDED this code is managed using [distributed version control](https://en.wikipedia.org/wiki/Distributed_version_control).
-The base directory SHOULD contain a copy of the complete repository.
-See also [these guidelines](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#keeping-track-of-changes).
-
-The base directory contents SHOULD follow common guidelines to project organisation (see [here](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#project-organization) or [here](https://github.com/ropensci/rrrpkg)).
-
 ## ERC configuration file
 
 The ERC configuration file is the _reproducibility manifest_ for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.

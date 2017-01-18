@@ -11,6 +11,23 @@ This is a draft specification. If you have comments or suggestions please file t
 
 ## Step 1: create workspace
 
+_Do your research and create something useful that works for you._
+The ERC specification makes no restrictions on the contents of a workspace, but guidelines and best practices do exist and should be followed by users during their research i.e. even before packaging it in an ERC.
+
+### Code and versioning
+
+If the base directory contains a script file or source code used to conduct the packaged analysis, we recoomend this code is managed using [distributed version control](https://en.wikipedia.org/wiki/Distributed_version_control), see [software carpentry guidelines](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#keeping-track-of-changes).
+The base directory should contain a copy of the complete repository in that case.
+
+### Workspace structure
+
+The base directory contents should follow common guidelines to project organisation.
+Some useful resources are
+
+- [Software carpentry paper "Good enough practices in Scientific Computing"](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#project-organization)
+- [ROpenSci research compendium](https://github.com/ropensci/rrrpkg)).
+- [ROpenSci reproducibility guide](https://ropensci.github.io/reproducibility-guide/sections/introduction)
+
 ## Step 2: create container for runtime
 
 Dockerfile
