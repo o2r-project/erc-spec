@@ -156,7 +156,7 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="first-level active"><a href="#bagit-extension">BagIt extension</a></li>
+        <li class="first-level active"><a href="#bagit-bundling-extension">BagIt bundling extension</a></li>
         
             <li class="second-level"><a href="#bagit-outer-container">BagIt outer container</a></li>
             
@@ -169,12 +169,13 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="bagit-extension">BagIt extension</h1>
+<h1 id="bagit-bundling-extension">BagIt bundling extension</h1>
 <p><a href="http://tools.ietf.org/html/draft-kunze-bagit">BagIt</a> is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation.</p>
 <p>For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations apply to it.</p>
 <p>The remainder of this extension comprises (i) a description of the outer container, and (ii) a BagIt profile.</p>
 <h2 id="bagit-outer-container">BagIt outer container</h2>
-<p>The ERC base directory MUST be the BagIt payload directory, i.e. <code>data/</code>.</p>
+<p>The ERC base directory MUST be the BagIt payload directory <code>data/</code>.
+The path to the ERC configuration file subsequently MUST be <code>&lt;path-to-bag&gt;/data/erc.yml</code>.</p>
 <p>The bag metadata file <code>bag-info.txt</code> MUST contain a metadata element of the label <code>ERC-Version</code> and the version of the ERC paylod as value.</p>
 <pre><code class="txt">Payload-Oxum: 2172457623.43
 Bagging-Date: 2016-02-01

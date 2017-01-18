@@ -86,7 +86,7 @@
                         
                             
 <li >
-    <a href="../spec/bagit/">BagIt Extension</a>
+    <a href="../spec/bundle_bagit/">BagIt Extension</a>
 </li>
 
                         
@@ -160,6 +160,10 @@
         
             <li class="second-level"><a href="#step-1-create-workspace">Step 1: create workspace</a></li>
             
+                <li class="third-level"><a href="#code-and-versioning">Code and versioning</a></li>
+            
+                <li class="third-level"><a href="#workspace-structure">Workspace structure</a></li>
+            
         
             <li class="second-level"><a href="#step-2-create-container-for-runtime">Step 2: create container for runtime</a></li>
             
@@ -195,6 +199,19 @@ This is a draft specification. If you have comments or suggestions please file t
 </div>
 
 <h2 id="step-1-create-workspace">Step 1: create workspace</h2>
+<p><em>Do your research and create something useful that works for you.</em>
+The ERC specification makes no restrictions on the contents of a workspace, but guidelines and best practices do exist and should be followed by users during their research i.e. even before packaging it in an ERC.</p>
+<h3 id="code-and-versioning">Code and versioning</h3>
+<p>If the base directory contains a script file or source code used to conduct the packaged analysis, we recoomend this code is managed using <a href="https://en.wikipedia.org/wiki/Distributed_version_control">distributed version control</a>, see <a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#keeping-track-of-changes">software carpentry guidelines</a>.
+The base directory should contain a copy of the complete repository in that case.</p>
+<h3 id="workspace-structure">Workspace structure</h3>
+<p>The base directory contents should follow common guidelines to project organisation.
+Some useful resources are</p>
+<ul>
+<li><a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#project-organization">Software carpentry paper "Good enough practices in Scientific Computing"</a></li>
+<li><a href="https://github.com/ropensci/rrrpkg">ROpenSci research compendium</a>).</li>
+<li><a href="https://ropensci.github.io/reproducibility-guide/sections/introduction">ROpenSci reproducibility guide</a></li>
+</ul>
 <h2 id="step-2-create-container-for-runtime">Step 2: create container for runtime</h2>
 <p>Dockerfile</p>
 <h2 id="step-3-test-container">Step 3: test container</h2>
@@ -206,13 +223,18 @@ This is a draft specification. If you have comments or suggestions please file t
 <p>container start command</p>
 <h3 id="content-metadata">Content metadata</h3>
 <p><code>erc_metadata.json</code> == <code>web-api/&lt;compendium&gt;.metadata.o2r</code>, or <code>bagit.txt</code>?</p>
-<p>discovery metadata
-(mandatory vs. optional)</p>
-<h2 id="step-5-validate-erc">Step 5: validate ERC</h2>
+<h4 id="discovery">Discovery</h4>
+<p>(mandatory vs. optional)</p>
+<h4 id="licenses">Licenses</h4>
 <p>...</p>
+<h2 id="step-5-validate-erc">Step 5: validate ERC</h2>
+<ul>
+<li>run standalone validator?</li>
+</ul>
 <h2 id="step-4-create-bagit">Step 4: create BagIt</h2>
 <p>create</p>
-<p>validate</p></div>
+<p>validate</p>
+<p>Tools: Bagger, bagit-py</p></div>
         
     </div>
 

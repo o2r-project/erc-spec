@@ -86,7 +86,7 @@
                         
                             
 <li >
-    <a href="bagit/">BagIt Extension</a>
+    <a href="bundle_bagit/">BagIt Extension</a>
 </li>
 
                         
@@ -140,7 +140,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="bagit/">
+                        <a rel="prev" href="bundle_bagit/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -193,6 +193,10 @@
             
                 <li class="third-level"><a href="#license-metadata">License metadata</a></li>
             
+                <li class="third-level"><a href="#software-metadata">Software metadata</a></li>
+            
+                <li class="third-level"><a href="#extension-metadata">Extension metadata</a></li>
+            
         
             <li class="second-level"><a href="#runtime-container-file">Runtime container file</a></li>
             
@@ -209,6 +213,9 @@
             
         
             <li class="second-level"><a href="#security-considerations">Security considerations</a></li>
+            
+        
+            <li class="second-level"><a href="#secondary-metadata-files">Secondary metadata files</a></li>
             
         
             <li class="second-level"><a href="#comprehensive-example-of-ercyml">Comprehensive example of erc.yml</a></li>
@@ -237,11 +244,13 @@ This is a draft specification. If you have comments or suggestions please file t
 <li><a href="#erc-structure">Structure</a></li>
 <li><a href="#security">Security</a></li>
 <li>Extensions</li>
-<li><a href="bagit/">BagIt extension</a></li>
+<li><a href="bundle_bagit/">BagIt bundling extension</a></li>
 <li><a href="r/">R extension</a></li>
+<li><a href="valid.md">Validation extension</a></li>
+<li>Extensions - <em>Under Development</em></li>
 <li><a href="man/">Manipulation extension</a></li>
 <li><a href="progress.md">Progress extension</a></li>
-<li><a href="valid.md">Validation extension</a></li>
+<li><a href="bundle_container.md">Container bundling extension</a></li>
 <li><a href="glossary.md">Glossary</a></li>
 </ul>
 <h2 id="notational-conventions">Notational conventions</h2>
@@ -271,14 +280,12 @@ We distinguish these containers into the inner or "runtime" container and the ou
 <p>This way ERC allow computational reproducibility based on the original code and data.</p>
 <h2 id="erc-structure">ERC structure</h2>
 <h3 id="base-directory">Base directory</h3>
-<p>An ERC must have a <em>base directory</em>, whose name must only container characters, numbers, <code>_</code> (underscore) and <code>-</code> (minus sign).</p>
-<p><strong>Regular expression</strong>: <code>[a-zA-Z0-9\-_]</code></p>
+<p>An ERC must have a <em>base directory</em>, whose name must only container characters, numbers, <code>_</code> (underscore) and <code>-</code> (minus sign).
+That directory is part of the <a href="https://github.com/opencontainers/runtime-spec/blob/master/bundle.md">bundle</a>.
+In other words, an archive of an ERC will have one top-level directory with the name of the base directory.</p>
+<p><strong>Regular expression</strong> for base directory name: <code>[a-zA-Z0-9\-_]</code></p>
 <p>The base directory MUST contain an <a href="#erc-configuration-file">ERC configuration file</a>.</p>
 <p>Besides the files mentioned in this specification, the base directory may contain any other file and directories.</p>
-<p>If the base directory contains a script file or source code used to conduct the packaged analysis, it is RECOMMENDED this code is managed using <a href="https://en.wikipedia.org/wiki/Distributed_version_control">distributed version control</a>.
-The base directory SHOULD contain a copy of the complete repository.
-See also <a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#keeping-track-of-changes">these guidelines</a>.</p>
-<p>The base directory contents SHOULD follow common guidelines to project organisation (see <a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#project-organization">here</a> or <a href="https://github.com/ropensci/rrrpkg">here</a>).</p>
 <h2 id="erc-configuration-file">ERC configuration file</h2>
 <p>The ERC configuration file is the <em>reproducibility manifest</em> for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.</p>
 <h3 id="name-format-and-encoding">Name, format, and encoding</h3>
@@ -297,15 +304,20 @@ version: 1
 </code></pre>
 
 <h3 id="control-statements">Control statements</h3>
-<p>The configuration file can contain <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a> statements to control the runtime container.
-The following example shows the default statements:</p>
+<p>The configuration file can contain <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a> statements to control the runtime container.</p>
+<p>These statements MUST be in an array under the node <code>command</code> under the root-level node <code>execution</code> in the ERC configuration file.</p>
+<p>Default command statements of implemnting tools MUST be as shown in the following configuration file.</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 version: 1
-cmd:
-  - `docker load --input image.tar`
-  - `docker run -it erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
+execution:
+  command:
+    - `docker load --input image.tar`
+    - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
 </code></pre>
 
+<p>The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
+This includes, for example, setting the time zone via an environment variable <code>-e TZ=CET</code> so that output formatting of timestamps does not break validation.
+This can also be handled by the ERC author on script level.</p>
 <h3 id="discovery-metadata">Discovery metadata</h3>
 <p>author
 title</p>
@@ -350,6 +362,36 @@ licenses:
 It is NOT possible to assign one license to a directory and override that assignment or a single file within that directory, nor is it possible to use globs or regular expressions.
 </div>
 
+<h3 id="software-metadata">Software metadata</h3>
+<p>An ERC SHOULD provide a machine readable list of software that is contained.
+This list can have different formats for different use cases or depending on the source of information, which is probably a tool rather than manual creation.
+The information can also be quite extensive.</p>
+<p>Therefore this information MUST NOT be included in the ERC configuration file but SHOULD be referenced from there to support implementing tools.</p>
+<p>The software metadata documents, if present, MUST be listed as paths relative to the base directory.</p>
+<p>Information on the format of the files SHOULD be conveyed to both human and machine users based on file name and file extension.</p>
+<p>Further details are unspecified here but could be defined in specification extensions.</p>
+<pre><code class="yml">---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+metadata:
+  software:
+    - .erc/software_codemeta.json
+    - dpkg--list.txt
+</code></pre>
+
+<h3 id="extension-metadata">Extension metadata</h3>
+<p>If an extension of the specification is used, it MUST be put into a list under the root-level node <code>extensions</code>.</p>
+<pre><code class="yml">---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+extensions:
+  - extension_name_1
+  - &quot;yet another extension&quot;
+</code></pre>
+
+<p>This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.</p>
+<p>If an extension creates further metadata fields, they MUST NOT interfere with the structure defined in this document.
+However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.</p>
 <h2 id="runtime-container-file">Runtime container file</h2>
 <p>The base directory MUST contain a <a href="https://en.wikipedia.org/wiki/Tar_(computing)">tarball</a> of a Docker image as created be the command <code>docker save</code>, see <a href="https://docs.docker.com/engine/reference/commandline/save/">Docker CLI save command documentation</a>.</p>
 <p>The file SHOULD be named <code>image.tar</code>.</p>
@@ -381,8 +423,14 @@ execution:
 If this file exists, the files and directories matching patterns in it MUST be excluded from processes such as validation.
 The newline-separated patterns in the file MUST be treated as <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.</p>
 <h2 id="validation">Validation</h2>
-<p>ERC validation comprises the comparison of the results of a runtime container execution with the original files.</p>
-<p>The comparison SHOULD be based on <code>md5</code> checksums.</p>
+<p>ERC validation comprises four steps:</p>
+<ol>
+<li>checking required metadata elements</li>
+<li>executing the runtime container</li>
+<li>comparing the results of the runtime container execution with the original files</li>
+<li>running checks of used extensions</li>
+</ol>
+<p>The comparison step SHOULD be based on <code>md5</code> checksums and compare recursively all files that are <em>reasonable to hash as a comparison</em>.</p>
 <p>The validation MUST NOT fail when files listed in <code>.ercignore</code> are failing comparison.</p>
 <p>The following <a href="https://en.wikipedia.org/wiki/Media_type">media types</a> are a regular expressions of file formats that SHALL be used (unless ignored) for comparison:</p>
 <ul>
@@ -398,6 +446,14 @@ The newline-separated patterns in the file MUST be treated as <a href="https://e
 <li>the spec prohibits use of <code>EXPOSE</code></li>
 <li>the containers are only executed <em>without</em> external network access using <code>Network: none</code>, see <a href="https://docs.docker.com/engine/reference/run/#/network-none">Docker CLI run documentation</a></li>
 </ul>
+<h2 id="secondary-metadata-files">Secondary metadata files</h2>
+<p>An ERC can be an object in diverse use cases.
+For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference, it can be a preserved item in a research repository.
+All of these probably have their own standards and requirements when it comes to metadata.
+These metadata requirements are <em>not</em> part of this specification, but the following conventions should simplify their (re-)use.</p>
+<p>Domain or use case specific metadata SHOULD replicate all and only the information required for the specific case.</p>
+<p>Metadata documents of specific use cases SHOULD be stored in a directory <code>.erc</code> in the base directory.</p>
+<p>They SHOULD be named according to the used standard or platform, and the used format, e.g. <code>datacite.xml</code> or <code>zenodo_sandbox.json</code>.</p>
 <h2 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml</h2>
 <p>The following example shows all possible fields and their default values of the core specification.</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec

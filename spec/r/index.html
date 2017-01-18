@@ -86,7 +86,7 @@
                         
                             
 <li >
-    <a href="../bagit/">BagIt Extension</a>
+    <a href="../bundle_bagit/">BagIt Extension</a>
 </li>
 
                         
@@ -135,7 +135,7 @@
                 </li>
                 
                     <li >
-                        <a rel="next" href="../bagit/">
+                        <a rel="next" href="../bundle_bagit/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
@@ -162,6 +162,13 @@
             
         
             <li class="second-level"><a href="#main-document">Main document</a></li>
+            
+                <li class="third-level"><a href="#rmarkdown">RMarkdown</a></li>
+            
+                <li class="third-level"><a href="#sweave">Sweave</a></li>
+            
+        
+            <li class="second-level"><a href="#fixing-the-environment-in-code">Fixing the environment in code</a></li>
             
         
             <li class="second-level"><a href="#interaction-file">Interaction file</a></li>
@@ -204,6 +211,17 @@ structure:
 <li><a href="http://rmarkdown.rstudio.com/">RMarkdown</a></li>
 <li><a href="http://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a></li>
 </ul>
+<p>The main document SHOULD NOT contain code that loads pre-computed results from files.</p>
+<h3 id="rmarkdown">RMarkdown</h3>
+<p>The document MUST NOT use <code>cache=TRUE</code> on any of the code chunks (see <a href="https://yihui.name/knitr/options/"><code>knitr</code> options</a>.
+While the previously cached files (<code>.rdb</code> and <code>.rdx</code>) may be included, they should not be used during the rendering of the document.</p>
+<h3 id="sweave">Sweave</h3>
+<p>The document MUST NOT use the <code>cacheSweave</code> package (<a href="https://cran.r-project.org/package=cacheSweave">it is archived anyway</a>.</p>
+<h2 id="fixing-the-environment-in-code">Fixing the environment in code</h2>
+<p>The time zone MUST be fixed to CET to allow validation of output times (potentially broken by different output formats).</p>
+<pre><code class="r">Sys.setenv(&quot;TZ&quot; = &quot;CET&quot;)
+</code></pre>
+
 <h2 id="interaction-file">Interaction file</h2>
 <p>The ERC MAY contain a document with interactive figures and control elements for interactive manipulation of the packaged computations.</p>
 <p>The interaction file MUST have <code>HTML</code> format and SHOULD be valid <a href="https://www.w3.org/TR/html5/">HTML5</a>.</p>
