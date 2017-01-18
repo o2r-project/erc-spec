@@ -52,3 +52,8 @@ a:hover, a:focus {
     content: "NOTE: ";
     font-weight: 700;
 }
+
+.buildinfo {
+    font-size: 0.7em;
+    color: #343838;
+}

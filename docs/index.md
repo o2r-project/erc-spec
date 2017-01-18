@@ -18,4 +18,4 @@ The o2r Executable Research Compendium specification is licensed under [Creative
 To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.
 This work is published from: Germany.
 
-<div class="buildinfo">Build @@VERSION @ @@TIMESTAMP@@</div>
+<div class="buildinfo">Build @@VERSION@@ @ @@TIMESTAMP@@</div>

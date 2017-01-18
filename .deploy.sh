@@ -23,8 +23,8 @@ mkdocs build --clean
 CURRENT_VERSION=$(git log --pretty=format:'%h' -n 1)
 CURRENT_DATE=$(git show -s --format=%ci $CURRENT_VERSION)
 echo $CURRENT_VERSION "@" $CURRENT_DATE
-sed -i "s/@@VERSION@@/$CURRENT_VERSION/g" docs/index.md
-sed -i "s/@@TIMESTAMP@@/$CURRENT_DATE/g" docs/index.md
+sed -i "s/@@VERSION@@/$CURRENT_VERSION/g" site/index.html
+sed -i "s/@@TIMESTAMP@@/$CURRENT_DATE/g" site/index.html
 
 # Commit and push the documentation to gh-pages
 (
