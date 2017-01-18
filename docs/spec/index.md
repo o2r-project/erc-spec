@@ -71,7 +71,7 @@ This way ERC allow computational reproducibility based on the original code and 
 
 An ERC must have a _base directory_, whose name must only container characters, numbers, `_` (underscore) and `-` (minus sign).
 
-**Regular expression**: `[a-zA-Z0-9\-_]`
+**Regular expression** for base directory name: `[a-zA-Z0-9\-_]`
 
 The base directory MUST contain an [ERC configuration file](#erc-configuration-file).
 
@@ -106,14 +106,17 @@ version: 1
 ### Control statements
 
 The configuration file can contain [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) statements to control the runtime container.
-The following example shows the default statements:
+These statements MUST be in a node `command` under the root-level node `execution` in the ERC configuration file.
+
+Default command statements MUST be as shown in the following configuration file.
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 version: 1
-cmd:
-  - `docker load --input image.tar`
-  - `docker run -it erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
+execution:
+  command:
+    - `docker load --input image.tar`
+    - `docker run -it erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
 ```
 
 ### Discovery metadata
@@ -169,6 +172,21 @@ licenses:
 It is NOT possible to assign one license to a directory and override that assignment or a single file within that directory, nor is it possible to use globs or regular expressions.
 </div>
 
+### Extension metadata
+
+If an extension of the specification is used, it MUST be put into a list under the root-level node `extensions`.
+
+```yml
+---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+extensions:
+  - extension_name_1
+  - "yet another extension"
+```
+
+This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.
+
 ## Runtime container file
 
 The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/).
@@ -221,9 +239,14 @@ The newline-separated patterns in the file MUST be treated as [Unix shell globs]
 
 ## Validation
 
-ERC validation comprises the comparison of the results of a runtime container execution with the original files.
+ERC validation comprises four steps:
 
-The comparison SHOULD be based on `md5` checksums.
+1. checking required metadata elements
+1. executing the runtime container
+1. comparing the results of the runtime container execution with the original files
+1. running checks of used extensions
+
+The comparison step SHOULD be based on `md5` checksums.
 
 The validation MUST NOT fail when files listed in `.ercignore` are failing comparison.
 
@@ -244,6 +267,19 @@ Why are ERC not a security risk?
 
 - the spec prohibits use of `EXPOSE`
 - the containers are only executed _without_ external network access using `Network: none`, see [Docker CLI run documentation](https://docs.docker.com/engine/reference/run/#/network-none)
+
+## Secondary metadata files
+
+An ERC can be an object in diverse use cases.
+For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference, it can be a preserved item in a research repository.
+All of these probably have their own standards and requirements when it comes to metadata.
+These metadata requirements are _not_ part of this specification, but the following conventions should simplify their (re-)use.
+
+Domain or use case specific metadata SHOULD replicate all and only the information required for the specific case.
+
+Metadata documents of specific use cases SHOULD be stored in a directory `.erc` in the base directory.
+
+They SHOULD be named according to the used standard or platform, and the used format, e.g. `datacite.xml` or `zenodo_sandbox.json`.
 
 ## Comprehensive example of erc.yml
 

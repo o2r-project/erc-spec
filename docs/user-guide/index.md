@@ -50,15 +50,22 @@ container start command
 
 `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`?
 
-discovery metadata
+#### Discovery
+
 (mandatory vs. optional)
+
+#### Licenses
+
+...
 
 ## Step 5: validate ERC
 
-...
+- run standalone validator?
 
 ## Step 4: create BagIt
 
 create
 
 validate
+
+Tools: Bagger, bagit-py

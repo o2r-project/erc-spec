@@ -4,6 +4,10 @@
 
 How is the user interface defined?
 
-## Mounting data
+## Using other data
 
-How is data mounted into the container and where?
+How is external data mounted into the container and where?
+
+## Validation
+
+How are UI bindings validated/checked?

@@ -8,7 +8,8 @@ The remainder of this extension comprises (i) a description of the outer contain
 
 ## BagIt outer container
 
-The ERC base directory MUST be the BagIt payload directory, i.e. `data/`.
+The ERC base directory MUST be the BagIt payload directory `data/`.
+The path to the ERC configuration file subsequently is `<path-to-bag>/data/erc.yml`.
 
 The bag metadata file `bag-info.txt` MUST contain a metadata element of the label `ERC-Version` and the version of the ERC paylod as value.
 
