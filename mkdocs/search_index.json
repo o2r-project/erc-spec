@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/",
-            "text": "Executable Eesearch Compendium\n\n\n\n\nSpecification\n\n\nUser guide\n\n\nDeveloper guide\n\n\n\n\nCredits\n\n\nThis specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research\n\n\n\n\nLicense\n\n\n\n\nThe o2r Executable Research Compendium specification is licensed under \nCreative Commons CC0 1.0 Universal License\n, see file \nLICENSE\n.\nTo the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.\nThis work is published from: Germany.\n\n\nBuild @@VERSION @ @@TIMESTAMP@@",
+            "text": "Executable Eesearch Compendium\n\n\n\n\nSpecification\n\n\nUser guide\n\n\nDeveloper guide\n\n\n\n\nCredits\n\n\nThis specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research\n\n\n\n\nLicense\n\n\n\n\nThe o2r Executable Research Compendium specification is licensed under \nCreative Commons CC0 1.0 Universal License\n, see file \nLICENSE\n.\nTo the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.\nThis work is published from: Germany.\n\n\nBuild @@VERSION@@ @ @@TIMESTAMP@@",
             "title": "Home"
         },
         {
@@ -17,7 +17,7 @@
         },
         {
             "location": "/#license",
-            "text": "The o2r Executable Research Compendium specification is licensed under  Creative Commons CC0 1.0 Universal License , see file  LICENSE .\nTo the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.\nThis work is published from: Germany.  Build @@VERSION @ @@TIMESTAMP@@",
+            "text": "The o2r Executable Research Compendium specification is licensed under  Creative Commons CC0 1.0 Universal License , see file  LICENSE .\nTo the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.\nThis work is published from: Germany.  Build @@VERSION@@ @ @@TIMESTAMP@@",
             "title": "License"
         },
         {
