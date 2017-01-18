@@ -1,4 +1,4 @@
-# BagIt extension
+# BagIt bundling extension
 
 [BagIt][bagit] is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation.
 

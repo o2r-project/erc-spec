@@ -20,11 +20,13 @@ This version of this specification is `1`.
 - [Structure](#erc-structure)
 - [Security](#security)
 - Extensions
-  - [BagIt extension](bagit.md)
+  - [BagIt bundling extension](bundle_bagit.md)
   - [R extension](r.md)
+  - [Validation extension](valid.md)
+- Extensions - _Under Development_
   - [Manipulation extension](man.md)
   - [Progress extension](progress.md)
-  - [Validation extension](valid.md)
+  - [Container bundling extension](bundle_container.md)
 - [Glossary](glossary.md)
 
 ## Notational conventions

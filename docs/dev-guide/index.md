@@ -13,6 +13,14 @@ However, if a user wants to use `rmarkdown::render(..)` on a file named `publica
 
 ## Reasoning and decisions
 
+### Why nested containers
+
+A user shall have access to the files without starting the runtime container.
+Therefore we have at least two items, so we have a bundle and need an outer container.
+As a bonus, the outer container can immediately be used to make an ERC conform to specific use cases, such as long term archival.
+
+The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.
+
 ### Why BagIt
 
 ...
