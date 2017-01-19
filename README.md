@@ -14,7 +14,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 This specification is written in [Markdown](https://daringfireball.net/projects/markdown/), rendered with [MkDocs](http://www.mkdocs.org/) and deployed automatically using Travis CI.
 
-[![Build Status](https://travis-ci.org/o2r-project/o2r-web-api.svg?branch=master)](https://travis-ci.org/o2r-project/o2r-web-api)
+[![Build Status](https://travis-ci.org/o2r-project/erc-spec.svg?branch=master)](https://travis-ci.org/o2r-project/erc-spec)
 
 Use `mkdocs` to render it locally.
 
