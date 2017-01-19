@@ -1,4 +1,4 @@
-# Executable Eesearch Compendium
+# Executable Research Compendium
 
 - [Specification](spec/index.md)
 - [User guide](user-guide/index.md)
