@@ -1,6 +1,6 @@
 site_name: ERC spec
-site_description: Executable Research Compendium Specification
 site_author: "Daniel Nüst, Matthias Schutzeichel, Markus Konkol"
+site_description: "Executable Research Compendium specification, user guide and developer guide"
 pages:
   - Home: index.md
   - ERC:
@@ -11,8 +11,9 @@ pages:
   - User guide: user-guide/index.md
   - Developer guide: dev-guide/index.md
   - Glossary: glossary.md
-theme: cinder # readthedocs # flatly
-site_author: o2r project
-site_description: "Executable Research Compendium specification, user guide and developer guide"
+theme:  cinder # material readthedocs # flatly
+repo_url: https://github.com/o2r-project/erc-spec
+repo_name: GitHub
+edit_uri: blog/master/docs/
 site_dir: site
 extra_css: [erc.css]
