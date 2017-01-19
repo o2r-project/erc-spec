@@ -56,7 +56,8 @@ container start command
 
 #### Licenses
 
-...
+https://speakerdeck.com/labarba/a-short-lecture-on-open-licensing
+https://choosealicense.com
 
 ## Step 5: validate ERC
 
