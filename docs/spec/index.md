@@ -1,7 +1,7 @@
 # ERC specification
 
 An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
-It provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.
+It provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as an object or more specifically: a digital asset.
 
 <div class="alert note" markdown="block">
 This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
@@ -38,21 +38,21 @@ The key words "unspecified", "undefined", and "implementation-defined" are to be
 ## Purpose
 
 This specification defines a structure to carry and execute packaged scientific analyses.
-These typically consist of data, the code and libraryies in executable form which are needed to replicate an analysis, and the outputs of the original  analysis.
+These typically consist of data, code and libraries in executable form which are needed to re-do an analysis, and the outputs of the original  analysis.
 This allows to collect  computational  research  in  a self-contained fashion and support transfer, archival, reproduction, and validation.
 
 ## Fundamental design concepts
 
 The bagtainer specification is inspired by two approaches to improve development and operation of software.
 First,  [_"convention  over  configuration"_](https://en.wikipedia.org/wiki/Convention_over_configuration), e.g. as  practiced  in  the Java build tool [Maven](https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html).
-Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/) or [Boettiger](http://dl.acm.org/citation.cfm?id=2723882).
+Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/DevOps) or [Boettiger](https://doi.org/10.1145/2723872.2723882).
 
 Another core goal is _simplicity_.
 This specification should not re-do something which already exists (if it is an open specification or tool).
 It must be possible to create a valid and working ERC manually.
 
 The final important notion is the one of _nested containers_.
-Acknoledging well defined standards exist for packaging a set of files, and different approaches to create an executable code package are possible, the collection of files which make up an ERC comprise _one or more containers but are themselves subject to being put into a container_.
+Acknowledging well defined standards exist for packaging a set of files, and different approaches to create an executable code package are possible, the collection of files which make up an ERC comprise _one or more containers but are themselves subject to being put into a container_.
 We distinguish these containers into the inner or "runtime" container and the outer container.
 
 ## How to use an ERC
@@ -69,7 +69,7 @@ This way ERC allow computational reproducibility based on the original code and 
 
 ### Base directory
 
-An ERC must have a _base directory_, whose name must only container characters, numbers, `_` (underscore) and `-` (minus sign).
+An ERC MUST have a _base directory_. The name of the base directory MUST only contain characters, numbers, `_` (underscore) and `-` (minus sign).
 That directory is part of the [bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md).
 In other words, an archive of an ERC will have one top-level directory with the name of the base directory.
 
@@ -94,7 +94,7 @@ The file MUST be encoded in `UTF-8` and MUST NOT contain a byte-order mark (BOM)
 The first document content of this file MUST contain the following string nodes at the root level.
 
 - `spec-version`: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is `1`.
-- `id`: globally unique identifier for a specific ERC. This SHOULD be a URI (see [rfc3986][rfc3986]) or a [UUID][uuid].
+- `id`: globally unique identifier for a specific ERC. This SHOULD be a URI (see [rfc3986][rfc3986]) or a [UUID][uuid], Version 4.
 
 [//]: # (could use semantic versioning later)
 
@@ -111,7 +111,7 @@ The configuration file can contain [bash](https://en.wikipedia.org/wiki/Bash_(Un
 
 These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file.
 
-Default command statements of implemnting tools MUST be as shown in the following configuration file.
+Default command statements of implementing tools MUST be as shown in the following example configuration file.
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
@@ -130,11 +130,15 @@ This can also be handled by the ERC author on script level.
 
 author
 title
+description
+. . .
+
+_The discovery metadata MUST be compliant to the o2r-metadata schema._
 
 ### License metadata
 
 `erc.yml` MUST contain a first level node `licenses` with licensing information for the code, data, and text contained.
-Each of these three have quite distinct requirements so different licenses need to be applied.
+Each of these three have distinct requirements, hence different licenses need to be applied.
 
 The node `licenses` MUST have three children: `code`, `data`, `text`.
 
@@ -143,7 +147,7 @@ There is currently no mechanism to define the licenses of the used libraries, as
 Tools for automatic creation of ERC may add such detailed licensing information and define an extension to the ERC 
 </div>
 
-The content of each of these child nodes MUST be one of
+The content of each of these child nodes MUST be one of the following
 
 - text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/).
 - a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory.
@@ -176,7 +180,7 @@ licenses:
 ```
 
 <div class="alert note" markdown="block">
-It is NOT possible to assign one license to a directory and override that assignment or a single file within that directory, nor is it possible to use globs or regular expressions.
+It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
 </div>
 
 ### Software metadata
@@ -218,7 +222,7 @@ extensions:
 
 This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.
 
-If an extension creates further metadata fields, they MUST NOT interfere with the structure defined in this document.
+If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
 However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.
 
 ## Runtime container file
@@ -249,7 +253,7 @@ The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of 
 This mountpoint SHOULD be `/erc`.
 If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mountpoint`.
 
-Example for mountpoint configuration:
+Example for the mountpoint configuration:
 
 ```yml
 ---
@@ -266,8 +270,8 @@ execution:
 ## .ercignore file
 
 The ERC MAY contain a file named `.ercignore` in the base directory.
-If this file exists, the files and directories matching patterns in it MUST be excluded from processes such as validation.
-The newline-separated patterns in the file MUST be treated as [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
+If this file is present, any files and directories matching the patterns within that file will be excluded from processes such as validation.
+The newline-separated patterns in the file will be treated as [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
 
 [//]: # (TODO: mention library used in reference implementation)
 
@@ -304,7 +308,7 @@ Why are ERC not a security risk?
 
 ## Secondary metadata files
 
-An ERC can be an object in diverse use cases.
+An ERC can be an object in several use cases.
 For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference, it can be a preserved item in a research repository.
 All of these probably have their own standards and requirements when it comes to metadata.
 These metadata requirements are _not_ part of this specification, but the following conventions should simplify their (re-)use.
