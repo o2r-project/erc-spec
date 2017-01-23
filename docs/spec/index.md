@@ -1,7 +1,7 @@
 # ERC specification
 
 An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
-It provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as an object or more specifically: a digital asset.
+It provides a well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as an object or more specifically: a digital asset.
 
 <div class="alert note" markdown="block">
 This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
