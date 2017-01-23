@@ -86,6 +86,12 @@
                         
                             
 <li >
+    <a href="../docker/">Docker Runtime Extension</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../archival/">Archival Extension</a>
 </li>
 
@@ -99,6 +105,12 @@
                             
 <li >
     <a href="../man/">Manipulation Extension</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../plain_r/">Plain R Runtime Extension</a>
 </li>
 
                         
@@ -216,13 +228,13 @@ structure:
 </code></pre>
 
 <h2 id="main-document">Main document</h2>
-<p>The ERC MUST contain one weaved document which integrates text and code and can be compiled into an interaction file.</p>
-<p>The weaved document SHOULD have one of the following formats for executable documents:</p>
+<p>The ERC's main document as defined by this extension MUST be a weaved document, which integrates text and code and can be compiled into an interaction file.</p>
+<p>The weaved document SHOULD have one of the following formats for executable documents and MUST use the respective name:</p>
 <ul>
-<li><a href="http://rmarkdown.rstudio.com/">RMarkdown</a></li>
-<li><a href="http://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a></li>
+<li><a href="http://rmarkdown.rstudio.com/">RMarkdown</a> with the name <code>paper.Rmd</code></li>
+<li><a href="http://www.statistik.lmu.de/~leisch/Sweave/">Sweave</a> with the name <code>paper.Rnw</code></li>
 </ul>
-<p>The main document SHOULD NOT contain code that loads pre-computed results from files.</p>
+<p>The main document SHOULD NOT contain code that loads pre-computed results from files but conduct all analyses, even costly ones, during document weaving.</p>
 <h3 id="rmarkdown">RMarkdown</h3>
 <p>The document MUST NOT use <code>cache=TRUE</code> on any of the code chunks (see <a href="https://yihui.name/knitr/options/"><code>knitr</code> options</a>.
 While the previously cached files (<code>.rdb</code> and <code>.rdx</code>) may be included, they should not be used during the rendering of the document.</p>

@@ -8,7 +8,7 @@
     <meta name="author" content="Daniel Nüst, Matthias Schutzeichel, Markus Konkol">  
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
-    <title>Archival Extension - ERC spec</title>
+    <title>Plain R Runtime Extension - ERC spec</title>
 
     <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
@@ -91,8 +91,8 @@
 
                         
                             
-<li class="active">
-    <a href="./">Archival Extension</a>
+<li >
+    <a href="../archival/">Archival Extension</a>
 </li>
 
                         
@@ -109,8 +109,8 @@
 
                         
                             
-<li >
-    <a href="../plain_r/">Plain R Runtime Extension</a>
+<li class="active">
+    <a href="./">Plain R Runtime Extension</a>
 </li>
 
                         
@@ -147,12 +147,12 @@
                 </li>
                 
                     <li >
-                        <a rel="next" href="../docker/">
+                        <a rel="next" href="../man/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../r/">
+                        <a rel="prev" href="../../user-guide/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -177,105 +177,15 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="first-level active"><a href="#archival-extension">Archival extension</a></li>
-        
-            <li class="second-level"><a href="#archival-bundle">Archival bundle</a></li>
-            
-                <li class="third-level"><a href="#bagit-outer-container">BagIt outer container</a></li>
-            
-                <li class="third-level"><a href="#bagit-profile-under-development">BagIt profile - Under Development</a></li>
-            
-        
-            <li class="second-level"><a href="#oais-under-development">OAIS - Under Development</a></li>
-            
+        <li class="first-level active"><a href="#plain-r-runtime-extension">Plain R runtime extension</a></li>
         
     
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="archival-extension">Archival extension</h1>
-<p>To make ERC compatible with workflows and standards in the archival and preservation domains, this exstension defines metadata and an outer bundle.</p>
-<h2 id="archival-bundle">Archival bundle</h2>
-<p><a href="http://tools.ietf.org/html/draft-kunze-bagit">BagIt</a> is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation.</p>
-<p>For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations apply to it.</p>
-<p>The remainder of this section comprises (i) a description of the outer container, and (ii) a BagIt profile.</p>
-<h3 id="bagit-outer-container">BagIt outer container</h3>
-<p>The ERC base directory MUST be the BagIt payload directory <code>data/</code>.
-The path to the ERC configuration file subsequently MUST be <code>&lt;path-to-bag&gt;/data/erc.yml</code>.</p>
-<p>The bag metadata file <code>bag-info.txt</code> MUST contain a metadata element of the label <code>ERC-Version</code> and the version of the ERC paylod as value.</p>
-<pre><code class="txt">Payload-Oxum: 2172457623.43
-Bagging-Date: 2016-02-01
-Bag-Size: 2 GB
-ERC-Version: 1
-</code></pre>
-
-<p>Example file tree for a bagged ERC:</p>
-<pre><code class="txt">├── bag-info.txt
-├── bagit.txt
-├── data
-│   ├── 2016-07-17-sf2.Rmd
-│   ├── erc.yml
-│   └── Dockerfile
-│   └── runtime.tar
-├── manifest-md5.txt
-└── tagmanifest-md5.txt
-</code></pre>
-
-<h3 id="bagit-profile-under-development">BagIt profile - <em>Under Development</em></h3>
-<p>A <a href="https://github.com/ruebot/bagit-profiles">Bagit Profile</a> as outlined below could make the requirements of this extension more explicit.</p>
-<pre><code class="json">{
-     &quot;BagIt-Profile-Info&quot;:{
-      &quot;BagIt-Profile-Identifier&quot;:&quot;http://o2r.info/erc-bagit-v1.json&quot;,
-      &quot;Source-Organization&quot;:&quot;o2r.info&quot;,
-      &quot;Contact-Name&quot;:&quot;o2r Team&quot;,
-      &quot;Contact-Email&quot;:&quot;o2r@uni-muenster.de&quot;,
-      &quot;External-Description&quot;:&quot;BagIt profile for packaging executable research compendia.&quot;,
-      &quot;Version&quot;:&quot;1&quot;
-   },
-   &quot;Bag-Info&quot;:{
-      &quot;Contact-Name&quot;:{
-         &quot;required&quot;:true
-      },
-      &quot;Contact-Email&quot;:{
-         &quot;required&quot;:true
-      },
-      &quot;External-Identifier&quot;:{
-         &quot;required&quot;:true
-      },
-      &quot;Bag-Size&quot;:{
-         &quot;required&quot;:true
-      },
-      &quot;Payload-Oxum&quot;:{
-         &quot;required&quot;:true
-      }
-   },
-   &quot;Manifests-Required&quot;:[
-      &quot;md5&quot;
-   ],
-   &quot;Allow-Fetch.txt&quot;:false,
-   &quot;Serialization&quot;:&quot;optional&quot;,
-   &quot;Accept-Serialization&quot;:[
-      &quot;application/zip&quot;
-   ],
-   &quot;Tag-Manifests-Required&quot;:[
-     &quot;md5&quot;
-   ],
-   &quot;Tag-Files-Required&quot;:[
-      &quot;.erc/metadata.json&quot;,
-      &quot;.erc.yml&quot;
-   ],
-   &quot;Accept-BagIt-Version&quot;:[
-      &quot;0.96&quot;
-   ]
-}
-</code></pre>
-
-<h2 id="oais-under-development">OAIS - <em>Under Development</em></h2>
-<blockquote>
-<p><em>An Open Archival Information System (or OAIS) is an archive, consisting of an organization of people and systems, that has accepted the responsibility to preserve information and make it available for a Designated Community.</em> <a href="https://en.wikipedia.org/wiki/Open_Archival_Information_System">Wikipedia</a></p>
-</blockquote>
-<p>TBD</p></div>
+<h1 id="plain-r-runtime-extension">Plain R runtime extension</h1>
+<p>The runtime manifest is a codemeta document, and the runtime environment is created outside of a container.</p></div>
         
     </div>
 

@@ -8,7 +8,7 @@
     <meta name="author" content="Daniel Nüst, Matthias Schutzeichel, Markus Konkol">  
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
-    <title>Archival Extension - ERC spec</title>
+    <title>Docker Runtime Extension - ERC spec</title>
 
     <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
@@ -85,14 +85,14 @@
 
                         
                             
-<li >
-    <a href="../docker/">Docker Runtime Extension</a>
+<li class="active">
+    <a href="./">Docker Runtime Extension</a>
 </li>
 
                         
                             
-<li class="active">
-    <a href="./">Archival Extension</a>
+<li >
+    <a href="../archival/">Archival Extension</a>
 </li>
 
                         
@@ -147,12 +147,12 @@
                 </li>
                 
                     <li >
-                        <a rel="next" href="../docker/">
+                        <a rel="next" href="../">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../r/">
+                        <a rel="prev" href="../archival/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -177,16 +177,23 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="first-level active"><a href="#archival-extension">Archival extension</a></li>
+        <li class="first-level active"><a href="#docker-runtime-extension">Docker runtime extension</a></li>
         
-            <li class="second-level"><a href="#archival-bundle">Archival bundle</a></li>
-            
-                <li class="third-level"><a href="#bagit-outer-container">BagIt outer container</a></li>
-            
-                <li class="third-level"><a href="#bagit-profile-under-development">BagIt profile - Under Development</a></li>
+            <li class="second-level"><a href="#docker-image">Docker image</a></li>
             
         
-            <li class="second-level"><a href="#oais-under-development">OAIS - Under Development</a></li>
+            <li class="second-level"><a href="#dockerfile">Dockerfile</a></li>
+            
+                <li class="third-level"><a href="#metadata-in-container-manifest-under-development">Metadata in container manifest - Under development</a></li>
+            
+        
+            <li class="second-level"><a href="#default-control-statements">Default control statements</a></li>
+            
+        
+            <li class="second-level"><a href="#runtime-manipulation">Runtime manipulation</a></li>
+            
+        
+            <li class="second-level"><a href="#data-exchange">Data exchange</a></li>
             
         
     
@@ -194,88 +201,51 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="archival-extension">Archival extension</h1>
-<p>To make ERC compatible with workflows and standards in the archival and preservation domains, this exstension defines metadata and an outer bundle.</p>
-<h2 id="archival-bundle">Archival bundle</h2>
-<p><a href="http://tools.ietf.org/html/draft-kunze-bagit">BagIt</a> is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation.</p>
-<p>For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations apply to it.</p>
-<p>The remainder of this section comprises (i) a description of the outer container, and (ii) a BagIt profile.</p>
-<h3 id="bagit-outer-container">BagIt outer container</h3>
-<p>The ERC base directory MUST be the BagIt payload directory <code>data/</code>.
-The path to the ERC configuration file subsequently MUST be <code>&lt;path-to-bag&gt;/data/erc.yml</code>.</p>
-<p>The bag metadata file <code>bag-info.txt</code> MUST contain a metadata element of the label <code>ERC-Version</code> and the version of the ERC paylod as value.</p>
-<pre><code class="txt">Payload-Oxum: 2172457623.43
-Bagging-Date: 2016-02-01
-Bag-Size: 2 GB
-ERC-Version: 1
+<h1 id="docker-runtime-extension">Docker runtime extension</h1>
+<p>This extension uses <a href="http://docker.com/">Docker</a> to define, build, and store the runtime environment.</p>
+<p>The runtime environment or image MUST be represented by a <a href="https://github.com/docker/docker/blob/master/image/spec/v1.2.md">Docker image v1.2.0</a>.</p>
+<p>The runtime manifest MUST be represented by a <code>Dockerfile</code>, see <a href="https://docs.docker.com/engine/reference/builder/">Docker builder reference</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/builder.md"><code>1.12.x</code></a>.</p>
+<h2 id="docker-image">Docker image</h2>
+<p>The base directory MUST contain a <a href="https://en.wikipedia.org/wiki/Tar_(computing)">tarball</a> of a Docker image as created be the command <code>docker save</code>, see <a href="https://docs.docker.com/engine/reference/commandline/save/">Docker CLI save command documentation</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md"><code>1.12.x</code></a>.</p>
+<p>The file SHOULD be named <code>image.tar</code>.</p>
+<p>The output of the container during execution can be shown to the user to convey detailed information.</p>
+<h2 id="dockerfile">Dockerfile</h2>
+<p>The base directory MUST contain a valid Dockerfile, see <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile reference</a>.
+The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the <a href="#runtime-container-file">runtime container file</a> using <code>docker build</code>, see <a href="https://docs.docker.com/engine/reference/commandline/build/">Docker CLI build command documentation</a>, as defined in version [<code>1.12.x](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).
+The build SHOULD be done with the option</code>--no-cache=true`.</p>
+<p>The file SHOULD be named <code>Dockerfile</code>.
+Differing file names MUST be specified in the extension metadata, the exact node is left implementation-specific.</p>
+<p>The Dockerfile MUST contain the required instruction <code>FROM</code>, which MUST NOT use the <code>latest</code> tag.</p>
+<p>The Dockerfile SHOULD contain the instruction <code>MAINTAINER</code> to provide copyright information.</p>
+<p>The Dockerfile MUST have an active instruction <code>CMD</code>, or a combination of the instructions <code>ENTRYPOINT</code> and <code>CMD</code>, which executes the packaged analysis.</p>
+<p>The Dockerfile MUST NOT contain <code>EXPOSE</code> instructions.</p>
+<p>The Dockerfile MUST contain a <code>VOLUME</code> instruction to define the mount point of the ERC within the container.
+This mountpoint SHOULD be <code>/erc</code>.
+If the mountpoint is different from <code>/erc</code>, the value MUST be defined in <code>erc.yml</code> in a node <code>execution.mountpoint</code>.</p>
+<p>Example for the mountpoint configuration:</p>
+<pre><code class="yml">---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+execution:
+  mountpoint: &quot;/erc&quot;
 </code></pre>
 
-<p>Example file tree for a bagged ERC:</p>
-<pre><code class="txt">├── bag-info.txt
-├── bagit.txt
-├── data
-│   ├── 2016-07-17-sf2.Rmd
-│   ├── erc.yml
-│   └── Dockerfile
-│   └── runtime.tar
-├── manifest-md5.txt
-└── tagmanifest-md5.txt
+<h3 id="metadata-in-container-manifest-under-development">Metadata in container manifest - <em>Under development</em></h3>
+<p>... use <code>LABEL</code> and <code>ENV</code> installations?</p>
+<h2 id="default-control-statements">Default control statements</h2>
+<p>The default control statements of implementing tools MUST be as shown in the following example configuration file.</p>
+<pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+execution:
+  command:
+    - `docker load --input image.tar`
+    - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
 </code></pre>
 
-<h3 id="bagit-profile-under-development">BagIt profile - <em>Under Development</em></h3>
-<p>A <a href="https://github.com/ruebot/bagit-profiles">Bagit Profile</a> as outlined below could make the requirements of this extension more explicit.</p>
-<pre><code class="json">{
-     &quot;BagIt-Profile-Info&quot;:{
-      &quot;BagIt-Profile-Identifier&quot;:&quot;http://o2r.info/erc-bagit-v1.json&quot;,
-      &quot;Source-Organization&quot;:&quot;o2r.info&quot;,
-      &quot;Contact-Name&quot;:&quot;o2r Team&quot;,
-      &quot;Contact-Email&quot;:&quot;o2r@uni-muenster.de&quot;,
-      &quot;External-Description&quot;:&quot;BagIt profile for packaging executable research compendia.&quot;,
-      &quot;Version&quot;:&quot;1&quot;
-   },
-   &quot;Bag-Info&quot;:{
-      &quot;Contact-Name&quot;:{
-         &quot;required&quot;:true
-      },
-      &quot;Contact-Email&quot;:{
-         &quot;required&quot;:true
-      },
-      &quot;External-Identifier&quot;:{
-         &quot;required&quot;:true
-      },
-      &quot;Bag-Size&quot;:{
-         &quot;required&quot;:true
-      },
-      &quot;Payload-Oxum&quot;:{
-         &quot;required&quot;:true
-      }
-   },
-   &quot;Manifests-Required&quot;:[
-      &quot;md5&quot;
-   ],
-   &quot;Allow-Fetch.txt&quot;:false,
-   &quot;Serialization&quot;:&quot;optional&quot;,
-   &quot;Accept-Serialization&quot;:[
-      &quot;application/zip&quot;
-   ],
-   &quot;Tag-Manifests-Required&quot;:[
-     &quot;md5&quot;
-   ],
-   &quot;Tag-Files-Required&quot;:[
-      &quot;.erc/metadata.json&quot;,
-      &quot;.erc.yml&quot;
-   ],
-   &quot;Accept-BagIt-Version&quot;:[
-      &quot;0.96&quot;
-   ]
-}
-</code></pre>
-
-<h2 id="oais-under-development">OAIS - <em>Under Development</em></h2>
-<blockquote>
-<p><em>An Open Archival Information System (or OAIS) is an archive, consisting of an organization of people and systems, that has accepted the responsibility to preserve information and make it available for a Designated Community.</em> <a href="https://en.wikipedia.org/wiki/Open_Archival_Information_System">Wikipedia</a></p>
-</blockquote>
-<p>TBD</p></div>
+<h2 id="runtime-manipulation">Runtime manipulation</h2>
+<p>...</p>
+<h2 id="data-exchange">Data exchange</h2>
+<p>...</p></div>
         
     </div>
 

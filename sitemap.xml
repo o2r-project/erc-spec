@@ -18,6 +18,12 @@
     </url>
         
     <url>
+     <loc>/spec/docker/</loc>
+     <lastmod>2017-01-23</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
      <loc>/spec/archival/</loc>
      <lastmod>2017-01-23</lastmod>
      <changefreq>daily</changefreq>
@@ -31,6 +37,12 @@
         
     <url>
      <loc>/spec/man/</loc>
+     <lastmod>2017-01-23</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/spec/plain_r/</loc>
      <lastmod>2017-01-23</lastmod>
      <changefreq>daily</changefreq>
     </url>
