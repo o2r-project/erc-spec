@@ -12,9 +12,9 @@ The node's value can be any text string which uniquely identifies a convention, 
 A non-exhaustive list of potential conventions _for R_ is as follows:
 
 - [ROpenSci rrrpkg](https://github.com/ropensci/rrrpkg)
-  - [Jeff Hollister's manuscriptPackage](https://github.com/jhollist/manuscriptPackage)
-  - [Carl Boettiger's template](https://github.com/cboettig/template)
-  - [Francisco Rodriguez-Sanchez's template](https://github.com/Pakillo/template)
+    - [Jeff Hollister's manuscriptPackage](https://github.com/jhollist/manuscriptPackage)
+    - [Carl Boettiger's template](https://github.com/cboettig/template)
+    - [Francisco Rodriguez-Sanchez's template](https://github.com/Pakillo/template)
 - [Ben Marwick's template](https://github.com/benmarwick/template)
 
 Example for using the ROPenSci rrrpkg convention:
