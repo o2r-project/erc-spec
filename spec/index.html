@@ -228,7 +228,7 @@
 
 <h1 id="erc-specification">ERC specification</h1>
 <p>An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
-It provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival.</p>
+It provides well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as an object or more specifically: a digital asset.</p>
 <div class="alert note" markdown="block">
 This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 </div>
@@ -258,17 +258,17 @@ This is a draft specification. If you have comments or suggestions please file t
 <p>The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p>
 <h2 id="purpose">Purpose</h2>
 <p>This specification defines a structure to carry and execute packaged scientific analyses.
-These typically consist of data, the code and libraryies in executable form which are needed to replicate an analysis, and the outputs of the original  analysis.
+These typically consist of data, code and libraries in executable form which are needed to re-do an analysis, and the outputs of the original  analysis.
 This allows to collect  computational  research  in  a self-contained fashion and support transfer, archival, reproduction, and validation.</p>
 <h2 id="fundamental-design-concepts">Fundamental design concepts</h2>
 <p>The bagtainer specification is inspired by two approaches to improve development and operation of software.
 First,  <a href="https://en.wikipedia.org/wiki/Convention_over_configuration"><em>"convention  over  configuration"</em></a>, e.g. as  practiced  in  the Java build tool <a href="https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html">Maven</a>.
-Second, <em>"DevOps"</em>, see <a href="https://en.wikipedia.org/wiki/">Wikipedia</a> or <a href="http://dl.acm.org/citation.cfm?id=2723882">Boettiger</a>.</p>
+Second, <em>"DevOps"</em>, see <a href="https://en.wikipedia.org/wiki/DevOps">Wikipedia</a> or <a href="https://doi.org/10.1145/2723872.2723882">Boettiger</a>.</p>
 <p>Another core goal is <em>simplicity</em>.
 This specification should not re-do something which already exists (if it is an open specification or tool).
 It must be possible to create a valid and working ERC manually.</p>
 <p>The final important notion is the one of <em>nested containers</em>.
-Acknoledging well defined standards exist for packaging a set of files, and different approaches to create an executable code package are possible, the collection of files which make up an ERC comprise <em>one or more containers but are themselves subject to being put into a container</em>.
+Acknowledging well defined standards exist for packaging a set of files, and different approaches to create an executable code package are possible, the collection of files which make up an ERC comprise <em>one or more containers but are themselves subject to being put into a container</em>.
 We distinguish these containers into the inner or "runtime" container and the outer container.</p>
 <h2 id="how-to-use-an-erc">How to use an ERC</h2>
 <p>The steps to (re-)run the analysis contained in an ERC are as follows:</p>
@@ -280,7 +280,7 @@ We distinguish these containers into the inner or "runtime" container and the ou
 <p>This way ERC allow computational reproducibility based on the original code and data.</p>
 <h2 id="erc-structure">ERC structure</h2>
 <h3 id="base-directory">Base directory</h3>
-<p>An ERC must have a <em>base directory</em>, whose name must only container characters, numbers, <code>_</code> (underscore) and <code>-</code> (minus sign).
+<p>An ERC MUST have a <em>base directory</em>. The name of the base directory MUST only contain characters, numbers, <code>_</code> (underscore) and <code>-</code> (minus sign).
 That directory is part of the <a href="https://github.com/opencontainers/runtime-spec/blob/master/bundle.md">bundle</a>.
 In other words, an archive of an ERC will have one top-level directory with the name of the base directory.</p>
 <p><strong>Regular expression</strong> for base directory name: <code>[a-zA-Z0-9\-_]</code></p>
@@ -296,7 +296,7 @@ The file MUST be encoded in <code>UTF-8</code> and MUST NOT contain a byte-order
 <p>The first document content of this file MUST contain the following string nodes at the root level.</p>
 <ul>
 <li><code>spec-version</code>: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is <code>1</code>.</li>
-<li><code>id</code>: globally unique identifier for a specific ERC. This SHOULD be a URI (see <a href="https://tools.ietf.org/html/rfc3986">rfc3986</a>) or a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>.</li>
+<li><code>id</code>: globally unique identifier for a specific ERC. This SHOULD be a URI (see <a href="https://tools.ietf.org/html/rfc3986">rfc3986</a>) or a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>, Version 4.</li>
 </ul>
 <p>Minimal example:</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
@@ -306,7 +306,7 @@ version: 1
 <h3 id="control-statements">Control statements</h3>
 <p>The configuration file can contain <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a> statements to control the runtime container.</p>
 <p>These statements MUST be in an array under the node <code>command</code> under the root-level node <code>execution</code> in the ERC configuration file.</p>
-<p>Default command statements of implemnting tools MUST be as shown in the following configuration file.</p>
+<p>Default command statements of implementing tools MUST be as shown in the following example configuration file.</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 version: 1
 execution:
@@ -320,17 +320,20 @@ This includes, for example, setting the time zone via an environment variable <c
 This can also be handled by the ERC author on script level.</p>
 <h3 id="discovery-metadata">Discovery metadata</h3>
 <p>author
-title</p>
+title
+description
+. . .</p>
+<p><em>The discovery metadata MUST be compliant to the o2r-metadata schema.</em></p>
 <h3 id="license-metadata">License metadata</h3>
 <p><code>erc.yml</code> MUST contain a first level node <code>licenses</code> with licensing information for the code, data, and text contained.
-Each of these three have quite distinct requirements so different licenses need to be applied.</p>
+Each of these three have distinct requirements, hence different licenses need to be applied.</p>
 <p>The node <code>licenses</code> MUST have three children: <code>code</code>, <code>data</code>, <code>text</code>.</p>
 <div class="alert note" markdown="block">
 There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
 Tools for automatic creation of ERC may add such detailed licensing information and define an extension to the ERC 
 </div>
 
-<p>The content of each of these child nodes MUST be one of</p>
+<p>The content of each of these child nodes MUST be one of the following</p>
 <ul>
 <li>text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the <a href="http://licenses.opendefinition.org/">Open Definition Licenses Service</a>.</li>
 <li>a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory.</li>
@@ -359,7 +362,7 @@ licenses:
 </code></pre>
 
 <div class="alert note" markdown="block">
-It is NOT possible to assign one license to a directory and override that assignment or a single file within that directory, nor is it possible to use globs or regular expressions.
+It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
 </div>
 
 <h3 id="software-metadata">Software metadata</h3>
@@ -390,7 +393,7 @@ extensions:
 </code></pre>
 
 <p>This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.</p>
-<p>If an extension creates further metadata fields, they MUST NOT interfere with the structure defined in this document.
+<p>If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
 However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.</p>
 <h2 id="runtime-container-file">Runtime container file</h2>
 <p>The base directory MUST contain a <a href="https://en.wikipedia.org/wiki/Tar_(computing)">tarball</a> of a Docker image as created be the command <code>docker save</code>, see <a href="https://docs.docker.com/engine/reference/commandline/save/">Docker CLI save command documentation</a>.</p>
@@ -408,7 +411,7 @@ The build SHOULD be done with the option <code>--no-cache=true</code>.</p>
 <p>The Dockerfile MUST contain a <code>VOLUME</code> instruction to define the mount point of the ERC within the container.
 This mountpoint SHOULD be <code>/erc</code>.
 If the mountpoint is different from <code>/erc</code>, the value MUST be defined in <code>erc.yml</code> in a node <code>execution.mountpoint</code>.</p>
-<p>Example for mountpoint configuration:</p>
+<p>Example for the mountpoint configuration:</p>
 <pre><code class="yml">---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 version: 1
@@ -420,8 +423,8 @@ execution:
 <p>... use <code>LABEL</code> and <code>ENV</code> installations?</p>
 <h2 id="ercignore-file">.ercignore file</h2>
 <p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory.
-If this file exists, the files and directories matching patterns in it MUST be excluded from processes such as validation.
-The newline-separated patterns in the file MUST be treated as <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.</p>
+If this file is present, any files and directories matching the patterns within that file will be excluded from processes such as validation.
+The newline-separated patterns in the file will be treated as <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.</p>
 <h2 id="validation">Validation</h2>
 <p>ERC validation comprises four steps:</p>
 <ol>
@@ -447,7 +450,7 @@ The newline-separated patterns in the file MUST be treated as <a href="https://e
 <li>the containers are only executed <em>without</em> external network access using <code>Network: none</code>, see <a href="https://docs.docker.com/engine/reference/run/#/network-none">Docker CLI run documentation</a></li>
 </ul>
 <h2 id="secondary-metadata-files">Secondary metadata files</h2>
-<p>An ERC can be an object in diverse use cases.
+<p>An ERC can be an object in several use cases.
 For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference, it can be a preserved item in a research repository.
 All of these probably have their own standards and requirements when it comes to metadata.
 These metadata requirements are <em>not</em> part of this specification, but the following conventions should simplify their (re-)use.</p>
