@@ -2,13 +2,13 @@
     "docs": [
         {
             "location": "/",
-            "text": "Executable Eesearch Compendium\n\n\n\n\nSpecification\n\n\nUser guide\n\n\nDeveloper guide\n\n\n\n\nCredits\n\n\nThis specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research\n\n\n\n\nLicense\n\n\n\n\nThe o2r Executable Research Compendium specification is licensed under \nCreative Commons CC0 1.0 Universal License\n, see file \nLICENSE\n.\nTo the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.\nThis work is published from: Germany.\n\n\nBuild @@VERSION@@ @ @@TIMESTAMP@@",
+            "text": "Executable Research Compendium\n\n\n\n\nSpecification\n\n\nUser guide\n\n\nDeveloper guide\n\n\n\n\nCredits\n\n\nThis specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research\n\n\n\n\nLicense\n\n\n\n\nThe o2r Executable Research Compendium specification is licensed under \nCreative Commons CC0 1.0 Universal License\n, see file \nLICENSE\n.\nTo the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.\nThis work is published from: Germany.\n\n\nBuild @@VERSION@@ @ @@TIMESTAMP@@",
             "title": "Home"
         },
         {
-            "location": "/#executable-eesearch-compendium",
+            "location": "/#executable-research-compendium",
             "text": "Specification  User guide  Developer guide",
-            "title": "Executable Eesearch Compendium"
+            "title": "Executable Research Compendium"
         },
         {
             "location": "/#credits",
@@ -242,7 +242,7 @@
         },
         {
             "location": "/user-guide/",
-            "text": "ERC user guide\n\n\nThis user guide comprises instructions how to create an ERC \nby hand\n.\nIt thus limited to mandatory elements in some places.\nHowever, a fundamental goal of the ERC specification is to be simple enough to allow manualy ERC creation as demonstrated in this document.\nFor using tools or services for creation and validation of ERCs, please see the \ndeveloper guide\n.\n\n\n\nThis is a draft specification. If you have comments or suggestions please file them in the \nissue tracker\n. If you have explicit changes please fork the \ngit repo\n and submit a pull request.\n\n\n\n\nStep 1: create workspace\n\n\nDo your research and create something useful that works for you.\n\nThe ERC specification makes no restrictions on the contents of a workspace, but guidelines and best practices do exist and should be followed by users during their research i.e. even before packaging it in an ERC.\n\n\nCode and versioning\n\n\nIf the base directory contains a script file or source code used to conduct the packaged analysis, we recoomend this code is managed using \ndistributed version control\n, see \nsoftware carpentry guidelines\n.\nThe base directory should contain a copy of the complete repository in that case.\n\n\nWorkspace structure\n\n\nThe base directory contents should follow common guidelines to project organisation.\nSome useful resources are\n\n\n\n\nSoftware carpentry paper \"Good enough practices in Scientific Computing\"\n\n\nROpenSci research compendium\n).\n\n\nROpenSci reproducibility guide\n\n\n\n\nStep 2: create container for runtime\n\n\nDockerfile\n\n\nStep 3: test container\n\n\nrun command and how to compare the output and the original\n\n\nStep 3: create metadata\n\n\nERC metadata\n\n\nstructural & administrative metadata\n\n\nbagtainer.yml\n or \nerc.json\n\n\ncontainer start command\n\n\nContent metadata\n\n\nerc_metadata.json\n == \nweb-api/<compendium>.metadata.o2r\n, or \nbagit.txt\n?\n\n\nDiscovery\n\n\n(mandatory vs. optional)\n\n\nLicenses\n\n\n...\n\n\nStep 5: validate ERC\n\n\n\n\nrun standalone validator?\n\n\n\n\nStep 4: create BagIt\n\n\ncreate\n\n\nvalidate\n\n\nTools: Bagger, bagit-py",
+            "text": "ERC user guide\n\n\nThis user guide comprises instructions how to create an ERC \nby hand\n.\nIt thus limited to mandatory elements in some places.\nHowever, a fundamental goal of the ERC specification is to be simple enough to allow manualy ERC creation as demonstrated in this document.\nFor using tools or services for creation and validation of ERCs, please see the \ndeveloper guide\n.\n\n\n\nThis is a draft specification. If you have comments or suggestions please file them in the \nissue tracker\n. If you have explicit changes please fork the \ngit repo\n and submit a pull request.\n\n\n\n\nStep 1: create workspace\n\n\nDo your research and create something useful that works for you.\n\nThe ERC specification makes no restrictions on the contents of a workspace, but guidelines and best practices do exist and should be followed by users during their research i.e. even before packaging it in an ERC.\n\n\nCode and versioning\n\n\nIf the base directory contains a script file or source code used to conduct the packaged analysis, we recoomend this code is managed using \ndistributed version control\n, see \nsoftware carpentry guidelines\n.\nThe base directory should contain a copy of the complete repository in that case.\n\n\nWorkspace structure\n\n\nThe base directory contents should follow common guidelines to project organisation.\nSome useful resources are\n\n\n\n\nSoftware carpentry paper \"Good enough practices in Scientific Computing\"\n\n\nROpenSci research compendium\n).\n\n\nROpenSci reproducibility guide\n\n\n\n\nStep 2: create container for runtime\n\n\nDockerfile\n\n\nStep 3: test container\n\n\nrun command and how to compare the output and the original\n\n\nStep 3: create metadata\n\n\nERC metadata\n\n\nstructural & administrative metadata\n\n\nbagtainer.yml\n or \nerc.json\n\n\ncontainer start command\n\n\nContent metadata\n\n\nerc_metadata.json\n == \nweb-api/<compendium>.metadata.o2r\n, or \nbagit.txt\n?\n\n\nDiscovery\n\n\n(mandatory vs. optional)\n\n\nLicenses\n\n\nhttps://speakerdeck.com/labarba/a-short-lecture-on-open-licensing\nhttps://choosealicense.com\n\n\nStep 5: validate ERC\n\n\n\n\nrun standalone validator?\n\n\n\n\nStep 4: create BagIt\n\n\ncreate\n\n\nvalidate\n\n\nTools: Bagger, bagit-py",
             "title": "User guide"
         },
         {
@@ -297,7 +297,7 @@
         },
         {
             "location": "/user-guide/#licenses",
-            "text": "...",
+            "text": "https://speakerdeck.com/labarba/a-short-lecture-on-open-licensing\nhttps://choosealicense.com",
             "title": "Licenses"
         },
         {
