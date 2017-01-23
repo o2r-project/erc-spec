@@ -292,9 +292,10 @@ This version is <em>under development</em>!</p>
 <p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
 <p>The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p>
 <h2 id="purpose">Purpose</h2>
-<p>This specification defines a structure to carry and execute packaged scientific analyses.
-These typically consist of data, code and libraries in executable form which are needed to re-do an analysis, and the outputs of the original  analysis.
-This allows to collect  computational  research  in  a self-contained fashion and support transfer, archival, reproduction, and validation.</p>
+<p>This specification defines a structure to carry and execute a computational scientific analyses (cf. <a href="https://en.wikipedia.org/wiki/Computational_science">computational science</a>.</p>
+<p>These analyses typically comprise a workspace on a researchers computer, which comprises data, code, third party software or libraries, and outputs such as plots.
+Code and libraries are required in executable form to re-do an analysis.
+Putting all of this elements in a self-contained bundle allows to transfer, archive, reproduce, and validate computaional research.</p>
 <h2 id="fundamental-design-concepts">Fundamental design concepts</h2>
 <p>The bagtainer specification is inspired by two approaches to improve development and operation of software.
 First,  <a href="https://en.wikipedia.org/wiki/Convention_over_configuration"><em>"convention  over  configuration"</em></a>, e.g. as  practiced  in  the Java build tool <a href="https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html">Maven</a>.
@@ -353,17 +354,17 @@ The file MUST be encoded in <code>UTF-8</code> and MUST NOT contain a byte-order
 <h3 id="required-fields">Required fields</h3>
 <p>The first document content of this file MUST contain the following string nodes at the root level.</p>
 <ul>
-<li><code>spec-version</code>: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is <code>1</code>.</li>
+<li><code>spec_version</code>: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is <code>1</code>.</li>
 <li><code>id</code>: globally unique identifier for a specific ERC. This SHOULD be a URI (see <a href="https://tools.ietf.org/html/rfc3986">rfc3986</a>) or a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>, Version 4.</li>
 </ul>
 <p>Minimal example:</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 </code></pre>
 
 <p>The main and display file can be defined in root-level nodes named <code>main</code> and <code>display</code> respectively:</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 main: the_paper_document.odt
 display: output.html
 </code></pre>
@@ -371,13 +372,13 @@ display: output.html
 <h3 id="control-statements">Control statements</h3>
 <p>The configuration file MUST contain <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a> statements to control the runtime container.</p>
 <p>These statements MUST be in an array under the node <code>command</code> under the root-level node <code>execution</code> in the ERC configuration file.</p>
-<p>Default command statements can be defined by a properly configured extension.</p>
+<p>Default command statements SCHOULD be defined by an extension for a working ERC.</p>
 <p>The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
 This includes, for example, setting the time zone via an environment variable <code>-e TZ=CET</code> so that output formatting of timestamps does not break validation.
 This can also be handled by the ERC author on script level.</p>
 <p>Example control statements:</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 execution:
   command:
     - `./prepare.sh --input my_data`
@@ -406,7 +407,7 @@ Tools for automatic creation of ERC may add such detailed licensing information 
 </ul>
 <p>Example for global licenses:</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 licenses:
   code: &quot;Apache-2.0&quot;
   data: &quot;ODbL-1.0&quot;
@@ -416,7 +417,7 @@ licenses:
 <p>Example using specific licenses for files:</p>
 <pre><code class="yml">---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 licenses:
   code:
     others_lib.bin: MIT
@@ -441,7 +442,7 @@ The information can also be quite extensive.</p>
 <p>Further details are unspecified here but could be defined in specification extensions.</p>
 <pre><code class="yml">---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 metadata:
   software:
     - .erc/software_codemeta.json
@@ -452,7 +453,7 @@ metadata:
 <p>If an extension of the specification is used, it MUST be put into a list under the root-level node <code>extensions</code>.</p>
 <pre><code class="yml">---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 extensions:
   - extension_name_1
   - &quot;yet another extension&quot;
@@ -467,6 +468,7 @@ However, it is unspecified into which root node or nodes of the ERC configuratio
 <p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory.
 If this file is present, any files and directories matching the patterns within that file will be excluded from processes such as validation.
 The newline-separated patterns in the file will be treated as <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.</p>
+<p>Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.</p>
 <h2 id="validation">Validation</h2>
 <p>ERC validation comprises four steps:</p>
 <ol>
@@ -485,6 +487,7 @@ The newline-separated patterns in the file will be treated as <a href="https://e
 <li><code>*+json</code></li>
 </ul>
 <p>See <a href="https://www.iana.org/assignments/media-types/media-types.xhtml">IANA's full list of media types</a>.</p>
+<p>The validation SHOULD communicate all files and directories used for validation to the user to avoid malicious usage of an <code>.ercignore</code> file.</p>
 <h2 id="security-considerations">Security considerations</h2>
 <p>Why are ERC not a security risk?</p>
 <ul>
@@ -502,7 +505,7 @@ These metadata requirements are <em>not</em> part of this specification, but the
 <h2 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml</h2>
 <p>The following example shows all possible fields and their default values of the core specification.</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 structure:
   payload_directory: &quot;data&quot;
   config_file: &quot;erc.yml&quot;

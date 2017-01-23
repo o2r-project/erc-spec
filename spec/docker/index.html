@@ -225,9 +225,18 @@ If the mountpoint is different from <code>/erc</code>, the value MUST be defined
 <p>Example for the mountpoint configuration:</p>
 <pre><code class="yml">---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 execution:
   mountpoint: &quot;/erc&quot;
+</code></pre>
+
+<p>Example for a Dockerfile:</p>
+<pre><code class="Dockerfile">FROM debian
+MAINTAINER o2r project team &lt;http://o2r.info&gt;
+
+VOLUME [&quot;/erc&quot;]
+
+CMD [&quot;/erc/run_analysis.sh&quot;, &quot;--debug&quot;, &quot;-i&quot;, &quot;/erc/inputdata&quot;]
 </code></pre>
 
 <h3 id="metadata-in-container-manifest-under-development">Metadata in container manifest - <em>Under development</em></h3>
