@@ -1,9 +1,3 @@
 # Plain container bundling extension
 
-## Docker
-
-...
-
-## OCI
-
-using the label mechanism, how to package an ERC using _only_ a container.
+Using the label mechanisms of Docker and OCI, how to package an ERC using _only_ a container and no outer bundle?

@@ -28,14 +28,14 @@ structure:
 
 ## Main document
 
-The ERC MUST contain one weaved document which integrates text and code and can be compiled into an interaction file.
+The ERC's main document as defined by this extension MUST be a weaved document, which integrates text and code and can be compiled into an interaction file.
 
-The weaved document SHOULD have one of the following formats for executable documents:
+The weaved document SHOULD have one of the following formats for executable documents and MUST use the respective name:
 
-- [RMarkdown](http://rmarkdown.rstudio.com/)
-- [Sweave](http://www.statistik.lmu.de/~leisch/Sweave/)
+- [RMarkdown](http://rmarkdown.rstudio.com/) with the name `paper.Rmd`
+- [Sweave](http://www.statistik.lmu.de/~leisch/Sweave/) with the name `paper.Rnw`
 
-The main document SHOULD NOT contain code that loads pre-computed results from files.
+The main document SHOULD NOT contain code that loads pre-computed results from files but conduct all analyses, even costly ones, during document weaving.
 
 ### RMarkdown
 

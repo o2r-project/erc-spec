@@ -10,6 +10,7 @@ This is a draft specification. If you have comments or suggestions please file t
 ## Version
 
 The version of this specification is `1`.
+This version is _under development_!
 
 ## Table of contents
 
@@ -20,10 +21,12 @@ The version of this specification is `1`.
 - [Structure](#erc-structure)
 - [Security](#security)
 - Extensions
+    - [Docker runtime extension](docker.md)
     - [Archival extension](archival.md)
     - [R extension](r.md)
     - [Validation extension](valid.md)
-- Extensions - _Under Development_
+- Extensions - _Drafts and Ideas_
+    - [Plain R runtime extension](plain_r.md)
     - [Manipulation extension](man.md)
     - [Progress extension](progress.md)
     - [Container bundling extension](bundle_container.md)
@@ -79,6 +82,49 @@ The base directory MUST contain an [ERC configuration file](#erc-configuration-f
 
 Besides the files mentioned in this specification, the base directory may contain any other file and directories.
 
+### Main file
+
+An ERC MUST have a _main document_, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
+The main documents name SHOULD be `paper` with an appropriate extension, e.g. `.tex`.
+
+### Display file
+
+An ERC MUST have a _display file_, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.
+The display file SHOULD be named `paper` with an appropriate extension, e.g. `.pdf` or `.html`.
+
+## Nested runtime
+
+The embedding of a representation of the original runtime environment, in which an analysis was conducted, is crucial for supporting reproducible computations.
+This section defines two such representations, one documenting and one executable. 
+
+The format of these representations is undefined and SHOULD be stated more precisely in an extension.
+
+A concrete runtime extension may choose to embed the runtime environment or to rely on constructing it from the manifest.
+
+### Runtime environment or image
+
+The base directory SHOULD contain a runnable image, e.g. a binary, of the original analysis environment that can be used to re-run the packaged analysis.
+
+The file SHOULD be named `image` with an appropriate extension, such as `.tar` or `.bin`.
+
+The output of the image execution can be shown to the user to convey detailed information on progress or errors.
+
+### Runtime manifest
+
+The base directory MUST contain a complete, self-consistent manifest of the runtime image's contents.
+
+This manifest MUST be in a machine-readable format that allows a respective tool to create the runtime image.
+
+A concrete runtime extension MUST define the command to create the runnable environment from the manifest.
+
+### Runtime manipulation
+
+Bundline a complete runtime gives the possibility to manipulate the contained workflow or exchange data.
+
+The manipulation parameters SHOULD be defined in a concrete runtime extension.
+
+The data replacement proccess SHOULD be define in a concrete runtime extension.
+
 ## ERC configuration file
 
 The ERC configuration file is the _reproducibility manifest_ for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.
@@ -105,26 +151,37 @@ id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 version: 1
 ```
 
+The main and display file can be defined in root-level nodes named `main` and `display` respectively:
+
+```yml
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+main: the_paper_document.odt
+display: output.html
+```
+
 ### Control statements
 
-The configuration file can contain [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) statements to control the runtime container.
+The configuration file MUST contain [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) statements to control the runtime container.
 
 These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file.
 
-Default command statements of implementing tools MUST be as shown in the following example configuration file.
+Default command statements can be defined by a properly configured extension.
+
+The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
+This includes, for example, setting the time zone via an environment variable `-e TZ=CET` so that output formatting of timestamps does not break validation.
+This can also be handled by the ERC author on script level.
+
+Example control statements:
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 version: 1
 execution:
   command:
-    - `docker load --input image.tar`
-    - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
+    - `./prepare.sh --input my_data`
+    - `./execute.sh --output results --iterations 3`
 ```
-
-The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
-This includes, for example, setting the time zone via an environment variable `-e TZ=CET` so that output formatting of timestamps does not break validation.
-This can also be handled by the ERC author on script level.
 
 ### Discovery metadata
 
@@ -171,8 +228,8 @@ id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 version: 1
 licenses:
   code:
-    Dockerfile: MIT
-    my_code: GPL-3.0
+    others_lib.bin: MIT
+    my_code.c: GPL-3.0
   text:
     README.md: CC0-1.0
     paper/chapter01.doc: CC-BY-4.0
@@ -222,50 +279,12 @@ extensions:
 
 This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.
 
+If an implementation encounters an unsupported extension it MUST issue a user level warning.
+
+If an implementation supports an extension it MUST use default settings, for example for control commands, as defined in the extension.
+
 If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
 However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.
-
-## Runtime container file
-
-The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/).
-
-The file SHOULD be named `image.tar`.
-
-The output of the container during execution can be shown to the user to convey detailed information.
-
-## Runtime container manifest
-
-The base directory MUST contain a valid Dockerfile, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
-The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the [runtime container file](#runtime-container-file) using `docker build`, see [Docker CLI build command documentation](https://docs.docker.com/engine/reference/commandline/build/).
-The build SHOULD be done with the option `--no-cache=true`.
-
-The file SHOULD be named `Dockerfile`.
-
-The Dockerfile MUST contain the required instruction `FROM`, which MUST NOT use the `latest` tag.
-
-The Dockerfile SHOULD contain the instruction `MAINTAINER` to provide copyright information.
-
-The Dockerfile MUST have an active instruction `CMD`, or a combination of the instructions `ENTRYPOINT` and `CMD`, which executes the packaged analysis.
-
-The Dockerfile MUST NOT contain `EXPOSE` instructions.
-
-The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC within the container.
-This mountpoint SHOULD be `/erc`.
-If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mountpoint`.
-
-Example for the mountpoint configuration:
-
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
-execution:
-  mountpoint: "/erc"
-```
-
-### Metadata in container manifest - _Under development_
-
-... use `LABEL` and `ENV` installations?
 
 ## .ercignore file
 
