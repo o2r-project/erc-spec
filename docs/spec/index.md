@@ -40,9 +40,11 @@ The key words "unspecified", "undefined", and "implementation-defined" are to be
 
 ## Purpose
 
-This specification defines a structure to carry and execute packaged scientific analyses.
-These typically consist of data, code and libraries in executable form which are needed to re-do an analysis, and the outputs of the original  analysis.
-This allows to collect  computational  research  in  a self-contained fashion and support transfer, archival, reproduction, and validation.
+This specification defines a structure to carry and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science).
+
+These analyses typically comprise a workspace on a researchers computer, which comprises data, code, third party software or libraries, and outputs such as plots.
+Code and libraries are required in executable form to re-do an analysis.
+Putting all of this elements in a self-contained bundle allows to transfer, archive, reproduce, and validate computaional research.
 
 ## Fundamental design concepts
 
@@ -139,7 +141,7 @@ The file MUST be encoded in `UTF-8` and MUST NOT contain a byte-order mark (BOM)
 
 The first document content of this file MUST contain the following string nodes at the root level.
 
-- `spec-version`: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is `1`.
+- `spec_version`: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is `1`.
 - `id`: globally unique identifier for a specific ERC. This SHOULD be a URI (see [rfc3986][rfc3986]) or a [UUID][uuid], Version 4.
 
 [//]: # (could use semantic versioning later)
@@ -148,14 +150,14 @@ Minimal example:
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 ```
 
 The main and display file can be defined in root-level nodes named `main` and `display` respectively:
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 main: the_paper_document.odt
 display: output.html
 ```
@@ -166,7 +168,7 @@ The configuration file MUST contain [bash](https://en.wikipedia.org/wiki/Bash_(U
 
 These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file.
 
-Default command statements can be defined by a properly configured extension.
+Default command statements SCHOULD be defined by an extension for a working ERC.
 
 The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
 This includes, for example, setting the time zone via an environment variable `-e TZ=CET` so that output formatting of timestamps does not break validation.
@@ -176,7 +178,7 @@ Example control statements:
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 execution:
   command:
     - `./prepare.sh --input my_data`
@@ -213,7 +215,7 @@ Example for global licenses:
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 licenses:
   code: "Apache-2.0"
   data: "ODbL-1.0"
@@ -225,7 +227,7 @@ Example using specific licenses for files:
 ```yml
 ---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 licenses:
   code:
     others_lib.bin: MIT
@@ -257,7 +259,7 @@ Further details are unspecified here but could be defined in specification exten
 ```yml
 ---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 metadata:
   software:
     - .erc/software_codemeta.json
@@ -271,7 +273,7 @@ If an extension of the specification is used, it MUST be put into a list under t
 ```yml
 ---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 extensions:
   - extension_name_1
   - "yet another extension"
@@ -291,6 +293,8 @@ However, it is unspecified into which root node or nodes of the ERC configuratio
 The ERC MAY contain a file named `.ercignore` in the base directory.
 If this file is present, any files and directories matching the patterns within that file will be excluded from processes such as validation.
 The newline-separated patterns in the file will be treated as [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
+
+Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.
 
 [//]: # (TODO: mention library used in reference implementation)
 
@@ -315,6 +319,8 @@ The following [media types](https://en.wikipedia.org/wiki/Media_type) are a regu
 - `*+json`
 
 See [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml).
+
+The validation SHOULD communicate all files and directories used for validation to the user to avoid malicious usage of an `.ercignore` file.
 
 ## Security considerations
 
@@ -344,7 +350,7 @@ The following example shows all possible fields and their default values of the 
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 structure:
   payload_directory: "data"
   config_file: "erc.yml"

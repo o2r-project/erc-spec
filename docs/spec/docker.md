@@ -40,9 +40,20 @@ Example for the mountpoint configuration:
 ```yml
 ---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 execution:
   mountpoint: "/erc"
+```
+
+Example for a Dockerfile:
+
+```Dockerfile
+FROM debian
+MAINTAINER o2r project team <http://o2r.info>
+
+VOLUME ["/erc"]
+
+CMD ["/erc/run_analysis.sh", "--debug", "-i", "/erc/inputdata"]
 ```
 
 ### Metadata in container manifest - _Under development_

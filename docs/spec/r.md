@@ -21,7 +21,7 @@ Example for using the ROPenSci rrrpkg convention:
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
+spec_version: 1
 structure:
   convention: https://github.com/ropensci/rrrpkg
 ```
