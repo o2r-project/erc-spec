@@ -14,19 +14,19 @@ This version of this specification is `1`.
 ## Table of contents
 
 - [Introduction](index.md)
-  - [Notational conventions](#notational-conventions)
-  - [Purpose](#purpose)
-  - [Fundamental concepts](#fundamental-concepts)
+    - [Notational conventions](#notational-conventions)
+    - [Purpose](#purpose)
+    - [Fundamental concepts](#fundamental-concepts)
 - [Structure](#erc-structure)
 - [Security](#security)
 - Extensions
-  - [BagIt bundling extension](bundle_bagit.md)
-  - [R extension](r.md)
-  - [Validation extension](valid.md)
+    - [BagIt bundling extension](bundle_bagit.md)
+    - [R extension](r.md)
+    - [Validation extension](valid.md)
 - Extensions - _Under Development_
-  - [Manipulation extension](man.md)
-  - [Progress extension](progress.md)
-  - [Container bundling extension](bundle_container.md)
+    - [Manipulation extension](man.md)
+    - [Progress extension](progress.md)
+    - [Container bundling extension](bundle_container.md)
 - [Glossary](glossary.md)
 
 ## Notational conventions
