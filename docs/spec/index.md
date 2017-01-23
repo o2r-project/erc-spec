@@ -9,7 +9,7 @@ This is a draft specification. If you have comments or suggestions please file t
 
 ## Version
 
-This version of this specification is `1`.
+The version of this specification is `1`.
 
 ## Table of contents
 
@@ -20,7 +20,7 @@ This version of this specification is `1`.
 - [Structure](#erc-structure)
 - [Security](#security)
 - Extensions
-    - [BagIt bundling extension](bundle_bagit.md)
+    - [Archival extension](archival.md)
     - [R extension](r.md)
     - [Validation extension](valid.md)
 - Extensions - _Under Development_

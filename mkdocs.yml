@@ -5,7 +5,7 @@ pages:
   - Home: index.md
   - ERC:
     - Specification: spec/index.md
-    - BagIt Extension: spec/bundle_bagit.md
+    - Archival Extension: spec/archival.md
     - R Extension: spec/r.md
     - Manipulation Extension: spec/man.md
   - User guide: user-guide/index.md
