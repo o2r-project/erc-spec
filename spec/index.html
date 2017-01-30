@@ -293,11 +293,15 @@ This version is <em>under development</em>!</p>
 <p>The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p>
 <h2 id="purpose">Purpose</h2>
 <p>This specification defines a structure to carry and execute a computational scientific analyses (cf. <a href="https://en.wikipedia.org/wiki/Computational_science">computational science</a>.</p>
-<p>These analyses typically comprise a workspace on a researchers computer, which comprises data, code, third party software or libraries, and outputs such as plots.
+<p>These analyses typically comprise a workspace on a researchers computer, which comprises <em>data</em>, <em>code</em>, third party software or libraries, and outputs such as plots.
 Code and libraries are required in executable form to re-do an analysis.
-Putting all of this elements in a self-contained bundle allows to transfer, archive, reproduce, and validate computaional research.</p>
+The research is put into context in a <em>text</em>/publication that is part <a href="https://en.wikipedia.org/wiki/Scholarly_communication">scholarly communication</a>.
+The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
+The latter is often derived/rendered from the former and can be static, visual, or even interactive.</p>
+<p>Putting all of this elements in a self-contained bundle allows to understand, reproduce, transfer, archive, and validate computaional research.
+The ERC specification defines metadata and file structures to support these actions.</p>
 <h2 id="fundamental-design-concepts">Fundamental design concepts</h2>
-<p>The bagtainer specification is inspired by two approaches to improve development and operation of software.
+<p>The ERC specification is inspired by two approaches to improve development and operation of software.
 First,  <a href="https://en.wikipedia.org/wiki/Convention_over_configuration"><em>"convention  over  configuration"</em></a>, e.g. as  practiced  in  the Java build tool <a href="https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html">Maven</a>.
 Second, <em>"DevOps"</em>, see <a href="https://en.wikipedia.org/wiki/DevOps">Wikipedia</a> or <a href="https://doi.org/10.1145/2723872.2723882">Boettiger</a>.</p>
 <p>Another core goal is <em>simplicity</em>.
