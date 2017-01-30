@@ -42,13 +42,18 @@ The key words "unspecified", "undefined", and "implementation-defined" are to be
 
 This specification defines a structure to carry and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science).
 
-These analyses typically comprise a workspace on a researchers computer, which comprises data, code, third party software or libraries, and outputs such as plots.
+These analyses typically comprise a workspace on a researchers computer, which comprises _data_, _code_, third party software or libraries, and outputs such as plots.
 Code and libraries are required in executable form to re-do an analysis.
-Putting all of this elements in a self-contained bundle allows to transfer, archive, reproduce, and validate computaional research.
+The research is put into context in a _text_/publication that is part [scholarly communication](https://en.wikipedia.org/wiki/Scholarly_communication).
+The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
+The latter is often derived/rendered from the former and can be static, visual, or even interactive.
+
+Putting all of this elements in a self-contained bundle allows to understand, reproduce, transfer, archive, and validate computaional research.
+The ERC specification defines metadata and file structures to support these actions.
 
 ## Fundamental design concepts
 
-The bagtainer specification is inspired by two approaches to improve development and operation of software.
+The ERC specification is inspired by two approaches to improve development and operation of software.
 First,  [_"convention  over  configuration"_](https://en.wikipedia.org/wiki/Convention_over_configuration), e.g. as  practiced  in  the Java build tool [Maven](https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html).
 Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/DevOps) or [Boettiger](https://doi.org/10.1145/2723872.2723882).
 

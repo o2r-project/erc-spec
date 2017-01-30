@@ -1,14 +1,33 @@
 # Glossary
 
+## (Computational) Analysis
+
+A scientific workflow that is to be preserved in an ERC. It conducts a number of operations on data and generates an output (text, numbers, plots).
+
 ## Bag
 
 See [BagIt specification](https://tools.ietf.org/html/draft-kunze-bagit).
 
 > A set of opaque data contained within the structure defined by this specification.
 
+## Bundle
+
+TBD
+<!-- RO Bundle?! -->
+
 ## Compendium contents
 
 See [ERC contents](#erc-contents)
+
+## Container
+
+A receptacle holding a collection of things ("payload" or "contents"). In the context of this specification, several of such containers are distinguished: [runtime container](#runtime-container), [outer container](#outer-container), and [Docker container](#docker-container).
+
+See also [bundle](#bundle).
+
+## Docker container
+
+TBD
 
 ## ERC
 
@@ -40,4 +59,8 @@ See [section 2.1 "Definition of Reproducibility"](https://doi.org/10.1045/januar
 
 ## Runtime container
 
-..
+...
+
+## UI bindings
+
+TBD

@@ -13,6 +13,16 @@ However, if a user wants to use `rmarkdown::render(..)` on a file named `publica
 
 ## Reasoning and decisions
 
+### Some observations
+
+- researchers do their thing and need independence/flexibility, so post-hoc creation will probably be most common and ERC must have low to no impact on workflow
+- data storage, citation and preservation is solved (repos, bitstream preservation in archives)
+- packaging methods/methodology is solved (R packages, Python packages, ...)
+- software preservation is _not_ solved (methods are there, like migration, emulation, but complexity is too high to do this at high granularity)
+- reproducible paper is solved (literate programming, R package dependency handling solutions, ..)
+- computational RR requires sandboxing (to make sure everything is there as much as security)
+- a service is needed to create ERC for researchers and executes them in a controlled environment
+
 ### Why nested containers
 
 A user shall have access to the files without starting the runtime container.
