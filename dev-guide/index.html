@@ -188,6 +188,8 @@
             
                 <li class="third-level"><a href="#why-nested-containers">Why nested containers</a></li>
             
+                <li class="third-level"><a href="#why-is-the-runtime-image-not-mandatory">Why is the runtime image not mandatory</a></li>
+            
                 <li class="third-level"><a href="#why-bagit">Why BagIt</a></li>
             
                 <li class="third-level"><a href="#why-docker">Why Docker</a></li>
@@ -216,6 +218,10 @@
 <h1 id="erc-developer-guide">ERC developer guide</h1>
 <p>An introduction to the ERC rational and the technology choices made within the project <em>Opening Reproducible Research</em>.
 This documents is targeted at developers who wish to create tools for creating, validating, and consuming ERC.</p>
+<div class="alert note" markdown="block">
+This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
+</div>
+
 <h2 id="convention-over-configuration">Convention over configuration</h2>
 <p>We want to create a directory structure with default file names and sensible defaults.
 This way a typical research workspace should require only minimal configuration in 80% of the cases, while allowing to override each of the settings if need be and providing full customizability in the remaining 20%.</p>
@@ -237,6 +243,9 @@ However, if a user wants to use <code>rmarkdown::render(..)</code> on a file nam
 Therefore we have at least two items, so we have a bundle and need an outer container.
 As a bonus, the outer container can immediately be used to make an ERC conform to specific use cases, such as long term archival.</p>
 <p>The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.</p>
+<h3 id="why-is-the-runtime-image-not-mandatory">Why is the runtime image not mandatory</h3>
+<p>While having Docker in mind when writing the specification, an alternative idea always was to use the extension mechanisms of a given language environment, e.g. R, only to re-construct the runtime environment.
+That is why the image is not mandatory.</p>
 <h3 id="why-bagit">Why BagIt</h3>
 <p>...</p>
 <h3 id="why-docker">Why Docker</h3>
