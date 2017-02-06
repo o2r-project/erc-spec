@@ -3,6 +3,10 @@
 An introduction to the ERC rational and the technology choices made within the project _Opening Reproducible Research_.
 This documents is targeted at developers who wish to create tools for creating, validating, and consuming ERC.
 
+<div class="alert note" markdown="block">
+This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
+</div>
+
 ## Convention over configuration
 
 We want to create a directory structure with default file names and sensible defaults.
@@ -30,6 +34,11 @@ Therefore we have at least two items, so we have a bundle and need an outer cont
 As a bonus, the outer container can immediately be used to make an ERC conform to specific use cases, such as long term archival.
 
 The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.
+
+### Why is the runtime image not mandatory
+
+While having Docker in mind when writing the specification, an alternative idea always was to use the extension mechanisms of a given language environment, e.g. R, only to re-construct the runtime environment.
+That is why the image is not mandatory.
 
 ### Why BagIt
 

@@ -6,7 +6,7 @@ However, a fundamental goal of the ERC specification is to be simple enough to a
 For using tools or services for creation and validation of ERCs, please see the [developer guide](../dev-guide/index.md).
 
 <div class="alert note" markdown="block">
-This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="">git repo</a> and submit a pull request.
+This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 </div>
 
 ## Step 1: create workspace

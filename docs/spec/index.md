@@ -40,15 +40,15 @@ The key words "unspecified", "undefined", and "implementation-defined" are to be
 
 ## Purpose
 
-This specification defines a structure to carry and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science).
+This specification defines a structure to carry and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science)).
 
 These analyses typically comprise a workspace on a researchers computer, which comprises _data_, _code_, third party software or libraries, and outputs such as plots.
 Code and libraries are required in executable form to re-do an analysis.
-The research is put into context in a _text_/publication that is part [scholarly communication](https://en.wikipedia.org/wiki/Scholarly_communication).
+Research is only put into a context by a _textual_ publication, which is published in [scholarly communication](https://en.wikipedia.org/wiki/Scholarly_communication).
 The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
-The latter is often derived/rendered from the former and can be static, visual, or even interactive.
+The latter is often derived, or "rendered", from the former and can be static, visual, or even interactive.
 
-Putting all of this elements in a self-contained bundle allows to understand, reproduce, transfer, archive, and validate computaional research.
+Putting all of this elements in a self-contained bundle allows understanding, reproducing, transferring, archiving, and validating computational research.
 The ERC specification defines metadata and file structures to support these actions.
 
 ## Fundamental design concepts
@@ -62,16 +62,17 @@ This specification should not re-do something which already exists (if it is an 
 It must be possible to create a valid and working ERC manually.
 
 The final important notion is the one of _nested containers_.
-Acknowledging well defined standards exist for packaging a set of files, and different approaches to create an executable code package are possible, the collection of files which make up an ERC comprise _one or more containers but are themselves subject to being put into a container_.
-We distinguish these containers into the inner or "runtime" container and the outer container.
+We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
+Therefore the an ERC comprises _one or more containers but is itself subject to being put into a container_.
+We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation
 
 ## How to use an ERC
 
 The steps to (re-)run the analysis contained in an ERC are as follows:
 
-- (if compressed first extract then) open the ERC
-- execute the container
-- compare the output contained in the bag with the just created new output
+- (if compressed first extract then) unpack the ERC's outer container
+- execute the runtime container
+- compare the output files contained in the outer container with the just output files just created by the runtime container
 
 This way ERC allow computational reproducibility based on the original code and data.
 
@@ -89,30 +90,35 @@ The base directory MUST contain an [ERC configuration file](#erc-configuration-f
 
 Besides the files mentioned in this specification, the base directory may contain any other file and directories.
 
-### Main file
+### Main document & display file
 
 An ERC MUST have a _main document_, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
-The main documents name SHOULD be `paper` with an appropriate extension, e.g. `.tex`.
-
-### Display file
+The main document's name SHOULD be `main` with an appropriate extension and media type.
+For example if the main document is RMarkdown, then the extension should be `.Rmd` and the media type `text/markdown`.
 
 An ERC MUST have a _display file_, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.
-The display file SHOULD be named `paper` with an appropriate extension, e.g. `.pdf` or `.html`.
+The display file's name SHOULD be `view` with an appropriate extension and media type.
+For example if the main document is Hypertext Markup Language (HTML), then the extension should be `.htm` or `.html` and the media type `text/html`.
+
+The display file is often "rendered" from the main file.
 
 ## Nested runtime
 
 The embedding of a representation of the original runtime environment, in which an analysis was conducted, is crucial for supporting reproducible computations.
-This section defines two such representations, one documenting and one executable. 
+This section defines two such representations.
+First, an executable image.
+Second, a manifest documenting the image's contents.
 
-The format of these representations is undefined and SHOULD be stated more precisely in an extension.
+The format of these representations is undefined here and can be stated more precisely in an extension to this specification.
 
-A concrete runtime extension may choose to embed the runtime environment or to rely on constructing it from the manifest.
+A concrete runtime extension may choose to (a) embed the runtime environment in the image, or (b) to rely on constructing the runtime environment from the manifest.
 
 ### Runtime environment or image
 
-The base directory SHOULD contain a runnable image, e.g. a binary, of the original analysis environment that can be used to re-run the packaged analysis.
+The base directory SHOULD contain a runnable image, e.g. a "binary", of the original analysis environment that can be used to re-run the packaged analysis using a suitable software.
 
-The file SHOULD be named `image` with an appropriate extension, such as `.tar` or `.bin`.
+The image file may be compressed.
+It SHOULD be named `image` with an appropriate extension, such as `.tar` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
 
 The output of the image execution can be shown to the user to convey detailed information on progress or errors.
 
@@ -126,7 +132,7 @@ A concrete runtime extension MUST define the command to create the runnable envi
 
 ### Runtime manipulation
 
-Bundline a complete runtime gives the possibility to manipulate the contained workflow or exchange data.
+Bundling a complete runtime gives the possibility to manipulate the contained workflow or exchange data.
 
 The manipulation parameters SHOULD be defined in a concrete runtime extension.
 
@@ -173,7 +179,7 @@ The configuration file MUST contain [bash](https://en.wikipedia.org/wiki/Bash_(U
 
 These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file.
 
-Default command statements SCHOULD be defined by an extension for a working ERC.
+Default command statements SHOULD be defined by an extension for a working ERC.
 
 The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
 This includes, for example, setting the time zone via an environment variable `-e TZ=CET` so that output formatting of timestamps does not break validation.
@@ -249,17 +255,18 @@ It IS NOT possible to assign one license to a directory and override that assign
 
 ### Software metadata
 
-An ERC SHOULD provide a machine readable list of software that is contained.
-This list can have different formats for different use cases or depending on the source of information, which is probably a tool rather than manual creation.
+An ERC SHOULD provide a machine readable list of software that is contained in the runtime environment to support reproducibility in case the runtime image and manifest are not usable anymore.
+This list can have different formats for different use cases or depending on the source of information, which is probably a tool rather than manual creation, for example package managers.
 The information can also be quite extensive.
 
 Therefore this information MUST NOT be included in the ERC configuration file but SHOULD be referenced from there to support implementing tools.
+The metadata documents MUST be listed as paths relative to the base directory and MUST be plain text files.
 
-The software metadata documents, if present, MUST be listed as paths relative to the base directory.
+Information on the format of the files SHOULD be conveyed to human users based on file name and file extension, for example `dpkg_installed-package-list.txt`.
 
-Information on the format of the files SHOULD be conveyed to both human and machine users based on file name and file extension.
+Further details are unspecified here.
 
-Further details are unspecified here but could be defined in specification extensions.
+Example for software metadata file listing in the ERC configuration file.
 
 ```yml
 ---
@@ -296,8 +303,8 @@ However, it is unspecified into which root node or nodes of the ERC configuratio
 ## .ercignore file
 
 The ERC MAY contain a file named `.ercignore` in the base directory.
-If this file is present, any files and directories matching the patterns within that file will be excluded from processes such as validation.
-The newline-separated patterns in the file will be treated as [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
+If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the validation process.
+The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
 
 Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.
 
@@ -309,23 +316,21 @@ ERC validation comprises four steps:
 
 1. checking required metadata elements
 1. executing the runtime container
-1. comparing the results of the runtime container execution with the original files
-1. running checks of used extensions
+1. comparing the output files of the runtime container execution with the original output files in the outer container
+1. running checks of active extensions
 
-The comparison step SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to hash as a comparison_.
+The comparison step (`3.`) SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to compare with hashes_, for example text-based documents but not compressed pictures.
 
 The validation MUST NOT fail when files listed in `.ercignore` are failing comparison.
 
-The following [media types](https://en.wikipedia.org/wiki/Media_type) are a regular expressions of file formats that SHALL be used (unless ignored) for comparison:
+The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml)) are a regular expressions of file formats that SHALL be used (unless ignored) for comparison:
 
 - `text/*`
 - `application/json`
 - `*+xml`
 - `*+json`
 
-See [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml).
-
-The validation SHOULD communicate all files and directories used for validation to the user to avoid malicious usage of an `.ercignore` file.
+The validation SHOULD communicate all files and directories actually used for validation to the user to avoid malicious usage of an `.ercignore` file.
 
 ## Security considerations
 
@@ -338,24 +343,30 @@ Why are ERC not a security risk?
 
 ## Secondary metadata files
 
-An ERC can be an object in several use cases.
-For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference, it can be a preserved item in a research repository.
-All of these probably have their own standards and requirements when it comes to metadata.
-These metadata requirements are _not_ part of this specification, but the following conventions should simplify their (re-)use.
+An ERC can be an object in very diverse use cases.
+For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference, it can be a preserved item in a digital archive.
+All of these have their own standards and requirements when it comes to metadata.
+These metadata requirements are _not_ part of this specification, but the following conventions are made to simplify and coordinate the variety.
 
-Domain or use case specific metadata SHOULD replicate all and only the information required for the specific case.
+Metadata specific to a particular domain or use case MUST replicate the information required for the specific case in an independent file.
+Domain metadata SHOULD follow domain conventions and standards regarding format and encoding of metadata.
+Duplicate information is accepted, because it lowers the entry barrier for domain experts and systems, who can simply pick up a metadata copy in a format known to them.
 
-Metadata documents of specific use cases SHOULD be stored in a directory `.erc` in the base directory.
+Metadata documents of specific use cases MUST be stored in a directory `.erc`, which is a child-directory of the ERC base directory.
 
-They SHOULD be named according to the used standard or platform, and the used format, e.g. `datacite.xml` or `zenodo_sandbox.json`.
+Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. `datacite.xml` or `zenodo_sandbox.json`, and SHOULD use a suitable mime type.
 
 ## Comprehensive example of erc.yml
 
-The following example shows all possible fields and their default values of the core specification.
+The following example shows all possible fields of the core specification with example values.
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
+metadata:
+  software:
+    - .erc/software_codemeta.json
+    - dpkg--list.txt
 structure:
   payload_directory: "data"
   config_file: "erc.yml"
@@ -363,11 +374,19 @@ structure:
   container_manifest: "Dockerfile"
 execution:
   mountpoint: "/erc"
-  command: "rmarkdown::render(input = 'paper.Rmd', output_format = )"
+  command: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
 licenses:
-  ...
+  code:
+    others_lib.bin: MIT
+    my_code.c: GPL-3.0
+  text:
+    README.md: CC0-1.0
+    paper/chapter01.doc: CC-BY-4.0
+    paper/chapter02.tex: CC-BY-4.0
+extensions:
+  - extension_name_1
+  - "yet another extension"
 ```
-
 
 [c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
 [rfc2119]: http://tools.ietf.org/html/rfc2119
