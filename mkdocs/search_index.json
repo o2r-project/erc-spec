@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/",
-            "text": "Executable Research Compendium\n\n\n\n\nSpecification\n\n\nUser guide\n\n\nDeveloper guide\n\n\n\n\nCredits\n\n\nThis specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research\n\n\n\n\nLicense\n\n\n\n\nThe o2r Executable Research Compendium specification is licensed under \nCreative Commons CC0 1.0 Universal License\n, see file \nLICENSE\n.\nTo the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.\nThis work is published from: Germany.\n\n\nBuild @@VERSION@@ @ @@TIMESTAMP@@",
+            "text": "Executable Research Compendium\n\n\n\n\nSpecification\n\n\nUser guide\n\n\nManual ERC creation\n\n\nERC templates\n\n\n\n\n\n\nDeveloper guide\n\n\n\n\nCredits\n\n\nThis specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research\n\n\n\n\nLicense\n\n\n\n\nThe o2r Executable Research Compendium specification is licensed under \nCreative Commons CC0 1.0 Universal License\n, see file \nLICENSE\n.\nTo the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.\nThis work is published from: Germany.\n\n\nBuild @@VERSION@@ @ @@TIMESTAMP@@",
             "title": "Home"
         },
         {
             "location": "/#executable-research-compendium",
-            "text": "Specification  User guide  Developer guide",
+            "text": "Specification  User guide  Manual ERC creation  ERC templates    Developer guide",
             "title": "Executable Research Compendium"
         },
         {
@@ -162,7 +162,7 @@
         },
         {
             "location": "/spec/docker/",
-            "text": "Docker runtime extension\n\n\nThis extension uses \nDocker\n to define, build, and store the runtime environment.\n\n\nThe runtime environment or image MUST be represented by a \nDocker image v1.2.0\n.\n\n\nThe runtime manifest MUST be represented by a \nDockerfile\n, see \nDocker builder reference\n, as defined in version \n1.12.x\n.\n\n\nDocker image\n\n\nThe base directory MUST contain a \ntarball\n of a Docker image as created be the command \ndocker save\n, see \nDocker CLI save command documentation\n, as defined in version \n1.12.x\n.\n\n\nThe file SHOULD be named \nimage.tar\n.\n\n\nThe output of the container during execution can be shown to the user to convey detailed information.\n\n\nDockerfile\n\n\nThe base directory MUST contain a valid Dockerfile, see \nDockerfile reference\n.\nThe Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the \nruntime container file\n using \ndocker build\n, see \nDocker CLI build command documentation\n, as defined in version [\n1.12.x](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).\nThe build SHOULD be done with the option\n--no-cache=true`.\n\n\nThe file SHOULD be named \nDockerfile\n.\nDiffering file names MUST be specified in the extension metadata, the exact node is left implementation-specific.\n\n\nThe Dockerfile MUST contain the required instruction \nFROM\n, which MUST NOT use the \nlatest\n tag.\n\n\nThe Dockerfile SHOULD contain the instruction \nMAINTAINER\n to provide copyright information.\n\n\nThe Dockerfile MUST have an active instruction \nCMD\n, or a combination of the instructions \nENTRYPOINT\n and \nCMD\n, which executes the packaged analysis.\n\n\nThe Dockerfile MUST NOT contain \nEXPOSE\n instructions.\n\n\nThe Dockerfile MUST contain a \nVOLUME\n instruction to define the mount point of the ERC within the container.\nThis mountpoint SHOULD be \n/erc\n.\nIf the mountpoint is different from \n/erc\n, the value MUST be defined in \nerc.yml\n in a node \nexecution.mountpoint\n.\n\n\nExample for the mountpoint configuration:\n\n\n---\nid: b9b0099e-9f8d-4a33-8acf-cb0c062efaec\nspec_version: 1\nexecution:\n  mountpoint: \"/erc\"\n\n\n\n\nExample for a Dockerfile:\n\n\nFROM debian\nMAINTAINER o2r project team <http://o2r.info>\n\nVOLUME [\"/erc\"]\n\nCMD [\"/erc/run_analysis.sh\", \"--debug\", \"-i\", \"/erc/inputdata\"]\n\n\n\n\nMetadata in container manifest - \nUnder development\n\n\n... use \nLABEL\n and \nENV\n installations?\n\n\nDefault control statements\n\n\nThe default control statements of implementing tools MUST be as shown in the following example configuration file.\n\n\nid: b9b0099e-9f8d-4a33-8acf-cb0c062efaec\nversion: 1\nexecution:\n  command:\n    - `docker load --input image.tar`\n    - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`\n\n\n\n\nRuntime manipulation\n\n\n...\n\n\nData exchange\n\n\n...",
+            "text": "Docker runtime extension\n\n\nThis extension uses \nDocker\n to define, build, and store the runtime environment.\n\n\nThe runtime environment or image MUST be represented by a \nDocker image v1.2.0\n.\n\n\nThe runtime manifest MUST be represented by a \nDockerfile\n, see \nDocker builder reference\n, as defined in version \n1.12.x\n.\n\n\nDocker image\n\n\nThe base directory MUST contain a \ntarball\n of a Docker image as created be the command \ndocker save\n, see \nDocker CLI save command documentation\n, as defined in version \n1.12.x\n.\n\n\nThe file SHOULD be named \nimage.tar\n.\n\n\nThe output of the container during execution can be shown to the user to convey detailed information.\n\n\nDockerfile\n\n\nThe base directory MUST contain a valid Dockerfile, see \nDockerfile reference\n.\nThe Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the \nruntime container file\n using \ndocker build\n, see \nDocker CLI build command documentation\n, as defined in version \n1.12.x\n.\nThe build SHOULD be done with the option \n--no-cache=true\n.\n\n\nThe file SHOULD be named \nDockerfile\n.\nDiffering file names MUST be specified in the extension metadata, the exact node is left implementation-specific.\n\n\nThe Dockerfile MUST contain the required instruction \nFROM\n, which MUST NOT use the \nlatest\n tag.\n\n\nThe Dockerfile SHOULD contain the instruction \nMAINTAINER\n to provide copyright information.\n\n\nThe Dockerfile MUST have an active instruction \nCMD\n, or a combination of the instructions \nENTRYPOINT\n and \nCMD\n, which executes the packaged analysis.\n\n\nThe Dockerfile MUST NOT contain \nEXPOSE\n instructions.\n\n\nThe Dockerfile MUST contain a \nVOLUME\n instruction to define the mount point of the ERC within the container.\nThis mountpoint SHOULD be \n/erc\n.\nIf the mountpoint is different from \n/erc\n, the value MUST be defined in \nerc.yml\n in a node \nexecution.mountpoint\n.\n\n\nExample for the mountpoint configuration:\n\n\n---\nid: b9b0099e-9f8d-4a33-8acf-cb0c062efaec\nspec_version: 1\nexecution:\n  mountpoint: \"/erc\"\n\n\n\n\nExample for a Dockerfile:\n\n\nFROM debian\nMAINTAINER o2r project team <http://o2r.info>\n\nVOLUME [\"/erc\"]\n\nCMD [\"/erc/run_analysis.sh\", \"--debug\", \"-i\", \"/erc/inputdata\"]\n\n\n\n\nMetadata in container manifest - \nUnder development\n\n\nUse \nLABEL\n and \nENV\n instructions to contain some metadata?\n\n\nDefault control statements\n\n\nThe default control statements of implementing tools MUST be as shown in the following example configuration file.\n\n\nid: b9b0099e-9f8d-4a33-8acf-cb0c062efaec\nversion: 1\nexecution:\n  command:\n    - `docker load --input image.tar`\n    - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`\n\n\n\n\nRuntime manipulation\n\n\n...\n\n\nData exchange\n\n\n...",
             "title": "Docker Runtime Extension"
         },
         {
@@ -177,12 +177,12 @@
         },
         {
             "location": "/spec/docker/#dockerfile",
-            "text": "The base directory MUST contain a valid Dockerfile, see  Dockerfile reference .\nThe Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the  runtime container file  using  docker build , see  Docker CLI build command documentation , as defined in version [ 1.12.x](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).\nThe build SHOULD be done with the option --no-cache=true`.  The file SHOULD be named  Dockerfile .\nDiffering file names MUST be specified in the extension metadata, the exact node is left implementation-specific.  The Dockerfile MUST contain the required instruction  FROM , which MUST NOT use the  latest  tag.  The Dockerfile SHOULD contain the instruction  MAINTAINER  to provide copyright information.  The Dockerfile MUST have an active instruction  CMD , or a combination of the instructions  ENTRYPOINT  and  CMD , which executes the packaged analysis.  The Dockerfile MUST NOT contain  EXPOSE  instructions.  The Dockerfile MUST contain a  VOLUME  instruction to define the mount point of the ERC within the container.\nThis mountpoint SHOULD be  /erc .\nIf the mountpoint is different from  /erc , the value MUST be defined in  erc.yml  in a node  execution.mountpoint .  Example for the mountpoint configuration:  ---\nid: b9b0099e-9f8d-4a33-8acf-cb0c062efaec\nspec_version: 1\nexecution:\n  mountpoint: \"/erc\"  Example for a Dockerfile:  FROM debian\nMAINTAINER o2r project team <http://o2r.info>\n\nVOLUME [\"/erc\"]\n\nCMD [\"/erc/run_analysis.sh\", \"--debug\", \"-i\", \"/erc/inputdata\"]",
+            "text": "The base directory MUST contain a valid Dockerfile, see  Dockerfile reference .\nThe Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the  runtime container file  using  docker build , see  Docker CLI build command documentation , as defined in version  1.12.x .\nThe build SHOULD be done with the option  --no-cache=true .  The file SHOULD be named  Dockerfile .\nDiffering file names MUST be specified in the extension metadata, the exact node is left implementation-specific.  The Dockerfile MUST contain the required instruction  FROM , which MUST NOT use the  latest  tag.  The Dockerfile SHOULD contain the instruction  MAINTAINER  to provide copyright information.  The Dockerfile MUST have an active instruction  CMD , or a combination of the instructions  ENTRYPOINT  and  CMD , which executes the packaged analysis.  The Dockerfile MUST NOT contain  EXPOSE  instructions.  The Dockerfile MUST contain a  VOLUME  instruction to define the mount point of the ERC within the container.\nThis mountpoint SHOULD be  /erc .\nIf the mountpoint is different from  /erc , the value MUST be defined in  erc.yml  in a node  execution.mountpoint .  Example for the mountpoint configuration:  ---\nid: b9b0099e-9f8d-4a33-8acf-cb0c062efaec\nspec_version: 1\nexecution:\n  mountpoint: \"/erc\"  Example for a Dockerfile:  FROM debian\nMAINTAINER o2r project team <http://o2r.info>\n\nVOLUME [\"/erc\"]\n\nCMD [\"/erc/run_analysis.sh\", \"--debug\", \"-i\", \"/erc/inputdata\"]",
             "title": "Dockerfile"
         },
         {
             "location": "/spec/docker/#metadata-in-container-manifest-under-development",
-            "text": "... use  LABEL  and  ENV  installations?",
+            "text": "Use  LABEL  and  ENV  instructions to contain some metadata?",
             "title": "Metadata in container manifest - Under development"
         },
         {
@@ -231,6 +231,16 @@
             "title": "OAIS - Under Development"
         },
         {
+            "location": "/spec/valid/",
+            "text": "ERC validation extension - \nUnder development\n\n\nThe \nbasic validation\n mechanism compares hashes of files where this is possible and ignores other files.\n\n\nThis extension goes beyond simple comparison and incorporates \"harder\" to compare files and what to do with them, e.g. plots/figures, PDFs, ...",
+            "title": "Validation Extension"
+        },
+        {
+            "location": "/spec/valid/#erc-validation-extension-under-development",
+            "text": "The  basic validation  mechanism compares hashes of files where this is possible and ignores other files.  This extension goes beyond simple comparison and incorporates \"harder\" to compare files and what to do with them, e.g. plots/figures, PDFs, ...",
+            "title": "ERC validation extension - Under development"
+        },
+        {
             "location": "/spec/r/",
             "text": "R extension\n\n\nHow to put R-based analyses in an ERC.\n\n\nStructure\n\n\nThe structure within the ERC contents directory are intentionally unspecified.\nHowever, the contents structure MAY follow conventions or be based on templates for organizing research artefacts.\nIf a convention is followed then it SHOULD be referenced in the ERC configuration file as a node \nconvention\n within the \nstructure\n section.\nThe node's value can be any text string which uniquely identifies a convention, but a URI or URL to either a human-readable description or technical specification is RECOMMENDED.\n\n\nA non-exhaustive list of potential conventions \nfor R\n is as follows:\n\n\n\n\nROpenSci rrrpkg\n\n\nJeff Hollister's manuscriptPackage\n\n\nCarl Boettiger's template\n\n\nFrancisco Rodriguez-Sanchez's template\n\n\n\n\n\n\nBen Marwick's template\n\n\n\n\nExample for using the ROPenSci rrrpkg convention:\n\n\nid: b9b0099e-9f8d-4a33-8acf-cb0c062efaec\nspec_version: 1\nstructure:\n  convention: https://github.com/ropensci/rrrpkg\n\n\n\n\nMain document\n\n\nThe ERC's main document as defined by this extension MUST be a weaved document, which integrates text and code and can be compiled into an interaction file.\n\n\nThe weaved document SHOULD have one of the following formats for executable documents and MUST use the respective name:\n\n\n\n\nRMarkdown\n with the name \npaper.Rmd\n\n\nSweave\n with the name \npaper.Rnw\n\n\n\n\nThe main document SHOULD NOT contain code that loads pre-computed results from files but conduct all analyses, even costly ones, during document weaving.\n\n\nRMarkdown\n\n\nThe document MUST NOT use \ncache=TRUE\n on any of the code chunks (see \nknitr\n options\n.\nWhile the previously cached files (\n.rdb\n and \n.rdx\n) may be included, they should not be used during the rendering of the document.\n\n\nSweave\n\n\nThe document MUST NOT use the \ncacheSweave\n package (\nit is archived anyway\n.\n\n\nFixing the environment in code\n\n\nThe time zone MUST be fixed to CET to allow validation of output times (potentially broken by different output formats).\n\n\nSys.setenv(\"TZ\" = \"CET\")\n\n\n\n\nInteraction file\n\n\nThe ERC MAY contain a document with interactive figures and control elements for interactive manipulation of the packaged computations.\n\n\nThe interaction file MUST have \nHTML\n format and SHOULD be valid \nHTML5\n.\n\n\nRuntime container\n\n\nThe manifest file (Dockerfile) MUST use \nR --vanilla\n.\n\n\nhttp://kbroman.org/knitr_knutshell/pages/reproducible.html",
             "title": "R Extension"
@@ -277,7 +287,7 @@
         },
         {
             "location": "/spec/man/",
-            "text": "Manipulation extension\n\n\nUI bindings\n\n\nHow is the user interface defined?\n\n\nUsing other data\n\n\nHow is external data mounted into the container and where?\n\n\nValidation\n\n\nHow are UI bindings validated/checked?",
+            "text": "Manipulation extension\n\n\nUI bindings\n\n\nHow is the user interface defined?\n\n\nUsing other data\n\n\nDefine in \nerc.yml\n which files are potential input data which can be exchanged.\n\n\nid: adcd\nmanipulate:\n    input_data:\n        - filename: are.json\n          format: geojson\n        - filename: rs.tiff\n          format: geotiff\n\n\n\n\nThen: How is external data mounted into the container and where to (what are the paths)?\n\n\nValidation\n\n\nHow are UI bindings validated/checked?",
             "title": "Manipulation Extension"
         },
         {
@@ -292,7 +302,7 @@
         },
         {
             "location": "/spec/man/#using-other-data",
-            "text": "How is external data mounted into the container and where?",
+            "text": "Define in  erc.yml  which files are potential input data which can be exchanged.  id: adcd\nmanipulate:\n    input_data:\n        - filename: are.json\n          format: geojson\n        - filename: rs.tiff\n          format: geotiff  Then: How is external data mounted into the container and where to (what are the paths)?",
             "title": "Using other data"
         },
         {
@@ -311,74 +321,84 @@
             "title": "Plain R runtime extension"
         },
         {
-            "location": "/user-guide/",
-            "text": "ERC user guide\n\n\nThis user guide comprises instructions how to create an ERC \nby hand\n.\nIt thus limited to mandatory elements in some places.\nHowever, a fundamental goal of the ERC specification is to be simple enough to allow manualy ERC creation as demonstrated in this document.\nFor using tools or services for creation and validation of ERCs, please see the \ndeveloper guide\n.\n\n\n\nThis is a draft. If you have comments or suggestions please file them in the \nissue tracker\n. If you have explicit changes please fork the \ngit repo\n and submit a pull request.\n\n\n\n\nStep 1: create workspace\n\n\nDo your research and create something useful that works for you.\n\nThe ERC specification makes no restrictions on the contents of a workspace, but guidelines and best practices do exist and should be followed by users during their research i.e. even before packaging it in an ERC.\n\n\nCode and versioning\n\n\nIf the base directory contains a script file or source code used to conduct the packaged analysis, we recoomend this code is managed using \ndistributed version control\n, see \nsoftware carpentry guidelines\n.\nThe base directory should contain a copy of the complete repository in that case.\n\n\nWorkspace structure\n\n\nThe base directory contents should follow common guidelines to project organisation.\nSome useful resources are\n\n\n\n\nSoftware carpentry paper \"Good enough practices in Scientific Computing\"\n\n\nROpenSci research compendium\n).\n\n\nROpenSci reproducibility guide\n\n\n\n\nStep 2: create container for runtime\n\n\nDockerfile\n\n\nStep 3: test container\n\n\nrun command and how to compare the output and the original\n\n\nStep 3: create metadata\n\n\nERC metadata\n\n\nstructural & administrative metadata\n\n\nbagtainer.yml\n or \nerc.json\n\n\ncontainer start command\n\n\nContent metadata\n\n\nerc_metadata.json\n == \nweb-api/<compendium>.metadata.o2r\n, or \nbagit.txt\n?\n\n\nDiscovery\n\n\n(mandatory vs. optional)\n\n\nLicenses\n\n\nhttps://speakerdeck.com/labarba/a-short-lecture-on-open-licensing\nhttps://choosealicense.com\n\n\nStep 5: validate ERC\n\n\n\n\nrun standalone validator?\n\n\n\n\nStep 4: create BagIt\n\n\ncreate\n\n\nvalidate\n\n\nTools: Bagger, bagit-py",
-            "title": "User guide"
+            "location": "/user-guide/creation/",
+            "text": "User guide: ERC creation\n\n\nThis user guide comprises instructions how to create an ERC \nby hand\n.\nIt thus limited to mandatory elements in some places.\nHowever, a fundamental goal of the ERC specification is to be simple enough to allow manualy ERC creation as demonstrated in this document.\nFor using tools or services for creation and validation of ERCs, please see the \ndeveloper guide\n.\n\n\n\nThis is a draft. If you have comments or suggestions please file them in the \nissue tracker\n. If you have explicit changes please fork the \ngit repo\n and submit a pull request.\n\n\n\n\nStep 1: create workspace\n\n\nDo your research and create something useful that works for you.\n\nThe ERC specification makes no restrictions on the contents of a workspace, but guidelines and best practices do exist and should be followed by users during their research i.e. even before packaging it in an ERC.\n\n\nCode and versioning\n\n\nIf the base directory contains a script file or source code used to conduct the packaged analysis, we recoomend this code is managed using \ndistributed version control\n, see \nsoftware carpentry guidelines\n.\nThe base directory should contain a copy of the complete repository in that case.\n\n\nWorkspace structure\n\n\nThe base directory contents should follow common guidelines to project organisation.\nSome useful resources are\n\n\n\n\nSoftware carpentry paper \"Good enough practices in Scientific Computing\"\n\n\nROpenSci research compendium\n).\n\n\nROpenSci reproducibility guide\n\n\n\n\nStep 2: create container for runtime\n\n\nTo create a working ERC you must include a complete environment description and an executable image.\n\n\nWe recommend using Docker, so a Dockerfile and a Docker container tarball, to achieve these goals.\n\n\nSee the \nDocker extension\n for detailed requirements, including links to the relevant Docker commands.\n\n\nStep 3: create metadata\n\n\nERC metadata\n\n\nStructural & administrative metadata must be put into the ERC configuration file \nerc.yml\n as defined in the \nspecification\n.\n\n\nContent metadata\n\n\nPut information on authors in the metadata of the respective main document, ideally in a structured form.\n\n\n\n\n\nLicense metadata\n\n\nPlease consult your employer or legal department for a suitable license for your work.\n\n\nFurther resources that are linked here without any endorsement or being checked:\n\n\n\n\nhttps://speakerdeck.com/labarba/a-short-lecture-on-open-licensing\n\n\nhttps://choosealicense.com (for code)\n\n\nhttp://opendefinition.org (for code, data, text)\n\n\n\n\nLicense information must be put into the ERC configuration file \nerc.yml\n as defined in the \nspecification\n.\n\n\nSecondary metadata\n\n\nSecondary metadata can be added in different formats to support different use cases, such as archival or registries.\nAs of now, we do not recommend creating secondary metadata by hand.\n\n\nStep 4: validate\n\n\nFor validation you can use the container, too.\nRun the analysis in the container, then copy the analysis output to a temporary directory on the host, and finally compare the original workspace and the temporary directory according the the \nvalidation rules\n.\n\n\nTo simplify the validation process, an ERC validation tool and accompanying \nvalidation extension\n are under development.\n\n\nStep 5: create bag\n\n\nTo create a package that is suitable for being stored in an archive or repository, follow the \narchival extension\n.\n\n\nUseful tools for creating and validating BagIt bags:\n\n\n\n\nBagger\n (Java-based, with UI)\n\n\nbagit-python\n (Python-based, available via pip, CLI interface)",
+            "title": "ERC creation guide"
         },
         {
-            "location": "/user-guide/#erc-user-guide",
+            "location": "/user-guide/creation/#user-guide-erc-creation",
             "text": "This user guide comprises instructions how to create an ERC  by hand .\nIt thus limited to mandatory elements in some places.\nHowever, a fundamental goal of the ERC specification is to be simple enough to allow manualy ERC creation as demonstrated in this document.\nFor using tools or services for creation and validation of ERCs, please see the  developer guide .  \nThis is a draft. If you have comments or suggestions please file them in the  issue tracker . If you have explicit changes please fork the  git repo  and submit a pull request.",
-            "title": "ERC user guide"
+            "title": "User guide: ERC creation"
         },
         {
-            "location": "/user-guide/#step-1-create-workspace",
+            "location": "/user-guide/creation/#step-1-create-workspace",
             "text": "Do your research and create something useful that works for you. \nThe ERC specification makes no restrictions on the contents of a workspace, but guidelines and best practices do exist and should be followed by users during their research i.e. even before packaging it in an ERC.",
             "title": "Step 1: create workspace"
         },
         {
-            "location": "/user-guide/#code-and-versioning",
+            "location": "/user-guide/creation/#code-and-versioning",
             "text": "If the base directory contains a script file or source code used to conduct the packaged analysis, we recoomend this code is managed using  distributed version control , see  software carpentry guidelines .\nThe base directory should contain a copy of the complete repository in that case.",
             "title": "Code and versioning"
         },
         {
-            "location": "/user-guide/#workspace-structure",
+            "location": "/user-guide/creation/#workspace-structure",
             "text": "The base directory contents should follow common guidelines to project organisation.\nSome useful resources are   Software carpentry paper \"Good enough practices in Scientific Computing\"  ROpenSci research compendium ).  ROpenSci reproducibility guide",
             "title": "Workspace structure"
         },
         {
-            "location": "/user-guide/#step-2-create-container-for-runtime",
-            "text": "Dockerfile",
+            "location": "/user-guide/creation/#step-2-create-container-for-runtime",
+            "text": "To create a working ERC you must include a complete environment description and an executable image.  We recommend using Docker, so a Dockerfile and a Docker container tarball, to achieve these goals.  See the  Docker extension  for detailed requirements, including links to the relevant Docker commands.",
             "title": "Step 2: create container for runtime"
         },
         {
-            "location": "/user-guide/#step-3-test-container",
-            "text": "run command and how to compare the output and the original",
-            "title": "Step 3: test container"
-        },
-        {
-            "location": "/user-guide/#step-3-create-metadata",
+            "location": "/user-guide/creation/#step-3-create-metadata",
             "text": "",
             "title": "Step 3: create metadata"
         },
         {
-            "location": "/user-guide/#erc-metadata",
-            "text": "structural & administrative metadata  bagtainer.yml  or  erc.json  container start command",
+            "location": "/user-guide/creation/#erc-metadata",
+            "text": "Structural & administrative metadata must be put into the ERC configuration file  erc.yml  as defined in the  specification .",
             "title": "ERC metadata"
         },
         {
-            "location": "/user-guide/#content-metadata",
-            "text": "erc_metadata.json  ==  web-api/<compendium>.metadata.o2r , or  bagit.txt ?",
+            "location": "/user-guide/creation/#content-metadata",
+            "text": "Put information on authors in the metadata of the respective main document, ideally in a structured form.",
             "title": "Content metadata"
         },
         {
-            "location": "/user-guide/#discovery",
-            "text": "(mandatory vs. optional)",
-            "title": "Discovery"
+            "location": "/user-guide/creation/#license-metadata",
+            "text": "Please consult your employer or legal department for a suitable license for your work.  Further resources that are linked here without any endorsement or being checked:   https://speakerdeck.com/labarba/a-short-lecture-on-open-licensing  https://choosealicense.com (for code)  http://opendefinition.org (for code, data, text)   License information must be put into the ERC configuration file  erc.yml  as defined in the  specification .",
+            "title": "License metadata"
         },
         {
-            "location": "/user-guide/#licenses",
-            "text": "https://speakerdeck.com/labarba/a-short-lecture-on-open-licensing\nhttps://choosealicense.com",
-            "title": "Licenses"
+            "location": "/user-guide/creation/#secondary-metadata",
+            "text": "Secondary metadata can be added in different formats to support different use cases, such as archival or registries.\nAs of now, we do not recommend creating secondary metadata by hand.",
+            "title": "Secondary metadata"
         },
         {
-            "location": "/user-guide/#step-5-validate-erc",
-            "text": "run standalone validator?",
-            "title": "Step 5: validate ERC"
+            "location": "/user-guide/creation/#step-4-validate",
+            "text": "For validation you can use the container, too.\nRun the analysis in the container, then copy the analysis output to a temporary directory on the host, and finally compare the original workspace and the temporary directory according the the  validation rules .  To simplify the validation process, an ERC validation tool and accompanying  validation extension  are under development.",
+            "title": "Step 4: validate"
         },
         {
-            "location": "/user-guide/#step-4-create-bagit",
-            "text": "create  validate  Tools: Bagger, bagit-py",
-            "title": "Step 4: create BagIt"
+            "location": "/user-guide/creation/#step-5-create-bag",
+            "text": "To create a package that is suitable for being stored in an archive or repository, follow the  archival extension .  Useful tools for creating and validating BagIt bags:   Bagger  (Java-based, with UI)  bagit-python  (Python-based, available via pip, CLI interface)",
+            "title": "Step 5: create bag"
+        },
+        {
+            "location": "/user-guide/template/",
+            "text": "User guide: ERC template - WORK IN PROGRESS\n\n\nIf you want to create an ERC for your research already at the beginning, and not \"post-hoc\" after your research is complete, these templates can hopefully help.\nThey are divided into specific domains to be more concrete.\n\n\nGeoscience research in R\n\n\nFiles in this template\n\n\n\n\ndocument.md\n use RMarkdown, this is the main document\n\n\nfill out the metadata fields in the yaml header of this document\n\n\nerc.yml\n is template for the ERC configuration file with placeholders for all required fields\n\n\nDockerfile\n is a template Dockerfile with some commands you can re-use to make sure all packages and tools that you need are installed\n\n\n\n\nTODO: download as zip-archive?",
+            "title": "ERC template"
+        },
+        {
+            "location": "/user-guide/template/#user-guide-erc-template-work-in-progress",
+            "text": "If you want to create an ERC for your research already at the beginning, and not \"post-hoc\" after your research is complete, these templates can hopefully help.\nThey are divided into specific domains to be more concrete.",
+            "title": "User guide: ERC template - WORK IN PROGRESS"
+        },
+        {
+            "location": "/user-guide/template/#geoscience-research-in-r",
+            "text": "Files in this template   document.md  use RMarkdown, this is the main document  fill out the metadata fields in the yaml header of this document  erc.yml  is template for the ERC configuration file with placeholders for all required fields  Dockerfile  is a template Dockerfile with some commands you can re-use to make sure all packages and tools that you need are installed   TODO: download as zip-archive?",
+            "title": "Geoscience research in R"
         },
         {
             "location": "/dev-guide/",

@@ -6,21 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <meta name="author" content="Daniel Nüst, Matthias Schutzeichel, Markus Konkol">  
-    <link rel="shortcut icon" href="../img/favicon.ico">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
 
-    <title>User guide - ERC spec</title>
+    <title>ERC template - ERC spec</title>
 
-    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
     <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="../css/base.css" rel="stylesheet">
-    <link href="../css/cinder.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/highlight.css">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/cinder.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/highlight.css">
 
 
-    <link href="../erc.css" rel="stylesheet">
+    <link href="../../erc.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -58,7 +58,7 @@
             
 
             <!-- Main title -->
-            <a class="navbar-brand" href="..">ERC spec</a>
+            <a class="navbar-brand" href="../..">ERC spec</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -69,7 +69,7 @@
                 
                 
                     <li >
-                        <a href="..">Home</a>
+                        <a href="../..">Home</a>
                     </li>
                 
                 
@@ -80,37 +80,43 @@
                         
                             
 <li >
-    <a href="../spec/">Specification</a>
+    <a href="../../spec/">Specification</a>
 </li>
 
                         
                             
 <li >
-    <a href="../spec/docker/">Docker Runtime Extension</a>
+    <a href="../../spec/docker/">Docker Runtime Extension</a>
 </li>
 
                         
                             
 <li >
-    <a href="../spec/archival/">Archival Extension</a>
+    <a href="../../spec/archival/">Archival Extension</a>
 </li>
 
                         
                             
 <li >
-    <a href="../spec/r/">R Extension</a>
+    <a href="../../spec/valid/">Validation Extension</a>
 </li>
 
                         
                             
 <li >
-    <a href="../spec/man/">Manipulation Extension</a>
+    <a href="../../spec/r/">R Extension</a>
 </li>
 
                         
                             
 <li >
-    <a href="../spec/plain_r/">Plain R Runtime Extension</a>
+    <a href="../../spec/man/">Manipulation Extension</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../spec/plain_r/">Plain R Runtime Extension</a>
 </li>
 
                         
@@ -119,20 +125,35 @@
                 
                 
                 
-                    <li class="active">
-                        <a href="./">User guide</a>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User guide <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../creation/">ERC creation guide</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">ERC template</a>
+</li>
+
+                        
+                        </ul>
                     </li>
                 
                 
                 
                     <li >
-                        <a href="../dev-guide/">Developer guide</a>
+                        <a href="../../dev-guide/">Developer guide</a>
                     </li>
                 
                 
                 
                     <li >
-                        <a href="../glossary/">Glossary</a>
+                        <a href="../../glossary/">Glossary</a>
                     </li>
                 
                 
@@ -147,12 +168,12 @@
                 </li>
                 
                     <li >
-                        <a rel="next" href="../spec/plain_r/">
+                        <a rel="next" href="../creation/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../dev-guide/">
+                        <a rel="prev" href="../../dev-guide/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -177,32 +198,9 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="first-level active"><a href="#erc-user-guide">ERC user guide</a></li>
+        <li class="first-level active"><a href="#user-guide-erc-template-work-in-progress">User guide: ERC template - WORK IN PROGRESS</a></li>
         
-            <li class="second-level"><a href="#step-1-create-workspace">Step 1: create workspace</a></li>
-            
-                <li class="third-level"><a href="#code-and-versioning">Code and versioning</a></li>
-            
-                <li class="third-level"><a href="#workspace-structure">Workspace structure</a></li>
-            
-        
-            <li class="second-level"><a href="#step-2-create-container-for-runtime">Step 2: create container for runtime</a></li>
-            
-        
-            <li class="second-level"><a href="#step-3-test-container">Step 3: test container</a></li>
-            
-        
-            <li class="second-level"><a href="#step-3-create-metadata">Step 3: create metadata</a></li>
-            
-                <li class="third-level"><a href="#erc-metadata">ERC metadata</a></li>
-            
-                <li class="third-level"><a href="#content-metadata">Content metadata</a></li>
-            
-        
-            <li class="second-level"><a href="#step-5-validate-erc">Step 5: validate ERC</a></li>
-            
-        
-            <li class="second-level"><a href="#step-4-create-bagit">Step 4: create BagIt</a></li>
+            <li class="second-level"><a href="#geoscience-research-in-r">Geoscience research in R</a></li>
             
         
     
@@ -210,53 +208,18 @@
 </div></div>
         <div class="col-md-9" role="main">
 
-<h1 id="erc-user-guide">ERC user guide</h1>
-<p>This user guide comprises instructions how to create an ERC <em>by hand</em>.
-It thus limited to mandatory elements in some places.
-However, a fundamental goal of the ERC specification is to be simple enough to allow manualy ERC creation as demonstrated in this document.
-For using tools or services for creation and validation of ERCs, please see the <a href="../dev-guide/">developer guide</a>.</p>
-<div class="alert note" markdown="block">
-This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
-</div>
-
-<h2 id="step-1-create-workspace">Step 1: create workspace</h2>
-<p><em>Do your research and create something useful that works for you.</em>
-The ERC specification makes no restrictions on the contents of a workspace, but guidelines and best practices do exist and should be followed by users during their research i.e. even before packaging it in an ERC.</p>
-<h3 id="code-and-versioning">Code and versioning</h3>
-<p>If the base directory contains a script file or source code used to conduct the packaged analysis, we recoomend this code is managed using <a href="https://en.wikipedia.org/wiki/Distributed_version_control">distributed version control</a>, see <a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#keeping-track-of-changes">software carpentry guidelines</a>.
-The base directory should contain a copy of the complete repository in that case.</p>
-<h3 id="workspace-structure">Workspace structure</h3>
-<p>The base directory contents should follow common guidelines to project organisation.
-Some useful resources are</p>
+<h1 id="user-guide-erc-template-work-in-progress">User guide: ERC template - WORK IN PROGRESS</h1>
+<p>If you want to create an ERC for your research already at the beginning, and not "post-hoc" after your research is complete, these templates can hopefully help.
+They are divided into specific domains to be more concrete.</p>
+<h2 id="geoscience-research-in-r">Geoscience research in R</h2>
+<p><strong>Files in this template</strong></p>
 <ul>
-<li><a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#project-organization">Software carpentry paper "Good enough practices in Scientific Computing"</a></li>
-<li><a href="https://github.com/ropensci/rrrpkg">ROpenSci research compendium</a>).</li>
-<li><a href="https://ropensci.github.io/reproducibility-guide/sections/introduction">ROpenSci reproducibility guide</a></li>
+<li><code>document.md</code> use RMarkdown, this is the main document</li>
+<li>fill out the metadata fields in the yaml header of this document</li>
+<li><code>erc.yml</code> is template for the ERC configuration file with placeholders for all required fields</li>
+<li><code>Dockerfile</code> is a template Dockerfile with some commands you can re-use to make sure all packages and tools that you need are installed</li>
 </ul>
-<h2 id="step-2-create-container-for-runtime">Step 2: create container for runtime</h2>
-<p>Dockerfile</p>
-<h2 id="step-3-test-container">Step 3: test container</h2>
-<p>run command and how to compare the output and the original</p>
-<h2 id="step-3-create-metadata">Step 3: create metadata</h2>
-<h3 id="erc-metadata">ERC metadata</h3>
-<p>structural &amp; administrative metadata</p>
-<p><code>bagtainer.yml</code> or <code>erc.json</code></p>
-<p>container start command</p>
-<h3 id="content-metadata">Content metadata</h3>
-<p><code>erc_metadata.json</code> == <code>web-api/&lt;compendium&gt;.metadata.o2r</code>, or <code>bagit.txt</code>?</p>
-<h4 id="discovery">Discovery</h4>
-<p>(mandatory vs. optional)</p>
-<h4 id="licenses">Licenses</h4>
-<p>https://speakerdeck.com/labarba/a-short-lecture-on-open-licensing
-https://choosealicense.com</p>
-<h2 id="step-5-validate-erc">Step 5: validate ERC</h2>
-<ul>
-<li>run standalone validator?</li>
-</ul>
-<h2 id="step-4-create-bagit">Step 4: create BagIt</h2>
-<p>create</p>
-<p>validate</p>
-<p>Tools: Bagger, bagit-py</p></div>
+<p>TODO: download as zip-archive?</p></div>
         
     </div>
 
@@ -266,15 +229,15 @@ https://choosealicense.com</p>
         <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
     </footer>
 
-    <script src="../js/jquery-1.10.2.min.js"></script>
-    <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
+    <script src="../../js/jquery-1.10.2.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+    <script src="../../js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <script>
-    var base_url = '..';
+    var base_url = '../..';
     </script>
-    <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-    <script src="../js/base.js"></script>
+    <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+    <script src="../../js/base.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
         <div class="modal-dialog">

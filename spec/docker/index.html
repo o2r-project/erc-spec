@@ -98,6 +98,12 @@
                         
                             
 <li >
+    <a href="../valid/">Validation Extension</a>
+</li>
+
+                        
+                            
+<li >
     <a href="../r/">R Extension</a>
 </li>
 
@@ -119,8 +125,23 @@
                 
                 
                 
-                    <li >
-                        <a href="../../user-guide/">User guide</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User guide <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../user-guide/creation/">ERC creation guide</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../user-guide/template/">ERC template</a>
+</li>
+
+                        
+                        </ul>
                     </li>
                 
                 
@@ -211,8 +232,8 @@
 <p>The output of the container during execution can be shown to the user to convey detailed information.</p>
 <h2 id="dockerfile">Dockerfile</h2>
 <p>The base directory MUST contain a valid Dockerfile, see <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile reference</a>.
-The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the <a href="#runtime-container-file">runtime container file</a> using <code>docker build</code>, see <a href="https://docs.docker.com/engine/reference/commandline/build/">Docker CLI build command documentation</a>, as defined in version [<code>1.12.x](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).
-The build SHOULD be done with the option</code>--no-cache=true`.</p>
+The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the <a href="#runtime-container-file">runtime container file</a> using <code>docker build</code>, see <a href="https://docs.docker.com/engine/reference/commandline/build/">Docker CLI build command documentation</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md"><code>1.12.x</code></a>.
+The build SHOULD be done with the option <code>--no-cache=true</code>.</p>
 <p>The file SHOULD be named <code>Dockerfile</code>.
 Differing file names MUST be specified in the extension metadata, the exact node is left implementation-specific.</p>
 <p>The Dockerfile MUST contain the required instruction <code>FROM</code>, which MUST NOT use the <code>latest</code> tag.</p>
@@ -240,7 +261,7 @@ CMD [&quot;/erc/run_analysis.sh&quot;, &quot;--debug&quot;, &quot;-i&quot;, &quo
 </code></pre>
 
 <h3 id="metadata-in-container-manifest-under-development">Metadata in container manifest - <em>Under development</em></h3>
-<p>... use <code>LABEL</code> and <code>ENV</code> installations?</p>
+<p>Use <code>LABEL</code> and <code>ENV</code> instructions to contain some metadata?</p>
 <h2 id="default-control-statements">Default control statements</h2>
 <p>The default control statements of implementing tools MUST be as shown in the following example configuration file.</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
