@@ -17,7 +17,7 @@ The output of the container during execution can be shown to the user to convey 
 ## Dockerfile
 
 The base directory MUST contain a valid Dockerfile, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
-The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the [runtime container file](#runtime-container-file) using `docker build`, see [Docker CLI build command documentation](https://docs.docker.com/engine/reference/commandline/build/), as defined in version [`1.12.x](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).
+The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the [runtime container file](#runtime-container-file) using `docker build`, see [Docker CLI build command documentation](https://docs.docker.com/engine/reference/commandline/build/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).
 The build SHOULD be done with the option `--no-cache=true`.
 
 The file SHOULD be named `Dockerfile`.
@@ -58,7 +58,7 @@ CMD ["/erc/run_analysis.sh", "--debug", "-i", "/erc/inputdata"]
 
 ### Metadata in container manifest - _Under development_
 
-... use `LABEL` and `ENV` installations?
+Use `LABEL` and `ENV` instructions to contain some metadata?
 
 ## Default control statements
 

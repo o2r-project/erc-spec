@@ -1,7 +1,9 @@
 # Executable Research Compendium
 
 - [Specification](spec/index.md)
-- [User guide](user-guide/index.md)
+- **User guide**
+    - [Manual ERC creation](user-guide/creation.md)
+    - [ERC templates](user-guide/template.md)
 - [Developer guide](dev-guide/index.md)
 
 ## Credits

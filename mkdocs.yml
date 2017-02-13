@@ -7,10 +7,13 @@ pages:
     - Specification: spec/index.md
     - Docker Runtime Extension: spec/docker.md
     - Archival Extension: spec/archival.md
+    - Validation Extension: spec/valid.md
     - R Extension: spec/r.md
     - Manipulation Extension: spec/man.md
     - Plain R Runtime Extension: spec/plain_r.md
-  - User guide: user-guide/index.md
+  - User guide:
+    - ERC creation guide: user-guide/creation.md
+    - ERC template: user-guide/template.md
   - Developer guide: dev-guide/index.md
   - Glossary: glossary.md
 theme:  cinder # material readthedocs # flatly
