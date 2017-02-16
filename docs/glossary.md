@@ -39,7 +39,7 @@ The file created by the author of the original analysis.
 
 ## ERC metadata
 
-...
+Schema compliant information about the ERC, its contents and creators.
 
 ## Inner container
 
@@ -48,6 +48,10 @@ See [runtime container](#runtime-container)
 ## Interaction file
 
 The file in the container that a reader opens using a suitable tool to read the text and explore the graphics.
+
+## OAIS
+
+The Open Archival Information System and its reference model.
 
 ## Outer container
 
