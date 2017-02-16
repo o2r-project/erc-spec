@@ -1,10 +1,10 @@
 # Archival extension
 
-To make ERC compatible with workflows and standards in the archival and preservation domains, this exstension defines metadata and an outer bundle.
+This extension places the ERC in the context of preservation workflows by defining structural information and other metadata that guarantee interpretability and enable the bundling of the complete ERC as a self-contained digital object.
 
 ## Archival bundle
 
-[BagIt][bagit] is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation.
+In order to bundle the complete ERC, it can be packaged using the [BagIt][bagit] standard. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation.
 
 For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations apply to it.
 
@@ -15,7 +15,7 @@ The remainder of this section comprises (i) a description of the outer container
 The ERC base directory MUST be the BagIt payload directory `data/`.
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
 
-The bag metadata file `bag-info.txt` MUST contain a metadata element of the label `ERC-Version` and the version of the ERC paylod as value.
+The bag metadata file `bag-info.txt` MUST contain a metadata element of the label `ERC-Version` and the version of the ERC payload as value.
 
 ```txt
 Payload-Oxum: 2172457623.43
@@ -93,8 +93,13 @@ A [Bagit Profile][bagitprofiles] as outlined below could make the requirements o
 [bagit]: http://tools.ietf.org/html/draft-kunze-bagit
 [bagitprofiles]: https://github.com/ruebot/bagit-profiles
 
-## OAIS - _Under Development_
+## ERC preservation aspects in the light of OAIS
 
-> _An Open Archival Information System (or OAIS) is an archive, consisting of an organization of people and systems, that has accepted the responsibility to preserve information and make it available for a Designated Community._ [Wikipedia](https://en.wikipedia.org/wiki/Open_Archival_Information_System)
+The Open Archival Information System (OAIS) reference model is a framework for the preservation and dissimination of digital objects (assets), created by the Consultative Committee for Space Data Systems (CCSDS) and adopted by a wide range of international institutions. It provides the terminology and concept of the _information package_ as primitive of the archival workflow. Submission information packages (SIP), Dissimination information packages (DIP) and Archival information package (AIP) refer to different functional roles of a digital object during (long term) preservation.
 
-TBD
+The representation information object within OAIS consists of structural and semantic information and is itself linked to other units of representation information, building a representation network. The information contained within the ERC metadata serves as representation information and enables the interpretability of the archived software, environment, code, data, text and UI bindings. Standards used for representation are included as local copy of the underlying schema and reference to its persistent identifier. The network of information objects describes how the parts of the ERC relate to each other and how they are to be interpreted.
+
+References
+
+- CCSDS (2012): RECOMMENDED PRACTICE FOR AN OAIS REFERENCE MODEL. CCSDS 650.0-M-2 (Magenta Book). http://public.ccsds.org/publications/archive/650x0m2.pdf
+- Maack, M.N. (2015). The Open Archival Information System (oais) Reference Model.
