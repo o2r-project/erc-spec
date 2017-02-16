@@ -103,3 +103,19 @@ References
 
 - CCSDS (2012): RECOMMENDED PRACTICE FOR AN OAIS REFERENCE MODEL. CCSDS 650.0-M-2 (Magenta Book). http://public.ccsds.org/publications/archive/650x0m2.pdf
 - Maack, M.N. (2015). The Open Archival Information System (oais) Reference Model.
+
+
+## Secondary metadata files
+
+An ERC can be an object in very diverse use cases.
+For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference, it can be a preserved item in a digital archive.
+All of these have their own standards and requirements when it comes to metadata.
+These metadata requirements are _not_ part of this specification, but the following conventions are made to simplify and coordinate the variety.
+
+Metadata specific to a particular domain or use case MUST replicate the information required for the specific case in an independent file.
+Domain metadata SHOULD follow domain conventions and standards regarding format and encoding of metadata.
+Duplicate information is accepted, because it lowers the entry barrier for domain experts and systems, who can simply pick up a metadata copy in a format known to them.
+
+Metadata documents of specific use cases MUST be stored in a directory `.erc`, which is a child-directory of the ERC base directory.
+
+Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. `datacite.xml` or `zenodo_sandbox.json`, and SHOULD use a suitable mime type.
