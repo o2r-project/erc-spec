@@ -35,5 +35,5 @@ keywords: [lorem, ipsum, dolor , sit, amet]
 TODO: Provide the download zip-archive
 
 **Filename** | **Template** | **ERC-Spec** 
------- | ------ | ------ | ------ |
+------ | ------ | ------ |
 [geo_template.zip]() _TBD_ | Geoscience research in R | V.1
