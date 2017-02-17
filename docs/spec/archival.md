@@ -1,12 +1,12 @@
 # Archival extension
 
-This extension places the ERC in the context of preservation workflows by defining structural information and other metadata that guarantee interpretability and enable the bundling of the complete ERC as a self-contained digital object.
+This extension places the ERC in the context of preservation workflows by defining structural information and other metadata that guarantee interpretability and enable the bundling of the complete ERC as a self-contained, archivable digital object.
 
 ## Archival bundle
 
-In order to bundle the complete ERC, it can be packaged using the [BagIt][bagit] standard. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation.
+In order to bundle the complete ERC, it can be packaged using the [BagIt][bagit] standard. This allows to store and transfer arbitrary content along with minimal metadata as well as checksum based payload validation.
 
-For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations apply to it.
+For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations may apply.
 
 The remainder of this section comprises (i) a description of the outer container, and (ii) a BagIt profile.
 
@@ -32,7 +32,7 @@ Example file tree for a bagged ERC:
 ├── data
 │   ├── 2016-07-17-sf2.Rmd
 │   ├── erc.yml
-│   └── Dockerfile
+│   ├── Dockerfile
 │   └── runtime.tar
 ├── manifest-md5.txt
 └── tagmanifest-md5.txt
@@ -95,9 +95,10 @@ A [Bagit Profile][bagitprofiles] as outlined below could make the requirements o
 
 ## ERC preservation aspects in the light of OAIS
 
-The Open Archival Information System (OAIS) reference model is a framework for the preservation and dissimination of digital objects (assets), created by the Consultative Committee for Space Data Systems (CCSDS) and adopted by a wide range of international institutions. It provides the terminology and concept of the _information package_ as primitive of the archival workflow. Submission information packages (SIP), Dissimination information packages (DIP) and Archival information package (AIP) refer to different functional roles of a digital object during (long term) preservation.
+The Open Archival Information System (OAIS) reference model is a framework for the preservation and dissimination of digital objects (assets). It has been created by the Consultative Committee for Space Data Systems (CCSDS) and  has since been adopted by a wide range of international institutions. The OAIS provides the terminology and concept of the _information package_ as primitive of the digital preservation workflow. Submission information packages (SIP), Dissimination information packages (DIP) and Archival information packages (AIP) refer to different functional roles of a digital object during (long term) preservation.
 
-The representation information object within OAIS consists of structural and semantic information and is itself linked to other units of representation information, building a representation network. The information contained within the ERC metadata serves as representation information and enables the interpretability of the archived software, environment, code, data, text and UI bindings. Standards used for representation are included as local copy of the underlying schema and reference to its persistent identifier. The network of information objects describes how the parts of the ERC relate to each other and how they are to be interpreted.
+The representation information object within OAIS consists of structural and semantic information and is itself linked to other units of representation information, building a representation network. The information contained within the ERC and its metadata serves as representation information and enables the interpretability of the archived software, environment, code, data, text and UI bindings. Standards used for representation are included as local copy of the underlying schema and as reference to their persistent identifiers. The network of information objects describes how the parts of the ERC relate to each other and how they are to be used and understood.
+
 
 References
 
@@ -107,10 +108,9 @@ References
 
 ## Secondary metadata files
 
-An ERC can be an object in very diverse use cases.
-For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference, it can be a preserved item in a digital archive.
-All of these have their own standards and requirements when it comes to metadata.
-These metadata requirements are _not_ part of this specification, but the following conventions are made to simplify and coordinate the variety.
+The ERC as an object can be used in a broad range of cases. For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference or it can be a preserved item in a digital archive. All of these have their own standards and requirements to apply, when it comes to metadata.
+
+~~These metadata requirements _are not_ part of this specification, but~~ the following conventions are made to simplify and coordinate the variety.
 
 Metadata specific to a particular domain or use case MUST replicate the information required for the specific case in an independent file.
 Domain metadata SHOULD follow domain conventions and standards regarding format and encoding of metadata.
@@ -118,4 +118,4 @@ Duplicate information is accepted, because it lowers the entry barrier for domai
 
 Metadata documents of specific use cases MUST be stored in a directory `.erc`, which is a child-directory of the ERC base directory.
 
-Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. `datacite.xml` or `zenodo_sandbox.json`, and SHOULD use a suitable mime type.
+Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. `datacite40.xml` or `zenodo_sandbox10.json`, and SHOULD use a suitable mime type.
