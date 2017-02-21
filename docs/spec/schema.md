@@ -33,9 +33,10 @@ Current JSON dummy to visualise the schema properties
 {
 	"author": [{
 		"name": null,
-		"affiliation": null,
+		"affiliation": [],
 		"orcid": null
 	}],
+	"community": "o2r",
 	"depends": [{
 		"identifier": null,
 		"version": null,
@@ -50,7 +51,9 @@ Current JSON dummy to visualise the schema properties
 		"mimetype": null
 	},
 	"generatedBy": "o2r-meta metaextract.py",
-	"interactionMethod": null,
+    "interaction": {
+        "interactive": false
+    },
 	"keywords": [],
 	"license": null,
 	"paperLanguage": [],
@@ -75,6 +78,35 @@ Current JSON dummy to visualise the schema properties
 ```
 
 
+## Rationales
 
+Defining explanations on the concept of each metadata element in use.
 
-
++ `author` is contains a list of author related information.
++ `author.affiliation` A list of institutions, organizations or other groups that the creator of the asset is associated with.
++ `author.name` The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.
++ `author.orcid` the ORCid of the creator of the asset.
++ `depends` A block for each entity that the software is dependent on for execution.
++ `depends.identifier` An identifying name for the depending package.
++ `depends.version` The computer software and hardware required to run the software.
++ `depends.packageSystem` The package manager system that makes the dependency entity available.
++ `description` A text representation conveying the purpose and scope of the asset.
++ `ercIdentifier` A universally unique character string associated with the asset as _executable research compendium_.
++ `generatedBy` The entity, person or tool, that created the software.
++ `interaction` Information on how to interact with the asset.
++ `interaction.interactive` indicates interaction such as shiny app dynamics is possible.
++ `interaction.interactive` is the indicator, if shiny is present.
++ `keywords` Tags associated with the asset.
++ `paperLanguage` A list of language codes that indicate the language of the asset, eg. _en_.
++ `paperSource` is the text document file of the paper.
++ `recordDateCreated` The date that this metadata record was created.
++ `softwarePaperCitation` A text string that can be used to authoritatively cite a research paper, conference proceedings or other scholarly work that describes the design, development, usage, significance or other aspect of the software.
++ `spatial` Information about the geometric bounding box of the underlying data/software.
++ `spatial.union` A Geojson object of the aggregated bounding boxes of the underlying data/software.
++ `temporal.begin` The starting point of said time period.
++ `temporal.end` The end point of said time period.
++ `temporal` Aggregated information about the relevant time period of the underlying data or contents.
++ `title` The distinguishing name associated with the asset.
++ `version` A unique string indicating a specific state of the software, i.e. an initial public release, an update or bug fix release, etc. No version format or schema is enforced for this value.
++ ~~`depends.operatingSystem` The operating system for the software to run under.~~
++ ~~`objectType` The category of the resource that is associated with the software. TO DO: controlled list, such as software, paper, data, image.~~

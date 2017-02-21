@@ -13,7 +13,7 @@ They are divided into specific domains to be more concrete.
 
 ### Header template
 
-The yaml header of the `document.md` file is the right place to enter your meta information right away from the start: Fill out the metadata fields, included in the template, as early in your personal workflow as possible and keep them up-to-date to prepare for the ERC creation progress.
+The yaml header of the `document.md` file is the right place to enter your meta information right away from the start: Fill out the metadata fields, included in the template, as early in your personal workflow as possible and keep them up-to-date to prepare for the ERC creation progress. The metadata extractor of the o2r service will collect and prefer information from RMarkdown document headers.
 
 ```yml
 ---
@@ -28,13 +28,12 @@ title: The title of your publication
 abstract:
   A concise description of your publication
 keywords: [lorem, ipsum, dolor, sit, amet]
-date: '2017-01-13'
-license: 'cc-by'
+date: 2017-01-13
+license: cc-by
 ---
 ```
 
 
-TODO: Provide the download zip-archive
 
 **Filename** | **Template** | **ERC-Spec** 
 ------ | ------ | ------ |
