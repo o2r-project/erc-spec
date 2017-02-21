@@ -119,3 +119,36 @@ Duplicate information is accepted, because it lowers the entry barrier for domai
 Metadata documents of specific use cases MUST be stored in a directory `.erc`, which is a child-directory of the ERC base directory.
 
 Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. `datacite40.xml` or `zenodo_sandbox10.json`, and SHOULD use a suitable mime type.
+
+### Requirements of secondary metadata
+
+In order to comply to their governing schemas, secondary metadata must include the mandatory information as set by 3rd party services. While the documentation of this quality is a perpetual task, we have gathered the information most relevant our selection of connected services.
+
+**Zenodo**
+
++ Accepts metadata as json.
++ Mandatory elements:
+	+ Upload Type (e.g. Publication)
+	+ Publication Type
+	+ Title
+	+ Creators
+	+ Description
+	+ Publication Date
+	+ Access Right
+	+ License
+
+
+
+**DataCite (4.0)**
+
++ Accepts metadata as xml.
++ Mandatory elements:
+	+ Identifier
+	+ Creator
+	+ Title
+	+ Publisher
+	+ Publication Year
+	+ Ressource Type
+
+
+Other third party standards that will be considered comprise: _CodeMeta_, _EuDat_, _mets/mods_.

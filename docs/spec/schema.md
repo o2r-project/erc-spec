@@ -82,7 +82,7 @@ Current JSON dummy to visualise the schema properties
 
 Defining explanations on the concept of each metadata element in use.
 
-+ `author` is contains a list of author related information.
++ `author` Contains a list of author related information.
 + `author.affiliation` A list of institutions, organizations or other groups that the creator of the asset is associated with.
 + `author.name` The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.
 + `author.orcid` the ORCid of the creator of the asset.
@@ -97,7 +97,7 @@ Defining explanations on the concept of each metadata element in use.
 + `interaction.interactive` indicates interaction such as shiny app dynamics is possible.
 + `interaction.interactive` is the indicator, if shiny is present.
 + `keywords` Tags associated with the asset.
-+ `paperLanguage` A list of language codes that indicate the language of the asset, eg. _en_.
++ `paperLanguage` A list of language codes that indicate the language of the asset, e.g. _en_.
 + `paperSource` is the text document file of the paper.
 + `recordDateCreated` The date that this metadata record was created.
 + `softwarePaperCitation` A text string that can be used to authoritatively cite a research paper, conference proceedings or other scholarly work that describes the design, development, usage, significance or other aspect of the software.
