@@ -202,6 +202,8 @@
         
             <li class="second-level"><a href="#geoscience-research-in-r">Geoscience research in R</a></li>
             
+                <li class="third-level"><a href="#header-template">Header template</a></li>
+            
         
     
     </ul>
@@ -215,11 +217,46 @@ They are divided into specific domains to be more concrete.</p>
 <p><strong>Files in this template</strong></p>
 <ul>
 <li><code>document.md</code> use RMarkdown, this is the main document</li>
-<li>fill out the metadata fields in the yaml header of this document</li>
 <li><code>erc.yml</code> is template for the ERC configuration file with placeholders for all required fields</li>
 <li><code>Dockerfile</code> is a template Dockerfile with some commands you can re-use to make sure all packages and tools that you need are installed</li>
 </ul>
-<p>TODO: download as zip-archive?</p></div>
+<h3 id="header-template">Header template</h3>
+<p>The yaml header of the <code>document.md</code> file is the right place to enter your meta information right away from the start: Fill out the metadata fields, included in the template, as early in your personal workflow as possible and keep them up-to-date to prepare for the ERC creation progress. The metadata extractor of the o2r service will collect and prefer information from RMarkdown document headers.</p>
+<pre><code class="yml">---
+author:
+  - name: Your Name
+    affiliation: Your affiliation
+    orcid: Your ORCid
+  - name: Your co-author's name
+    affiliation: Their affiliation
+    orcid: Their ORCid
+title: The title of your publication
+abstract:
+  A concise description of your publication
+keywords: [lorem, ipsum, dolor, sit, amet]
+date: 2017-01-13
+license: cc-by
+---
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th><strong>Filename</strong></th>
+<th><strong>Template</strong></th>
+<th><strong>ERC-Spec</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="">geo_template.zip</a> <em>TBD</em></td>
+<td>Geoscience research in R</td>
+<td>V.1</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
         
     </div>
 

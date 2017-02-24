@@ -207,7 +207,12 @@
                 <li class="third-level"><a href="#bagit-profile-under-development">BagIt profile - Under Development</a></li>
             
         
-            <li class="second-level"><a href="#oais-under-development">OAIS - Under Development</a></li>
+            <li class="second-level"><a href="#erc-preservation-aspects-in-the-light-of-oais">ERC preservation aspects in the light of OAIS</a></li>
+            
+        
+            <li class="second-level"><a href="#secondary-metadata-files">Secondary metadata files</a></li>
+            
+                <li class="third-level"><a href="#requirements-of-secondary-metadata">Requirements of secondary metadata</a></li>
             
         
     
@@ -216,15 +221,15 @@
         <div class="col-md-9" role="main">
 
 <h1 id="archival-extension">Archival extension</h1>
-<p>To make ERC compatible with workflows and standards in the archival and preservation domains, this exstension defines metadata and an outer bundle.</p>
+<p>This extension places the ERC in the context of preservation workflows by defining structural information and other metadata that guarantee interpretability and enable the bundling of the complete ERC as a self-contained, archivable digital object.</p>
 <h2 id="archival-bundle">Archival bundle</h2>
-<p><a href="http://tools.ietf.org/html/draft-kunze-bagit">BagIt</a> is an Internet-Draft standard originating from library sciences. It allows to store and transfer arbitrary content along with minimal metadata as well as payload validation.</p>
-<p>For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations apply to it.</p>
+<p>In order to bundle the complete ERC, it can be packaged using the <a href="http://tools.ietf.org/html/draft-kunze-bagit">BagIt</a> standard. This allows to store and transfer arbitrary content along with minimal metadata as well as checksum based payload validation.</p>
+<p>For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations may apply.</p>
 <p>The remainder of this section comprises (i) a description of the outer container, and (ii) a BagIt profile.</p>
 <h3 id="bagit-outer-container">BagIt outer container</h3>
 <p>The ERC base directory MUST be the BagIt payload directory <code>data/</code>.
 The path to the ERC configuration file subsequently MUST be <code>&lt;path-to-bag&gt;/data/erc.yml</code>.</p>
-<p>The bag metadata file <code>bag-info.txt</code> MUST contain a metadata element of the label <code>ERC-Version</code> and the version of the ERC paylod as value.</p>
+<p>The bag metadata file <code>bag-info.txt</code> MUST contain a metadata element of the label <code>ERC-Version</code> and the version of the ERC payload as value.</p>
 <pre><code class="txt">Payload-Oxum: 2172457623.43
 Bagging-Date: 2016-02-01
 Bag-Size: 2 GB
@@ -237,7 +242,7 @@ ERC-Version: 1
 ├── data
 │   ├── 2016-07-17-sf2.Rmd
 │   ├── erc.yml
-│   └── Dockerfile
+│   ├── Dockerfile
 │   └── runtime.tar
 ├── manifest-md5.txt
 └── tagmanifest-md5.txt
@@ -292,11 +297,53 @@ ERC-Version: 1
 }
 </code></pre>
 
-<h2 id="oais-under-development">OAIS - <em>Under Development</em></h2>
-<blockquote>
-<p><em>An Open Archival Information System (or OAIS) is an archive, consisting of an organization of people and systems, that has accepted the responsibility to preserve information and make it available for a Designated Community.</em> <a href="https://en.wikipedia.org/wiki/Open_Archival_Information_System">Wikipedia</a></p>
-</blockquote>
-<p>TBD</p></div>
+<h2 id="erc-preservation-aspects-in-the-light-of-oais">ERC preservation aspects in the light of OAIS</h2>
+<p>The Open Archival Information System (OAIS) reference model is a framework for the preservation and dissimination of digital objects (assets). It has been created by the Consultative Committee for Space Data Systems (CCSDS) and  has since been adopted by a wide range of international institutions. The OAIS provides the terminology and concept of the <em>information package</em> as primitive of the digital preservation workflow. Submission information packages (SIP), Dissimination information packages (DIP) and Archival information packages (AIP) refer to different functional roles of a digital object during (long term) preservation.</p>
+<p>The representation information object within OAIS consists of structural and semantic information and is itself linked to other units of representation information, building a representation network. The information contained within the ERC and its metadata serves as representation information and enables the interpretability of the archived software, environment, code, data, text and UI bindings. Standards used for representation are included as local copy of the underlying schema and as reference to their persistent identifiers. The network of information objects describes how the parts of the ERC relate to each other and how they are to be used and understood.</p>
+<p>References</p>
+<ul>
+<li>CCSDS (2012): RECOMMENDED PRACTICE FOR AN OAIS REFERENCE MODEL. CCSDS 650.0-M-2 (Magenta Book). http://public.ccsds.org/publications/archive/650x0m2.pdf</li>
+<li>Maack, M.N. (2015). The Open Archival Information System (oais) Reference Model.</li>
+</ul>
+<h2 id="secondary-metadata-files">Secondary metadata files</h2>
+<p>The ERC as an object can be used in a broad range of cases. For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference or it can be a preserved item in a digital archive. All of these have their own standards and requirements to apply, when it comes to metadata.</p>
+<p>~~These metadata requirements <em>are not</em> part of this specification, but~~ the following conventions are made to simplify and coordinate the variety.</p>
+<p>Metadata specific to a particular domain or use case MUST replicate the information required for the specific case in an independent file.
+Domain metadata SHOULD follow domain conventions and standards regarding format and encoding of metadata.
+Duplicate information is accepted, because it lowers the entry barrier for domain experts and systems, who can simply pick up a metadata copy in a format known to them.</p>
+<p>Metadata documents of specific use cases MUST be stored in a directory <code>.erc</code>, which is a child-directory of the ERC base directory.</p>
+<p>Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. <code>datacite40.xml</code> or <code>zenodo_sandbox10.json</code>, and SHOULD use a suitable mime type.</p>
+<h3 id="requirements-of-secondary-metadata">Requirements of secondary metadata</h3>
+<p>In order to comply to their governing schemas, secondary metadata must include the mandatory information as set by 3rd party services. While the documentation of this quality is a perpetual task, we have gathered the information most relevant our selection of connected services.</p>
+<p><strong>Zenodo</strong></p>
+<ul>
+<li>Accepts metadata as json.</li>
+<li>Mandatory elements:<ul>
+<li>Upload Type (e.g. Publication)</li>
+<li>Publication Type</li>
+<li>Title</li>
+<li>Creators</li>
+<li>Description</li>
+<li>Publication Date</li>
+<li>Access Right</li>
+<li>License</li>
+</ul>
+</li>
+</ul>
+<p><strong>DataCite (4.0)</strong></p>
+<ul>
+<li>Accepts metadata as xml.</li>
+<li>Mandatory elements:<ul>
+<li>Identifier</li>
+<li>Creator</li>
+<li>Title</li>
+<li>Publisher</li>
+<li>Publication Year</li>
+<li>Ressource Type</li>
+</ul>
+</li>
+</ul>
+<p>Other third party standards that will be considered comprise: <em>CodeMeta</em>, <em>EuDat</em>, <em>mets/mods</em>.</p></div>
         
     </div>
 

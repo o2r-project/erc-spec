@@ -260,9 +260,6 @@
             <li class="second-level"><a href="#security-considerations">Security considerations</a></li>
             
         
-            <li class="second-level"><a href="#secondary-metadata-files">Secondary metadata files</a></li>
-            
-        
             <li class="second-level"><a href="#comprehensive-example-of-ercyml">Comprehensive example of erc.yml</a></li>
             
         
@@ -523,16 +520,6 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <li>the spec prohibits use of <code>EXPOSE</code></li>
 <li>the containers are only executed <em>without</em> external network access using <code>Network: none</code>, see <a href="https://docs.docker.com/engine/reference/run/#/network-none">Docker CLI run documentation</a></li>
 </ul>
-<h2 id="secondary-metadata-files">Secondary metadata files</h2>
-<p>An ERC can be an object in very diverse use cases.
-For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference, it can be a preserved item in a digital archive.
-All of these have their own standards and requirements when it comes to metadata.
-These metadata requirements are <em>not</em> part of this specification, but the following conventions are made to simplify and coordinate the variety.</p>
-<p>Metadata specific to a particular domain or use case MUST replicate the information required for the specific case in an independent file.
-Domain metadata SHOULD follow domain conventions and standards regarding format and encoding of metadata.
-Duplicate information is accepted, because it lowers the entry barrier for domain experts and systems, who can simply pick up a metadata copy in a format known to them.</p>
-<p>Metadata documents of specific use cases MUST be stored in a directory <code>.erc</code>, which is a child-directory of the ERC base directory.</p>
-<p>Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. <code>datacite.xml</code> or <code>zenodo_sandbox.json</code>, and SHOULD use a suitable mime type.</p>
 <h2 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml</h2>
 <p>The following example shows all possible fields of the core specification with example values.</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
