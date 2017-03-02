@@ -214,9 +214,9 @@
             
                 <li class="third-level"><a href="#erc-metadata">ERC metadata</a></li>
             
-                <li class="third-level"><a href="#content-metadata">Content metadata</a></li>
-            
                 <li class="third-level"><a href="#license-metadata">License metadata</a></li>
+            
+                <li class="third-level"><a href="#content-metadata">Content metadata</a></li>
             
                 <li class="third-level"><a href="#secondary-metadata">Secondary metadata</a></li>
             
@@ -235,7 +235,7 @@
 <h1 id="user-guide-erc-creation">User guide: ERC creation</h1>
 <p>This user guide comprises instructions how to create an ERC <em>by hand</em>.
 It thus limited to mandatory elements in some places.
-However, a fundamental goal of the ERC specification is to be simple enough to allow manualy ERC creation as demonstrated in this document.
+However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document.
 For using tools or services for creation and validation of ERCs, please see the <a href="../../dev-guide/">developer guide</a>.</p>
 <div class="alert note" markdown="block">
 This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
@@ -262,11 +262,6 @@ Some useful resources are</p>
 <h2 id="step-3-create-metadata">Step 3: create metadata</h2>
 <h3 id="erc-metadata">ERC metadata</h3>
 <p>Structural &amp; administrative metadata must be put into the ERC configuration file <code>erc.yml</code> as defined in the <a href="../../spec/#erc-configuration-file">specification</a>.</p>
-<h3 id="content-metadata">Content metadata</h3>
-<p>Put information on authors in the metadata of the respective main document, ideally in a structured form.</p>
-<!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
-
-<p>Properties for the content metadata are defined in the <a href="../../spec/#Content-metadata">specification</a>.</p>
 <h3 id="license-metadata">License metadata</h3>
 <p>Please consult your employer or legal department for a suitable license for your work.</p>
 <p>Further resources that are linked here without any endorsement or being checked:</p>
@@ -276,21 +271,39 @@ Some useful resources are</p>
 <li>http://opendefinition.org (for code, data, text)</li>
 </ul>
 <p>License information must be put into the ERC configuration file <code>erc.yml</code> as defined in the <a href="../../spec/#erc-configuration-file">specification</a>.</p>
+<h3 id="content-metadata">Content metadata</h3>
+<p>Put information on authors in the metadata of the respective main document, ideally in a structured form.</p>
+<!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
+
+<p>Properties for the content metadata are defined in the <a href="../../spec/#Content-metadata">specification</a>.</p>
 <h3 id="secondary-metadata">Secondary metadata</h3>
 <p>Secondary metadata can be added in different formats to support different use cases, such as archival or registries.</p>
 <p><em>As of now, we do not recommend creating secondary metadata by hand.</em></p>
 <p>More information on secondary metadata can be found in the <a href="../../spec/archival/#Secondary-metadata-files">archival  extention</a>.</p>
 <h2 id="step-4-validate">Step 4: validate</h2>
 <p>For validation you can use the container, too.
-Run the analysis in the container, then copy the analysis output to a temporary directory on the host, and finally compare the original workspace and the temporary directory according the the <a href="index.md#validation">validation rules</a>.</p>
-<p><em>To simplify the validation process, an ERC validation tool and accompanying <a href="../../spec/valid/">validation extension</a> are under development.</em></p>
+Run the analysis in the container, then copy the analysis output to a temporary directory on the host, and finally compare the original workspace and the temporary directory according the <a href="index.md#validation">validation rules</a>.</p>
+<!-- _To simplify the validation process, an ERC validation tool and accompanying [validation extension](../spec/index.md#Validation) are under development._ -->
+
 <h2 id="step-5-create-bag">Step 5: create bag</h2>
 <p>To create a package that is suitable for being stored in an archive or repository, follow the <a href="../../spec/archival/">archival extension</a>.</p>
 <p>Useful tools for creating and validating BagIt bags:</p>
 <ul>
 <li><a href="https://github.com/LibraryOfCongress/bagger">Bagger</a> (Java-based, with UI)</li>
 <li><a href="https://libraryofcongress.github.io/bagit-python/">bagit-python</a> (Python-based, available via pip, CLI interface)</li>
-</ul></div>
+</ul>
+<p>A file tree for the final bagged ERC looks like this:</p>
+<p>```txt
+├── bag-info.txt
+├── bagit.txt
+├── data
+│   ├── 2016-07-17-sf2.Rmd
+│   ├── erc.yml
+│   ├── metadata.json
+│   ├── Dockerfile
+│   └── image.tar
+├── manifest-md5.txt
+└── tagmanifest-md5.txt</p></div>
         
     </div>
 

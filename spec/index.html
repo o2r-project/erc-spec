@@ -257,7 +257,7 @@
             
                 <li class="third-level"><a href="#metadata-elements-under-development">Metadata elements under development</a></li>
             
-                <li class="third-level"><a href="#rationales">Rationales</a></li>
+                <li class="third-level"><a href="#description-of-metadata-properties">Description of metadata properties</a></li>
             
         
             <li class="second-level"><a href="#validation">Validation</a></li>
@@ -500,10 +500,16 @@ extensions:
 <p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory.
 If this file is present, any files and directories within the outer container which match the patterns within the file <code>.ercignore</code> will be excluded from the validation process.
 The newline-separated patterns in the file MUST be <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.</p>
-<p>Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.</p>
+<p>The following <a href="https://en.wikipedia.org/wiki/Media_type">media types</a> (see <a href="https://www.iana.org/assignments/media-types/media-types.xhtml">IANA's full list of media types</a>) are regular expressions of file formats that CAN be used:</p>
+<ul>
+<li><code>text/*</code></li>
+<li><code>application/json</code></li>
+<li><code>*+xml</code></li>
+<li><code>*+json</code></li>
+</ul>
 <h2 id="content-metadata">Content metadata</h2>
 <h3 id="metadata-elements-under-development">Metadata elements <em>under development</em></h3>
-<p>Current JSON dummy to visualise the schema properties</p>
+<p>Current JSON dummy to visualise the schema properties. It SHOULD be filled out as good as possible.</p>
 <pre><code class="json">{
     &quot;author&quot;: [{
         &quot;name&quot;: null,
@@ -515,7 +521,6 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
         &quot;identifier&quot;: null,
         &quot;version&quot;: null,
         &quot;packageSystem&quot;: null,
-        &quot;operatingSystem&quot;: null
     }],
     &quot;description&quot;: null,
     &quot;ercIdentifier&quot;: null,
@@ -524,7 +529,7 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
         &quot;filepath&quot;: null,
         &quot;mimetype&quot;: null
     },
-    &quot;generatedBy&quot;: &quot;o2r-meta metaextract.py&quot;,
+    &quot;generatedBy&quot;: null,
     &quot;interaction&quot;: {
         &quot;interactive&quot;: false
     },
@@ -533,9 +538,6 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
     &quot;paperLanguage&quot;: [],
     &quot;paperSource&quot;: null,
     &quot;publicationDate&quot;: null,
-    &quot;r_comment&quot;: [],
-    &quot;r_input&quot;: [],
-    &quot;r_output&quot;: [],
     &quot;recordDateCreated&quot;: null,
     &quot;softwarePaperCitation&quot;: null,
     &quot;spatial&quot;: {
@@ -546,60 +548,61 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
         &quot;begin&quot;: null,
         &quot;end&quot;: null
     },
-    &quot;title&quot;: null,
-    &quot;version&quot;: null
+    &quot;title&quot;: null
 }
 </code></pre>
 
 <p>The path to the o2r metadata file MUST be <code>&lt;path-to-bag&gt;/data/metadata.json</code>.</p>
-<h3 id="rationales">Rationales</h3>
+<h3 id="description-of-metadata-properties">Description of metadata properties</h3>
 <p>Defining explanations on the concept of each metadata element in use.</p>
 <ul>
 <li><code>author</code> Contains a list of author related information.</li>
 <li><code>author.affiliation</code> A list of institutions, organizations or other groups that the creator of the asset is associated with.</li>
 <li><code>author.name</code> The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.</li>
 <li><code>author.orcid</code> the ORCid of the creator of the asset.</li>
+<li><code>community</code> Indicates belonging to a scientific community, e.g. on a repositoy platform.</li>
 <li><code>depends</code> A block for each entity that the software is dependent on for execution.</li>
 <li><code>depends.identifier</code> An identifying name for the depending package.</li>
 <li><code>depends.version</code> The computer software and hardware required to run the software.</li>
 <li><code>depends.packageSystem</code> The package manager system that makes the dependency entity available.</li>
-<li><code>description</code> A text representation conveying the purpose and scope of the asset.</li>
-<li><code>ercIdentifier</code> A universally unique character string associated with the asset as <em>executable research compendium</em>.</li>
+<li><code>description</code> A text representation conveying the purpose and scope of the asset (the abstract).</li>
+<li><code>ercIdentifier</code> A universally unique character string associated with the asset as <em>executable research compendium</em>, provided by the o2r service.</li>
+<li><code>file</code> A block for the main source file for the metadata (e.g. rmd file), generated and used by the o2r service.</li>
+<li><code>file.filename</code> see above </li>
+<li><code>file.filepath</code> see above </li>
+<li><code>file.mimetype</code> see above </li>
 <li><code>generatedBy</code> The entity, person or tool, that created the software.</li>
 <li><code>interaction</code> Information on how to interact with the asset.</li>
 <li><code>interaction.interactive</code> indicates interaction such as shiny app dynamics is possible.</li>
-<li><code>interaction.interactive</code> is the indicator, if shiny is present.</li>
 <li><code>keywords</code> Tags associated with the asset.</li>
+<li><code>license</code> License information for the entire ERC.</li>
 <li><code>paperLanguage</code> A list of language codes that indicate the language of the asset, e.g. <em>en</em>.</li>
-<li><code>paperSource</code> is the text document file of the paper.</li>
+<li><code>paperSource</code> The text document file of the paper.</li>
+<li><code>publicationDate</code> The publication date of the paper publication.</li>
 <li><code>recordDateCreated</code> The date that this metadata record was created.</li>
 <li><code>softwarePaperCitation</code> A text string that can be used to authoritatively cite a research paper, conference proceedings or other scholarly work that describes the design, development, usage, significance or other aspect of the software.</li>
 <li><code>spatial</code> Information about the geometric bounding box of the underlying data/software.</li>
-<li><code>spatial.union</code> A Geojson object of the aggregated bounding boxes of the underlying data/software.</li>
-<li><code>temporal.begin</code> The starting point of said time period.</li>
-<li><code>temporal.end</code> The end point of said time period.</li>
-<li><code>temporal</code> Aggregated information about the relevant time period of the underlying data or contents.</li>
-<li><code>title</code> The distinguishing name associated with the asset.</li>
-<li><code>version</code> A unique string indicating a specific state of the software, i.e. an initial public release, an update or bug fix release, etc. No version format or schema is enforced for this value.</li>
+<li><code>spatial.files</code> A Geojson object of the aggregated bounding boxes of the underlying data/software, generated by the o2r service.</li>
+<li><code>spatial.union</code> A Geojson object displaying the spatial properties of the data.</li>
+<li><code>temporal</code> Aggregated information about the relevant time period of the underlying data sets.</li>
+<li><code>temporal.begin</code> The starting point of the relevant time period.</li>
+<li><code>temporal.end</code> The end point of the relevant time period.</li>
+<li><code>title</code> The distinguishing name of the paper publication.</li>
 </ul>
 <h2 id="validation">Validation</h2>
 <p>ERC validation comprises four steps:</p>
 <ol>
 <li>checking required metadata elements</li>
 <li>executing the runtime container</li>
-<li>comparing the output files of the runtime container execution with the original output files in the outer container</li>
-<li>running checks of active extensions</li>
+<li>comparing the output files of the runtime container execution with the original output files in the outer container
+<!-- 1. running checks of active extensions --></li>
 </ol>
-<p>The comparison step (<code>3.</code>) SHOULD be based on <code>md5</code> checksums and compare recursively all files that are <em>reasonable to compare with hashes</em>, for example text-based documents but not compressed pictures.</p>
+<!--The comparison step (`3.`) SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to compare with hashes_, for example text-based documents but not compressed pictures.-->
+
 <p>The validation MUST NOT fail when files listed in <code>.ercignore</code> are failing comparison.</p>
-<p>The following <a href="https://en.wikipedia.org/wiki/Media_type">media types</a> (see <a href="https://www.iana.org/assignments/media-types/media-types.xhtml">IANA's full list of media types</a>) are a regular expressions of file formats that SHALL be used (unless ignored) for comparison:</p>
-<ul>
-<li><code>text/*</code></li>
-<li><code>application/json</code></li>
-<li><code>*+xml</code></li>
-<li><code>*+json</code></li>
-</ul>
 <p>The validation SHOULD communicate all files and directories actually used for validation to the user to avoid malicious usage of an <code>.ercignore</code> file.</p>
+<!-- Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure. -->
+
 <h2 id="security-considerations">Security considerations</h2>
 <p>Why are ERC not a security risk?</p>
 <ul>
