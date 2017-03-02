@@ -404,6 +404,39 @@ If an implementation supports an extension it MUST use default settings, for exa
 If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
 However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.
 
+## Comprehensive example of erc.yml
+
+The following example shows all possible fields of the core specification with example values.
+
+```yml
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+metadata:
+  software:
+    - .erc/software_codemeta.json
+    - dpkg--list.txt
+structure:
+  payload_directory: "data"
+  config_file: "erc.yml"
+  container_file: "image.tar"
+  container_manifest: "Dockerfile"
+execution:
+  mountpoint: "/erc"
+  command: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
+licenses:
+  code:
+    others_lib.bin: MIT
+    my_code.c: GPL-3.0
+  text:
+    README.md: CC0-1.0
+    paper/chapter01.doc: CC-BY-4.0
+    paper/chapter02.tex: CC-BY-4.0
+extensions:
+  - extension_name_1
+  - "yet another extension"
+```
+
+
 ## .ercignore file
 
 The ERC MAY contain a file named `.ercignore` in the base directory.
@@ -446,37 +479,6 @@ Why are ERC not a security risk?
 - the containers are only executed _without_ external network access using `Network: none`, see [Docker CLI run documentation](https://docs.docker.com/engine/reference/run/#/network-none)
 
 
-## Comprehensive example of erc.yml
-
-The following example shows all possible fields of the core specification with example values.
-
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-metadata:
-  software:
-    - .erc/software_codemeta.json
-    - dpkg--list.txt
-structure:
-  payload_directory: "data"
-  config_file: "erc.yml"
-  container_file: "image.tar"
-  container_manifest: "Dockerfile"
-execution:
-  mountpoint: "/erc"
-  command: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
-licenses:
-  code:
-    others_lib.bin: MIT
-    my_code.c: GPL-3.0
-  text:
-    README.md: CC0-1.0
-    paper/chapter01.doc: CC-BY-4.0
-    paper/chapter02.tex: CC-BY-4.0
-extensions:
-  - extension_name_1
-  - "yet another extension"
-```
 
 [c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
 [rfc2119]: http://tools.ietf.org/html/rfc2119
