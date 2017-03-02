@@ -242,13 +242,29 @@
             
                 <li class="third-level"><a href="#control-statements">Control statements</a></li>
             
-                <li class="third-level"><a href="#discovery-metadata">Discovery metadata</a></li>
+        
+    
+        <li class="first-level "><a href="#o2r-metadata-schema-documentation">o2r metadata schema documentation</a></li>
+        
+            <li class="second-level"><a href="#schema-location">Schema location</a></li>
+            
+        
+            <li class="second-level"><a href="#concept">Concept</a></li>
+            
+        
+            <li class="second-level"><a href="#metadata-elements-under-development">Metadata elements under development</a></li>
+            
+        
+            <li class="second-level"><a href="#rationales">Rationales</a></li>
             
                 <li class="third-level"><a href="#license-metadata">License metadata</a></li>
             
                 <li class="third-level"><a href="#software-metadata">Software metadata</a></li>
             
                 <li class="third-level"><a href="#extension-metadata">Extension metadata</a></li>
+            
+        
+            <li class="second-level"><a href="#comprehensive-example-of-ercyml">Comprehensive example of erc.yml</a></li>
             
         
             <li class="second-level"><a href="#ercignore-file">.ercignore file</a></li>
@@ -258,9 +274,6 @@
             
         
             <li class="second-level"><a href="#security-considerations">Security considerations</a></li>
-            
-        
-            <li class="second-level"><a href="#comprehensive-example-of-ercyml">Comprehensive example of erc.yml</a></li>
             
         
     
@@ -411,12 +424,131 @@ execution:
     - `./execute.sh --output results --iterations 3`
 </code></pre>
 
-<h3 id="discovery-metadata">Discovery metadata</h3>
-<p>author
-title
-description
-. . .</p>
-<p><em>The discovery metadata MUST be compliant to the o2r-metadata schema.</em></p>
+<h1 id="o2r-metadata-schema-documentation">o2r metadata schema documentation</h1>
+<h2 id="schema-location">Schema location</h2>
+<p><em>under development</em></p>
+<h2 id="concept">Concept</h2>
+<p>According to the ERC creation workflow, we differentiate at least two states of metadata. The extractor creates <em>raw MD</em> automatically, while the <em>refined MD</em> are with the help of the user. </p>
+<p>Raw MD include any relevant meta information that the extractor can gather only by parsing the files of the work space (text, code and data). As such they include structural as well as content-related descriptive information. The refined MD can then be "brokered" to comply with third party services such as data repositories. These <em>mapped MD</em> are translations that fulfull the formal requirements of a third party metadata schema.</p>
+<table>
+<thead>
+<tr>
+<th><strong>raw MD</strong></th>
+<th><strong>refined MD</strong></th>
+<th><strong>mapped MD</strong></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>extracted</td>
+<td>user-assisted</td>
+<td>translated</td>
+<td></td>
+</tr>
+<tr>
+<td>incomplete</td>
+<td>complete</td>
+<td>complete</td>
+<td></td>
+</tr>
+<tr>
+<td>maximized</td>
+<td>reduced</td>
+<td>reduced</td>
+<td></td>
+</tr>
+<tr>
+<td>o2r</td>
+<td>o2r</td>
+<td>3rd party</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>The main purpose of the MD is to depict package dependencies and other requirements for reproducible computational environments.
+In addition to this, descriptive MD are necessary to enable discovery functions of registries, data catalogues or repositories. This is done with existing modern metadata standards, e.g. DataCite 4.0 schema.</p>
+<h2 id="metadata-elements-under-development">Metadata elements <em>under development</em></h2>
+<p>Current JSON dummy to visualise the schema properties</p>
+<pre><code class="json">{
+    &quot;author&quot;: [{
+        &quot;name&quot;: null,
+        &quot;affiliation&quot;: [],
+        &quot;orcid&quot;: null
+    }],
+    &quot;community&quot;: &quot;o2r&quot;,
+    &quot;depends&quot;: [{
+        &quot;identifier&quot;: null,
+        &quot;version&quot;: null,
+        &quot;packageSystem&quot;: null,
+        &quot;operatingSystem&quot;: null
+    }],
+    &quot;description&quot;: null,
+    &quot;ercIdentifier&quot;: null,
+    &quot;file&quot;: {
+        &quot;filename&quot;: null,
+        &quot;filepath&quot;: null,
+        &quot;mimetype&quot;: null
+    },
+    &quot;generatedBy&quot;: &quot;o2r-meta metaextract.py&quot;,
+    &quot;interaction&quot;: {
+        &quot;interactive&quot;: false
+    },
+    &quot;keywords&quot;: [],
+    &quot;license&quot;: null,
+    &quot;paperLanguage&quot;: [],
+    &quot;paperSource&quot;: null,
+    &quot;publicationDate&quot;: null,
+    &quot;r_comment&quot;: [],
+    &quot;r_input&quot;: [],
+    &quot;r_output&quot;: [],
+    &quot;recordDateCreated&quot;: null,
+    &quot;softwarePaperCitation&quot;: null,
+    &quot;spatial&quot;: {
+        &quot;files&quot;: [],
+        &quot;union&quot;: []
+    },
+    &quot;temporal&quot;: {
+        &quot;begin&quot;: null,
+        &quot;end&quot;: null
+    },
+    &quot;title&quot;: null,
+    &quot;version&quot;: null
+}
+</code></pre>
+
+<h2 id="rationales">Rationales</h2>
+<p>Defining explanations on the concept of each metadata element in use.</p>
+<ul>
+<li><code>author</code> Contains a list of author related information.</li>
+<li><code>author.affiliation</code> A list of institutions, organizations or other groups that the creator of the asset is associated with.</li>
+<li><code>author.name</code> The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.</li>
+<li><code>author.orcid</code> the ORCid of the creator of the asset.</li>
+<li><code>depends</code> A block for each entity that the software is dependent on for execution.</li>
+<li><code>depends.identifier</code> An identifying name for the depending package.</li>
+<li><code>depends.version</code> The computer software and hardware required to run the software.</li>
+<li><code>depends.packageSystem</code> The package manager system that makes the dependency entity available.</li>
+<li><code>description</code> A text representation conveying the purpose and scope of the asset.</li>
+<li><code>ercIdentifier</code> A universally unique character string associated with the asset as <em>executable research compendium</em>.</li>
+<li><code>generatedBy</code> The entity, person or tool, that created the software.</li>
+<li><code>interaction</code> Information on how to interact with the asset.</li>
+<li><code>interaction.interactive</code> indicates interaction such as shiny app dynamics is possible.</li>
+<li><code>interaction.interactive</code> is the indicator, if shiny is present.</li>
+<li><code>keywords</code> Tags associated with the asset.</li>
+<li><code>paperLanguage</code> A list of language codes that indicate the language of the asset, e.g. <em>en</em>.</li>
+<li><code>paperSource</code> is the text document file of the paper.</li>
+<li><code>recordDateCreated</code> The date that this metadata record was created.</li>
+<li><code>softwarePaperCitation</code> A text string that can be used to authoritatively cite a research paper, conference proceedings or other scholarly work that describes the design, development, usage, significance or other aspect of the software.</li>
+<li><code>spatial</code> Information about the geometric bounding box of the underlying data/software.</li>
+<li><code>spatial.union</code> A Geojson object of the aggregated bounding boxes of the underlying data/software.</li>
+<li><code>temporal.begin</code> The starting point of said time period.</li>
+<li><code>temporal.end</code> The end point of said time period.</li>
+<li><code>temporal</code> Aggregated information about the relevant time period of the underlying data or contents.</li>
+<li><code>title</code> The distinguishing name associated with the asset.</li>
+<li><code>version</code> A unique string indicating a specific state of the software, i.e. an initial public release, an update or bug fix release, etc. No version format or schema is enforced for this value.</li>
+<li>~~<code>depends.operatingSystem</code> The operating system for the software to run under.~~</li>
+<li>~~<code>objectType</code> The category of the resource that is associated with the software. TO DO: controlled list, such as software, paper, data, image.~~</li>
+</ul>
 <h3 id="license-metadata">License metadata</h3>
 <p><code>erc.yml</code> MUST contain a first level node <code>licenses</code> with licensing information for the code, data, and text contained.
 Each of these three have distinct requirements, hence different licenses need to be applied.</p>
@@ -491,6 +623,35 @@ extensions:
 <p>If an implementation supports an extension it MUST use default settings, for example for control commands, as defined in the extension.</p>
 <p>If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
 However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.</p>
+<h2 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml</h2>
+<p>The following example shows all possible fields of the core specification with example values.</p>
+<pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+metadata:
+  software:
+    - .erc/software_codemeta.json
+    - dpkg--list.txt
+structure:
+  payload_directory: &quot;data&quot;
+  config_file: &quot;erc.yml&quot;
+  container_file: &quot;image.tar&quot;
+  container_manifest: &quot;Dockerfile&quot;
+execution:
+  mountpoint: &quot;/erc&quot;
+  command: &quot;Rscript -e 'rmarkdown::render(input = \&quot;paper.Rmd\&quot;, output_format = \&quot;html\&quot;)'&quot;
+licenses:
+  code:
+    others_lib.bin: MIT
+    my_code.c: GPL-3.0
+  text:
+    README.md: CC0-1.0
+    paper/chapter01.doc: CC-BY-4.0
+    paper/chapter02.tex: CC-BY-4.0
+extensions:
+  - extension_name_1
+  - &quot;yet another extension&quot;
+</code></pre>
+
 <h2 id="ercignore-file">.ercignore file</h2>
 <p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory.
 If this file is present, any files and directories within the outer container which match the patterns within the file <code>.ercignore</code> will be excluded from the validation process.
@@ -519,35 +680,7 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <ul>
 <li>the spec prohibits use of <code>EXPOSE</code></li>
 <li>the containers are only executed <em>without</em> external network access using <code>Network: none</code>, see <a href="https://docs.docker.com/engine/reference/run/#/network-none">Docker CLI run documentation</a></li>
-</ul>
-<h2 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml</h2>
-<p>The following example shows all possible fields of the core specification with example values.</p>
-<pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-metadata:
-  software:
-    - .erc/software_codemeta.json
-    - dpkg--list.txt
-structure:
-  payload_directory: &quot;data&quot;
-  config_file: &quot;erc.yml&quot;
-  container_file: &quot;image.tar&quot;
-  container_manifest: &quot;Dockerfile&quot;
-execution:
-  mountpoint: &quot;/erc&quot;
-  command: &quot;Rscript -e 'rmarkdown::render(input = \&quot;paper.Rmd\&quot;, output_format = \&quot;html\&quot;)'&quot;
-licenses:
-  code:
-    others_lib.bin: MIT
-    my_code.c: GPL-3.0
-  text:
-    README.md: CC0-1.0
-    paper/chapter01.doc: CC-BY-4.0
-    paper/chapter02.tex: CC-BY-4.0
-extensions:
-  - extension_name_1
-  - &quot;yet another extension&quot;
-</code></pre></div>
+</ul></div>
         
     </div>
 
