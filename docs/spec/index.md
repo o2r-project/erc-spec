@@ -392,10 +392,6 @@ The following example shows all possible fields of the core specification with e
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
-metadata:
-  software:
-    - .erc/software_codemeta.json
-    - dpkg--list.txt
 structure:
   payload_directory: "data"
   config_file: "erc.yml"
