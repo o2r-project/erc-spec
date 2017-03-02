@@ -6,14 +6,6 @@ The runtime environment or image MUST be represented by a [Docker image v1.2.0](
 
 The runtime manifest MUST be represented by a `Dockerfile`, see [Docker builder reference](https://docs.docker.com/engine/reference/builder/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/builder.md).
 
-## Docker image
-
-The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
-
-The file SHOULD be named `image.tar`.
-
-The output of the container during execution can be shown to the user to convey detailed information.
-
 ## Dockerfile
 
 The base directory MUST contain a valid Dockerfile, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
@@ -48,17 +40,67 @@ execution:
 Example for a Dockerfile:
 
 ```Dockerfile
-FROM debian
-MAINTAINER o2r project team <http://o2r.info>
+FROM rocker/r-base:latest
+MAINTAINER o2r
+
+RUN apt-get update -qq \
+	&& apt-get install -y --no-install-recommends \
+	## Packages required by R extension packages
+	# required by rmarkdown:
+	lmodern \
+	pandoc \
+	# for devtools (requires git2r, httr):
+	libcurl4-openssl-dev \
+	libssl-dev \
+	git \
+	# for udunits:
+	libudunits2-0 \
+	libudunits2-dev \
+	# required when knitting the document
+	pandoc-citeproc \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
+
+# install R extension packages
+RUN install2.r -r "http://cran.rstudio.com" \
+	  rmarkdown \
+	  ggplot2 \
+	  devtools \
+	  && rm -rf /tmp/downloaded_packages/ /tmp/*.rd
+
+# Save installed packages to file
+RUN dpkg -l > /dpkg-list.txt
+
+LABEL Description="This is an ERC image." \
+	info.o2r.bag.id="123456"
+
+COPY . /erc
 
 VOLUME ["/erc"]
 
-CMD ["/erc/run_analysis.sh", "--debug", "-i", "/erc/inputdata"]
+ENTRYPOINT ["sh", "-c"]
+CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd/DateDeclinePaper.Rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\""]
 ```
 
-### Metadata in container manifest - _Under development_
+See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
 
-Use `LABEL` and `ENV` instructions to contain some metadata?
+
+## Docker container
+
+To export the docker container and inspect its filesystem use:
+
+`docker export CONTAINER_ID > myExport.tar`
+
+
+## Docker image
+
+The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
+
+The file SHOULD be named `image.tar`.
+
+The output of the container during execution can be shown to the user to convey detailed information.
+
+
 
 ## Default control statements
 
@@ -73,10 +115,3 @@ execution:
     - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
 ```
 
-## Runtime manipulation
-
-...
-
-## Data exchange
-
-...
