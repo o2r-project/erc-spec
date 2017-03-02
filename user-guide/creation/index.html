@@ -266,6 +266,7 @@ Some useful resources are</p>
 <p>Put information on authors in the metadata of the respective main document, ideally in a structured form.</p>
 <!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
 
+<p>Properties for the content metadata are defined in the <a href="../../spec/#Content-metadata">specification</a>.</p>
 <h3 id="license-metadata">License metadata</h3>
 <p>Please consult your employer or legal department for a suitable license for your work.</p>
 <p>Further resources that are linked here without any endorsement or being checked:</p>
@@ -276,8 +277,9 @@ Some useful resources are</p>
 </ul>
 <p>License information must be put into the ERC configuration file <code>erc.yml</code> as defined in the <a href="../../spec/#erc-configuration-file">specification</a>.</p>
 <h3 id="secondary-metadata">Secondary metadata</h3>
-<p>Secondary metadata can be added in different formats to support different use cases, such as archival or registries.
-As of now, we do not recommend creating secondary metadata by hand.</p>
+<p>Secondary metadata can be added in different formats to support different use cases, such as archival or registries.</p>
+<p><em>As of now, we do not recommend creating secondary metadata by hand.</em></p>
+<p>More information on secondary metadata can be found in the <a href="../../spec/archival/#Secondary-metadata-files">archival  extention</a>.</p>
 <h2 id="step-4-validate">Step 4: validate</h2>
 <p>For validation you can use the container, too.
 Run the analysis in the container, then copy the analysis output to a temporary directory on the host, and finally compare the original workspace and the temporary directory according the the <a href="index.md#validation">validation rules</a>.</p>

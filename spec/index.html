@@ -253,11 +253,7 @@
             <li class="second-level"><a href="#ercignore-file">.ercignore file</a></li>
             
         
-            <li class="second-level"><a href="#o2r-metadata-schema-documentation">o2r metadata schema documentation</a></li>
-            
-                <li class="third-level"><a href="#schema-location">Schema location</a></li>
-            
-                <li class="third-level"><a href="#concept">Concept</a></li>
+            <li class="second-level"><a href="#content-metadata">Content metadata</a></li>
             
                 <li class="third-level"><a href="#metadata-elements-under-development">Metadata elements under development</a></li>
             
@@ -479,14 +475,14 @@ However, it is unspecified into which root node or nodes of the ERC configuratio
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 structure:
-  payload_directory: &quot;data&quot;
+  payload_directory: &quot;data&quot; # folder name including the workspace, after using bagger  
   config_file: &quot;erc.yml&quot;
   container_file: &quot;image.tar&quot;
   container_manifest: &quot;Dockerfile&quot;
 execution:
-  mountpoint: &quot;/erc&quot;
+  mountpoint: &quot;/erc&quot; # name of the volume used in the Dockerfile
   command: &quot;Rscript -e 'rmarkdown::render(input = \&quot;paper.Rmd\&quot;, output_format = \&quot;html\&quot;)'&quot;
-licenses:
+licenses: # licenses that the author chooses for their files
   code:
     others_lib.bin: MIT
     my_code.c: GPL-3.0
@@ -499,55 +495,13 @@ extensions:
   - &quot;yet another extension&quot;
 </code></pre>
 
+<p>The path to the ERC configuration file subsequently MUST be <code>&lt;path-to-bag&gt;/data/erc.yml</code>.</p>
 <h2 id="ercignore-file">.ercignore file</h2>
 <p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory.
 If this file is present, any files and directories within the outer container which match the patterns within the file <code>.ercignore</code> will be excluded from the validation process.
 The newline-separated patterns in the file MUST be <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.</p>
 <p>Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.</p>
-<h2 id="o2r-metadata-schema-documentation">o2r metadata schema documentation</h2>
-<h3 id="schema-location">Schema location</h3>
-<p><em>under development</em></p>
-<h3 id="concept">Concept</h3>
-<p>According to the ERC creation workflow, we differentiate at least two states of metadata. The extractor creates <em>raw MD</em> automatically, while the <em>refined MD</em> are with the help of the user. </p>
-<p>Raw MD include any relevant meta information that the extractor can gather only by parsing the files of the work space (text, code and data). As such they include structural as well as content-related descriptive information. The refined MD can then be "brokered" to comply with third party services such as data repositories. These <em>mapped MD</em> are translations that fulfull the formal requirements of a third party metadata schema.</p>
-<table>
-<thead>
-<tr>
-<th><strong>raw MD</strong></th>
-<th><strong>refined MD</strong></th>
-<th><strong>mapped MD</strong></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>extracted</td>
-<td>user-assisted</td>
-<td>translated</td>
-<td></td>
-</tr>
-<tr>
-<td>incomplete</td>
-<td>complete</td>
-<td>complete</td>
-<td></td>
-</tr>
-<tr>
-<td>maximized</td>
-<td>reduced</td>
-<td>reduced</td>
-<td></td>
-</tr>
-<tr>
-<td>o2r</td>
-<td>o2r</td>
-<td>3rd party</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>The main purpose of the MD is to depict package dependencies and other requirements for reproducible computational environments.
-In addition to this, descriptive MD are necessary to enable discovery functions of registries, data catalogues or repositories. This is done with existing modern metadata standards, e.g. DataCite 4.0 schema.</p>
+<h2 id="content-metadata">Content metadata</h2>
 <h3 id="metadata-elements-under-development">Metadata elements <em>under development</em></h3>
 <p>Current JSON dummy to visualise the schema properties</p>
 <pre><code class="json">{
@@ -597,6 +551,7 @@ In addition to this, descriptive MD are necessary to enable discovery functions 
 }
 </code></pre>
 
+<p>The path to the o2r metadata file MUST be <code>&lt;path-to-bag&gt;/data/metadata.json</code>.</p>
 <h3 id="rationales">Rationales</h3>
 <p>Defining explanations on the concept of each metadata element in use.</p>
 <ul>
