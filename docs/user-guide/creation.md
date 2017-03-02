@@ -101,3 +101,4 @@ A file tree for the final bagged ERC looks like this:
 │   └── image.tar
 ├── manifest-md5.txt
 └── tagmanifest-md5.txt
+```
