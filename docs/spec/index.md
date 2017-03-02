@@ -308,15 +308,15 @@ Tools implementing this specification SHOULD communicate the names of ignored fi
 
 
 
-# o2r metadata schema documentation
+## o2r metadata schema documentation
 
 
-## Schema location
+### Schema location
 
 _under development_
 
 
-## Concept
+### Concept
 
 According to the ERC creation workflow, we differentiate at least two states of metadata. The extractor creates _raw MD_ automatically, while the _refined MD_ are with the help of the user. 
 
@@ -335,7 +335,7 @@ The main purpose of the MD is to depict package dependencies and other requireme
 In addition to this, descriptive MD are necessary to enable discovery functions of registries, data catalogues or repositories. This is done with existing modern metadata standards, e.g. DataCite 4.0 schema.
 
 
-## Metadata elements _under development_
+### Metadata elements _under development_
 
 Current JSON dummy to visualise the schema properties
 
@@ -388,7 +388,7 @@ Current JSON dummy to visualise the schema properties
 ```
 
 
-## Rationales
+### Rationales
 
 Defining explanations on the concept of each metadata element in use.
 
@@ -418,11 +418,6 @@ Defining explanations on the concept of each metadata element in use.
 + `temporal` Aggregated information about the relevant time period of the underlying data or contents.
 + `title` The distinguishing name associated with the asset.
 + `version` A unique string indicating a specific state of the software, i.e. an initial public release, an update or bug fix release, etc. No version format or schema is enforced for this value.
-+ ~~`depends.operatingSystem` The operating system for the software to run under.~~
-+ ~~`objectType` The category of the resource that is associated with the software. TO DO: controlled list, such as software, paper, data, image.
-
-
-
 
 
 ## Validation
