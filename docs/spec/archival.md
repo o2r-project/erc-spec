@@ -32,8 +32,9 @@ Example file tree for a bagged ERC:
 ├── data
 │   ├── 2016-07-17-sf2.Rmd
 │   ├── erc.yml
+│   ├── metadata.json
 │   ├── Dockerfile
-│   └── runtime.tar
+│   └── image.tar
 ├── manifest-md5.txt
 └── tagmanifest-md5.txt
 ```

@@ -48,6 +48,8 @@ Put information on authors in the metadata of the respective main document, idea
 
 <!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
 
+Properties for the content metadata are defined in the [specification](../spec/index.md#Content-metadata).
+
 ### License metadata
 
 Please consult your employer or legal department for a suitable license for your work.
@@ -63,7 +65,11 @@ License information must be put into the ERC configuration file `erc.yml` as def
 ### Secondary metadata
 
 Secondary metadata can be added in different formats to support different use cases, such as archival or registries.
-As of now, we do not recommend creating secondary metadata by hand.
+
+_As of now, we do not recommend creating secondary metadata by hand._
+
+More information on secondary metadata can be found in the [archival  extention](../spec/archival.md#Secondary-metadata-files).
+ 
 
 ## Step 4: validate
 

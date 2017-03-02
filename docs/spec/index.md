@@ -277,14 +277,14 @@ The following example shows all possible fields of the core specification with e
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 structure:
-  payload_directory: "data"
+  payload_directory: "data" # folder name including the workspace, after using bagger  
   config_file: "erc.yml"
   container_file: "image.tar"
   container_manifest: "Dockerfile"
 execution:
-  mountpoint: "/erc"
+  mountpoint: "/erc" # name of the volume used in the Dockerfile
   command: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
-licenses:
+licenses: # licenses that the author chooses for their files
   code:
     others_lib.bin: MIT
     my_code.c: GPL-3.0
@@ -297,6 +297,9 @@ extensions:
   - "yet another extension"
 ```
 
+The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
+
+
 
 ## .ercignore file
 
@@ -308,31 +311,7 @@ Tools implementing this specification SHOULD communicate the names of ignored fi
 
 
 
-## o2r metadata schema documentation
-
-
-### Schema location
-
-_under development_
-
-
-### Concept
-
-According to the ERC creation workflow, we differentiate at least two states of metadata. The extractor creates _raw MD_ automatically, while the _refined MD_ are with the help of the user. 
-
-Raw MD include any relevant meta information that the extractor can gather only by parsing the files of the work space (text, code and data). As such they include structural as well as content-related descriptive information. The refined MD can then be "brokered" to comply with third party services such as data repositories. These _mapped MD_ are translations that fulfull the formal requirements of a third party metadata schema.
-
-
-**raw MD** | **refined MD** | **mapped MD** |
------- | ------ | ------ |
-extracted |  user-assisted | translated
-incomplete | complete | complete
-maximized | reduced | reduced 
-o2r | o2r | 3rd party 
-
-
-The main purpose of the MD is to depict package dependencies and other requirements for reproducible computational environments.
-In addition to this, descriptive MD are necessary to enable discovery functions of registries, data catalogues or repositories. This is done with existing modern metadata standards, e.g. DataCite 4.0 schema.
+## Content metadata
 
 
 ### Metadata elements _under development_
@@ -387,6 +366,7 @@ Current JSON dummy to visualise the schema properties
 }
 ```
 
+The path to the o2r metadata file MUST be `<path-to-bag>/data/metadata.json`.
 
 ### Rationales
 
