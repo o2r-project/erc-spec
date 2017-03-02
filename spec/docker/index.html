@@ -282,7 +282,7 @@ COPY . /erc
 VOLUME [&quot;/erc&quot;]
 
 ENTRYPOINT [&quot;sh&quot;, &quot;-c&quot;]
-CMD [&quot;R --vanilla -e \&quot;rmarkdown::render(input = '/erc/myPaper.rmd/DateDeclinePaper.Rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\&quot;&quot;]
+CMD [&quot;R --vanilla -e \&quot;rmarkdown::render(input = '/erc/myPaper.rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\&quot;&quot;]
 </code></pre>
 
 <p>See also: <a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run">Best practices for writing Dockerfiles</a>.</p>
