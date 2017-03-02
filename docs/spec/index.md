@@ -247,6 +247,66 @@ It IS NOT possible to assign one license to a directory and override that assign
 
 
 
+### Extension metadata
+
+If an extension of the specification is used, it MUST be put into a list under the root-level node `extensions`.
+
+```yml
+---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+extensions:
+  - extension_name_1
+  - "yet another extension"
+```
+
+This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.
+
+If an implementation encounters an unsupported extension it MUST issue a user level warning.
+
+If an implementation supports an extension it MUST use default settings, for example for control commands, as defined in the extension.
+
+If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
+However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.
+
+## Comprehensive example of erc.yml
+
+The following example shows all possible fields of the core specification with example values.
+
+```yml
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+structure:
+  payload_directory: "data"
+  config_file: "erc.yml"
+  container_file: "image.tar"
+  container_manifest: "Dockerfile"
+execution:
+  mountpoint: "/erc"
+  command: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
+licenses:
+  code:
+    others_lib.bin: MIT
+    my_code.c: GPL-3.0
+  text:
+    README.md: CC0-1.0
+    paper/chapter01.doc: CC-BY-4.0
+    paper/chapter02.tex: CC-BY-4.0
+extensions:
+  - extension_name_1
+  - "yet another extension"
+```
+
+
+## .ercignore file
+
+The ERC MAY contain a file named `.ercignore` in the base directory.
+If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the validation process.
+The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
+
+Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.
+
+
 
 # o2r metadata schema documentation
 
@@ -363,66 +423,7 @@ Defining explanations on the concept of each metadata element in use.
 
 
 
-### Extension metadata
 
-If an extension of the specification is used, it MUST be put into a list under the root-level node `extensions`.
-
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-extensions:
-  - extension_name_1
-  - "yet another extension"
-```
-
-This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.
-
-If an implementation encounters an unsupported extension it MUST issue a user level warning.
-
-If an implementation supports an extension it MUST use default settings, for example for control commands, as defined in the extension.
-
-If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
-However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.
-
-## Comprehensive example of erc.yml
-
-The following example shows all possible fields of the core specification with example values.
-
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-structure:
-  payload_directory: "data"
-  config_file: "erc.yml"
-  container_file: "image.tar"
-  container_manifest: "Dockerfile"
-execution:
-  mountpoint: "/erc"
-  command: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
-licenses:
-  code:
-    others_lib.bin: MIT
-    my_code.c: GPL-3.0
-  text:
-    README.md: CC0-1.0
-    paper/chapter01.doc: CC-BY-4.0
-    paper/chapter02.tex: CC-BY-4.0
-extensions:
-  - extension_name_1
-  - "yet another extension"
-```
-
-
-## .ercignore file
-
-The ERC MAY contain a file named `.ercignore` in the base directory.
-If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the validation process.
-The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
-
-Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.
-
-[//]: # (TODO: mention library used in reference implementation)
 
 ## Validation
 
