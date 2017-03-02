@@ -196,6 +196,58 @@ execution:
     - `./execute.sh --output results --iterations 3`
 ```
 
+
+### License metadata
+
+`erc.yml` MUST contain a first level node `licenses` with licensing information for the code, data, and text contained.
+Each of these three have distinct requirements, hence different licenses need to be applied.
+
+The node `licenses` MUST have three children: `code`, `data`, `text`.
+
+<div class="alert note" markdown="block">
+There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
+Tools for automatic creation of ERC may add such detailed licensing information and define an extension to the ERC 
+</div>
+
+The content of each of these child nodes MUST be one of the following
+
+- text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/).
+- a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory.
+
+Example for global licenses:
+
+```yml
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+licenses:
+  code: "Apache-2.0"
+  data: "ODbL-1.0"
+  text: "CC0-1.0"
+```
+
+Example using specific licenses for files:
+
+```yml
+---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+licenses:
+  code:
+    others_lib.bin: MIT
+    my_code.c: GPL-3.0
+  text:
+    README.md: CC0-1.0
+    paper/chapter01.doc: CC-BY-4.0
+    paper/chapter02.tex: CC-BY-4.0
+```
+
+<div class="alert note" markdown="block">
+It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
+</div>
+
+
+
+
 # o2r metadata schema documentation
 
 
@@ -307,80 +359,9 @@ Defining explanations on the concept of each metadata element in use.
 + `title` The distinguishing name associated with the asset.
 + `version` A unique string indicating a specific state of the software, i.e. an initial public release, an update or bug fix release, etc. No version format or schema is enforced for this value.
 + ~~`depends.operatingSystem` The operating system for the software to run under.~~
-+ ~~`objectType` The category of the resource that is associated with the software. TO DO: controlled list, such as software, paper, data, image.~~
++ ~~`objectType` The category of the resource that is associated with the software. TO DO: controlled list, such as software, paper, data, image.
 
-### License metadata
 
-`erc.yml` MUST contain a first level node `licenses` with licensing information for the code, data, and text contained.
-Each of these three have distinct requirements, hence different licenses need to be applied.
-
-The node `licenses` MUST have three children: `code`, `data`, `text`.
-
-<div class="alert note" markdown="block">
-There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
-Tools for automatic creation of ERC may add such detailed licensing information and define an extension to the ERC 
-</div>
-
-The content of each of these child nodes MUST be one of the following
-
-- text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/).
-- a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory.
-
-Example for global licenses:
-
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-licenses:
-  code: "Apache-2.0"
-  data: "ODbL-1.0"
-  text: "CC0-1.0"
-```
-
-Example using specific licenses for files:
-
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-licenses:
-  code:
-    others_lib.bin: MIT
-    my_code.c: GPL-3.0
-  text:
-    README.md: CC0-1.0
-    paper/chapter01.doc: CC-BY-4.0
-    paper/chapter02.tex: CC-BY-4.0
-```
-
-<div class="alert note" markdown="block">
-It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
-</div>
-
-### Software metadata
-
-An ERC SHOULD provide a machine readable list of software that is contained in the runtime environment to support reproducibility in case the runtime image and manifest are not usable anymore.
-This list can have different formats for different use cases or depending on the source of information, which is probably a tool rather than manual creation, for example package managers.
-The information can also be quite extensive.
-
-Therefore this information MUST NOT be included in the ERC configuration file but SHOULD be referenced from there to support implementing tools.
-The metadata documents MUST be listed as paths relative to the base directory and MUST be plain text files.
-
-Information on the format of the files SHOULD be conveyed to human users based on file name and file extension, for example `dpkg_installed-package-list.txt`.
-
-Further details are unspecified here.
-
-Example for software metadata file listing in the ERC configuration file.
-
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-metadata:
-  software:
-    - .erc/software_codemeta.json
-    - dpkg--list.txt
-```
 
 ### Extension metadata
 
