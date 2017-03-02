@@ -244,6 +244,14 @@
             
                 <li class="third-level"><a href="#license-metadata">License metadata</a></li>
             
+                <li class="third-level"><a href="#extension-metadata">Extension metadata</a></li>
+            
+        
+            <li class="second-level"><a href="#comprehensive-example-of-ercyml">Comprehensive example of erc.yml</a></li>
+            
+        
+            <li class="second-level"><a href="#ercignore-file">.ercignore file</a></li>
+            
         
     
         <li class="first-level "><a href="#o2r-metadata-schema-documentation">o2r metadata schema documentation</a></li>
@@ -258,14 +266,6 @@
             
         
             <li class="second-level"><a href="#rationales">Rationales</a></li>
-            
-                <li class="third-level"><a href="#extension-metadata">Extension metadata</a></li>
-            
-        
-            <li class="second-level"><a href="#comprehensive-example-of-ercyml">Comprehensive example of erc.yml</a></li>
-            
-        
-            <li class="second-level"><a href="#ercignore-file">.ercignore file</a></li>
             
         
             <li class="second-level"><a href="#validation">Validation</a></li>
@@ -463,6 +463,51 @@ licenses:
 It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
 </div>
 
+<h3 id="extension-metadata">Extension metadata</h3>
+<p>If an extension of the specification is used, it MUST be put into a list under the root-level node <code>extensions</code>.</p>
+<pre><code class="yml">---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+extensions:
+  - extension_name_1
+  - &quot;yet another extension&quot;
+</code></pre>
+
+<p>This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.</p>
+<p>If an implementation encounters an unsupported extension it MUST issue a user level warning.</p>
+<p>If an implementation supports an extension it MUST use default settings, for example for control commands, as defined in the extension.</p>
+<p>If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
+However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.</p>
+<h2 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml</h2>
+<p>The following example shows all possible fields of the core specification with example values.</p>
+<pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+structure:
+  payload_directory: &quot;data&quot;
+  config_file: &quot;erc.yml&quot;
+  container_file: &quot;image.tar&quot;
+  container_manifest: &quot;Dockerfile&quot;
+execution:
+  mountpoint: &quot;/erc&quot;
+  command: &quot;Rscript -e 'rmarkdown::render(input = \&quot;paper.Rmd\&quot;, output_format = \&quot;html\&quot;)'&quot;
+licenses:
+  code:
+    others_lib.bin: MIT
+    my_code.c: GPL-3.0
+  text:
+    README.md: CC0-1.0
+    paper/chapter01.doc: CC-BY-4.0
+    paper/chapter02.tex: CC-BY-4.0
+extensions:
+  - extension_name_1
+  - &quot;yet another extension&quot;
+</code></pre>
+
+<h2 id="ercignore-file">.ercignore file</h2>
+<p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory.
+If this file is present, any files and directories within the outer container which match the patterns within the file <code>.ercignore</code> will be excluded from the validation process.
+The newline-separated patterns in the file MUST be <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.</p>
+<p>Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.</p>
 <h1 id="o2r-metadata-schema-documentation">o2r metadata schema documentation</h1>
 <h2 id="schema-location">Schema location</h2>
 <p><em>under development</em></p>
@@ -588,51 +633,6 @@ In addition to this, descriptive MD are necessary to enable discovery functions 
 <li>~~<code>depends.operatingSystem</code> The operating system for the software to run under.~~</li>
 <li>~~<code>objectType</code> The category of the resource that is associated with the software. TO DO: controlled list, such as software, paper, data, image.</li>
 </ul>
-<h3 id="extension-metadata">Extension metadata</h3>
-<p>If an extension of the specification is used, it MUST be put into a list under the root-level node <code>extensions</code>.</p>
-<pre><code class="yml">---
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-extensions:
-  - extension_name_1
-  - &quot;yet another extension&quot;
-</code></pre>
-
-<p>This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.</p>
-<p>If an implementation encounters an unsupported extension it MUST issue a user level warning.</p>
-<p>If an implementation supports an extension it MUST use default settings, for example for control commands, as defined in the extension.</p>
-<p>If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
-However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.</p>
-<h2 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml</h2>
-<p>The following example shows all possible fields of the core specification with example values.</p>
-<pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-structure:
-  payload_directory: &quot;data&quot;
-  config_file: &quot;erc.yml&quot;
-  container_file: &quot;image.tar&quot;
-  container_manifest: &quot;Dockerfile&quot;
-execution:
-  mountpoint: &quot;/erc&quot;
-  command: &quot;Rscript -e 'rmarkdown::render(input = \&quot;paper.Rmd\&quot;, output_format = \&quot;html\&quot;)'&quot;
-licenses:
-  code:
-    others_lib.bin: MIT
-    my_code.c: GPL-3.0
-  text:
-    README.md: CC0-1.0
-    paper/chapter01.doc: CC-BY-4.0
-    paper/chapter02.tex: CC-BY-4.0
-extensions:
-  - extension_name_1
-  - &quot;yet another extension&quot;
-</code></pre>
-
-<h2 id="ercignore-file">.ercignore file</h2>
-<p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory.
-If this file is present, any files and directories within the outer container which match the patterns within the file <code>.ercignore</code> will be excluded from the validation process.
-The newline-separated patterns in the file MUST be <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.</p>
-<p>Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.</p>
 <h2 id="validation">Validation</h2>
 <p>ERC validation comprises four steps:</p>
 <ol>
