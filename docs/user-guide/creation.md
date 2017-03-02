@@ -2,7 +2,7 @@
 
 This user guide comprises instructions how to create an ERC _by hand_.
 It thus limited to mandatory elements in some places.
-However, a fundamental goal of the ERC specification is to be simple enough to allow manualy ERC creation as demonstrated in this document.
+However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document.
 For using tools or services for creation and validation of ERCs, please see the [developer guide](../dev-guide/index.md).
 
 <div class="alert note" markdown="block">
@@ -42,14 +42,6 @@ See the [Docker extension](../spec/docker.md) for detailed requirements, includi
 
 Structural & administrative metadata must be put into the ERC configuration file `erc.yml` as defined in the [specification](../spec/index.md#erc-configuration-file).
 
-### Content metadata
-
-Put information on authors in the metadata of the respective main document, ideally in a structured form.
-
-<!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
-
-Properties for the content metadata are defined in the [specification](../spec/index.md#Content-metadata).
-
 ### License metadata
 
 Please consult your employer or legal department for a suitable license for your work.
@@ -61,6 +53,15 @@ Further resources that are linked here without any endorsement or being checked:
 - http://opendefinition.org (for code, data, text)
 
 License information must be put into the ERC configuration file `erc.yml` as defined in the [specification](../spec/index.md#erc-configuration-file).
+
+### Content metadata
+
+Put information on authors in the metadata of the respective main document, ideally in a structured form.
+
+<!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
+
+Properties for the content metadata are defined in the [specification](../spec/index.md#Content-metadata).
+
 
 ### Secondary metadata
 
@@ -74,9 +75,9 @@ More information on secondary metadata can be found in the [archival  extention]
 ## Step 4: validate
 
 For validation you can use the container, too.
-Run the analysis in the container, then copy the analysis output to a temporary directory on the host, and finally compare the original workspace and the temporary directory according the the [validation rules](index.md#validation).
+Run the analysis in the container, then copy the analysis output to a temporary directory on the host, and finally compare the original workspace and the temporary directory according the [validation rules](index.md#validation).
 
-_To simplify the validation process, an ERC validation tool and accompanying [validation extension](../spec/valid.md) are under development._
+<!-- _To simplify the validation process, an ERC validation tool and accompanying [validation extension](../spec/index.md#Validation) are under development._ -->
 
 ## Step 5: create bag
 
@@ -86,3 +87,17 @@ Useful tools for creating and validating BagIt bags:
 
 - [Bagger](https://github.com/LibraryOfCongress/bagger) (Java-based, with UI)
 - [bagit-python](https://libraryofcongress.github.io/bagit-python/) (Python-based, available via pip, CLI interface)
+
+A file tree for the final bagged ERC looks like this:
+
+```txt
+├── bag-info.txt
+├── bagit.txt
+├── data
+│   ├── 2016-07-17-sf2.Rmd
+│   ├── erc.yml
+│   ├── metadata.json
+│   ├── Dockerfile
+│   └── image.tar
+├── manifest-md5.txt
+└── tagmanifest-md5.txt

@@ -307,16 +307,19 @@ The ERC MAY contain a file named `.ercignore` in the base directory.
 If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the validation process.
 The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
 
-Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure.
+The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml)) are regular expressions of file formats that CAN be used:
 
-
+- `text/*`
+- `application/json`
+- `*+xml`
+- `*+json`
 
 ## Content metadata
 
 
 ### Metadata elements _under development_
 
-Current JSON dummy to visualise the schema properties
+Current JSON dummy to visualise the schema properties. It SHOULD be filled out as good as possible.
 
 ```json
 {
@@ -330,7 +333,6 @@ Current JSON dummy to visualise the schema properties
 		"identifier": null,
 		"version": null,
 		"packageSystem": null,
-		"operatingSystem": null
 	}],
 	"description": null,
 	"ercIdentifier": null,
@@ -339,7 +341,7 @@ Current JSON dummy to visualise the schema properties
 		"filepath": null,
 		"mimetype": null
 	},
-	"generatedBy": "o2r-meta metaextract.py",
+	"generatedBy": null,
     "interaction": {
         "interactive": false
     },
@@ -348,9 +350,6 @@ Current JSON dummy to visualise the schema properties
 	"paperLanguage": [],
 	"paperSource": null,
 	"publicationDate": null,
-	"r_comment": [],
-	"r_input": [],
-	"r_output": [],
 	"recordDateCreated": null,
 	"softwarePaperCitation": null,
 	"spatial": {
@@ -361,14 +360,13 @@ Current JSON dummy to visualise the schema properties
 		"begin": null,
 		"end": null
 	},
-	"title": null,
-	"version": null
+	"title": null
 }
 ```
 
 The path to the o2r metadata file MUST be `<path-to-bag>/data/metadata.json`.
 
-### Rationales
+### Description of metadata properties
 
 Defining explanations on the concept of each metadata element in use.
 
@@ -376,28 +374,35 @@ Defining explanations on the concept of each metadata element in use.
 + `author.affiliation` A list of institutions, organizations or other groups that the creator of the asset is associated with.
 + `author.name` The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.
 + `author.orcid` the ORCid of the creator of the asset.
++ `community` Indicates belonging to a scientific community, e.g. on a repositoy platform.
 + `depends` A block for each entity that the software is dependent on for execution.
 + `depends.identifier` An identifying name for the depending package.
 + `depends.version` The computer software and hardware required to run the software.
 + `depends.packageSystem` The package manager system that makes the dependency entity available.
-+ `description` A text representation conveying the purpose and scope of the asset.
-+ `ercIdentifier` A universally unique character string associated with the asset as _executable research compendium_.
++ `description` A text representation conveying the purpose and scope of the asset (the abstract).
++ `ercIdentifier` A universally unique character string associated with the asset as _executable research compendium_, provided by the o2r service.
++ `file` A block for the main source file for the metadata (e.g. rmd file), generated and used by the o2r service.
++ `file.filename` see above 
++ `file.filepath` see above 
++ `file.mimetype` see above 
 + `generatedBy` The entity, person or tool, that created the software.
 + `interaction` Information on how to interact with the asset.
 + `interaction.interactive` indicates interaction such as shiny app dynamics is possible.
-+ `interaction.interactive` is the indicator, if shiny is present.
 + `keywords` Tags associated with the asset.
++ `license` License information for the entire ERC.
 + `paperLanguage` A list of language codes that indicate the language of the asset, e.g. _en_.
-+ `paperSource` is the text document file of the paper.
++ `paperSource` The text document file of the paper.
++ `publicationDate` The publication date of the paper publication.
 + `recordDateCreated` The date that this metadata record was created.
 + `softwarePaperCitation` A text string that can be used to authoritatively cite a research paper, conference proceedings or other scholarly work that describes the design, development, usage, significance or other aspect of the software.
 + `spatial` Information about the geometric bounding box of the underlying data/software.
-+ `spatial.union` A Geojson object of the aggregated bounding boxes of the underlying data/software.
-+ `temporal.begin` The starting point of said time period.
-+ `temporal.end` The end point of said time period.
-+ `temporal` Aggregated information about the relevant time period of the underlying data or contents.
-+ `title` The distinguishing name associated with the asset.
-+ `version` A unique string indicating a specific state of the software, i.e. an initial public release, an update or bug fix release, etc. No version format or schema is enforced for this value.
++ `spatial.files` A Geojson object of the aggregated bounding boxes of the underlying data/software, generated by the o2r service.
++ `spatial.union` A Geojson object displaying the spatial properties of the data.
++ `temporal` Aggregated information about the relevant time period of the underlying data sets.
++ `temporal.begin` The starting point of the relevant time period.
++ `temporal.end` The end point of the relevant time period.
++ `title` The distinguishing name of the paper publication.
+
 
 
 ## Validation
@@ -407,20 +412,15 @@ ERC validation comprises four steps:
 1. checking required metadata elements
 1. executing the runtime container
 1. comparing the output files of the runtime container execution with the original output files in the outer container
-1. running checks of active extensions
+<!-- 1. running checks of active extensions -->
 
-The comparison step (`3.`) SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to compare with hashes_, for example text-based documents but not compressed pictures.
+<!--The comparison step (`3.`) SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to compare with hashes_, for example text-based documents but not compressed pictures.-->
 
 The validation MUST NOT fail when files listed in `.ercignore` are failing comparison.
 
-The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml)) are a regular expressions of file formats that SHALL be used (unless ignored) for comparison:
-
-- `text/*`
-- `application/json`
-- `*+xml`
-- `*+json`
-
 The validation SHOULD communicate all files and directories actually used for validation to the user to avoid malicious usage of an `.ercignore` file.
+
+<!-- Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure. -->
 
 ## Security considerations
 
