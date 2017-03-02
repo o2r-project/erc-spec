@@ -79,7 +79,7 @@ COPY . /erc
 VOLUME ["/erc"]
 
 ENTRYPOINT ["sh", "-c"]
-CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd/DateDeclinePaper.Rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\""]
+CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\""]
 ```
 
 See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
