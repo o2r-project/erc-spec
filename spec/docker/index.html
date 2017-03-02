@@ -200,21 +200,16 @@
     
         <li class="first-level active"><a href="#docker-runtime-extension">Docker runtime extension</a></li>
         
+            <li class="second-level"><a href="#dockerfile">Dockerfile</a></li>
+            
+        
+            <li class="second-level"><a href="#docker-container">Docker container</a></li>
+            
+        
             <li class="second-level"><a href="#docker-image">Docker image</a></li>
             
         
-            <li class="second-level"><a href="#dockerfile">Dockerfile</a></li>
-            
-                <li class="third-level"><a href="#metadata-in-container-manifest-under-development">Metadata in container manifest - Under development</a></li>
-            
-        
             <li class="second-level"><a href="#default-control-statements">Default control statements</a></li>
-            
-        
-            <li class="second-level"><a href="#runtime-manipulation">Runtime manipulation</a></li>
-            
-        
-            <li class="second-level"><a href="#data-exchange">Data exchange</a></li>
             
         
     
@@ -226,10 +221,6 @@
 <p>This extension uses <a href="http://docker.com/">Docker</a> to define, build, and store the runtime environment.</p>
 <p>The runtime environment or image MUST be represented by a <a href="https://github.com/docker/docker/blob/master/image/spec/v1.2.md">Docker image v1.2.0</a>.</p>
 <p>The runtime manifest MUST be represented by a <code>Dockerfile</code>, see <a href="https://docs.docker.com/engine/reference/builder/">Docker builder reference</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/builder.md"><code>1.12.x</code></a>.</p>
-<h2 id="docker-image">Docker image</h2>
-<p>The base directory MUST contain a <a href="https://en.wikipedia.org/wiki/Tar_(computing)">tarball</a> of a Docker image as created be the command <code>docker save</code>, see <a href="https://docs.docker.com/engine/reference/commandline/save/">Docker CLI save command documentation</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md"><code>1.12.x</code></a>.</p>
-<p>The file SHOULD be named <code>image.tar</code>.</p>
-<p>The output of the container during execution can be shown to the user to convey detailed information.</p>
 <h2 id="dockerfile">Dockerfile</h2>
 <p>The base directory MUST contain a valid Dockerfile, see <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile reference</a>.
 The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the <a href="#runtime-container-file">runtime container file</a> using <code>docker build</code>, see <a href="https://docs.docker.com/engine/reference/commandline/build/">Docker CLI build command documentation</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md"><code>1.12.x</code></a>.
@@ -252,16 +243,56 @@ execution:
 </code></pre>
 
 <p>Example for a Dockerfile:</p>
-<pre><code class="Dockerfile">FROM debian
-MAINTAINER o2r project team &lt;http://o2r.info&gt;
+<pre><code class="Dockerfile">FROM rocker/r-base:latest
+MAINTAINER o2r
+
+RUN apt-get update -qq \
+    &amp;&amp; apt-get install -y --no-install-recommends \
+    ## Packages required by R extension packages
+    # required by rmarkdown:
+    lmodern \
+    pandoc \
+    # for devtools (requires git2r, httr):
+    libcurl4-openssl-dev \
+    libssl-dev \
+    git \
+    # for udunits:
+    libudunits2-0 \
+    libudunits2-dev \
+    # required when knitting the document
+    pandoc-citeproc \
+    &amp;&amp; apt-get clean \
+    &amp;&amp; rm -rf /var/lib/apt/lists/*
+
+# install R extension packages
+RUN install2.r -r &quot;http://cran.rstudio.com&quot; \
+      rmarkdown \
+      ggplot2 \
+      devtools \
+      &amp;&amp; rm -rf /tmp/downloaded_packages/ /tmp/*.rd
+
+# Save installed packages to file
+RUN dpkg -l &gt; /dpkg-list.txt
+
+LABEL Description=&quot;This is an ERC image.&quot; \
+    info.o2r.bag.id=&quot;123456&quot;
+
+COPY . /erc
 
 VOLUME [&quot;/erc&quot;]
 
-CMD [&quot;/erc/run_analysis.sh&quot;, &quot;--debug&quot;, &quot;-i&quot;, &quot;/erc/inputdata&quot;]
+ENTRYPOINT [&quot;sh&quot;, &quot;-c&quot;]
+CMD [&quot;R --vanilla -e \&quot;rmarkdown::render(input = '/erc/myPaper.rmd/DateDeclinePaper.Rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\&quot;&quot;]
 </code></pre>
 
-<h3 id="metadata-in-container-manifest-under-development">Metadata in container manifest - <em>Under development</em></h3>
-<p>Use <code>LABEL</code> and <code>ENV</code> instructions to contain some metadata?</p>
+<p>See also: <a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run">Best practices for writing Dockerfiles</a>.</p>
+<h2 id="docker-container">Docker container</h2>
+<p>To export the docker container and inspect its filesystem use:</p>
+<p><code>docker export CONTAINER_ID &gt; myExport.tar</code></p>
+<h2 id="docker-image">Docker image</h2>
+<p>The base directory MUST contain a <a href="https://en.wikipedia.org/wiki/Tar_(computing)">tarball</a> of a Docker image as created be the command <code>docker save</code>, see <a href="https://docs.docker.com/engine/reference/commandline/save/">Docker CLI save command documentation</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md"><code>1.12.x</code></a>.</p>
+<p>The file SHOULD be named <code>image.tar</code>.</p>
+<p>The output of the container during execution can be shown to the user to convey detailed information.</p>
 <h2 id="default-control-statements">Default control statements</h2>
 <p>The default control statements of implementing tools MUST be as shown in the following example configuration file.</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
@@ -270,12 +301,7 @@ execution:
   command:
     - `docker load --input image.tar`
     - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
-</code></pre>
-
-<h2 id="runtime-manipulation">Runtime manipulation</h2>
-<p>...</p>
-<h2 id="data-exchange">Data exchange</h2>
-<p>...</p></div>
+</code></pre></div>
         
     </div>
 
