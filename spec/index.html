@@ -273,7 +273,7 @@
 
 <h1 id="erc-specification">ERC specification</h1>
 <p>An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
-It provides a well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as an object or more specifically: a digital asset.</p>
+It provides a well-defined structure for data, code, text, documentation, user interface and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as a digital object or asset.</p>
 <div class="alert note" markdown="block">
 This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 </div>
@@ -312,7 +312,7 @@ This version is <em>under development</em>!</p>
 <p>The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p>
 <h2 id="purpose">Purpose</h2>
 <p>This specification defines a structure to carry and execute a computational scientific analyses (cf. <a href="https://en.wikipedia.org/wiki/Computational_science">computational science</a>).</p>
-<p>These analyses typically comprise a workspace on a researchers computer, which comprises <em>data</em>, <em>code</em>, third party software or libraries, and outputs such as plots.
+<p>These analyses typically comprise a workspace on a researcher's computer, which comprises <em>data</em>, <em>code</em>, third party software or libraries, and outputs such as plots.
 Code and libraries are required in executable form to re-do an analysis.
 Research is only put into a context by a <em>textual</em> publication, which is published in <a href="https://en.wikipedia.org/wiki/Scholarly_communication">scholarly communication</a>.
 The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
@@ -415,7 +415,7 @@ execution:
 </code></pre>
 
 <h3 id="license-metadata">License metadata</h3>
-<p><code>erc.yml</code> MUST contain a first level node <code>licenses</code> with licensing information for the code, data, and text contained.
+<p>The file <code>erc.yml</code> MUST contain a first level node <code>licenses</code> with licensing information for the code, data, and text contained.
 Each of these three have distinct requirements, hence different licenses need to be applied.</p>
 <p>The node <code>licenses</code> MUST have three children: <code>code</code>, <code>data</code>, <code>text</code>.</p>
 <div class="alert note" markdown="block">
@@ -432,9 +432,9 @@ Tools for automatic creation of ERC may add such detailed licensing information 
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 licenses:
-  code: &quot;Apache-2.0&quot;
-  data: &quot;ODbL-1.0&quot;
-  text: &quot;CC0-1.0&quot;
+  code: Apache-2.0
+  data: ODbL-1.0
+  text: CC0-1.0
 </code></pre>
 
 <p>Example using specific licenses for files:</p>
@@ -509,7 +509,7 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 </ul>
 <h2 id="content-metadata">Content metadata</h2>
 <h3 id="metadata-elements-under-development">Metadata elements <em>under development</em></h3>
-<p>Current JSON dummy to visualise the schema properties. It SHOULD be filled out as good as possible.</p>
+<p>Current JSON dummy to visualise the properties. It SHOULD be filled out as good as possible.</p>
 <pre><code class="json">{
     &quot;author&quot;: [{
         &quot;name&quot;: null,
@@ -608,7 +608,8 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <ul>
 <li>the spec prohibits use of <code>EXPOSE</code></li>
 <li>the containers are only executed <em>without</em> external network access using <code>Network: none</code>, see <a href="https://docs.docker.com/engine/reference/run/#/network-none">Docker CLI run documentation</a></li>
-</ul></div>
+</ul>
+<!-- Prefer checksums from cryptographic hash functions that have not yet been broken by collisions. --></div>
         
     </div>
 
