@@ -334,7 +334,7 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
 	"depends": [{
 		"identifier": null,
 		"version": null,
-		"packageSystem": null,
+		"packageSystem": null
 	}],
 	"description": null,
 	"ercIdentifier": null,
@@ -346,7 +346,7 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
 	"generatedBy": null,
     "interaction": {
         "interactive": false,
-	{
+	"ui_binding": {
 	"purpose": null,
 	"widget": null,
 	"code": {
