@@ -535,7 +535,26 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
     },
     &quot;generatedBy&quot;: null,
     &quot;interaction&quot;: {
-        &quot;interactive&quot;: false
+        &quot;interactive&quot;: false,
+    {
+    &quot;purpose&quot;: null,
+    &quot;widget&quot;: null,
+    &quot;code&quot;: {
+        &quot;filename&quot;: null,
+        &quot;function&quot;: null,
+        &quot;variable&quot;: null,
+        &quot;shinyInputFunction&quot;: null,
+        &quot;shinyRenderFunction&quot;: null,
+        &quot;functionParameter&quot;: {
+            &quot;name&quot;: null,
+            &quot;label&quot;: null,
+            &quot;min&quot;: null,
+            &quot;max&quot;: null,
+            &quot;value&quot;: null,
+            &quot;step&quot;: null
+            }
+        }
+    }
     },
     &quot;keywords&quot;: [],
     &quot;license&quot;: null,
@@ -578,10 +597,10 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <li><code>generatedBy</code> The entity, person or tool, that created the software.</li>
 <li><code>interaction</code> Information on interactive elements in the asset.</li>
 <li><code>interaction.interactive</code> 'TRUE' if interactive elements are already included, otherwise 'FALSE'.</li>
-<li><code>interaction.ui_binding</code> A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation.</li>
+<li><code>interaction.ui_binding</code> A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation. Final structure depends on purpose.</li>
 <li><code>interaction.ui_binding.purpose</code> What the UI binding is supposed to do.</li>
 <li><code>interaction.ui_binding.widget</code> Which UI widget realizes the purpose.</li>
-<li><code>interaction.ui_binding.code</code> A block containing source-code-specific information required to realize the UI binding.</li>
+<li><code>interaction.ui_binding.code</code> A block containing source-code-specific information required to realize the UI binding. Final set of parameters depends on UI widget.</li>
 <li><code>interaction.ui_binding.code.filename</code> Name of the file including the plot function that creates the figure.</li>
 <li><code>interaction.ui_binding.code.function</code> Name of the function that plots the figure.</li>
 <li><code>interaction.ui_binding.variable</code> Variable that should be controlled by the UI widget.</li>
