@@ -412,13 +412,13 @@ Defining explanations on the concept of each metadata element in use.
 + `interaction.ui_binding` A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation. Final structure depends on purpose.
 + `interaction.ui_binding.purpose` What the UI binding is supposed to do.
 + `interaction.ui_binding.widget` Which UI widget realizes the purpose.
-+ `interaction.ui_binding.code` A block containing source-code-specific information required to realize the UI binding. Final set of parameters depends on UI widget.
++ `interaction.ui_binding.code` A block containing source-code-specific information required to realize the UI binding.
 + `interaction.ui_binding.code.filename` Name of the file including the plot function that creates the figure.
 + `interaction.ui_binding.code.function` Name of the function that plots the figure.
 + `interaction.ui_binding.variable` Variable that should be controlled by the UI widget.
 + `interaction.ui_binding.code.shinyInputFunction` Function that incorporates the UI widgets, provided by Shiny. 
 + `interaction.ui_binding.code.shinyRenderFunction` Function that renders the plot after each change, provided by Shiny.
-+ `interaction.ui_binding.code.functionParameter` Parameters required by the shinyInputFunction.
++ `interaction.ui_binding.code.functionParameter` Parameters required by the shinyInputFunction. Final set of parameters depends on UI widget.
 + `keywords` Tags associated with the asset.
 + `license` License information for the entire ERC.
 + `paperLanguage` A list of language codes that indicate the language of the asset, e.g. _en_.
