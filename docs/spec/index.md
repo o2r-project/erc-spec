@@ -345,7 +345,26 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
 	},
 	"generatedBy": null,
     "interaction": {
-        "interactive": false
+        "interactive": false,
+	{
+	"purpose": null,
+	"widget": null,
+	"code": {
+		"filename": null,
+		"function": null,
+		"variable": null,
+		"shinyInputFunction": null,
+		"shinyRenderFunction": null,
+		"functionParameter": {
+			"name": null,
+			"label": null,
+			"min": null,
+			"max": null,
+			"value": null,
+			"step": null
+			}
+		}
+	}
     },
 	"keywords": [],
 	"license": null,
@@ -390,10 +409,10 @@ Defining explanations on the concept of each metadata element in use.
 + `generatedBy` The entity, person or tool, that created the software.
 + `interaction` Information on interactive elements in the asset.
 + `interaction.interactive` 'TRUE' if interactive elements are already included, otherwise 'FALSE'.
-+ `interaction.ui_binding` A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation.
++ `interaction.ui_binding` A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation. Final structure depends on purpose.
 + `interaction.ui_binding.purpose` What the UI binding is supposed to do.
 + `interaction.ui_binding.widget` Which UI widget realizes the purpose.
-+ `interaction.ui_binding.code` A block containing source-code-specific information required to realize the UI binding.
++ `interaction.ui_binding.code` A block containing source-code-specific information required to realize the UI binding. Final set of parameters depends on UI widget.
 + `interaction.ui_binding.code.filename` Name of the file including the plot function that creates the figure.
 + `interaction.ui_binding.code.function` Name of the function that plots the figure.
 + `interaction.ui_binding.variable` Variable that should be controlled by the UI widget.
