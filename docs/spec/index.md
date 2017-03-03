@@ -1,7 +1,7 @@
 # ERC specification
 
 An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
-It provides a well-defined structure for data, code, text, documentation, user interface and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as a digital object or asset.
+It provides a well-defined structure for data, code, text, documentation, and user interface controls for a piece of research and is suitable for long-term archival. As such it can also be perceived as a digital object or asset.
 
 <div class="alert note" markdown="block">
 This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
@@ -34,7 +34,11 @@ This version is _under development_!
 
 ## Notational conventions
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in [RFC 2119][rfc2119].
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "
+
+
+
+", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in [RFC 2119][rfc2119].
 
 The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the [rationale for the C99 standard][c99-unspecified].
 
@@ -63,7 +67,7 @@ It must be possible to create a valid and working ERC manually.
 
 The final important notion is the one of _nested containers_.
 We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
-Therefore the an ERC comprises _one or more containers but is itself subject to being put into a container_.
+Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
 We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation
 
 ## How to use an ERC
@@ -88,7 +92,7 @@ In other words, an archive of an ERC will have one top-level directory with the 
 
 The base directory MUST contain an [ERC configuration file](#erc-configuration-file).
 
-Besides the files mentioned in this specification, the base directory may contain any other file and directories.
+Besides the files mentioned in this specification, the base directory may contain any other files and directories.
 
 ### Main document & display file
 
@@ -130,14 +134,14 @@ This manifest MUST be in a machine-readable format that allows a respective tool
 
 A concrete runtime extension MUST define the command to create the runnable environment from the manifest.
 
-### Runtime manipulation
+<!--### Runtime manipulation
 
 Bundling a complete runtime gives the possibility to manipulate the contained workflow or exchange data.
 
 The manipulation parameters SHOULD be defined in a concrete runtime extension.
 
-The data replacement proccess SHOULD be define in a concrete runtime extension.
-
+The data replacement proccess SHOULD be defined in a concrete runtime extension.
+-->
 ## ERC configuration file
 
 The ERC configuration file is the _reproducibility manifest_ for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.
@@ -371,7 +375,7 @@ Defining explanations on the concept of each metadata element in use.
 + `author` Contains a list of author related information.
 + `author.affiliation` A list of institutions, organizations or other groups that the creator of the asset is associated with.
 + `author.name` The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.
-+ `author.orcid` the ORCid of the creator of the asset.
++ `author.orcid` The ORCid of the creator of the asset.
 + `community` Indicates belonging to a scientific community, e.g. on a repositoy platform.
 + `depends` A block for each entity that the software is dependent on for execution.
 + `depends.identifier` An identifying name for the depending package.
@@ -380,12 +384,22 @@ Defining explanations on the concept of each metadata element in use.
 + `description` A text representation conveying the purpose and scope of the asset (the abstract).
 + `ercIdentifier` A universally unique character string associated with the asset as _executable research compendium_, provided by the o2r service.
 + `file` A block for the main source file for the metadata (e.g. rmd file), generated and used by the o2r service.
-+ `file.filename` see above 
-+ `file.filepath` see above 
-+ `file.mimetype` see above 
++ `file.filename` See above 
++ `file.filepath` See above 
++ `file.mimetype` See above 
 + `generatedBy` The entity, person or tool, that created the software.
-+ `interaction` Information on how to interact with the asset.
-+ `interaction.interactive` indicates interaction such as shiny app dynamics is possible.
++ `interaction` Information on interactive elements in the asset.
++ `interaction.interactive` 'TRUE' if interactive elements are already included, otherwise 'FALSE'.
++ `interaction.ui_binding` A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation.
++ `interaction.ui_binding.purpose` What the UI binding is supposed to do.
++ `interaction.ui_binding.widget` Which UI widget realizes the purpose.
++ `interaction.ui_binding.code` A block containing source-code-specific information required to realize the UI binding.
++ `interaction.ui_binding.code.filename` Name of the file including the plot function that creates the figure.
++ `interaction.ui_binding.code.function` Name of the function that plots the figure.
++ `interaction.ui_binding.variable` Variable that should be controlled by the UI widget.
++ `interaction.ui_binding.code.shinyInputFunction` Function that incorporates the UI widgets, provided by Shiny. 
++ `interaction.ui_binding.code.shinyRenderFunction` Function that renders the plot after each change, provided by Shiny.
++ `interaction.ui_binding.code.functionParameter` Parameters required by the shinyInputFunction.
 + `keywords` Tags associated with the asset.
 + `license` License information for the entire ERC.
 + `paperLanguage` A list of language codes that indicate the language of the asset, e.g. _en_.
