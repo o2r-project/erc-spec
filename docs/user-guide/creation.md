@@ -16,7 +16,7 @@ The ERC specification makes no restrictions on the contents of a workspace, but 
 
 ### Code and versioning
 
-If the base directory contains a script file or source code used to conduct the packaged analysis, we recoomend this code is managed using [distributed version control](https://en.wikipedia.org/wiki/Distributed_version_control), see [software carpentry guidelines](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#keeping-track-of-changes).
+If the base directory contains a script file or source code used to conduct the packaged analysis, we recommend this code is managed using [distributed version control](https://en.wikipedia.org/wiki/Distributed_version_control), see [software carpentry guidelines](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#keeping-track-of-changes).
 The base directory should contain a copy of the complete repository in that case.
 
 ### Workspace structure
@@ -56,7 +56,7 @@ License information must be put into the ERC configuration file `erc.yml` as def
 
 ### Content metadata
 
-Content metadata are use for the later discovery of your work. Properties for the content metadata are defined in the [specification](../spec/index.md#Content-metadata) and must be put into the `metadata.json` file.
+Content metadata are used for making your work findable. Properties for the content metadata are defined in the [specification](../spec/index.md#Content-metadata) and must be put into the `metadata.json` file.
 
 <!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
 
@@ -69,7 +69,7 @@ Secondary metadata are used for third party services, e.g. repositories that def
 In general they can be added in different formats to support different use cases.
 
 More information on secondary metadata can be found in the [archival extention](../spec/archival.md#Secondary-metadata-files).
- 
+
 
 ## Step 4: validate
 
