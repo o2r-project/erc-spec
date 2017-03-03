@@ -231,8 +231,6 @@
             
                 <li class="third-level"><a href="#runtime-manifest">Runtime manifest</a></li>
             
-                <li class="third-level"><a href="#runtime-manipulation">Runtime manipulation</a></li>
-            
         
             <li class="second-level"><a href="#erc-configuration-file">ERC configuration file</a></li>
             
@@ -273,7 +271,7 @@
 
 <h1 id="erc-specification">ERC specification</h1>
 <p>An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
-It provides a well-defined structure for data, code, text, documentation, user interface and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as a digital object or asset.</p>
+It provides a well-defined structure for data, code, text, documentation, and user interface controls for a piece of research and is suitable for long-term archival. As such it can also be perceived as a digital object or asset.</p>
 <div class="alert note" markdown="block">
 This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 </div>
@@ -308,7 +306,8 @@ This version is <em>under development</em>!</p>
 <li><a href="glossary.md">Glossary</a></li>
 </ul>
 <h2 id="notational-conventions">Notational conventions</h2>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "</p>
+<p>", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
 <p>The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p>
 <h2 id="purpose">Purpose</h2>
 <p>This specification defines a structure to carry and execute a computational scientific analyses (cf. <a href="https://en.wikipedia.org/wiki/Computational_science">computational science</a>).</p>
@@ -328,7 +327,7 @@ This specification should not re-do something which already exists (if it is an 
 It must be possible to create a valid and working ERC manually.</p>
 <p>The final important notion is the one of <em>nested containers</em>.
 We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
-Therefore the an ERC comprises <em>one or more containers but is itself subject to being put into a container</em>.
+Therefore an ERC comprises <em>one or more containers but is itself subject to being put into a container</em>.
 We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation</p>
 <h2 id="how-to-use-an-erc">How to use an ERC</h2>
 <p>The steps to (re-)run the analysis contained in an ERC are as follows:</p>
@@ -345,7 +344,7 @@ That directory is part of the <a href="https://github.com/opencontainers/runtime
 In other words, an archive of an ERC will have one top-level directory with the name of the base directory.</p>
 <p><strong>Regular expression</strong> for base directory name: <code>[a-zA-Z0-9\-_]</code></p>
 <p>The base directory MUST contain an <a href="#erc-configuration-file">ERC configuration file</a>.</p>
-<p>Besides the files mentioned in this specification, the base directory may contain any other file and directories.</p>
+<p>Besides the files mentioned in this specification, the base directory may contain any other files and directories.</p>
 <h3 id="main-document-display-file">Main document &amp; display file</h3>
 <p>An ERC MUST have a <em>main document</em>, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
 The main document's name SHOULD be <code>main</code> with an appropriate extension and media type.
@@ -370,10 +369,15 @@ It SHOULD be named <code>image</code> with an appropriate extension, such as <co
 <p>The base directory MUST contain a complete, self-consistent manifest of the runtime image's contents.</p>
 <p>This manifest MUST be in a machine-readable format that allows a respective tool to create the runtime image.</p>
 <p>A concrete runtime extension MUST define the command to create the runnable environment from the manifest.</p>
-<h3 id="runtime-manipulation">Runtime manipulation</h3>
-<p>Bundling a complete runtime gives the possibility to manipulate the contained workflow or exchange data.</p>
-<p>The manipulation parameters SHOULD be defined in a concrete runtime extension.</p>
-<p>The data replacement proccess SHOULD be define in a concrete runtime extension.</p>
+<!--### Runtime manipulation
+
+Bundling a complete runtime gives the possibility to manipulate the contained workflow or exchange data.
+
+The manipulation parameters SHOULD be defined in a concrete runtime extension.
+
+The data replacement proccess SHOULD be defined in a concrete runtime extension.
+-->
+
 <h2 id="erc-configuration-file">ERC configuration file</h2>
 <p>The ERC configuration file is the <em>reproducibility manifest</em> for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.</p>
 <h3 id="name-format-and-encoding">Name, format, and encoding</h3>
@@ -559,7 +563,7 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <li><code>author</code> Contains a list of author related information.</li>
 <li><code>author.affiliation</code> A list of institutions, organizations or other groups that the creator of the asset is associated with.</li>
 <li><code>author.name</code> The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.</li>
-<li><code>author.orcid</code> the ORCid of the creator of the asset.</li>
+<li><code>author.orcid</code> The ORCid of the creator of the asset.</li>
 <li><code>community</code> Indicates belonging to a scientific community, e.g. on a repositoy platform.</li>
 <li><code>depends</code> A block for each entity that the software is dependent on for execution.</li>
 <li><code>depends.identifier</code> An identifying name for the depending package.</li>
@@ -568,12 +572,22 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <li><code>description</code> A text representation conveying the purpose and scope of the asset (the abstract).</li>
 <li><code>ercIdentifier</code> A universally unique character string associated with the asset as <em>executable research compendium</em>, provided by the o2r service.</li>
 <li><code>file</code> A block for the main source file for the metadata (e.g. rmd file), generated and used by the o2r service.</li>
-<li><code>file.filename</code> see above </li>
-<li><code>file.filepath</code> see above </li>
-<li><code>file.mimetype</code> see above </li>
+<li><code>file.filename</code> See above </li>
+<li><code>file.filepath</code> See above </li>
+<li><code>file.mimetype</code> See above </li>
 <li><code>generatedBy</code> The entity, person or tool, that created the software.</li>
-<li><code>interaction</code> Information on how to interact with the asset.</li>
-<li><code>interaction.interactive</code> indicates interaction such as shiny app dynamics is possible.</li>
+<li><code>interaction</code> Information on interactive elements in the asset.</li>
+<li><code>interaction.interactive</code> 'TRUE' if interactive elements are already included, otherwise 'FALSE'.</li>
+<li><code>interaction.ui_binding</code> A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation.</li>
+<li><code>interaction.ui_binding.purpose</code> What the UI binding is supposed to do.</li>
+<li><code>interaction.ui_binding.widget</code> Which UI widget realizes the purpose.</li>
+<li><code>interaction.ui_binding.code</code> A block containing source-code-specific information required to realize the UI binding.</li>
+<li><code>interaction.ui_binding.code.filename</code> Name of the file including the plot function that creates the figure.</li>
+<li><code>interaction.ui_binding.code.function</code> Name of the function that plots the figure.</li>
+<li><code>interaction.ui_binding.variable</code> Variable that should be controlled by the UI widget.</li>
+<li><code>interaction.ui_binding.code.shinyInputFunction</code> Function that incorporates the UI widgets, provided by Shiny. </li>
+<li><code>interaction.ui_binding.code.shinyRenderFunction</code> Function that renders the plot after each change, provided by Shiny.</li>
+<li><code>interaction.ui_binding.code.functionParameter</code> Parameters required by the shinyInputFunction.</li>
 <li><code>keywords</code> Tags associated with the asset.</li>
 <li><code>license</code> License information for the entire ERC.</li>
 <li><code>paperLanguage</code> A list of language codes that indicate the language of the asset, e.g. <em>en</em>.</li>
