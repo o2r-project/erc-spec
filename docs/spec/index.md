@@ -347,25 +347,25 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
     "interaction": {
         "interactive": false,
 	"ui_binding": {
-	"purpose": null,
-	"widget": null,
-	"code": {
-		"filename": null,
-		"function": null,
-		"variable": null,
-		"shinyInputFunction": null,
-		"shinyRenderFunction": null,
-		"functionParameter": {
-			"name": null,
-			"label": null,
-			"min": null,
-			"max": null,
-			"value": null,
-			"step": null
+		"purpose": null,
+		"widget": null,
+		"code": {
+			"filename": null,
+			"function": null,
+			"variable": null,
+			"shinyInputFunction": null,
+			"shinyRenderFunction": null,
+			"functionParameter": {
+				"name": null,
+				"label": null,
+				"min": null,
+				"max": null,
+				"value": null,
+				"step": null
+				}
 			}
 		}
-	}
-    },
+ 	},
 	"keywords": [],
 	"license": null,
 	"paperLanguage": [],
