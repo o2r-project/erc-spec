@@ -600,13 +600,13 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <li><code>interaction.ui_binding</code> A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation. Final structure depends on purpose.</li>
 <li><code>interaction.ui_binding.purpose</code> What the UI binding is supposed to do.</li>
 <li><code>interaction.ui_binding.widget</code> Which UI widget realizes the purpose.</li>
-<li><code>interaction.ui_binding.code</code> A block containing source-code-specific information required to realize the UI binding. Final set of parameters depends on UI widget.</li>
+<li><code>interaction.ui_binding.code</code> A block containing source-code-specific information required to realize the UI binding.</li>
 <li><code>interaction.ui_binding.code.filename</code> Name of the file including the plot function that creates the figure.</li>
 <li><code>interaction.ui_binding.code.function</code> Name of the function that plots the figure.</li>
 <li><code>interaction.ui_binding.variable</code> Variable that should be controlled by the UI widget.</li>
 <li><code>interaction.ui_binding.code.shinyInputFunction</code> Function that incorporates the UI widgets, provided by Shiny. </li>
 <li><code>interaction.ui_binding.code.shinyRenderFunction</code> Function that renders the plot after each change, provided by Shiny.</li>
-<li><code>interaction.ui_binding.code.functionParameter</code> Parameters required by the shinyInputFunction.</li>
+<li><code>interaction.ui_binding.code.functionParameter</code> Parameters required by the shinyInputFunction. Final set of parameters depends on UI widget.</li>
 <li><code>keywords</code> Tags associated with the asset.</li>
 <li><code>license</code> License information for the entire ERC.</li>
 <li><code>paperLanguage</code> A list of language codes that indicate the language of the asset, e.g. <em>en</em>.</li>
