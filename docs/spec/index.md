@@ -1,7 +1,7 @@
 # ERC specification
 
 An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
-It provides a well-defined structure for data, code, documentation, and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as an object or more specifically: a digital asset.
+It provides a well-defined structure for data, code, text, documentation, user interface and control of a piece of research and is suitable for long-term archival. As such it can also be perceived as a digital object or asset.
 
 <div class="alert note" markdown="block">
 This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
@@ -42,7 +42,7 @@ The key words "unspecified", "undefined", and "implementation-defined" are to be
 
 This specification defines a structure to carry and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science)).
 
-These analyses typically comprise a workspace on a researchers computer, which comprises _data_, _code_, third party software or libraries, and outputs such as plots.
+These analyses typically comprise a workspace on a researcher's computer, which comprises _data_, _code_, third party software or libraries, and outputs such as plots.
 Code and libraries are required in executable form to re-do an analysis.
 Research is only put into a context by a _textual_ publication, which is published in [scholarly communication](https://en.wikipedia.org/wiki/Scholarly_communication).
 The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
@@ -199,7 +199,7 @@ execution:
 
 ### License metadata
 
-`erc.yml` MUST contain a first level node `licenses` with licensing information for the code, data, and text contained.
+The file `erc.yml` MUST contain a first level node `licenses` with licensing information for the code, data, and text contained.
 Each of these three have distinct requirements, hence different licenses need to be applied.
 
 The node `licenses` MUST have three children: `code`, `data`, `text`.
@@ -220,9 +220,9 @@ Example for global licenses:
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 licenses:
-  code: "Apache-2.0"
-  data: "ODbL-1.0"
-  text: "CC0-1.0"
+  code: Apache-2.0
+  data: ODbL-1.0
+  text: CC0-1.0
 ```
 
 Example using specific licenses for files:
@@ -244,7 +244,6 @@ licenses:
 <div class="alert note" markdown="block">
 It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
 </div>
-
 
 
 ### Extension metadata
@@ -316,10 +315,9 @@ The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA
 
 ## Content metadata
 
-
 ### Metadata elements _under development_
 
-Current JSON dummy to visualise the schema properties. It SHOULD be filled out as good as possible.
+Current JSON dummy to visualise the properties. It SHOULD be filled out as good as possible.
 
 ```json
 {
@@ -404,7 +402,6 @@ Defining explanations on the concept of each metadata element in use.
 + `title` The distinguishing name of the paper publication.
 
 
-
 ## Validation
 
 ERC validation comprises four steps:
@@ -431,7 +428,7 @@ Why are ERC not a security risk?
 - the spec prohibits use of `EXPOSE`
 - the containers are only executed _without_ external network access using `Network: none`, see [Docker CLI run documentation](https://docs.docker.com/engine/reference/run/#/network-none)
 
-
+<!-- Prefer checksums from cryptographic hash functions that have not yet been broken by collisions. -->
 
 [c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
 [rfc2119]: http://tools.ietf.org/html/rfc2119

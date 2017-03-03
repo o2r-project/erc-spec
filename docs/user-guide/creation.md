@@ -1,7 +1,7 @@
 # User guide: ERC creation
 
 This user guide comprises instructions how to create an ERC _by hand_.
-It thus limited to mandatory elements in some places.
+It is thus limited to mandatory elements in some places.
 However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document.
 For using tools or services for creation and validation of ERCs, please see the [developer guide](../dev-guide/index.md).
 
@@ -44,57 +44,55 @@ Structural & administrative metadata must be put into the ERC configuration file
 
 ### License metadata
 
-Please consult your employer or legal department for a suitable license for your work.
+Please consult your employer or legal department for a suitable license for your work. Make sure you hold the copyright for any code that you want to release under a self-chosen license.
 
 Further resources that are linked here without any endorsement or being checked:
 
-- https://speakerdeck.com/labarba/a-short-lecture-on-open-licensing
-- https://choosealicense.com (for code)
-- http://opendefinition.org (for code, data, text)
+- [choosealicense.com](https://choosealicense.com) (for code)
+- [opendefinition.org](http://opendefinition.org) (for code, data, text)
+- [A short lecture on Open Licensing by Lorena A. Barba](https://speakerdeck.com/labarba/a-short-lecture-on-open-licensing)
 
 License information must be put into the ERC configuration file `erc.yml` as defined in the [specification](../spec/index.md#erc-configuration-file).
 
 ### Content metadata
 
-Put information on authors in the metadata of the respective main document, ideally in a structured form.
+Content metadata are use for the later discovery of your work. Properties for the content metadata are defined in the [specification](../spec/index.md#Content-metadata) and must be put into the `metadata.json` file.
 
 <!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
-
-Properties for the content metadata are defined in the [specification](../spec/index.md#Content-metadata).
 
 
 ### Secondary metadata
 
-Secondary metadata can be added in different formats to support different use cases, such as archival or registries.
-
 _As of now, we do not recommend creating secondary metadata by hand._
 
-More information on secondary metadata can be found in the [archival  extention](../spec/archival.md#Secondary-metadata-files).
+Secondary metadata are used for third party services, e.g. repositories that define their own obligatory metadata.
+In general they can be added in different formats to support different use cases.
+
+More information on secondary metadata can be found in the [archival extention](../spec/archival.md#Secondary-metadata-files).
  
 
 ## Step 4: validate
 
-For validation you can use the container, too.
-Run the analysis in the container, then copy the analysis output to a temporary directory on the host, and finally compare the original workspace and the temporary directory according the [validation rules](index.md#validation).
+You can use the container created in step 2 for validation purposes, too. Run the analysis in the container, then copy the analysis output to a temporary directory on the host system, and finally compare the original workspace and the temporary directory according the [validation rules](index.md#validation) to ensure a complete replication.
 
 <!-- _To simplify the validation process, an ERC validation tool and accompanying [validation extension](../spec/index.md#Validation) are under development._ -->
 
 ## Step 5: create bag
 
-To create a package that is suitable for being stored in an archive or repository, follow the [archival extension](../spec/archival.md).
+To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags. Follow the instructions in the [archival extension](../spec/archival.md) to create a bag for your work.
 
-Useful tools for creating and validating BagIt bags:
+Useful third party tools for creating and validating BagIt bags:
 
 - [Bagger](https://github.com/LibraryOfCongress/bagger) (Java-based, with UI)
-- [bagit-python](https://libraryofcongress.github.io/bagit-python/) (Python-based, available via pip, CLI interface)
+- [bagit-python](https://libraryofcongress.github.io/bagit-python/) (Python package)
 
-A file tree for the final bagged ERC looks like this:
+A file tree for the final bagged ERC may look like this:
 
 ```txt
 ├── bag-info.txt
 ├── bagit.txt
 ├── data
-│   ├── 2016-07-17-sf2.Rmd
+│   ├── 2016-07-17-myPaper.Rmd
 │   ├── erc.yml
 │   ├── metadata.json
 │   ├── Dockerfile
