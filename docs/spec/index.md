@@ -161,7 +161,7 @@ The first document content of this file MUST contain the following string nodes 
 
 [//]: # (could use semantic versioning later)
 
-Minimal example:
+Example:
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
@@ -173,15 +173,15 @@ The main and display file can be defined in root-level nodes named `main` and `d
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
-main: the_paper_document.odt
-display: output.html
+main: the_paper_document.rmd
+display: view.html
 ```
 
 ### Control statements
 
 The configuration file MUST contain [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) statements to control the runtime container.
 
-These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file.
+These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file in no specific order.
 
 Default command statements SHOULD be defined by an extension for a working ERC.
 
@@ -216,7 +216,8 @@ Tools for automatic creation of ERC may add such detailed licensing information 
 The content of each of these child nodes MUST be one of the following
 
 - text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/).
-- a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory.
+- a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory. 
+
 
 Example for global licenses:
 
@@ -239,10 +240,13 @@ licenses:
   code:
     others_lib.bin: MIT
     my_code.c: GPL-3.0
+  data: 
+	facts.csv: ODbL-1.0
   text:
     README.md: CC0-1.0
     paper/chapter01.doc: CC-BY-4.0
     paper/chapter02.tex: CC-BY-4.0
+
 ```
 
 <div class="alert note" markdown="block">
@@ -279,6 +283,8 @@ The following example shows all possible fields of the core specification with e
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
+main: the_paper_document.rmd
+display: view.html
 structure:
   payload_directory: "data" # folder name including the workspace, after using bagger  
   config_file: "erc.yml"
@@ -291,6 +297,8 @@ licenses: # licenses that the author chooses for their files
   code:
     others_lib.bin: MIT
     my_code.c: GPL-3.0
+  data:
+	facts.csv: ODbL-1.0
   text:
     README.md: CC0-1.0
     paper/chapter01.doc: CC-BY-4.0
@@ -346,8 +354,8 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
 	"generatedBy": null,
     "interaction": {
         "interactive": false,
-	"ui_binding": {
-		"purpose": null,
+    "ui_binding": {
+        "purpose": null,
 		"widget": null,
 		"code": {
 			"filename": null,
@@ -391,7 +399,7 @@ The path to the o2r metadata file MUST be `<path-to-bag>/data/metadata.json`.
 
 Defining explanations on the concept of each metadata element in use.
 
-+ `author` Contains a list of author related information.
++ `author` Contains a list of authors, each containing author related information.
 + `author.affiliation` A list of institutions, organizations or other groups that the creator of the asset is associated with.
 + `author.name` The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.
 + `author.orcid` The ORCid of the creator of the asset.
@@ -415,17 +423,17 @@ Defining explanations on the concept of each metadata element in use.
 + `interaction.ui_binding.code` A block containing source-code-specific information required to realize the UI binding.
 + `interaction.ui_binding.code.filename` Name of the file including the plot function that creates the figure.
 + `interaction.ui_binding.code.function` Name of the function that plots the figure.
++ `interaction.ui_binding.code.functionParameter` Parameters required by the shinyInputFunction. Final set of parameters depends on UI widget.
 + `interaction.ui_binding.variable` Variable that should be controlled by the UI widget.
 + `interaction.ui_binding.code.shinyInputFunction` Function that incorporates the UI widgets, provided by Shiny. 
 + `interaction.ui_binding.code.shinyRenderFunction` Function that renders the plot after each change, provided by Shiny.
-+ `interaction.ui_binding.code.functionParameter` Parameters required by the shinyInputFunction. Final set of parameters depends on UI widget.
 + `keywords` Tags associated with the asset.
 + `license` License information for the entire ERC.
 + `paperLanguage` A list of language codes that indicate the language of the asset, e.g. _en_.
 + `paperSource` The text document file of the paper.
-+ `publicationDate` The publication date of the paper publication.
-+ `recordDateCreated` The date that this metadata record was created.
-+ `softwarePaperCitation` A text string that can be used to authoritatively cite a research paper, conference proceedings or other scholarly work that describes the design, development, usage, significance or other aspect of the software.
++ `publicationDate` The publication date of the paper publication as string.
++ `recordDateCreated` The date that this metadata record was created as string.
++ `softwarePaperCitation` Related citation information for the asset, e.g. a citation of the related journal artical.
 + `spatial` Information about the geometric bounding box of the underlying data/software.
 + `spatial.files` A Geojson object of the aggregated bounding boxes of the underlying data/software, generated by the o2r service.
 + `spatial.union` A Geojson object displaying the spatial properties of the data.
@@ -449,6 +457,8 @@ ERC validation comprises four steps:
 The validation MUST NOT fail when files listed in `.ercignore` are failing comparison.
 
 The validation SHOULD communicate all files and directories actually used for validation to the user to avoid malicious usage of an `.ercignore` file.
+
+The contents of the reproduced research included in the image tarball are to be valitated against the orginial files.
 
 <!-- Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure. -->
 

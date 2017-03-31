@@ -28,11 +28,11 @@ Some useful resources are
 - [ROpenSci research compendium](https://github.com/ropensci/rrrpkg)).
 - [ROpenSci reproducibility guide](https://ropensci.github.io/reproducibility-guide/sections/introduction)
 
-## Step 2: create container for runtime
+## Step 2: create image container for runtime
 
 To create a working ERC you must include a complete environment description and an executable image.
 
-We recommend using Docker, so a Dockerfile and a Docker container tarball, to achieve these goals.
+We recommend using Docker, so a Dockerfile and a Docker image tarball archive file, to achieve these goals.
 
 See the [Docker extension](../spec/docker.md) for detailed requirements, including links to the relevant Docker commands.
 
@@ -41,6 +41,8 @@ See the [Docker extension](../spec/docker.md) for detailed requirements, includi
 ### ERC metadata
 
 Structural & administrative metadata must be put into the ERC configuration file `erc.yml` as defined in the [specification](../spec/index.md#erc-configuration-file).
+
+When creating the erc manually, you can receive a uuid4 as `id` for the erc configuration file using an online service, e.g. [uuidgenerator](https://www.uuidgenerator.net/version4) or one of the numerous implementations for the common programming languages.
 
 ### License metadata
 
@@ -79,12 +81,24 @@ You can use the container created in step 2 for validation purposes, too. Run th
 
 ## Step 5: create bag
 
-To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags. Follow the instructions in the [archival extension](../spec/archival.md) to create a bag for your work.
+To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags. Take a look at the [archival extension](../spec/archival.md) for a detailed background about the purpose of BagIt and other digital preservation aspects.
 
-Useful third party tools for creating and validating BagIt bags:
+
+### Third party tools for creating BagIt bags
 
 - [Bagger](https://github.com/LibraryOfCongress/bagger) (Java-based, with UI)
 - [bagit-python](https://libraryofcongress.github.io/bagit-python/) (Python package)
+
+### Creating the bag
+
+In this guide we will create the bag manually by using the LoC Bagger 2.7 Java-Programm, listed above.
+
+1. Start by selecting "Create new bag" from the main menu and proceed with "<no profile>".
+2. Add your files with the "+" Button.
+3. Uncheck the "Standard" feature in the Bag-Info-Editor on the right and add `ERC-Version` with the appropriate version you want to use, e.g. `1`. Optionally fill out the rest of the Bag-Info metadata.
+4. Save your bag using the main menu.
+
+### Validating the bag
 
 A file tree for the final bagged ERC may look like this:
 
@@ -100,3 +114,6 @@ A file tree for the final bagged ERC may look like this:
 ├── manifest-md5.txt
 └── tagmanifest-md5.txt
 ```
+
+You can validate your bag with LoC Bagger by loading the bag and then clicking on "Validate Bag" in the main menu.
+The programm will check for completeness of bagit-related files and verify the integrity of the data files by computing their checksums (hashes) and report any potential issues.
