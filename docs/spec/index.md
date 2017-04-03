@@ -311,20 +311,6 @@ extensions:
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
 
 
-
-## .ercignore file
-
-The ERC MAY contain a file named `.ercignore` in the base directory.
-If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the validation process.
-The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
-
-The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml)) are regular expressions of file formats that CAN be used:
-
-- `text/*`
-- `application/json`
-- `*+xml`
-- `*+json`
-
 ## Content metadata
 
 ### Metadata elements _under development_
@@ -404,7 +390,7 @@ Defining explanations on the concept of each metadata element in use.
 + `author.name` The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.
 + `author.orcid` The ORCid of the creator of the asset.
 + `community` Indicates belonging to a scientific community, e.g. on a repositoy platform.
-+ `depends` A block for each entity that the software is dependent on for execution.
++ `depends` A block for each entity that the software is dependent on for execution. The dependency information is designed for the identification of dependent packages within packaging systems.
 + `depends.identifier` An identifying name for the depending package.
 + `depends.version` The computer software and hardware required to run the software.
 + `depends.packageSystem` The package manager system that makes the dependency entity available.
@@ -461,6 +447,22 @@ The validation SHOULD communicate all files and directories actually used for va
 The contents of the reproduced research included in the image tarball are to be valitated against the orginial files.
 
 <!-- Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure. -->
+
+
+
+## .ercignore file
+
+The ERC MAY contain a file named `.ercignore` in the base directory. Its purpose is to provide a way to efficiently exclude files and directories from validation. This is useful for an implementation of the ERC spec that automates validation.
+If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the validation process.
+The file must be UTF-8 (without BOM) encoded. The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
+
+The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml)) are regular expressions of file formats that CAN be used:
+
+- `text/*`
+- `application/json`
+- `*+xml`
+- `*+json`
+
 
 ## Security considerations
 

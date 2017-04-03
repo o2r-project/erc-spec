@@ -39,9 +39,16 @@ Example file tree for a bagged ERC:
 └── tagmanifest-md5.txt
 ```
 
-### BagIt profile - _Under Development_
+### BagIt profile
 
-A [Bagit Profile][bagitprofiles] as outlined below could make the requirements of this extension more explicit.
+<div class="alert note" markdown="block">
+The elements of the o2r Bagit Profile is yet to be specified. - This section is under development.
+Current BagIt tools do not include an option to add a BagIt Profile automatically.
+</div>
+
+
+A [BagIt Profile][bagitprofiles] as outlined below could make the requirements of this extension more explicit.
+The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate additional information, attached to bags.
 
 ```json
 {

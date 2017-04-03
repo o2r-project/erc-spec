@@ -75,7 +75,7 @@ More information on secondary metadata can be found in the [archival extention](
 
 ## Step 4: validate
 
-You can use the container created in step 2 for validation purposes, too. Run the analysis in the container, then copy the analysis output to a temporary directory on the host system, and finally compare the original workspace and the temporary directory according the [validation rules](index.md#validation) to ensure a complete replication.
+You can use the container created in step 2 for validation purposes, too. Run the analysis in the container, then copy the analysis output to a temporary directory on the host system, and finally compare the original workspace and the temporary directory according the [validation rules](../spec/index.md#validation) to ensure a complete replication.
 
 <!-- _To simplify the validation process, an ERC validation tool and accompanying [validation extension](../spec/index.md#Validation) are under development._ -->
 
@@ -95,7 +95,7 @@ In this guide we will create the bag manually by using the LoC Bagger 2.7 Java-P
 
 1. Start by selecting "Create new bag" from the main menu and proceed with "<no profile>".
 2. Add your files with the "+" Button.
-3. Uncheck the "Standard" feature in the Bag-Info-Editor on the right and add `ERC-Version` with the appropriate version you want to use, e.g. `1`. Optionally fill out the rest of the Bag-Info metadata.
+3. Uncheck the "Standard" feature in the Bag-Info-Editor on the right and add `ERC-Version` with the appropriate version you want to use, e.g. `1`. Optionally fill out additional Bag-Info metadata, e.g. _contact information_.
 4. Save your bag using the main menu.
 
 ### Validating the bag

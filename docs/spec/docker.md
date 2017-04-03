@@ -39,6 +39,8 @@ execution:
 
 Example for a Dockerfile:
 
+In this example we use the [_rocker_](https://github.com/rocker-org/rocker) base docker container to instantiate the R software.
+
 ```Dockerfile
 FROM rocker/r-base:latest
 MAINTAINER o2r
