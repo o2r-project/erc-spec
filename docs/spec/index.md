@@ -148,7 +148,7 @@ The filename MUST be `erc.yml` and it MUST be located in the base directory.
 The contents MUST be valid [YAML 1.2](http://yaml.org/).
 The file MUST be encoded in `UTF-8` and MUST NOT contain a byte-order mark (BOM).
 
-### Required fields
+### Basic fields
 
 The first document content of this file MUST contain the following string nodes at the root level.
 
