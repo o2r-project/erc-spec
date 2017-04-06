@@ -434,11 +434,12 @@ ERC validation comprises four steps:
 
 <!--The comparison step (`3.`) SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to compare with hashes_, for example text-based documents but not compressed pictures.-->
 
-The validation MUST NOT fail when files listed in `.ercignore` are failing comparison.
+The validation SHOULD communicate all files and directories actually used for validation, the comparison set, to the user.
 
-The validation SHOULD communicate all files and directories actually used for validation to the user to avoid malicious usage of an `.ercignore` file.
+### Comparison set
 
 The contents of the reproduced research included in the image tarball are to be valitated against the orginial files.
+The comparison set SHOULD comprise comparable files which contain the results of the research.
 
 The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml)) are regular expressions of file formats that SHOULD be included in a comparison:
 
@@ -447,11 +448,14 @@ The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA
 - `*+xml`
 - `*+json`
 
-### .ercignore file
-
-The ERC MAY contain a file named `.ercignore` in the base directory. Its purpose is to provide a way to efficiently exclude files and directories from validation. This is useful for an implementation of the ERC spec that automates validation.
+The ERC MAY contain a file named `.ercignore` in the base directory.
+Its purpose is to provide a way to efficiently exclude files and directories from validation.
+This is useful for an implementation of the ERC spec that automates validation.
 If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the validation process.
-The file must be UTF-8 (without BOM) encoded. The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
+The validation MUST NOT fail when files listed in `.ercignore` are failing comparison.
+
+The file MUST be UTF-8 (without BOM) encoded.
+The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
 
 
 ## Security considerations
