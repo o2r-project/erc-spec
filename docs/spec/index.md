@@ -181,7 +181,7 @@ display: view.html
 
 The configuration file MUST contain [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) statements to control the runtime container.
 
-These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file in no specific order.
+These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file in the order in which they must be executed.
 
 Default command statements SHOULD be defined by an extension for a working ERC.
 
