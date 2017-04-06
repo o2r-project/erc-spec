@@ -390,7 +390,7 @@ Defining explanations on the concept of each metadata element in use.
 + `author.name` The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.
 + `author.orcid` The ORCid of the creator of the asset.
 + `community` Indicates belonging to a scientific community, e.g. on a repositoy platform.
-+ `depends` A block for each entity that the software is dependent on for execution. The dependency information is designed for the identification of dependent packages within packaging systems.
++ `depends` A block for each entity that the software is directly dependent on for execution. The dependency information is designed for the identification of dependent packages within packaging systems. A depends block may describe a transitive dependency.
 + `depends.identifier` An identifying name for the depending package.
 + `depends.version` The computer software and hardware required to run the software.
 + `depends.packageSystem` The package manager system that makes the dependency entity available.
