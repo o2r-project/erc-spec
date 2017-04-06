@@ -80,15 +80,11 @@ This way ERC allow computational reproducibility based on the original code and 
 
 ### Base directory
 
-An ERC MUST have a _base directory_. The name of the base directory MUST only contain characters, numbers, `_` (underscore) and `-` (minus sign).
-That directory is part of the [bundle](https://github.com/opencontainers/runtime-spec/blob/master/bundle.md).
-In other words, an archive of an ERC will have one top-level directory with the name of the base directory.
-
-**Regular expression** for base directory name: `[a-zA-Z0-9\-_]`
+An ERC MUST has a _base directory_. All paths within this document are relative to this base directory.
 
 The base directory MUST contain an [ERC configuration file](#erc-configuration-file).
 
-Besides the files mentioned in this specification, the base directory may contain any other files and directories.
+Besides the files mentioned in this specification, the base directory MAY contain any other files and directories.
 
 ### Main document & display file
 
