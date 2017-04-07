@@ -39,10 +39,10 @@ execution:
 
 Example for a Dockerfile:
 
-In this example we use the [_rocker_](https://github.com/rocker-org/rocker) base docker container to instantiate the R software.
+In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to instantiate the R software.
 
 ```Dockerfile
-FROM rocker/r-base:latest
+FROM rocker/r-ver:3.3.3
 MAINTAINER o2r
 
 RUN apt-get update -qq \
