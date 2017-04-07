@@ -21,11 +21,21 @@ The Dockerfile SHOULD contain the instruction `MAINTAINER` to provide copyright 
 
 The Dockerfile MUST have an active instruction `CMD`, or a combination of the instructions `ENTRYPOINT` and `CMD`, which executes the packaged analysis.
 
-The Dockerfile MUST NOT contain `EXPOSE` instructions.
+The Dockerfile SHOULD NOT contain `EXPOSE` instructions.
+
+### Making data, code, and text available within container
+
+The runtime environment image contains all dependencies and libraries needed by the code in an ERC.
+Especially for large datasets, it in unfeasible to replicate the complete dataset contained within the ERC in the image.
+For archival, it can also be confusing to replicate code and text, albeit them being relatively small in size, within the container.
+
+Therefore a host directory is [mounted into a container](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) at runtime using a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
+
+The Dockerfile SHOULD NOT contain a `COPY` or `ADD` command to include data, code or text from the ERC into the image.
 
 The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC within the container.
 This mountpoint SHOULD be `/erc`.
-If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mountpoint`.
+If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mount_point`.
 
 Example for the mountpoint configuration:
 
@@ -34,12 +44,12 @@ Example for the mountpoint configuration:
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 execution:
-  mountpoint: "/erc"
+  mount_point: "/erc"
 ```
 
-Example for a Dockerfile:
+### Example Dockerfile
 
-In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to instantiate the R software.
+In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to reproduce computations made in R.
 
 ```Dockerfile
 FROM rocker/r-ver:3.3.3
@@ -76,8 +86,6 @@ RUN dpkg -l > /dpkg-list.txt
 LABEL Description="This is an ERC image." \
 	info.o2r.bag.id="123456"
 
-COPY . /erc
-
 VOLUME ["/erc"]
 
 ENTRYPOINT ["sh", "-c"]
@@ -103,7 +111,6 @@ The file SHOULD be named `image.tar`.
 The output of the container during execution can be shown to the user to convey detailed information.
 
 
-
 ## Default control statements
 
 The default control statements of implementing tools MUST be as shown in the following example configuration file.
@@ -117,3 +124,4 @@ execution:
     - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
 ```
 
+These statements use the [`docker load`](https://docs.docker.com/engine/reference/commandline/load/) and [`docker run`](https://docs.docker.com/engine/reference/run/) commands to load an image into the local registry and then execute it.
