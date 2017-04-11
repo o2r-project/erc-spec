@@ -113,8 +113,10 @@ A concrete runtime extension may choose to (a) embed the runtime environment in 
 
 The base directory SHOULD contain a runnable image, e.g. a "binary", of the original analysis environment that can be used to re-run the packaged analysis using a suitable software.
 
-The image file may be compressed.
-It SHOULD be named `image` with an appropriate extension, such as `.tar` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
+The image file MAY be compressed.
+It SHOULD be named `image` with an appropriate extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
+
+The name of the image file MUST be given in the ERC configuration file under the node `image` under the root-level node `execution`.
 
 The output of the image execution can be shown to the user to convey detailed information on progress or errors.
 
@@ -123,6 +125,8 @@ The output of the image execution can be shown to the user to convey detailed in
 The base directory MUST contain a complete, self-consistent manifest of the runtime image's contents.
 
 This manifest MUST be in a machine-readable format that allows a respective tool to create the runtime image.
+
+The name of the manifest file MUST be given in the ERC configuration file under the node `manifest` under the root-level node `execution`.
 
 A concrete runtime extension MUST define the command to create the runnable environment from the manifest.
 
@@ -278,14 +282,8 @@ id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 main: the_paper_document.rmd
 display: view.html
-structure:
-  payload_directory: "data" # folder name including the workspace, after using bagger  
-  config_file: "erc.yml"
-  container_file: "image.tar"
-  container_manifest: "Dockerfile"
 execution:
-  mountpoint: "/erc" # name of the volume used in the Dockerfile
-  command: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
+  cmd: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
 licenses: # licenses that the author chooses for their files
   code:
     others_lib.bin: MIT

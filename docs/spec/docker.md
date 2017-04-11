@@ -36,6 +36,7 @@ The Dockerfile SHOULD NOT contain a `COPY` or `ADD` command to include data, cod
 
 The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC base directory within the container.
 This mountpoint SHOULD be `/erc`.
+Implementations MUST use this value as the default.
 If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mount_point`.
 
 Example for the mountpoint configuration:
@@ -98,45 +99,78 @@ See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engin
 
 ## Docker image
 
-The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
+The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)), i.e. an archive file, of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
 
 The image MUST have a [_tag_](https://docs.docker.com/engine/reference/commandline/build/#tag-an-image--t) constructed from the string `erc:` followed by the ERC's id, e.g. `erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
 
+The name of the archive file MAY be configured in the ERC configuration file in the node `image` under the root-level node `execution`.
+
+The default tar archive file names `image.tar`, or `image.tar.gz` if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files), SHOULD be used.
+Implementations MUST recognize these names as the default values.
+
+<div class="alert note" markdown="block">
 Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the tag, for example:
 
 ```bash
 docker build --label erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
 # TODO how to extract image ID from docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec"
 docker save $IMAGE_ID > image.tar
+docker save $IMAGE_ID | gzip -c > image.tar.gz
 ```
 
-The file SHOULD be named `image.tar`.
+Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been manipulated during a run.
+</div>
 
-The output of the container during execution can be shown to the user to convey detailed information.
+## Control statements
 
+The control statements for Docker executions comprise `load`, for importing an image from the archive, and `run` for starting a container of the loaded image.
+Both control statements MUST be configured by using nodes of the same name under the root-level node `execution` in the ERC configuration file.
+Based on the configuration, an implementation can construct the respective run-time commands, i.e. [`docker load`](https://docs.docker.com/engine/reference/commandline/load/) and [`docker run`](https://docs.docker.com/engine/reference/run/), using the correct image file name and further parameters (e.g. performance control options).
 
-## Default control statements
-
-The default control statements of implementing tools MUST be as shown in the following example configuration file.
+The following example shows default values for `image` and `manifest` and typical values for `run`.
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 version: 1
 execution:
-  command:
-    - `docker load --input image.tar`
-    - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
+  image: image.tar.gz
+  manifest: Dockerfile
+  run:
+    environment:
+	  - TZ=CET
 ```
 
-These statements use the [`docker load`](https://docs.docker.com/engine/reference/commandline/load/) and [`docker run`](https://docs.docker.com/engine/reference/run/) commands to load an image into the local registry and then execute it.
+<div class="alert note" markdown="block">
+The Docker CLI commands constructed based on this configuration by an implementing service could be as follows:
 
-The `run` command MAY be used to pass specific parameters to the container using [environment variables](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e---env---env-file).
-The environment variables SHOULD be used to fix settings out of control of the contained code that can hinder successful ERC checking, e.g. by setting a time zone to avoid comparison differences as shown in the example above.
+```bash
+docker load --input image.tar
+docker run -it --name run_abc123 -e TZ=CET -v /storage/erc/abc123:/erc --label user:o2r erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+```
 
-The `run` command SHOULD NOT include any of the following options:
+In this case the implementation uses `-it` to pass stdout streams to the user and adds some metadata using `--name` and `--label`.
+</div>
 
-- volume mounts (`-v` or `--volumes-from`)
-- port exposure (`-p` or `--exports`)
-- performance and resource configuration (e.g. `--cpu-shares`, `-m`, etc.)
+The only option for `load` is `quiet`, which may be set to Boolean `true` or `false`.
 
-Other [options of `docker run`]() SHOULD be used with care as not to interfere with the same options being used by software implementing this specification.
+```yml
+execution:
+  load:
+    quiet: true
+```
+
+The only option for `run` is `environment` to set environment variables inside containers as defined in [docker-compose](https://docs.docker.com/compose/environment-variables/#setting-environment-variables-in-containers).
+Environment variables are defined as a list seperated by `=`.
+
+
+```yml
+execution:
+  run:
+    environment:
+	  - DEBUG=1
+	  - TZ=CET
+```
+
+The environment variables SHOULD be used to fix settings out of control of the contained code that can hinder successful ERC checking, e.g. by setting a time zone to avoid issues during checking.
+
+The output of the container during execution MAY be shown to the user to convey detailed information to users.
