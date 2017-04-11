@@ -20,16 +20,6 @@ This version is _under development_!
     - [Fundamental concepts](#fundamental-concepts)
 - [Structure](#erc-structure)
 - [Security](#security)
-- Extensions
-    - [Docker runtime extension](docker.md)
-    - [Archival extension](archival.md)
-    - [R extension](r.md)
-    - [Validation extension](valid.md)
-- Extensions - _Drafts and Ideas_
-    - [Plain R runtime extension](plain_r.md)
-    - [Manipulation extension](man.md)
-    - [Progress extension](progress.md)
-    - [Container bundling extension](bundle_container.md)
 - [Glossary](glossary.md)
 
 ## Notational conventions
@@ -59,12 +49,16 @@ Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/DevOps) or [Bo
 
 Another core goal is _simplicity_.
 This specification should not re-do something which already exists (if it is an open specification or tool).
-It must be possible to create a valid and working ERC manually.
+It must be possible to create a valid and working ERC _manually_.
 
 The final important notion is the one of _nested containers_.
 We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
 Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
 We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.
+
+Finally, this specification may be extended or limited further by so called _extensions_.
+Extensions MAY add any additional structure to an ERC or change defaults.
+But they MUST NOT interfere with this specification, e.g. by changing the meaning of a configuration field.
 
 ## How to use an ERC
 
@@ -90,13 +84,13 @@ Besides the files mentioned in this specification, the base directory MAY contai
 
 An ERC MUST have a _main document_, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
 
-The main document's name SHOULD be `main` with an appropriate extension and media type.
-For example if the main document is RMarkdown, then the extension should be `.Rmd` and the media type `text/markdown`.
+The main document's name SHOULD be `main` with an appropriate file extension and media type.
+For example if the main document is RMarkdown, then the file extension should be `.Rmd` and the media type `text/markdown`.
 
 An ERC MUST have a _display file_, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.
 
-The display file's name SHOULD be `view` with an appropriate extension and media type.
-For example if the main document is Hypertext Markup Language (HTML), then the extension should be `.htm` or `.html` and the media type `text/html`.
+The display file's name SHOULD be `view` with an appropriate file extension and media type.
+For example if the main document is Hypertext Markup Language (HTML), then the file extension should be `.htm` or `.html` and the media type `text/html`.
 
 <div class="alert note" markdown="block">
 Typically, the _display file_ is "rendered" from the main file, which follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
@@ -111,14 +105,16 @@ Second, a manifest documenting the image's contents.
 
 The format of these representations is undefined here and can be stated more precisely in an extension to this specification.
 
+<div class="alert note" markdown="block">
 A concrete runtime extension may choose to (a) embed the runtime environment in the image, or (b) to rely on constructing the runtime environment from the manifest.
+</div>
 
 ### Runtime environment or image
 
 The base directory SHOULD contain a runnable image, e.g. a "binary", of the original analysis environment that can be used to re-run the packaged analysis using a suitable software.
 
 The image file may be compressed.
-It SHOULD be named `image` with an appropriate extension, such as `.tar` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
+It SHOULD be named `image` with an appropriate file extension, such as `.tar` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
 
 The output of the image execution can be shown to the user to convey detailed information on progress or errors.
 
@@ -128,16 +124,8 @@ The base directory MUST contain a complete, self-consistent manifest of the runt
 
 This manifest MUST be in a machine-readable format that allows a respective tool to create the runtime image.
 
-A concrete runtime extension MUST define the command to create the runnable environment from the manifest.
+A concrete runtime extension SHOULD define the command to create the runnable environment from the manifest.
 
-<!--### Runtime manipulation
-
-Bundling a complete runtime gives the possibility to manipulate the contained workflow or exchange data.
-
-The manipulation parameters SHOULD be defined in a concrete runtime extension.
-
-The data replacement proccess SHOULD be defined in a concrete runtime extension.
--->
 ## ERC configuration file
 
 The ERC configuration file is the _reproducibility manifest_ for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.
@@ -214,7 +202,6 @@ The content of each of these child nodes MUST be one of the following
 - text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/).
 - a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory. 
 
-
 Example for global licenses:
 
 ```yml
@@ -249,29 +236,6 @@ licenses:
 It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
 </div>
 
-
-### Extension metadata
-
-If an extension of the specification is used, it MUST be put into a list under the root-level node `extensions`.
-
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-extensions:
-  - extension_name_1
-  - "yet another extension"
-```
-
-This list SHOULD be used by implementations that support these extensions to comply with checks or processes as defined by the extensions.
-
-If an implementation encounters an unsupported extension it MUST issue a user level warning.
-
-If an implementation supports an extension it MUST use default settings, for example for control commands, as defined in the extension.
-
-If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
-However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.
-
 ## Comprehensive example of erc.yml
 
 The following example shows all possible fields of the core specification with example values.
@@ -299,9 +263,6 @@ licenses: # licenses that the author chooses for their files
     README.md: CC0-1.0
     paper/chapter01.doc: CC-BY-4.0
     paper/chapter02.tex: CC-BY-4.0
-extensions:
-  - extension_name_1
-  - "yet another extension"
 ```
 
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
@@ -423,7 +384,6 @@ Defining explanations on the concept of each metadata element in use.
 + `temporal.begin` The starting point of the relevant time period.
 + `temporal.end` The end point of the relevant time period.
 + `title` The distinguishing name of the paper publication.
-
 
 ## ERC checking
 
