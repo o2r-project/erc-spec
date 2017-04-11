@@ -128,8 +128,6 @@ This manifest MUST be in a machine-readable format that allows a respective tool
 
 The name of the manifest file MUST be given in the ERC configuration file under the node `manifest` under the root-level node `execution`.
 
-A concrete runtime extension SHOULD define the command to create the runnable environment from the manifest.
-
 ## ERC configuration file
 
 The ERC configuration file is the _reproducibility manifest_ for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.
