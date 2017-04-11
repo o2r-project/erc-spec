@@ -105,21 +105,23 @@ The image MUST have a [_label_](https://docs.docker.com/engine/reference/command
 
 The name of the archive file MAY be configured in the ERC configuration file in the node `image` under the root-level node `execution`.
 
-The default tar archive file names `image.tar`, or `image.tar.gz` if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files), SHOULD be used.
+The default tar archive file names SHOULD be `image.tar`, or `image.tar.gz` if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files).
 Implementations MUST recognize these names as the default values.
 
 <div class="alert note" markdown="block">
 Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the label which can be used to extract the image identifier, for example:
 
-```bash
+<pre>
+<code>
 docker build --label erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
 docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec"
 docker save $(docker images --filter "label=erc=1234" -q) > image.tar
 # save with compression:
 docker save $(docker images --filter "label=erc=1234" -q) | gzip -c > image.tar.gz
-```
+</code>
+</pre>
 
-Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been manipulated during a run.
+Do _not_ use <code>docker export</code>, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been manipulated during a run.
 </div>
 
 ## Control statements
@@ -144,13 +146,15 @@ execution:
 <div class="alert note" markdown="block">
 The Docker CLI commands constructed based on this configuration by an implementing service could be as follows:
 
-```bash
+<pre>
+<code>
 docker load --input image.tar
 IMAGE_ID=$(docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec" -q)
 docker run -it --name run_abc123 -e TZ=CET -v /storage/erc/abc123:/erc --label user:o2r $IMAGE_ID
-```
+</code>
+</pre>
 
-In this case the implementation uses `-it` to pass stdout streams to the user and adds some metadata using `--name` and `--label`.
+In this case the implementation uses <code>-it</code> to pass stdout streams to the user and adds some metadata using <code>--name</code> and <code>--label</code>.
 </div>
 
 The only option for `load` is `quiet`, which may be set to Boolean `true` or `false`.
