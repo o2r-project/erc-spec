@@ -101,7 +101,7 @@ See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engin
 
 The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)), i.e. an archive file, of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
 
-The image MUST have a [_tag_](https://docs.docker.com/engine/reference/commandline/build/#tag-an-image--t) constructed from the string `erc:` followed by the ERC's id, e.g. `erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
+The image MUST have a [_label_](https://docs.docker.com/engine/reference/commandline/build/#options) of the name `erc` with the ERC's id as value, e.g. `erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
 
 The name of the archive file MAY be configured in the ERC configuration file in the node `image` under the root-level node `execution`.
 
@@ -109,13 +109,14 @@ The default tar archive file names `image.tar`, or `image.tar.gz` if a [gzip com
 Implementations MUST recognize these names as the default values.
 
 <div class="alert note" markdown="block">
-Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the tag, for example:
+Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the label which can be used to extract the image identifier, for example:
 
 ```bash
 docker build --label erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
-# TODO how to extract image ID from docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec"
-docker save $IMAGE_ID > image.tar
-docker save $IMAGE_ID | gzip -c > image.tar.gz
+docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec"
+docker save $(docker images --filter "label=erc=1234" -q) > image.tar
+# save with compression:
+docker save $(docker images --filter "label=erc=1234" -q) | gzip -c > image.tar.gz
 ```
 
 Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been manipulated during a run.
@@ -145,7 +146,8 @@ The Docker CLI commands constructed based on this configuration by an implementi
 
 ```bash
 docker load --input image.tar
-docker run -it --name run_abc123 -e TZ=CET -v /storage/erc/abc123:/erc --label user:o2r erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+IMAGE_ID=$(docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec" -q)
+docker run -it --name run_abc123 -e TZ=CET -v /storage/erc/abc123:/erc --label user:o2r $IMAGE_ID
 ```
 
 In this case the implementation uses `-it` to pass stdout streams to the user and adds some metadata using `--name` and `--label`.
