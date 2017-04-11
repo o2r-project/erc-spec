@@ -171,15 +171,17 @@ display: view.html
 
 ### Control statements
 
-The configuration file MUST contain [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) statements to control the runtime container.
+The configuration file MUST contain statements to control the runtime container.
 
-These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file in the order in which they must be executed.
+These statements MUST be in an array under the root-level node `execution` in the ERC configuration file in the order in which they must be executed.
 
-Default command statements SHOULD be defined by an extension for a working ERC.
+Implementations SHOULD support a list of [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) commands as control statements.
+These commands are given as a list under the node `cmd` under the root-level node `execution`.
+If extensions use non-bash commands, they MUST define own nodes under the `execution` node and SHOULD define defaults.
 
-The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
-This includes, for example, setting the time zone via an environment variable `-e TZ=CET` so that output formatting of timestamps does not break validation.
-This can also be handled by the ERC author on script level.
+The exectution statements MAY ensure the re-computation being independent from the environment, which may be different depending on the host of the execution environment.
+For example, the time zone could be set via an environment variable `TZ=CET`, so output formatting of timestamps does not break checking.
+This is in addition to ERC authors handling such parameters at a script level.
 
 Example control statements:
 
@@ -187,11 +189,10 @@ Example control statements:
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 execution:
-  command:
+  cmd:
     - `./prepare.sh --input my_data`
     - `./execute.sh --output results --iterations 3`
 ```
-
 
 ### License metadata
 
