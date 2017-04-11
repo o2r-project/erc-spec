@@ -114,7 +114,7 @@ A concrete runtime extension may choose to (a) embed the runtime environment in 
 The base directory SHOULD contain a runnable image, e.g. a "binary", of the original analysis environment that can be used to re-run the packaged analysis using a suitable software.
 
 The image file MAY be compressed.
-It SHOULD be named `image` with an appropriate extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
+It SHOULD be named `image` with an appropriate file extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
 
 The name of the image file MUST be given in the ERC configuration file under the node `image` under the root-level node `execution`.
 
@@ -130,14 +130,6 @@ The name of the manifest file MUST be given in the ERC configuration file under 
 
 A concrete runtime extension MUST define the command to create the runnable environment from the manifest.
 
-<!--### Runtime manipulation
-
-Bundling a complete runtime gives the possibility to manipulate the contained workflow or exchange data.
-
-The manipulation parameters SHOULD be defined in a concrete runtime extension.
-
-The data replacement proccess SHOULD be defined in a concrete runtime extension.
--->
 ## ERC configuration file
 
 The ERC configuration file is the _reproducibility manifest_ for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.
