@@ -89,14 +89,18 @@ Besides the files mentioned in this specification, the base directory MAY contai
 ### Main document & display file
 
 An ERC MUST have a _main document_, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
+
 The main document's name SHOULD be `main` with an appropriate extension and media type.
 For example if the main document is RMarkdown, then the extension should be `.Rmd` and the media type `text/markdown`.
 
 An ERC MUST have a _display file_, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.
+
 The display file's name SHOULD be `view` with an appropriate extension and media type.
 For example if the main document is Hypertext Markup Language (HTML), then the extension should be `.htm` or `.html` and the media type `text/html`.
 
-The display file is often "rendered" from the main file.
+<div class="alert note" markdown="block">
+Typically, the _display file_ is "rendered" from the main file, which follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
+</div>
 
 ## Nested runtime
 
