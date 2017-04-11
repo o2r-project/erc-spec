@@ -69,6 +69,11 @@ One of the biggest issues is the **scope of licenses**, namely what to do about 
 - better user experience (otherwise all info must be transported via stdout)
 - to be sure nothing is manipulated within the validation script
 
+### Why is the data not in the image (inner contaienr) but in the outer container
+
+- better accessible in the long term
+- no data duplication
+
 ## o2r Platform
 
 The software developed by the o2r project is the sole implementation of the ERC specification and hence a kind of reference implementation albeit being at a prototypical stage.

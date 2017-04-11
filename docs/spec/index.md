@@ -113,8 +113,10 @@ A concrete runtime extension may choose to (a) embed the runtime environment in 
 
 The base directory SHOULD contain a runnable image, e.g. a "binary", of the original analysis environment that can be used to re-run the packaged analysis using a suitable software.
 
-The image file may be compressed.
-It SHOULD be named `image` with an appropriate file extension, such as `.tar` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
+The image file MAY be compressed.
+It SHOULD be named `image` with an appropriate file extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
+
+The name of the image file MUST be given in the ERC configuration file under the node `image` under the root-level node `execution`.
 
 The output of the image execution can be shown to the user to convey detailed information on progress or errors.
 
@@ -124,7 +126,7 @@ The base directory MUST contain a complete, self-consistent manifest of the runt
 
 This manifest MUST be in a machine-readable format that allows a respective tool to create the runtime image.
 
-A concrete runtime extension SHOULD define the command to create the runnable environment from the manifest.
+The name of the manifest file MUST be given in the ERC configuration file under the node `manifest` under the root-level node `execution`.
 
 ## ERC configuration file
 
@@ -163,15 +165,17 @@ display: view.html
 
 ### Control statements
 
-The configuration file MUST contain [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) statements to control the runtime container.
+The configuration file MUST contain statements to control the runtime container.
 
-These statements MUST be in an array under the node `command` under the root-level node `execution` in the ERC configuration file in the order in which they must be executed.
+These statements MUST be in an array under the root-level node `execution` in the ERC configuration file in the order in which they must be executed.
 
-Default command statements SHOULD be defined by an extension for a working ERC.
+Implementations SHOULD support a list of [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) commands as control statements.
+These commands are given as a list under the node `cmd` under the root-level node `execution`.
+If extensions use non-bash commands, they MUST define own nodes under the `execution` node and SHOULD define defaults.
 
-The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
-This includes, for example, setting the time zone via an environment variable `-e TZ=CET` so that output formatting of timestamps does not break checking.
-This can also be handled by the ERC author on script level.
+The execution statements MAY ensure the re-computation being independent from the environment, which may be different depending on the host of the execution environment.
+For example, the time zone could be fixed via an environment variable `TZ=CET`, so output formatting of timestamps does not break checking.
+This is in addition to ERC authors handling such parameters at a script level.
 
 Example control statements:
 
@@ -179,11 +183,10 @@ Example control statements:
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 execution:
-  command:
+  cmd:
     - `./prepare.sh --input my_data`
     - `./execute.sh --output results --iterations 3`
 ```
-
 
 ### License metadata
 
@@ -245,14 +248,8 @@ id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 main: the_paper_document.rmd
 display: view.html
-structure:
-  payload_directory: "data" # folder name including the workspace, after using bagger  
-  config_file: "erc.yml"
-  container_file: "image.tar"
-  container_manifest: "Dockerfile"
 execution:
-  mountpoint: "/erc" # name of the volume used in the Dockerfile
-  command: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
+  cmd: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
 licenses: # licenses that the author chooses for their files
   code:
     others_lib.bin: MIT
