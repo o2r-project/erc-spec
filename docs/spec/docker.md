@@ -105,7 +105,8 @@ The image MUST have a [_tag_](https://docs.docker.com/engine/reference/commandli
 Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the tag, for example:
 
 ```bash
-docker build --tag erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
+docker build --label erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
+# TODO how to extract image ID from docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec"
 docker save $IMAGE_ID > image.tar
 ```
 
