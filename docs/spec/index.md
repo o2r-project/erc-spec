@@ -20,16 +20,6 @@ This version is _under development_!
     - [Fundamental concepts](#fundamental-concepts)
 - [Structure](#erc-structure)
 - [Security](#security)
-- Extensions
-    - [Docker runtime extension](docker.md)
-    - [Archival extension](archival.md)
-    - [R extension](r.md)
-    - [Validation extension](valid.md)
-- Extensions - _Drafts and Ideas_
-    - [Plain R runtime extension](plain_r.md)
-    - [Manipulation extension](man.md)
-    - [Progress extension](progress.md)
-    - [Container bundling extension](bundle_container.md)
 - [Glossary](glossary.md)
 
 ## Notational conventions
@@ -59,12 +49,16 @@ Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/DevOps) or [Bo
 
 Another core goal is _simplicity_.
 This specification should not re-do something which already exists (if it is an open specification or tool).
-It must be possible to create a valid and working ERC manually.
+It must be possible to create a valid and working ERC _manually_.
 
 The final important notion is the one of _nested containers_.
 We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
 Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
-We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation
+We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.
+
+Finally, this specification may be extended or limited further by so called _extensions_.
+Extensions MAY add any additional structure to an ERC or change defaults.
+But they MUST NOT interfere with this specification, e.g. by changing the meaning of a configuration field.
 
 ## How to use an ERC
 
@@ -89,14 +83,18 @@ Besides the files mentioned in this specification, the base directory MAY contai
 ### Main document & display file
 
 An ERC MUST have a _main document_, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
-The main document's name SHOULD be `main` with an appropriate extension and media type.
-For example if the main document is RMarkdown, then the extension should be `.Rmd` and the media type `text/markdown`.
+
+The main document's name SHOULD be `main` with an appropriate file extension and media type.
+For example if the main document is RMarkdown, then the file extension should be `.Rmd` and the media type `text/markdown`.
 
 An ERC MUST have a _display file_, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.
-The display file's name SHOULD be `view` with an appropriate extension and media type.
-For example if the main document is Hypertext Markup Language (HTML), then the extension should be `.htm` or `.html` and the media type `text/html`.
 
-The display file is often "rendered" from the main file.
+The display file's name SHOULD be `view` with an appropriate file extension and media type.
+For example if the main document is Hypertext Markup Language (HTML), then the file extension should be `.htm` or `.html` and the media type `text/html`.
+
+<div class="alert note" markdown="block">
+Typically, the _display file_ is "rendered" from the main file, which follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
+</div>
 
 ## Nested runtime
 
@@ -107,7 +105,9 @@ Second, a manifest documenting the image's contents.
 
 The format of these representations is undefined here and can be stated more precisely in an extension to this specification.
 
+<div class="alert note" markdown="block">
 A concrete runtime extension may choose to (a) embed the runtime environment in the image, or (b) to rely on constructing the runtime environment from the manifest.
+</div>
 
 ### Runtime environment or image
 
@@ -128,7 +128,7 @@ This manifest MUST be in a machine-readable format that allows a respective tool
 
 The name of the manifest file MUST be given in the ERC configuration file under the node `manifest` under the root-level node `execution`.
 
-A concrete runtime extension MUST define the command to create the runnable environment from the manifest.
+A concrete runtime extension SHOULD define the command to create the runnable environment from the manifest.
 
 ## ERC configuration file
 
@@ -175,8 +175,8 @@ Implementations SHOULD support a list of [bash](https://en.wikipedia.org/wiki/Ba
 These commands are given as a list under the node `cmd` under the root-level node `execution`.
 If extensions use non-bash commands, they MUST define own nodes under the `execution` node and SHOULD define defaults.
 
-The exectution statements MAY ensure the re-computation being independent from the environment, which may be different depending on the host of the execution environment.
-For example, the time zone could be set via an environment variable `TZ=CET`, so output formatting of timestamps does not break checking.
+The execution statements MAY ensure the re-computation being independent from the environment, which may be different depending on the host of the execution environment.
+For example, the time zone could be fixed via an environment variable `TZ=CET`, so output formatting of timestamps does not break checking.
 This is in addition to ERC authors handling such parameters at a script level.
 
 Example control statements:
@@ -206,7 +206,6 @@ The content of each of these child nodes MUST be one of the following
 
 - text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/).
 - a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory. 
-
 
 Example for global licenses:
 
@@ -242,29 +241,6 @@ licenses:
 It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
 </div>
 
-
-### Extension metadata
-
-If an extension of the specification is used, it MUST be put into a list under the root-level node `extensions`.
-
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-extensions:
-  - extension_name_1
-  - "yet another extension"
-```
-
-This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.
-
-If an implementation encounters an unsupported extension it MUST issue a user level warning.
-
-If an implementation supports an extension it MUST use default settings, for example for control commands, as defined in the extension.
-
-If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
-However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.
-
 ## Comprehensive example of erc.yml
 
 The following example shows all possible fields of the core specification with example values.
@@ -286,9 +262,6 @@ licenses: # licenses that the author chooses for their files
     README.md: CC0-1.0
     paper/chapter01.doc: CC-BY-4.0
     paper/chapter02.tex: CC-BY-4.0
-extensions:
-  - extension_name_1
-  - "yet another extension"
 ```
 
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
@@ -411,43 +384,43 @@ Defining explanations on the concept of each metadata element in use.
 + `temporal.end` The end point of the relevant time period.
 + `title` The distinguishing name of the paper publication.
 
-
-## Validation
+## ERC checking
 
 ### Procedure
 
-ERC validation comprises four steps:
+A core feature of ERCs is to compare the output of an ERC executions with the original outpts.
+Therefore checking an ERC always comprises two core steps: the execution and the comparison.
 
-1. checking required metadata elements
-1. executing the runtime container
-1. comparing the output files of the runtime container execution with the original output files in the outer container
-<!-- 1. running checks of active extensions -->
+The method of the comparison is unspecified.
+The files included in the comparison are the _comparison set_.
+An implementation MUST communicate the comparison set to the user as part of a check.
 
-<!--The comparison step (`3.`) SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to compare with hashes_, for example text-based documents but not compressed pictures.-->
+### Comparison set file
 
-The validation SHOULD communicate all files and directories actually used for validation, the comparison set, to the user.
+The ERC MAY contain a file named `.ercignore` in the base directory to define the comparison set.
 
-### Comparison set
-
-The contents of the reproduced research included in the image tarball are to be valitated against the orginial files.
-The comparison set SHOULD comprise comparable files which contain the results of the research.
-
-The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml)) are regular expressions of file formats that SHOULD be included in a comparison:
-
-- `text/*`
-- `application/json`
-- `*+xml`
-- `*+json`
-
-The ERC MAY contain a file named `.ercignore` in the base directory.
-Its purpose is to provide a way to efficiently exclude files and directories from validation.
-This is useful for an implementation of the ERC spec that automates validation.
-If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the validation process.
-The validation MUST NOT fail when files listed in `.ercignore` are failing comparison.
+Its purpose is to provide a way to efficiently exclude files and directories from checking.
+If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the checking process.
+The check MUST NOT fail when files listed in `.ercignore` are failing comparison.
 
 The file MUST be UTF-8 (without BOM) encoded.
 The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
+For the purposes of matching, the root of the context is the ERC's base directory.
 
+Lines starting with `#` are treated as comments and MUST be ignored by implementations.
+
+Example `.ercignore` file:
+
+```
+# comment
+.erc
+*/temp*
+data-old/*
+```
+
+<div class="alert note" markdown="block">
+If using [md5]() files hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
+</div>
 
 ## Security considerations
 
