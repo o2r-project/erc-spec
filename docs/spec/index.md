@@ -64,7 +64,7 @@ It must be possible to create a valid and working ERC manually.
 The final important notion is the one of _nested containers_.
 We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
 Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
-We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation
+We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.
 
 ## How to use an ERC
 
@@ -178,7 +178,7 @@ These statements MUST be in an array under the node `command` under the root-lev
 Default command statements SHOULD be defined by an extension for a working ERC.
 
 The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
-This includes, for example, setting the time zone via an environment variable `-e TZ=CET` so that output formatting of timestamps does not break validation.
+This includes, for example, setting the time zone via an environment variable `-e TZ=CET` so that output formatting of timestamps does not break checking.
 This can also be handled by the ERC author on script level.
 
 Example control statements:
@@ -259,7 +259,7 @@ extensions:
   - "yet another extension"
 ```
 
-This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.
+This list SHOULD be used by implementations that support these extensions to comply with checks or processes as defined by the extensions.
 
 If an implementation encounters an unsupported extension it MUST issue a user level warning.
 
@@ -421,42 +421,43 @@ Defining explanations on the concept of each metadata element in use.
 + `title` The distinguishing name of the paper publication.
 
 
-## Validation
+## ERC checking
 
 ### Procedure
 
-ERC validation comprises four steps:
+A core feature of ERCs is to compare the output of an ERC executions with the original outpts.
+Therefore checking an ERC always comprises two core steps: the execution and the comparison.
 
-1. checking required metadata elements
-1. executing the runtime container
-1. comparing the output files of the runtime container execution with the original output files in the outer container
-<!-- 1. running checks of active extensions -->
+The method of the comparison is unspecified.
+The files included in the comparison are the _comparison set_.
+An implementation MUST communicate the comparison set to the user as part of a check.
 
-<!--The comparison step (`3.`) SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to compare with hashes_, for example text-based documents but not compressed pictures.-->
+### Comparison set file
 
-The validation SHOULD communicate all files and directories actually used for validation, the comparison set, to the user.
+The ERC MAY contain a file named `.ercignore` in the base directory to define the comparison set.
 
-### Comparison set
-
-The contents of the reproduced research included in the image tarball are to be valitated against the orginial files.
-The comparison set SHOULD comprise comparable files which contain the results of the research.
-
-The following [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml)) are regular expressions of file formats that SHOULD be included in a comparison:
-
-- `text/*`
-- `application/json`
-- `*+xml`
-- `*+json`
-
-The ERC MAY contain a file named `.ercignore` in the base directory.
-Its purpose is to provide a way to efficiently exclude files and directories from validation.
-This is useful for an implementation of the ERC spec that automates validation.
-If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the validation process.
-The validation MUST NOT fail when files listed in `.ercignore` are failing comparison.
+Its purpose is to provide a way to efficiently exclude files and directories from checking.
+If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the checking process.
+The check MUST NOT fail when files listed in `.ercignore` are failing comparison.
 
 The file MUST be UTF-8 (without BOM) encoded.
 The newline-separated patterns in the file MUST be [Unix shell globs](https://en.wikipedia.org/wiki/Glob_(programming)).
+For the purposes of matching, the root of the context is the ERC's base directory.
 
+Lines starting with `#` are treated as comments and MUST be ignored by implementations.
+
+Example `.ercignore` file:
+
+```
+# comment
+.erc
+*/temp*
+data-old/*
+```
+
+<div class="alert note" markdown="block">
+If using [md5]() files hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
+</div>
 
 ## Security considerations
 
