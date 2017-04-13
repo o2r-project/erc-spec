@@ -204,7 +204,7 @@
             
                 <li class="third-level"><a href="#bagit-outer-container">BagIt outer container</a></li>
             
-                <li class="third-level"><a href="#bagit-profile-under-development">BagIt profile - Under Development</a></li>
+                <li class="third-level"><a href="#bagit-profile">BagIt profile</a></li>
             
         
             <li class="second-level"><a href="#erc-preservation-aspects-in-the-light-of-oais">ERC preservation aspects in the light of OAIS</a></li>
@@ -223,8 +223,9 @@
 <h1 id="archival-extension">Archival extension</h1>
 <p>This extension places the ERC in the context of preservation workflows by defining structural information and other metadata that guarantee interpretability and enable the bundling of the complete ERC as a self-contained, archivable digital object.</p>
 <h2 id="archival-bundle">Archival bundle</h2>
-<p>In order to bundle the complete ERC, it can be packaged using the <a href="http://tools.ietf.org/html/draft-kunze-bagit">BagIt</a> standard. This allows to store and transfer arbitrary content along with minimal metadata as well as checksum based payload validation.</p>
-<p>For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations may apply.</p>
+<p>In order to bundle the complete ERC, it MUST be packaged using the <a href="http://tools.ietf.org/html/draft-kunze-bagit">BagIt File Packaging Format (V0.97)</a> (BagIt).
+This allows to store and transfer arbitrary content along with minimal metadata as well as checksum based payload validation.</p>
+<p>For the purpose of transferring and storing an ERC, this extension defines how an ERC is be packaged using BagIt as the outer container and what limitations may apply.</p>
 <p>The remainder of this section comprises (i) a description of the outer container, and (ii) a BagIt profile.</p>
 <h3 id="bagit-outer-container">BagIt outer container</h3>
 <p>The ERC base directory MUST be the BagIt payload directory <code>data/</code>.
@@ -249,8 +250,14 @@ ERC-Version: 1
 └── tagmanifest-md5.txt
 </code></pre>
 
-<h3 id="bagit-profile-under-development">BagIt profile - <em>Under Development</em></h3>
-<p>A <a href="https://github.com/ruebot/bagit-profiles">Bagit Profile</a> as outlined below could make the requirements of this extension more explicit.</p>
+<h3 id="bagit-profile">BagIt profile</h3>
+<div class="alert note" markdown="block">
+The elements of the o2r Bagit Profile is yet to be specified. - This section is under development.
+Current BagIt tools do not include an option to add a BagIt Profile automatically.
+</div>
+
+<p>A <a href="https://github.com/ruebot/bagit-profiles">BagIt Profile</a> as outlined below could make the requirements of this extension more explicit.
+The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate additional information, attached to bags.</p>
 <pre><code class="json">{
      &quot;BagIt-Profile-Info&quot;:{
       &quot;BagIt-Profile-Identifier&quot;:&quot;http://o2r.info/erc-bagit-v1.json&quot;,

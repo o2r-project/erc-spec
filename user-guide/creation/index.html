@@ -207,7 +207,7 @@
                 <li class="third-level"><a href="#workspace-structure">Workspace structure</a></li>
             
         
-            <li class="second-level"><a href="#step-2-create-container-for-runtime">Step 2: create container for runtime</a></li>
+            <li class="second-level"><a href="#step-2-create-image-container-for-runtime">Step 2: create image container for runtime</a></li>
             
         
             <li class="second-level"><a href="#step-3-create-metadata">Step 3: create metadata</a></li>
@@ -225,6 +225,12 @@
             
         
             <li class="second-level"><a href="#step-5-create-bag">Step 5: create bag</a></li>
+            
+                <li class="third-level"><a href="#third-party-tools-for-creating-bagit-bags">Third party tools for creating BagIt bags</a></li>
+            
+                <li class="third-level"><a href="#creating-the-bag">Creating the bag</a></li>
+            
+                <li class="third-level"><a href="#validating-the-bag">Validating the bag</a></li>
             
         
     
@@ -255,13 +261,14 @@ Some useful resources are</p>
 <li><a href="https://github.com/ropensci/rrrpkg">ROpenSci research compendium</a>).</li>
 <li><a href="https://ropensci.github.io/reproducibility-guide/sections/introduction">ROpenSci reproducibility guide</a></li>
 </ul>
-<h2 id="step-2-create-container-for-runtime">Step 2: create container for runtime</h2>
+<h2 id="step-2-create-image-container-for-runtime">Step 2: create image container for runtime</h2>
 <p>To create a working ERC you must include a complete environment description and an executable image.</p>
-<p>We recommend using Docker, so a Dockerfile and a Docker container tarball, to achieve these goals.</p>
+<p>We recommend using Docker, so a Dockerfile and a Docker image tarball archive file, to achieve these goals.</p>
 <p>See the <a href="../../spec/docker/">Docker extension</a> for detailed requirements, including links to the relevant Docker commands.</p>
 <h2 id="step-3-create-metadata">Step 3: create metadata</h2>
 <h3 id="erc-metadata">ERC metadata</h3>
 <p>Structural &amp; administrative metadata must be put into the ERC configuration file <code>erc.yml</code> as defined in the <a href="../../spec/#erc-configuration-file">specification</a>.</p>
+<p>When creating the erc manually, you can receive a uuid4 as <code>id</code> for the erc configuration file using an online service, e.g. <a href="https://www.uuidgenerator.net/version4">uuidgenerator</a> or one of the numerous implementations for the common programming languages.</p>
 <h3 id="license-metadata">License metadata</h3>
 <p>Please consult your employer or legal department for a suitable license for your work. Make sure you hold the copyright for any code that you want to release under a self-chosen license.</p>
 <p>Further resources that are linked here without any endorsement or being checked:</p>
@@ -281,16 +288,25 @@ Some useful resources are</p>
 In general they can be added in different formats to support different use cases.</p>
 <p>More information on secondary metadata can be found in the <a href="../../spec/archival/#Secondary-metadata-files">archival extention</a>.</p>
 <h2 id="step-4-validate">Step 4: validate</h2>
-<p>You can use the container created in step 2 for validation purposes, too. Run the analysis in the container, then copy the analysis output to a temporary directory on the host system, and finally compare the original workspace and the temporary directory according the <a href="index.md#validation">validation rules</a> to ensure a complete replication.</p>
+<p>You can use the container created in step 2 for validation purposes, too. Run the analysis in the container, then copy the analysis output to a temporary directory on the host system, and finally compare the original workspace and the temporary directory according the <a href="../../spec/#validation">validation rules</a> to ensure a complete replication.</p>
 <!-- _To simplify the validation process, an ERC validation tool and accompanying [validation extension](../spec/index.md#Validation) are under development._ -->
 
 <h2 id="step-5-create-bag">Step 5: create bag</h2>
-<p>To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags. Follow the instructions in the <a href="../../spec/archival/">archival extension</a> to create a bag for your work.</p>
-<p>Useful third party tools for creating and validating BagIt bags:</p>
+<p>To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags. Take a look at the <a href="../../spec/archival/">archival extension</a> for a detailed background about the purpose of BagIt and other digital preservation aspects.</p>
+<h3 id="third-party-tools-for-creating-bagit-bags">Third party tools for creating BagIt bags</h3>
 <ul>
 <li><a href="https://github.com/LibraryOfCongress/bagger">Bagger</a> (Java-based, with UI)</li>
 <li><a href="https://libraryofcongress.github.io/bagit-python/">bagit-python</a> (Python package)</li>
 </ul>
+<h3 id="creating-the-bag">Creating the bag</h3>
+<p>In this guide we will create the bag manually by using the LoC Bagger 2.7 Java-Programm, listed above.</p>
+<ol>
+<li>Start by selecting "Create new bag" from the main menu and proceed with "<no profile>".</li>
+<li>Add your files with the "+" Button.</li>
+<li>Uncheck the "Standard" feature in the Bag-Info-Editor on the right and add <code>ERC-Version</code> with the appropriate version you want to use, e.g. <code>1</code>. Optionally fill out additional Bag-Info metadata, e.g. <em>contact information</em>.</li>
+<li>Save your bag using the main menu.</li>
+</ol>
+<h3 id="validating-the-bag">Validating the bag</h3>
 <p>A file tree for the final bagged ERC may look like this:</p>
 <pre><code class="txt">├── bag-info.txt
 ├── bagit.txt
@@ -302,7 +318,10 @@ In general they can be added in different formats to support different use cases
 │   └── image.tar
 ├── manifest-md5.txt
 └── tagmanifest-md5.txt
-</code></pre></div>
+</code></pre>
+
+<p>You can validate your bag with LoC Bagger by loading the bag and then clicking on "Validate Bag" in the main menu.
+The programm will check for completeness of bagit-related files and verify the integrity of the data files by computing their checksums (hashes) and report any potential issues.</p></div>
         
     </div>
 

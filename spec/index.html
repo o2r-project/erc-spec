@@ -236,19 +236,14 @@
             
                 <li class="third-level"><a href="#name-format-and-encoding">Name, format, and encoding</a></li>
             
-                <li class="third-level"><a href="#required-fields">Required fields</a></li>
+                <li class="third-level"><a href="#basic-fields">Basic fields</a></li>
             
                 <li class="third-level"><a href="#control-statements">Control statements</a></li>
             
                 <li class="third-level"><a href="#license-metadata">License metadata</a></li>
             
-                <li class="third-level"><a href="#extension-metadata">Extension metadata</a></li>
-            
         
             <li class="second-level"><a href="#comprehensive-example-of-ercyml">Comprehensive example of erc.yml</a></li>
-            
-        
-            <li class="second-level"><a href="#ercignore-file">.ercignore file</a></li>
             
         
             <li class="second-level"><a href="#content-metadata">Content metadata</a></li>
@@ -258,7 +253,11 @@
                 <li class="third-level"><a href="#description-of-metadata-properties">Description of metadata properties</a></li>
             
         
-            <li class="second-level"><a href="#validation">Validation</a></li>
+            <li class="second-level"><a href="#erc-checking">ERC checking</a></li>
+            
+                <li class="third-level"><a href="#procedure">Procedure</a></li>
+            
+                <li class="third-level"><a href="#comparison-set-file">Comparison set file</a></li>
             
         
             <li class="second-level"><a href="#security-considerations">Security considerations</a></li>
@@ -289,25 +288,10 @@ This version is <em>under development</em>!</p>
 </li>
 <li><a href="#erc-structure">Structure</a></li>
 <li><a href="#security">Security</a></li>
-<li>Extensions<ul>
-<li><a href="docker/">Docker runtime extension</a></li>
-<li><a href="archival/">Archival extension</a></li>
-<li><a href="r/">R extension</a></li>
-<li><a href="valid/">Validation extension</a></li>
-</ul>
-</li>
-<li>Extensions - <em>Drafts and Ideas</em><ul>
-<li><a href="plain_r/">Plain R runtime extension</a></li>
-<li><a href="man/">Manipulation extension</a></li>
-<li><a href="progress.md">Progress extension</a></li>
-<li><a href="bundle_container.md">Container bundling extension</a></li>
-</ul>
-</li>
 <li><a href="glossary.md">Glossary</a></li>
 </ul>
 <h2 id="notational-conventions">Notational conventions</h2>
-<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "</p>
-<p>", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
+<p>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
 <p>The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p>
 <h2 id="purpose">Purpose</h2>
 <p>This specification defines a structure to carry and execute a computational scientific analyses (cf. <a href="https://en.wikipedia.org/wiki/Computational_science">computational science</a>).</p>
@@ -324,11 +308,14 @@ First,  <a href="https://en.wikipedia.org/wiki/Convention_over_configuration"><e
 Second, <em>"DevOps"</em>, see <a href="https://en.wikipedia.org/wiki/DevOps">Wikipedia</a> or <a href="https://doi.org/10.1145/2723872.2723882">Boettiger</a>.</p>
 <p>Another core goal is <em>simplicity</em>.
 This specification should not re-do something which already exists (if it is an open specification or tool).
-It must be possible to create a valid and working ERC manually.</p>
+It must be possible to create a valid and working ERC <em>manually</em>.</p>
 <p>The final important notion is the one of <em>nested containers</em>.
 We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
 Therefore an ERC comprises <em>one or more containers but is itself subject to being put into a container</em>.
-We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation</p>
+We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.</p>
+<p>Finally, this specification may be extended or limited further by so called <em>extensions</em>.
+Extensions MAY add any additional structure to an ERC or change defaults.
+But they MUST NOT interfere with this specification, e.g. by changing the meaning of a configuration field.</p>
 <h2 id="how-to-use-an-erc">How to use an ERC</h2>
 <p>The steps to (re-)run the analysis contained in an ERC are as follows:</p>
 <ul>
@@ -339,58 +326,53 @@ We distinguish these containers into the inner or "runtime" container and the ou
 <p>This way ERC allow computational reproducibility based on the original code and data.</p>
 <h2 id="erc-structure">ERC structure</h2>
 <h3 id="base-directory">Base directory</h3>
-<p>An ERC MUST have a <em>base directory</em>. The name of the base directory MUST only contain characters, numbers, <code>_</code> (underscore) and <code>-</code> (minus sign).
-That directory is part of the <a href="https://github.com/opencontainers/runtime-spec/blob/master/bundle.md">bundle</a>.
-In other words, an archive of an ERC will have one top-level directory with the name of the base directory.</p>
-<p><strong>Regular expression</strong> for base directory name: <code>[a-zA-Z0-9\-_]</code></p>
+<p>An ERC MUST has a <em>base directory</em>. All paths within this document are relative to this base directory.</p>
 <p>The base directory MUST contain an <a href="#erc-configuration-file">ERC configuration file</a>.</p>
-<p>Besides the files mentioned in this specification, the base directory may contain any other files and directories.</p>
+<p>Besides the files mentioned in this specification, the base directory MAY contain any other files and directories.</p>
 <h3 id="main-document-display-file">Main document &amp; display file</h3>
-<p>An ERC MUST have a <em>main document</em>, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
-The main document's name SHOULD be <code>main</code> with an appropriate extension and media type.
-For example if the main document is RMarkdown, then the extension should be <code>.Rmd</code> and the media type <code>text/markdown</code>.</p>
-<p>An ERC MUST have a <em>display file</em>, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.
-The display file's name SHOULD be <code>view</code> with an appropriate extension and media type.
-For example if the main document is Hypertext Markup Language (HTML), then the extension should be <code>.htm</code> or <code>.html</code> and the media type <code>text/html</code>.</p>
-<p>The display file is often "rendered" from the main file.</p>
+<p>An ERC MUST have a <em>main document</em>, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.</p>
+<p>The main document's name SHOULD be <code>main</code> with an appropriate file extension and media type.
+For example if the main document is RMarkdown, then the file extension should be <code>.Rmd</code> and the media type <code>text/markdown</code>.</p>
+<p>An ERC MUST have a <em>display file</em>, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.</p>
+<p>The display file's name SHOULD be <code>view</code> with an appropriate file extension and media type.
+For example if the main document is Hypertext Markup Language (HTML), then the file extension should be <code>.htm</code> or <code>.html</code> and the media type <code>text/html</code>.</p>
+<div class="alert note" markdown="block">
+Typically, the _display file_ is "rendered" from the main file, which follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
+</div>
+
 <h2 id="nested-runtime">Nested runtime</h2>
 <p>The embedding of a representation of the original runtime environment, in which an analysis was conducted, is crucial for supporting reproducible computations.
 This section defines two such representations.
 First, an executable image.
 Second, a manifest documenting the image's contents.</p>
 <p>The format of these representations is undefined here and can be stated more precisely in an extension to this specification.</p>
-<p>A concrete runtime extension may choose to (a) embed the runtime environment in the image, or (b) to rely on constructing the runtime environment from the manifest.</p>
+<div class="alert note" markdown="block">
+A concrete runtime extension may choose to (a) embed the runtime environment in the image, or (b) to rely on constructing the runtime environment from the manifest.
+</div>
+
 <h3 id="runtime-environment-or-image">Runtime environment or image</h3>
 <p>The base directory SHOULD contain a runnable image, e.g. a "binary", of the original analysis environment that can be used to re-run the packaged analysis using a suitable software.</p>
-<p>The image file may be compressed.
-It SHOULD be named <code>image</code> with an appropriate extension, such as <code>.tar</code> or <code>.bin</code>, and have an appropriate mime type, e.g. <code>application/vnd.oci.image.layer.tar+gzip</code>.</p>
+<p>The image file MAY be compressed.
+It SHOULD be named <code>image</code> with an appropriate file extension, such as <code>.tar</code>, <code>tar.gz</code> or <code>.bin</code>, and have an appropriate mime type, e.g. <code>application/vnd.oci.image.layer.tar+gzip</code>.</p>
+<p>The name of the image file MUST be given in the ERC configuration file under the node <code>image</code> under the root-level node <code>execution</code>.</p>
 <p>The output of the image execution can be shown to the user to convey detailed information on progress or errors.</p>
 <h3 id="runtime-manifest">Runtime manifest</h3>
 <p>The base directory MUST contain a complete, self-consistent manifest of the runtime image's contents.</p>
 <p>This manifest MUST be in a machine-readable format that allows a respective tool to create the runtime image.</p>
-<p>A concrete runtime extension MUST define the command to create the runnable environment from the manifest.</p>
-<!--### Runtime manipulation
-
-Bundling a complete runtime gives the possibility to manipulate the contained workflow or exchange data.
-
-The manipulation parameters SHOULD be defined in a concrete runtime extension.
-
-The data replacement proccess SHOULD be defined in a concrete runtime extension.
--->
-
+<p>The name of the manifest file MUST be given in the ERC configuration file under the node <code>manifest</code> under the root-level node <code>execution</code>.</p>
 <h2 id="erc-configuration-file">ERC configuration file</h2>
 <p>The ERC configuration file is the <em>reproducibility manifest</em> for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.</p>
 <h3 id="name-format-and-encoding">Name, format, and encoding</h3>
 <p>The filename MUST be <code>erc.yml</code> and it MUST be located in the base directory.
 The contents MUST be valid <a href="http://yaml.org/">YAML 1.2</a>.
 The file MUST be encoded in <code>UTF-8</code> and MUST NOT contain a byte-order mark (BOM).</p>
-<h3 id="required-fields">Required fields</h3>
+<h3 id="basic-fields">Basic fields</h3>
 <p>The first document content of this file MUST contain the following string nodes at the root level.</p>
 <ul>
 <li><code>spec_version</code>: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is <code>1</code>.</li>
 <li><code>id</code>: globally unique identifier for a specific ERC. This SHOULD be a URI (see <a href="https://tools.ietf.org/html/rfc3986">rfc3986</a>) or a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>, Version 4.</li>
 </ul>
-<p>Minimal example:</p>
+<p>Example:</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 </code></pre>
@@ -398,22 +380,24 @@ spec_version: 1
 <p>The main and display file can be defined in root-level nodes named <code>main</code> and <code>display</code> respectively:</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
-main: the_paper_document.odt
-display: output.html
+main: the_paper_document.rmd
+display: view.html
 </code></pre>
 
 <h3 id="control-statements">Control statements</h3>
-<p>The configuration file MUST contain <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a> statements to control the runtime container.</p>
-<p>These statements MUST be in an array under the node <code>command</code> under the root-level node <code>execution</code> in the ERC configuration file.</p>
-<p>Default command statements SHOULD be defined by an extension for a working ERC.</p>
-<p>The exectution statements SHOULD ensure, that the re-computation is independent from the environment that may be different depending on the host.
-This includes, for example, setting the time zone via an environment variable <code>-e TZ=CET</code> so that output formatting of timestamps does not break validation.
-This can also be handled by the ERC author on script level.</p>
+<p>The configuration file MUST contain statements to control the runtime container.</p>
+<p>These statements MUST be in an array under the root-level node <code>execution</code> in the ERC configuration file in the order in which they must be executed.</p>
+<p>Implementations SHOULD support a list of <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a> commands as control statements.
+These commands are given as a list under the node <code>cmd</code> under the root-level node <code>execution</code>.
+If extensions use non-bash commands, they MUST define own nodes under the <code>execution</code> node and SHOULD define defaults.</p>
+<p>The execution statements MAY ensure the re-computation being independent from the environment, which may be different depending on the host of the execution environment.
+For example, the time zone could be fixed via an environment variable <code>TZ=CET</code>, so output formatting of timestamps does not break checking.
+This is in addition to ERC authors handling such parameters at a script level.</p>
 <p>Example control statements:</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 execution:
-  command:
+  cmd:
     - `./prepare.sh --input my_data`
     - `./execute.sh --output results --iterations 3`
 </code></pre>
@@ -430,7 +414,7 @@ Tools for automatic creation of ERC may add such detailed licensing information 
 <p>The content of each of these child nodes MUST be one of the following</p>
 <ul>
 <li>text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the <a href="http://licenses.opendefinition.org/">Open Definition Licenses Service</a>.</li>
-<li>a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory.</li>
+<li>a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory. </li>
 </ul>
 <p>Example for global licenses:</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
@@ -449,68 +433,40 @@ licenses:
   code:
     others_lib.bin: MIT
     my_code.c: GPL-3.0
+  data: 
+    facts.csv: ODbL-1.0
   text:
     README.md: CC0-1.0
     paper/chapter01.doc: CC-BY-4.0
     paper/chapter02.tex: CC-BY-4.0
+
 </code></pre>
 
 <div class="alert note" markdown="block">
 It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
 </div>
 
-<h3 id="extension-metadata">Extension metadata</h3>
-<p>If an extension of the specification is used, it MUST be put into a list under the root-level node <code>extensions</code>.</p>
-<pre><code class="yml">---
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-extensions:
-  - extension_name_1
-  - &quot;yet another extension&quot;
-</code></pre>
-
-<p>This list SHOULD be used by implementations that support these extensions to comply with validation checks or processes as defined by the extensions.</p>
-<p>If an implementation encounters an unsupported extension it MUST issue a user level warning.</p>
-<p>If an implementation supports an extension it MUST use default settings, for example for control commands, as defined in the extension.</p>
-<p>If an extension creates additional (custom) metadata fields, they MUST NOT interfere with the structure defined in this document.
-However, it is unspecified into which root node or nodes of the ERC configuration file these metadata should go.</p>
 <h2 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml</h2>
 <p>The following example shows all possible fields of the core specification with example values.</p>
 <pre><code class="yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
-structure:
-  payload_directory: &quot;data&quot; # folder name including the workspace, after using bagger  
-  config_file: &quot;erc.yml&quot;
-  container_file: &quot;image.tar&quot;
-  container_manifest: &quot;Dockerfile&quot;
+main: the_paper_document.rmd
+display: view.html
 execution:
-  mountpoint: &quot;/erc&quot; # name of the volume used in the Dockerfile
-  command: &quot;Rscript -e 'rmarkdown::render(input = \&quot;paper.Rmd\&quot;, output_format = \&quot;html\&quot;)'&quot;
+  cmd: &quot;Rscript -e 'rmarkdown::render(input = \&quot;paper.Rmd\&quot;, output_format = \&quot;html\&quot;)'&quot;
 licenses: # licenses that the author chooses for their files
   code:
     others_lib.bin: MIT
     my_code.c: GPL-3.0
+  data:
+    facts.csv: ODbL-1.0
   text:
     README.md: CC0-1.0
     paper/chapter01.doc: CC-BY-4.0
     paper/chapter02.tex: CC-BY-4.0
-extensions:
-  - extension_name_1
-  - &quot;yet another extension&quot;
 </code></pre>
 
 <p>The path to the ERC configuration file subsequently MUST be <code>&lt;path-to-bag&gt;/data/erc.yml</code>.</p>
-<h2 id="ercignore-file">.ercignore file</h2>
-<p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory.
-If this file is present, any files and directories within the outer container which match the patterns within the file <code>.ercignore</code> will be excluded from the validation process.
-The newline-separated patterns in the file MUST be <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.</p>
-<p>The following <a href="https://en.wikipedia.org/wiki/Media_type">media types</a> (see <a href="https://www.iana.org/assignments/media-types/media-types.xhtml">IANA's full list of media types</a>) are regular expressions of file formats that CAN be used:</p>
-<ul>
-<li><code>text/*</code></li>
-<li><code>application/json</code></li>
-<li><code>*+xml</code></li>
-<li><code>*+json</code></li>
-</ul>
 <h2 id="content-metadata">Content metadata</h2>
 <h3 id="metadata-elements-under-development">Metadata elements <em>under development</em></h3>
 <p>Current JSON dummy to visualise the properties. It SHOULD be filled out as good as possible.</p>
@@ -579,12 +535,12 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <h3 id="description-of-metadata-properties">Description of metadata properties</h3>
 <p>Defining explanations on the concept of each metadata element in use.</p>
 <ul>
-<li><code>author</code> Contains a list of author related information.</li>
+<li><code>author</code> Contains a list of authors, each containing author related information.</li>
 <li><code>author.affiliation</code> A list of institutions, organizations or other groups that the creator of the asset is associated with.</li>
 <li><code>author.name</code> The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.</li>
 <li><code>author.orcid</code> The ORCid of the creator of the asset.</li>
 <li><code>community</code> Indicates belonging to a scientific community, e.g. on a repositoy platform.</li>
-<li><code>depends</code> A block for each entity that the software is dependent on for execution.</li>
+<li><code>depends</code> A block for each entity that the software is directly dependent on for execution. The dependency information is designed for the identification of dependent packages within packaging systems. A depends block may describe a transitive dependency.</li>
 <li><code>depends.identifier</code> An identifying name for the depending package.</li>
 <li><code>depends.version</code> The computer software and hardware required to run the software.</li>
 <li><code>depends.packageSystem</code> The package manager system that makes the dependency entity available.</li>
@@ -603,17 +559,17 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <li><code>interaction.ui_binding.code</code> A block containing source-code-specific information required to realize the UI binding.</li>
 <li><code>interaction.ui_binding.code.filename</code> Name of the file including the plot function that creates the figure.</li>
 <li><code>interaction.ui_binding.code.function</code> Name of the function that plots the figure.</li>
+<li><code>interaction.ui_binding.code.functionParameter</code> Parameters required by the shinyInputFunction. Final set of parameters depends on UI widget.</li>
 <li><code>interaction.ui_binding.variable</code> Variable that should be controlled by the UI widget.</li>
 <li><code>interaction.ui_binding.code.shinyInputFunction</code> Function that incorporates the UI widgets, provided by Shiny. </li>
 <li><code>interaction.ui_binding.code.shinyRenderFunction</code> Function that renders the plot after each change, provided by Shiny.</li>
-<li><code>interaction.ui_binding.code.functionParameter</code> Parameters required by the shinyInputFunction. Final set of parameters depends on UI widget.</li>
 <li><code>keywords</code> Tags associated with the asset.</li>
 <li><code>license</code> License information for the entire ERC.</li>
 <li><code>paperLanguage</code> A list of language codes that indicate the language of the asset, e.g. <em>en</em>.</li>
 <li><code>paperSource</code> The text document file of the paper.</li>
-<li><code>publicationDate</code> The publication date of the paper publication.</li>
-<li><code>recordDateCreated</code> The date that this metadata record was created.</li>
-<li><code>softwarePaperCitation</code> A text string that can be used to authoritatively cite a research paper, conference proceedings or other scholarly work that describes the design, development, usage, significance or other aspect of the software.</li>
+<li><code>publicationDate</code> The publication date of the paper publication as <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601</a> string.</li>
+<li><code>recordDateCreated</code> The date that this metadata record was created as <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601</a> string.</li>
+<li><code>softwarePaperCitation</code> Related citation information for the asset, e.g. a citation of the related journal article.</li>
 <li><code>spatial</code> Information about the geometric bounding box of the underlying data/software.</li>
 <li><code>spatial.files</code> A Geojson object of the aggregated bounding boxes of the underlying data/software, generated by the o2r service.</li>
 <li><code>spatial.union</code> A Geojson object displaying the spatial properties of the data.</li>
@@ -622,19 +578,32 @@ The newline-separated patterns in the file MUST be <a href="https://en.wikipedia
 <li><code>temporal.end</code> The end point of the relevant time period.</li>
 <li><code>title</code> The distinguishing name of the paper publication.</li>
 </ul>
-<h2 id="validation">Validation</h2>
-<p>ERC validation comprises four steps:</p>
-<ol>
-<li>checking required metadata elements</li>
-<li>executing the runtime container</li>
-<li>comparing the output files of the runtime container execution with the original output files in the outer container
-<!-- 1. running checks of active extensions --></li>
-</ol>
-<!--The comparison step (`3.`) SHOULD be based on `md5` checksums and compare recursively all files that are _reasonable to compare with hashes_, for example text-based documents but not compressed pictures.-->
+<h2 id="erc-checking">ERC checking</h2>
+<h3 id="procedure">Procedure</h3>
+<p>A core feature of ERCs is to compare the output of an ERC executions with the original outpts.
+Therefore checking an ERC always comprises two core steps: the execution and the comparison.</p>
+<p>The method of the comparison is unspecified.
+The files included in the comparison are the <em>comparison set</em>.
+An implementation MUST communicate the comparison set to the user as part of a check.</p>
+<h3 id="comparison-set-file">Comparison set file</h3>
+<p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory to define the comparison set.</p>
+<p>Its purpose is to provide a way to efficiently exclude files and directories from checking.
+If this file is present, any files and directories within the outer container which match the patterns within the file <code>.ercignore</code> will be excluded from the checking process.
+The check MUST NOT fail when files listed in <code>.ercignore</code> are failing comparison.</p>
+<p>The file MUST be UTF-8 (without BOM) encoded.
+The newline-separated patterns in the file MUST be <a href="https://en.wikipedia.org/wiki/Glob_(programming)">Unix shell globs</a>.
+For the purposes of matching, the root of the context is the ERC's base directory.</p>
+<p>Lines starting with <code>#</code> are treated as comments and MUST be ignored by implementations.</p>
+<p>Example <code>.ercignore</code> file:</p>
+<pre><code># comment
+.erc
+*/temp*
+data-old/*
+</code></pre>
 
-<p>The validation MUST NOT fail when files listed in <code>.ercignore</code> are failing comparison.</p>
-<p>The validation SHOULD communicate all files and directories actually used for validation to the user to avoid malicious usage of an <code>.ercignore</code> file.</p>
-<!-- Tools implementing this specification SHOULD communicate the names of ignored files or directories to the user for a transparent validation procedure. -->
+<div class="alert note" markdown="block">
+If using [md5]() files hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
+</div>
 
 <h2 id="security-considerations">Security considerations</h2>
 <p>Why are ERC not a security risk?</p>
