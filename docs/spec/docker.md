@@ -2,13 +2,14 @@
 
 This extension uses [Docker](http://docker.com/) to define, build, and store the runtime environment.
 
-The runtime environment or image MUST be represented by a [Docker image v1.2.0](https://github.com/docker/docker/blob/master/image/spec/v1.2.md).
+The _runtime environment or image_ MUST be represented by a [Docker image v1.2.0](https://github.com/docker/docker/blob/master/image/spec/v1.2.md).
 
-The runtime manifest MUST be represented by a `Dockerfile`, see [Docker builder reference](https://docs.docker.com/engine/reference/builder/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/builder.md).
+The _runtime manifest_ MUST be represented by a `Dockerfile`, see [Docker builder reference](https://docs.docker.com/engine/reference/builder/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/builder.md).
 
 ## Dockerfile
 
 The base directory MUST contain a valid Dockerfile, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
+
 The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the [runtime container file](#runtime-container-file) using `docker build`, see [Docker CLI build command documentation](https://docs.docker.com/engine/reference/commandline/build/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).
 The build SHOULD be done with the option `--no-cache=true`.
 
@@ -21,11 +22,22 @@ The Dockerfile SHOULD contain the instruction `MAINTAINER` to provide copyright 
 
 The Dockerfile MUST have an active instruction `CMD`, or a combination of the instructions `ENTRYPOINT` and `CMD`, which executes the packaged analysis.
 
-The Dockerfile MUST NOT contain `EXPOSE` instructions.
+The Dockerfile SHOULD NOT contain `EXPOSE` instructions.
 
-The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC within the container.
+### Making data, code, and text available within container
+
+The runtime environment image contains all dependencies and libraries needed by the code in an ERC.
+Especially for large datasets, it in unfeasible to replicate the complete dataset contained within the ERC in the image.
+For archival, it can also be confusing to replicate code and text, albeit them being relatively small in size, within the container.
+
+Therefore a host directory is [mounted into a container](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) at runtime using a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
+
+The Dockerfile SHOULD NOT contain a `COPY` or `ADD` command to include data, code or text from the ERC into the image.
+
+The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC base directory within the container.
 This mountpoint SHOULD be `/erc`.
-If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mountpoint`.
+Implementations MUST use this value as the default.
+If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mount_point`.
 
 Example for the mountpoint configuration:
 
@@ -34,13 +46,15 @@ Example for the mountpoint configuration:
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 execution:
-  mountpoint: "/erc"
+  mount_point: "/erc"
 ```
 
-Example for a Dockerfile:
+### Example Dockerfile
+
+In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to reproduce computations made in R.
 
 ```Dockerfile
-FROM rocker/r-base:latest
+FROM rocker/r-ver:3.3.3
 MAINTAINER o2r
 
 RUN apt-get update -qq \
@@ -74,8 +88,6 @@ RUN dpkg -l > /dpkg-list.txt
 LABEL Description="This is an ERC image." \
 	info.o2r.bag.id="123456"
 
-COPY . /erc
-
 VOLUME ["/erc"]
 
 ENTRYPOINT ["sh", "-c"]
@@ -85,33 +97,86 @@ CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd', output_dir 
 See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
 
 
-## Docker container
-
-To export the docker container and inspect its filesystem use:
-
-`docker export CONTAINER_ID > myExport.tar`
-
-
 ## Docker image
 
-The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)) of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
+The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)), i.e. an archive file, of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
 
-The file SHOULD be named `image.tar`.
+The image MUST have a [_label_](https://docs.docker.com/engine/reference/commandline/build/#options) of the name `erc` with the ERC's id as value, e.g. `erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
 
-The output of the container during execution can be shown to the user to convey detailed information.
+The name of the archive file MAY be configured in the ERC configuration file in the node `image` under the root-level node `execution`.
 
+The default tar archive file names SHOULD be `image.tar`, or `image.tar.gz` if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files).
+Implementations MUST recognize these names as the default values.
 
+<div class="alert note" markdown="block">
+Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the label which can be used to extract the image identifier, for example:
 
-## Default control statements
+<pre>
+<code>
+docker build --label erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
+docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec"
+docker save $(docker images --filter "label=erc=1234" -q) > image.tar
+# save with compression:
+docker save $(docker images --filter "label=erc=1234" -q) | gzip -c > image.tar.gz
+</code>
+</pre>
 
-The default control statements of implementing tools MUST be as shown in the following example configuration file.
+Do _not_ use <code>docker export</code>, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been manipulated during a run.
+</div>
+
+## Control statements
+
+The control statements for Docker executions comprise `load`, for importing an image from the archive, and `run` for starting a container of the loaded image.
+Both control statements MUST be configured by using nodes of the same name under the root-level node `execution` in the ERC configuration file.
+Based on the configuration, an implementation can construct the respective run-time commands, i.e. [`docker load`](https://docs.docker.com/engine/reference/commandline/load/) and [`docker run`](https://docs.docker.com/engine/reference/run/), using the correct image file name and further parameters (e.g. performance control options).
+
+The following example shows default values for `image` and `manifest` and typical values for `run`.
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 version: 1
 execution:
-  command:
-    - `docker load --input image.tar`
-    - `docker run -it -e TZ=CET erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`
+  image: image.tar.gz
+  manifest: Dockerfile
+  run:
+    environment:
+	  - TZ=CET
 ```
 
+<div class="alert note" markdown="block">
+The Docker CLI commands constructed based on this configuration by an implementing service could be as follows:
+
+<pre>
+<code>
+docker load --input image.tar
+IMAGE_ID=$(docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec" -q)
+docker run -it --name run_abc123 -e TZ=CET -v /storage/erc/abc123:/erc --label user:o2r $IMAGE_ID
+</code>
+</pre>
+
+In this case the implementation uses <code>-it</code> to pass stdout streams to the user and adds some metadata using <code>--name</code> and <code>--label</code>.
+</div>
+
+The only option for `load` is `quiet`, which may be set to Boolean `true` or `false`.
+
+```yml
+execution:
+  load:
+    quiet: true
+```
+
+The only option for `run` is `environment` to set environment variables inside containers as defined in [docker-compose](https://docs.docker.com/compose/environment-variables/#setting-environment-variables-in-containers).
+Environment variables are defined as a list seperated by `=`.
+
+
+```yml
+execution:
+  run:
+    environment:
+	  - DEBUG=1
+	  - TZ=CET
+```
+
+The environment variables SHOULD be used to fix settings out of control of the contained code that can hinder successful ERC checking, e.g. by setting a time zone to avoid issues during checking.
+
+The output of the container during execution MAY be shown to the user to convey detailed information to users.

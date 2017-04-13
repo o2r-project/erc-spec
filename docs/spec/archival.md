@@ -4,9 +4,10 @@ This extension places the ERC in the context of preservation workflows by defini
 
 ## Archival bundle
 
-In order to bundle the complete ERC, it can be packaged using the [BagIt][bagit] standard. This allows to store and transfer arbitrary content along with minimal metadata as well as checksum based payload validation.
+In order to bundle the complete ERC, it MUST be packaged using the [BagIt File Packaging Format (V0.97)][bagit] (BagIt).
+This allows to store and transfer arbitrary content along with minimal metadata as well as checksum based payload validation.
 
-For the purpose of transferring and storing an ERC, this extension defines how an ERC can be packaged using BagIt as the outer container and what limitations may apply.
+For the purpose of transferring and storing an ERC, this extension defines how an ERC is be packaged using BagIt as the outer container and what limitations may apply.
 
 The remainder of this section comprises (i) a description of the outer container, and (ii) a BagIt profile.
 
@@ -39,9 +40,16 @@ Example file tree for a bagged ERC:
 └── tagmanifest-md5.txt
 ```
 
-### BagIt profile - _Under Development_
+### BagIt profile
 
-A [Bagit Profile][bagitprofiles] as outlined below could make the requirements of this extension more explicit.
+<div class="alert note" markdown="block">
+The elements of the o2r Bagit Profile is yet to be specified. - This section is under development.
+Current BagIt tools do not include an option to add a BagIt Profile automatically.
+</div>
+
+
+A [BagIt Profile][bagitprofiles] as outlined below could make the requirements of this extension more explicit.
+The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate additional information, attached to bags.
 
 ```json
 {
