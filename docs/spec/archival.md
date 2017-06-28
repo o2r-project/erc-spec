@@ -102,6 +102,45 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
 [bagit]: http://tools.ietf.org/html/draft-kunze-bagit
 [bagitprofiles]: https://github.com/ruebot/bagit-profiles
 
+
+### Package leaflet
+Each ERC MUST contain a package leaflet, describing the schemas and standards used. Available schema files are supposed to be included with the ERC, if available (licenses for these schemas may apply).
+
+Example:
+
+{
+	"standards_used": [{
+		"name": "DataCite Metadata Schema 4.0",
+		"name-short": "datacite40",
+		"description": "The DataCite Metadata Schema is a list of core metadata properties chosen for an accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions.",
+		"schema-version": "4.0",
+		"schema-path-local": "erc/schema/datacite40.json ",
+		"schema-url": "https://schema.datacite.org/meta/kernel-4.0/metadata.xsd",
+		"schema-identifier": "doi:10.5438/0013"
+	}, {
+		"name": "Zenodo Metadata Schema",
+		"name-short": "zenodo",
+		"description": "The metadata schema applicable for zenodo 2017.",
+		"schema-version": null,
+		"schema-path-local": "erc/schema/zenodo.json ",
+		"schema-url": null,
+		"schema-identifier": null
+	}]
+}
+
+
+Elements used for each schema / standard used:
+
+`name`: The name of the schema.
+`name-short`: The abbreviated name.
+`description`: The description of the schema.
+`schema-version`: The version of the schema as stated in the corresponding official schema file.
+`schema-path-local`: The path to the local version of the schema. It may point to a translated version of the original schema, e.g. json file from xml file.
+`schema-url`: The official URL of the schema file
+`schema-identifier`: The persistent identifier for the schema/standard.
+
+
+
 ## ERC preservation aspects in the light of OAIS
 
 The Open Archival Information System (OAIS) reference model is a framework for the preservation and dissimination of digital objects (assets). It has been created by the Consultative Committee for Space Data Systems (CCSDS) and  has since been adopted by a wide range of international institutions. The OAIS provides the terminology and concept of the _information package_ as primitive of the digital preservation workflow. Submission information packages (SIP), Dissimination information packages (DIP) and Archival information packages (AIP) refer to different functional roles of a digital object during (long term) preservation.
