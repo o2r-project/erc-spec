@@ -37,4 +37,4 @@ license: cc-by
 
 **Filename** | **Template** | **ERC-Spec** 
 ------ | ------ | ------ |
-[geo_template.zip]() _TBD_ | Geoscience research in R | V.1
+[geo_template.zip](https://github.com/o2r-project/erc-spec/blob/master/templates/geo/geo_template.zip) | Geoscience research in R | V.1
