@@ -2,7 +2,7 @@
 
 This user guide comprises instructions how to create an ERC _by hand_.
 It is thus limited to mandatory elements in some places.
-However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document.
+However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document. It is supposed to ease the understanding of the ERC especially for the authors of scientific publications.
 For using tools or services for creation and validation of ERCs, please see the [developer guide](../dev-guide/index.md).
 
 <div class="alert note" markdown="block">

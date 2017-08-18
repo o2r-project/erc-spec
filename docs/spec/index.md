@@ -31,6 +31,7 @@ The key words "unspecified", "undefined", and "implementation-defined" are to be
 ## Purpose
 
 This specification defines a structure to carry and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science)).
+It carries technical and conceptual details on how to implement the reproducibility specifications and is as such most suitables for developers. Authors may feel more comfortable with the reference implementation of the ERC and the manual provided in the user guide.
 
 These analyses typically comprise a workspace on a researcher's computer, which comprises _data_, _code_, third party software or libraries, and outputs such as plots.
 Code and libraries are required in executable form to re-do an analysis.
