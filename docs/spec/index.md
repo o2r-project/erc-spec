@@ -28,19 +28,19 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the [rationale for the C99 standard][c99-unspecified].
 
-## Purpose
+## Purpose and context
 
 This specification defines a structure to carry and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science)).
 It carries technical and conceptual details on how to implement the reproducibility specifications and is as such most suitables for developers. Authors may feel more comfortable with the reference implementation of the ERC and the manual provided in the user guide.
 
-These analyses typically comprise a workspace on a researcher's computer, which comprises _data_, _code_, third party software or libraries, and outputs such as plots.
-Code and libraries are required in executable form to re-do an analysis.
-Research is only put into a context by a _textual_ publication, which is published in [scholarly communication](https://en.wikipedia.org/wiki/Scholarly_communication).
+These analyses typically comprise a workspace on a researcher's computer, that contains _data_, _code_, third party software or libraries, and outputs research results such as plots.
+Code and libraries are required in executable form to re-do a specific analysis.
+Research is only put into a context by a _textual_ publication, a research paper, which is published in [scholarly communication](https://en.wikipedia.org/wiki/Scholarly_communication).
 The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
-The latter is often derived, or "rendered", from the former and can be static, visual, or even interactive.
+The latter is often derived, or "rendered" from the former and can be static, visual, or even interactive following a trend towards more interactivity between reader and scientific publication.
 
-Putting all of this elements in a self-contained bundle allows understanding, reproducing, transferring, archiving, and validating computational research.
-The ERC specification defines metadata and file structures to support these actions.
+Putting all of these elements in a self-contained bundle allows examining, reproducing, transferring, archiving, and formal validation of computational research results.
+The ERC specification also defines metadata and file structures to support these actions.
 
 ## Fundamental design concepts
 
@@ -57,9 +57,9 @@ We acknowledge well defined standards for packaging a set of files, and differen
 Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
 We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.
 
-Finally, this specification may be extended or limited further by so called _extensions_.
+<!-- Finally, this specification may be extended or limited further by so called _extensions_.
 Extensions MAY add any additional structure to an ERC or change defaults.
-But they MUST NOT interfere with this specification, e.g. by changing the meaning of a configuration field.
+But they MUST NOT interfere with this specification, e.g. by changing the meaning of a configuration field. -->
 
 ## How to use an ERC
 
@@ -67,7 +67,7 @@ The steps to (re-)run the analysis contained in an ERC are as follows:
 
 - (if compressed first extract then) unpack the ERC's outer container
 - execute the runtime container
-- compare the output files contained in the outer container with the just output files just created by the runtime container
+- compare the output files contained in the outer container with the output files just created by the runtime container
 
 This way ERC allow computational reproducibility based on the original code and data.
 
@@ -104,6 +104,7 @@ This section defines two such representations.
 First, an executable image.
 Second, a manifest documenting the image's contents.
 
+<!-- subject to removal -->
 The format of these representations is undefined here and can be stated more precisely in an extension to this specification.
 
 <div class="alert note" markdown="block">
@@ -194,14 +195,14 @@ execution:
 The file `erc.yml` MUST contain a first level node `licenses` with licensing information for the code, data, and text contained.
 Each of these three have distinct requirements, hence different licenses need to be applied.
 
-The node `licenses` MUST have three children: `code`, `data`, `text`.
+The node `licenses` MUST have five child nodes: `text`, `data`, `code`, `uibindings` ("user interface"), and `md` ("metadata").
 
 <div class="alert note" markdown="block">
 There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
 Tools for automatic creation of ERC may add such detailed licensing information and define an extension to the ERC 
 </div>
 
-The content of each of these child nodes MUST be one of the following
+The content of each of these child nodes MUST have one of the following values:
 
 - text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/).
 - a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory. 
@@ -215,6 +216,8 @@ licenses:
   code: Apache-2.0
   data: ODbL-1.0
   text: CC0-1.0
+  uibindings: CC0-1.0
+  md: CC0-1.0
 ```
 
 Example using specific licenses for files:
@@ -233,7 +236,8 @@ licenses:
     README.md: CC0-1.0
     paper/chapter01.doc: CC-BY-4.0
     paper/chapter02.tex: CC-BY-4.0
-
+  uibindings: CC0-1.0
+  md: CC0-1.0
 ```
 
 <div class="alert note" markdown="block">
@@ -261,6 +265,8 @@ licenses: # licenses that the author chooses for their files
     README.md: CC0-1.0
     paper/chapter01.doc: CC-BY-4.0
     paper/chapter02.tex: CC-BY-4.0
+  uibindings: CC0-1.0
+  md: CC0-1.0
 ```
 
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
@@ -324,7 +330,12 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
 		}
  	},
 	"keywords": [],
-	"license": null,
+    "license": {"text": None,
+            "data": None,
+            "code": None,
+            "uibindings": None,
+            "md": None
+            },
 	"paperLanguage": [],
 	"paperSource": null,
 	"publicationDate": null,
@@ -340,7 +351,7 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
 	},
 	"title": null,
     "upload_type": "publication",
-    "viewfile": []
+    "viewfiles": []
 }
 ```
 
@@ -386,7 +397,12 @@ Defining explanations on the concept of each metadata element in use.
 + `interaction.ui_binding.code.shinyInputFunction` Function that incorporates the UI widgets, provided by Shiny. 
 + `interaction.ui_binding.code.shinyRenderFunction` Function that renders the plot after each change, provided by Shiny.
 + `keywords` Tags associated with the asset.
-+ `license` License information for the entire ERC.
++ `license` License information for each part of the ERC.
++ `license.code` License for the code part of the ERC
++ `license.text` License for the text part of the ERC
++ `license.data` License for the data part of the ERC
++ `license.uibindings` License for the user interface bindings of the ERC
++ `license.md` License for the metadata of the ERC
 + `paperLanguage` A list of language codes that indicate the language of the asset, e.g. _en_.
 + `paperSource` The text document file of the paper.
 + `publicationDate` The publication date of the paper publication as [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) string.
@@ -407,7 +423,7 @@ Defining explanations on the concept of each metadata element in use.
 
 ### Procedure
 
-A core feature of ERCs is to compare the output of an ERC executions with the original outpts.
+A core feature of ERCs is to compare the output of an ERC executions with the original outputs.
 Therefore checking an ERC always comprises two core steps: the execution and the comparison.
 
 The method of the comparison is unspecified.
@@ -438,7 +454,7 @@ data-old/*
 ```
 
 <div class="alert note" markdown="block">
-If using [md5]() files hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
+If using [md5]() file hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
 </div>
 
 ## Security considerations
