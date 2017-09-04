@@ -12,9 +12,10 @@ pages:
     #- Plain R Runtime Extension: spec/plain_r.md
   - User guides:
     - Creation guide for authors: user-guide/creation.md
+    - Examination guide for authors: user-guide/examination.md
     - ERC template for authors: user-guide/template.md
     - ERC & OAIS: user-guide/oais.md
-  - Developer guide: dev-guide/index.md
+    - Developer guide: dev-guide/index.md
   - Glossary: glossary.md
 theme:  readthedocs # cinder # material readthedocs # flatly
 repo_url: https://github.com/o2r-project/erc-spec
