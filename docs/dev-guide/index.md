@@ -3,9 +3,8 @@
 An introduction to the ERC rational and the technology choices made within the project _Opening Reproducible Research_.
 This documents is targeted at developers who wish to create tools for creating, validating, and consuming ERC.
 
-<div class="alert note" markdown="block">
-This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
-</div>
+!!! note
+    This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 
 ## Convention over configuration
 
