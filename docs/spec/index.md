@@ -822,9 +822,10 @@ Defining explanations on the concept of each metadata element in use.
 A core feature of ERCs is to compare the output of an ERC executions with the original outputs.
 Therefore checking an ERC always comprises two core steps: the execution and the comparison.
 
-The method of the comparison is unspecified.
 The files included in the comparison are the _comparison set_.
 An implementation MUST communicate the comparison set to the user as part of a check.
+
+Previous to the check, an implementation SHOULD conduct a basic validation of the outer container's integrity, i.e. check the file hashes.
 
 ### Comparison set file
 
@@ -851,6 +852,14 @@ data-old/*
 
 !!! note
     If using [md5](https://tools.ietf.org/html/rfc1321) file hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
+
+### Comparing plain text documents
+
+...
+
+### Comparing graphics and binary output
+
+This section outlines possibilities beyond simple comparison and incorporates "harder" to compare files and what to do with them, e.g. plots/figures, PDFs, ...
 
 ## Security considerations
 
