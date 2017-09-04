@@ -271,10 +271,198 @@ licenses: # licenses that the author chooses for their files
 
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
 
+## Preservation of ERC
 
-## Content metadata
+This section places the ERC in the context of preservation workflows by defining structural information and other metadata that guarantee interpretability and enable the bundling of the complete ERC as a self-contained, archivable digital object.
 
-### Metadata elements _under development_
+### Archival bundle
+
+For the purpose of transferring and storing a complete ERC, it MUST be packaged using the [BagIt File Packaging Format (V0.97)][bagit] (BagIt) as the outer container.
+BagIt allows to store and transfer arbitrary content along with minimal metadata as well as checksum based payload validation.
+
+The remainder of this section comprises
+
+- a description of the outer container,
+- a BagIt profile,
+- a package leaflet, and
+- secondary metadata files.
+
+#### BagIt outer container
+
+The ERC base directory MUST be the BagIt payload directory `data/`.
+The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
+
+The bag metadata file `bag-info.txt` MUST contain a metadata element of the label `ERC-Version` and the version of the ERC payload as value.
+
+```txt
+Payload-Oxum: 2172457623.43
+Bagging-Date: 2016-02-01
+Bag-Size: 2 GB
+ERC-Version: 1
+```
+
+Example file tree for a bagged ERC:
+
+```txt
+├── bag-info.txt
+├── bagit.txt
+├── data
+│   ├── 2016-07-17-sf2.Rmd
+│   ├── erc.yml
+│   ├── metadata.json
+│   ├── Dockerfile
+│   └── image.tar
+├── manifest-md5.txt
+└── tagmanifest-md5.txt
+```
+
+#### BagIt profile
+
+<div class="alert note" markdown="block">
+The elements of the o2r Bagit Profile is yet to be specified. - This section is under development.
+Current BagIt tools do not include an option to add a BagIt Profile automatically.
+</div>
+
+
+A [BagIt Profile][bagitprofiles] as outlined below could make the requirements of this extension more explicit.
+The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate additional information, attached to bags.
+
+```json
+{
+  "BagIt-Profile-Info":{
+  "BagIt-Profile-Identifier":"http://o2r.info/erc-bagit-v1.json",
+  "Source-Organization":"o2r.info",
+  "Contact-Name":"o2r Team",
+  "Contact-Email":"o2r@uni-muenster.de",
+  "External-Description":"BagIt profile for packaging executable research compendia.",
+  "Version":"1"
+  },
+  "Bag-Info":{
+    "Contact-Name":{
+       "required":true
+    },
+    "Contact-Email":{
+       "required":true
+    },
+    "External-Identifier":{
+       "required":true
+    },
+    "Bag-Size":{
+       "required":true
+    },
+    "Payload-Oxum":{
+       "required":true
+    }
+  },
+  "Manifests-Required":[
+    "md5"
+  ],
+  "Allow-Fetch.txt":false,
+  "Serialization":"optional",
+  "Accept-Serialization":[
+     "application/zip"
+  ],
+  "Tag-Manifests-Required":[
+    "md5"
+  ],
+  "Tag-Files-Required":[
+     ".erc/metadata.json",
+     ".erc.yml"
+  ],
+  "Accept-BagIt-Version":[
+     "0.96"
+  ]
+}
+```
+
+[bagit]: http://tools.ietf.org/html/draft-kunze-bagit
+[bagitprofiles]: https://github.com/ruebot/bagit-profiles
+
+
+#### Package leaflet
+
+Each ERC MUST contain a package leaflet, describing the schemas and standards used. Available schema files are supposed to be included with the ERC, if available (licenses for these schemas may apply).
+
+**Example:**
+
+```json
+{
+	"standards_used": [{
+		"name": "DataCite Metadata Schema 4.0",
+		"name-short": "datacite40",
+		"description": "The DataCite Metadata Schema is a list of core metadata properties chosen for an accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions.",
+		"schema-version": "4.0",
+		"schema-path-local": "erc/schema/datacite40.json ",
+		"schema-url": "https://schema.datacite.org/meta/kernel-4.0/metadata.xsd",
+		"schema-identifier": "doi:10.5438/0013"
+	}, {
+		"name": "Zenodo Metadata Schema",
+		"name-short": "zenodo",
+		"description": "The metadata schema applicable for zenodo 2017.",
+		"schema-version": null,
+		"schema-path-local": "erc/schema/zenodo.json ",
+		"schema-url": null,
+		"schema-identifier": null
+	}]
+}
+```
+
+
+Elements used for each schema / standard used:
+
+- `name`: The name of the schema.
+- `name-short`: The abbreviated name.
+- `description`: The description of the schema.
+- `schema-version`: The version of the schema as stated in the corresponding official schema file.
+- `schema-path-local`: The path to the local version of the schema. It may point to a translated version of the original schema, e.g. json file from xml file.
+- `schema-url`: The official URL of the schema file
+- `schema-identifier`: The persistent identifier for the schema/standard.
+
+#### Secondary metadata files
+
+The ERC as an object can be used in a broad range of cases. For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference or it can be a preserved item in a digital archive. All of these have their own standards and requirements to apply, when it comes to metadata.
+
+These metadata requirements _are not_ part of this specification, but the following conventions are made to simplify and coordinate the variety.
+
+Metadata specific to a particular domain or use case MUST replicate the information required for the specific case in an independent file.
+Domain metadata SHOULD follow domain conventions and standards regarding format and encoding of metadata.
+Duplicate information is accepted, because it lowers the entry barrier for domain experts and systems, who can simply pick up a metadata copy in a format known to them.
+
+Metadata documents of specific use cases MUST be stored in a directory `.erc`, which is a child-directory of the ERC base directory.
+
+Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. `datacite40.xml` or `zenodo_sandbox10.json`, and SHOULD use a suitable mime type.
+
+##### Requirements of secondary metadata
+
+In order to comply to their governing schemas, secondary metadata must include the mandatory information as set by 3rd party services. While the documentation of this quality is a perpetual task, we have gathered the information most relevant our selection of connected services.
+
+**Zenodo**
+
++ Accepts metadata as `JSON`.
++ Mandatory elements:
+	+ Upload Type (e.g. Publication)
+	+ Publication Type
+	+ Title
+	+ Creators
+	+ Description
+	+ Publication Date
+	+ Access Right
+	+ License
+
+**DataCite (4.0)**
+
++ Accepts metadata as `XML`.
++ Mandatory elements:
+	+ Identifier
+	+ Creator
+	+ Title
+	+ Publisher
+	+ Publication Year
+	+ Resource Type
+
+Other third party standards that will be considered comprise: _CodeMeta_, _EuDat_, _mets/mods_.
+
+### Content metadata _under development_
 
 Current JSON dummy to visualise the properties. It SHOULD be filled out as good as possible.
 
