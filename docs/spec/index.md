@@ -88,6 +88,10 @@ For example if the main document is Hypertext Markup Language (HTML), then the f
 !!! note
     Typically, the _display file_ is "rendered" from the main file, which follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
 
+The ERC MAY contain a document with interactive figures and control elements for interactive manipulation of the packaged computations.
+
+The interaction file MUST have `HTML` format and SHOULD be valid [HTML5](https://www.w3.org/TR/html5/).
+
 ## ERC configuration file
 
 The ERC configuration file is the _reproducibility manifest_ for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.
@@ -340,7 +344,6 @@ execution:
 The only option for `run` is `environment` to set environment variables inside containers as defined in [docker-compose](https://docs.docker.com/compose/environment-variables/#setting-environment-variables-in-containers).
 Environment variables are defined as a list separated by `=`.
 
-
 ```yml
 execution:
   run:
@@ -424,6 +427,59 @@ CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd', output_dir 
 ```
 
 See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
+
+## R workspaces
+
+### Structure
+
+The structure within the ERC contents directory are intentionally unspecified.
+However, the contents structure MAY follow conventions or be based on templates for organizing research artifacts.
+
+If a convention is followed then it SHOULD be referenced in the ERC configuration file as a node `convention` within the `structure` section.
+The node's value can be any text string which uniquely identifies a convention, but a URI or URL to either a human-readable description or technical specification is RECOMMENDED.
+
+A non-exhaustive list of potential conventions and guidelines _for R_ is as follows:
+
+- [ROpenSci rrrpkg](https://github.com/ropensci/rrrpkg)
+- [Jeff Hollister's manuscriptPackage](https://github.com/jhollist/manuscriptPackage)
+- [Carl Boettiger's template](https://github.com/cboettig/template)
+- [Francisco Rodriguez-Sanchez's template](https://github.com/Pakillo/template)
+- [Ben Marwick's template](https://github.com/benmarwick/template)
+- [Karl Broman's comments on reproducibility](http://kbroman.org/knitr_knutshell/pages/reproducible.html)
+
+Example for using the ROPenSci `rrrpkg` convention, using the public link on GitHub as the identifier:
+
+```yml
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+structure:
+  convention: https://github.com/ropensci/rrrpkg
+```
+
+### R Markdown main document
+
+The ERC's main document as defined by this extension MUST be a weaved document, which integrates text and code and can be compiled into an interaction file.
+
+The weaved MUST have the [R Markdown](http://rmarkdown.rstudio.com/) format for executable documents.
+Its name MUST be `paper.Rmd`.
+
+!!! note
+    A popular alternative solution is [Sweave](http://www.statistik.lmu.de/~leisch/Sweave/) with the `.Rnw` extension, which is still widely used for vignettes. R Markdown was chosen of LaTex for its simplicity for users who are unfamiliar with LaTeX.
+
+The main document SHOULD NOT contain code that loads pre-computed results from files, but conduct all analyses, even costly ones, during document weaving.
+
+The document MUST NOT use `cache=TRUE` on any of the code chunks (see [`knitr` options](https://yihui.name/knitr/options/).
+While the previously cached files (`.rdb` and `.rdx`) may be included, they should not be used during the rendering of the document.
+
+### Fixing the environment in code
+
+The time zone MUST be fixed to `UTC` [Coordinated Universal Time](https://en.wikipedia.org/wiki/Coordinated_Universal_Time)) to allow validation of output times (potentially broken by different output formats) by using the following code within the RMarkdown document, or other code to that effect.
+
+```r
+Sys.setenv("TZ" = "UTC")
+```
+
+The manifest file (i.e. `Dockerfile`) MUST run a plain R session without loading `.RData` files or profiles at startup, i.e. use `R --vanilla`.
 
 ## Preservation of ERC
 
