@@ -1,6 +1,6 @@
 site_name: ERC spec
 site_author: "Daniel Nüst, Matthias Schutzeichel, Markus Konkol"
-site_description: "Executable Research Compendium specification, user guide and developer guide"
+site_description: "Executable Research Compendium technical specification, user guides, and developer guide."
 pages:
   - Home: index.md
   - ERC:
@@ -16,9 +16,16 @@ pages:
     - ERC template: user-guide/template.md
   - Developer guide: dev-guide/index.md
   - Glossary: glossary.md
-theme:  cinder # material readthedocs # flatly
+theme:  readthedocs # cinder # material readthedocs # flatly
 repo_url: https://github.com/o2r-project/erc-spec
 repo_name: GitHub
-edit_uri: blog/master/docs/
+edit_uri: tree/master/docs/
 site_dir: site
 extra_css: [erc.css]
+markdown_extensions:
+  - admonition
+  - smarty
+  - codehilite
+  - toc(permalink=true)
+  #- pymdownx.inlinehilite
+  - pymdownx.tilde
