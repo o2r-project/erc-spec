@@ -85,42 +85,8 @@ An ERC MUST have a _display file_, i.e. the file which is shown to the user firs
 The display file's name SHOULD be `view` with an appropriate file extension and media type.
 For example if the main document is Hypertext Markup Language (HTML), then the file extension should be `.htm` or `.html` and the media type `text/html`.
 
-<div class="alert note" markdown="block">
-Typically, the _display file_ is "rendered" from the main file, which follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
-</div>
-
-## Nested runtime
-
-The embedding of a representation of the original runtime environment, in which an analysis was conducted, is crucial for supporting reproducible computations.
-This section defines two such representations.
-First, an executable image.
-Second, a manifest documenting the image's contents.
-
-<!-- subject to removal -->
-The format of these representations is undefined here and can be stated more precisely in an extension to this specification.
-
-<div class="alert note" markdown="block">
-A concrete runtime extension may choose to (a) embed the runtime environment in the image, or (b) to rely on constructing the runtime environment from the manifest.
-</div>
-
-### Runtime environment or image
-
-The base directory SHOULD contain a runnable image, e.g. a "binary", of the original analysis environment that can be used to re-run the packaged analysis using a suitable software.
-
-The image file MAY be compressed.
-It SHOULD be named `image` with an appropriate file extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
-
-The name of the image file MUST be given in the ERC configuration file under the node `image` under the root-level node `execution`.
-
-The output of the image execution can be shown to the user to convey detailed information on progress or errors.
-
-### Runtime manifest
-
-The base directory MUST contain a complete, self-consistent manifest of the runtime image's contents.
-
-This manifest MUST be in a machine-readable format that allows a respective tool to create the runtime image.
-
-The name of the manifest file MUST be given in the ERC configuration file under the node `manifest` under the root-level node `execution`.
+!!! note
+    Typically, the _display file_ is "rendered" from the main file, which follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
 
 ## ERC configuration file
 
@@ -189,10 +155,9 @@ Each of these three have distinct requirements, hence different licenses need to
 
 The node `licenses` MUST have five child nodes: `text`, `data`, `code`, `uibindings` ("user interface"), and `md` ("metadata").
 
-<div class="alert note" markdown="block">
-There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
-Tools for automatic creation of ERC may add such detailed licensing information and define an extension to the ERC 
-</div>
+!!! note
+    There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
+    Tools for automatic creation of ERC may add such detailed licensing information and define an extension to the ERC 
 
 The content of each of these child nodes MUST have one of the following values:
 
@@ -232,11 +197,11 @@ licenses:
   md: CC0-1.0
 ```
 
-<div class="alert note" markdown="block">
-It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
+!!! note
+    It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
 </div>
 
-## Comprehensive example of erc.yml
+### Comprehensive example of erc.yml
 
 The following example shows all possible fields of the core specification with example values.
 
@@ -262,6 +227,203 @@ licenses: # licenses that the author chooses for their files
 ```
 
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
+
+## Nested runtime
+
+The embedding of a representation of the original runtime environment, in which an analysis was conducted, is crucial for supporting reproducible computations.
+This section defines two such representations.
+First, an executable image.
+Second, a manifest documenting the image's contents.
+
+The ERC uses [Docker](http://docker.com/) to define, build, and store the nested runtime environment, i.e. the inner container.
+
+### Runtime image
+
+The base directory SHOULD contain a runnable image, e.g. a "binary", of the original analysis environment that can be used to re-run the packaged analysis using a suitable software.
+
+The _runtime environment or image_ MUST be represented by a [Docker image v1.2.0](https://github.com/docker/docker/blob/master/image/spec/v1.2.md).
+
+!!! note
+    A concrete implementation of ERC may choose to rely on constructing the runtime environment from the manifest when needed, e.g. for export to a repository, while the ERC is constructed.
+
+The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)), i.e. an archive file, of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
+
+The image MUST have a [_label_](https://docs.docker.com/engine/reference/commandline/build/#options) of the name `erc` with the ERC's id as value, e.g. `erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
+
+The name of the archive file MAY be configured in the ERC configuration file in the node `image` under the root-level node `execution`.
+
+The image file MAY be compressed.
+
+The default tar archive file names SHOULD be `image.tar`, or `image.tar.gz` if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files).
+Implementations MUST recognize these names as the default values.
+
+!!! note
+    Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the label which can be used to extract the image identifier, for example:
+    
+    ```bash
+    docker build --label erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
+    docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec"
+    docker save $(docker images --filter "label=erc=1234" -q) > image.tar
+    # save with compression:
+    docker save $(docker images --filter "label=erc=1234" -q) | gzip -c >     image.tar.gz
+    ```
+
+Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been manipulated during a run.
+
+It SHOULD be named `image` with an appropriate file extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
+
+The name of the image file MUST be given in the ERC configuration file under the node `image` under the root-level node `execution`.
+
+The output of the image execution can be shown to the user to convey detailed information on progress or errors.
+
+### Runtime manifest
+
+The base directory MUST contain a complete, self-consistent manifest of the runtime image's contents which is a machine-readable format that allows a respective tool to create the runtime image.
+
+The _runtime manifest_ MUST be represented by a valid `Dockerfile`, see [Docker builder reference](https://docs.docker.com/engine/reference/builder/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/builder.md).
+
+The file SHOULD be named `Dockerfile`.
+The name of the manifest file MUST be given in the ERC configuration file under the node `manifest` under the root-level node `execution` if it is different from `Dockerfile`.
+
+The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the [runtime image](#runtime-iamge) using `docker build`, see [Docker CLI build command documentation](https://docs.docker.com/engine/reference/commandline/build/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).
+The build SHOULD be done with the option `--no-cache=true`.
+
+The Dockerfile MUST contain the required instruction `FROM`, which MUST NOT use the `latest` tag.
+
+!!! note
+    The "latest" tag is [merely a convention](http://container-solutions.com/docker-latest-confusion/) to denote the latest available image. As such, using an image tagged "latest" is much more likely to change over time, although there is no guarantee that images tagged differently, e.g. "v1.2.3" might not change as well.
+
+The Dockerfile SHOULD contain the label `maintainer` to provide authorship information.
+
+The Dockerfile MUST have an active instruction `CMD`, or a combination of the instructions `ENTRYPOINT` and `CMD`, which executes the packaged analysis.
+
+The Dockerfile SHOULD NOT contain `EXPOSE` instructions.
+
+### Docker control statements
+
+The control statements for Docker executions comprise `load`, for importing an image from the archive, and `run` for starting a container of the loaded image.
+Both control statements MUST be configured by using nodes of the same name under the root-level node `execution` in the ERC configuration file.
+Based on the configuration, an implementation can construct the respective run-time commands, i.e. [`docker load`](https://docs.docker.com/engine/reference/commandline/load/) and [`docker run`](https://docs.docker.com/engine/reference/run/), using the correct image file name and further parameters (e.g. performance control options).
+
+The following example shows default values for `image` and `manifest` and typical values for `run`.
+
+```yml
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+version: 1
+execution:
+  image: image.tar.gz
+  manifest: Dockerfile
+  run:
+    environment:
+	  - TZ=CET
+```
+
+!!! note
+    The Docker CLI commands constructed based on this configuration by an implementing service could be as follows:
+    
+    ```bash
+    docker load --input image.tar
+    IMAGE_ID=$(docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec" -q)
+    docker run -it --name run_abc123 -e TZ=CET -v /storage/erc/abc123:/erc --label user:o2r $IMAGE_ID
+	```
+	
+	In this case the implementation uses `-it` to pass stdout streams to the user and adds some metadata using `--name` and `--label`</code>`.
+
+The only option for `load` is `quiet`, which may be set to Boolean `true` or `false`.
+
+```yml
+execution:
+  load:
+    quiet: true
+```
+
+The only option for `run` is `environment` to set environment variables inside containers as defined in [docker-compose](https://docs.docker.com/compose/environment-variables/#setting-environment-variables-in-containers).
+Environment variables are defined as a list separated by `=`.
+
+
+```yml
+execution:
+  run:
+    environment:
+	  - DEBUG=1
+	  - TZ=CET
+```
+
+The environment variables SHOULD be used to fix settings out of control of the contained code that can hinder successful ERC checking, e.g. by setting a time zone to avoid issues during checking.
+
+The output of the container during execution MAY be shown to the user to convey detailed information to users.
+
+### Making data, code, and text available within container
+
+The runtime environment image contains all dependencies and libraries needed by the code in an ERC.
+Especially for large datasets, it in unfeasible to replicate the complete dataset contained within the ERC in the image.
+For archival, it can also be confusing to replicate code and text, albeit them being relatively small in size, within the container.
+
+Therefore a host directory is [mounted into a container](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) at runtime using a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
+
+The Dockerfile SHOULD NOT contain a `COPY` or `ADD` command to include data, code or text from the ERC into the image.
+
+The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC base directory within the container.
+This mountpoint SHOULD be `/erc`.
+Implementations MUST use this value as the default.
+If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mount_point`.
+
+Example for the mountpoint configuration:
+
+```yml
+---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+execution:
+  mount_point: "/erc"
+```
+
+### Example Dockerfile
+
+In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to reproduce computations made in R.
+
+```Dockerfile
+FROM rocker/r-ver:3.3.3
+MAINTAINER o2r
+
+RUN apt-get update -qq \
+	&& apt-get install -y --no-install-recommends \
+	## Packages required by R extension packages
+	# required by rmarkdown:
+	lmodern \
+	pandoc \
+	# for devtools (requires git2r, httr):
+	libcurl4-openssl-dev \
+	libssl-dev \
+	git \
+	# for udunits:
+	libudunits2-0 \
+	libudunits2-dev \
+	# required when knitting the document
+	pandoc-citeproc \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/*
+
+# install R extension packages
+RUN install2.r -r "http://cran.rstudio.com" \
+	  rmarkdown \
+	  ggplot2 \
+	  devtools \
+	  && rm -rf /tmp/downloaded_packages/ /tmp/*.rd
+
+# Save installed packages to file
+RUN dpkg -l > /dpkg-list.txt
+
+LABEL Description="This is an ERC image." \
+	info.o2r.bag.id="123456"
+
+VOLUME ["/erc"]
+
+ENTRYPOINT ["sh", "-c"]
+CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\""]
+```
+
+See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
 
 ## Preservation of ERC
 
@@ -310,11 +472,9 @@ Example file tree for a bagged ERC:
 
 #### BagIt profile
 
-<div class="alert note" markdown="block">
-The elements of the o2r Bagit Profile is yet to be specified. - This section is under development.
-Current BagIt tools do not include an option to add a BagIt Profile automatically.
-</div>
-
+!!! note
+    The elements of the o2r Bagit Profile is yet to be specified. - This section is under development.
+    Current BagIt tools do not include an option to add a BagIt Profile automatically.
 
 A [BagIt Profile][bagitprofiles] as outlined below could make the requirements of this extension more explicit.
 The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate additional information, attached to bags.
@@ -626,16 +786,15 @@ Lines starting with `#` are treated as comments and MUST be ignored by implement
 
 Example `.ercignore` file:
 
-```
+```bash
 # comment
 .erc
 */temp*
 data-old/*
 ```
 
-<div class="alert note" markdown="block">
-If using [md5]() file hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
-</div>
+!!! note
+    If using [md5](https://tools.ietf.org/html/rfc1321) file hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
 
 ## Security considerations
 

@@ -26,7 +26,8 @@ extra_css: [erc.css]
 markdown_extensions:
   - admonition
   - smarty
-  - codehilite
+  - codehilite(guess_lang=False)
   - toc(permalink=true)
   #- pymdownx.inlinehilite
   - pymdownx.tilde
+  - pymdownx.superfences # does not work with guess_lang=True
