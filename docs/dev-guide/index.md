@@ -47,6 +47,19 @@ That is why the image is not mandatory.
 
 ...
 
+### Why not just use plain R?
+
+It would be possible to rely solely on R for replication.
+For example, the runtime manifest could be a codemeta document, and the runtime environment is created outside of the ERC when needed.
+Alternatively, the packages for preserving a state of dependencies could be used.
+
+However, none of these solutions touches the underlying system libraries.
+Even if shipping system binaries within packages is possible (common?), some packages do use system libraries which are not preserved in a plain R approach.
+
+Furthermure, none of the solutions for reproducibility are part of "core R", even if they are trustworthy (e.g. MRAN). CRAN does not support installing specific package versions.
+
+That is why using an abstraction layer outside of R is preferable.
+
 ### Licensing information
 
 Without proper license credits, the contents of an ERC would be useless based on today's copyright laws.
