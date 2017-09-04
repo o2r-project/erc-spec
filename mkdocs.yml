@@ -3,17 +3,17 @@ site_author: "Daniel Nüst, Matthias Schutzeichel, Markus Konkol"
 site_description: "Executable Research Compendium technical specification, user guides, and developer guide."
 pages:
   - Home: index.md
-  - ERC:
-    - Specification: spec/index.md
-    - Docker Runtime Extension: spec/docker.md
-    - Archival Extension: spec/archival.md
-    - Validation Extension: spec/valid.md
-    - R Extension: spec/r.md
-    - Manipulation Extension: spec/man.md
-    - Plain R Runtime Extension: spec/plain_r.md
-  - User guide:
-    - ERC creation guide: user-guide/creation.md
-    - ERC template: user-guide/template.md
+  - ERC specification: spec/index.md
+    #- Docker Runtime Extension: spec/docker.md
+    #- Archival Extension: spec/archival.md
+    #- Validation Extension: spec/valid.md
+    #- R Extension: spec/r.md
+    #- Manipulation Extension: spec/man.md
+    #- Plain R Runtime Extension: spec/plain_r.md
+  - User guides:
+    - Creation guide for authors: user-guide/creation.md
+    - ERC template for authors: user-guide/template.md
+    - ERC & OAIS: user-guide/oais.md
   - Developer guide: dev-guide/index.md
   - Glossary: glossary.md
 theme:  readthedocs # cinder # material readthedocs # flatly

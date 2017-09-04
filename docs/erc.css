@@ -13,6 +13,7 @@
 
 .wy-menu-vertical a:hover {
 	background:#004286;
+    color: #ffffff;
 }
 
 /* cinder */
@@ -48,12 +49,17 @@ a:hover, a:focus {
     text-decoration: underline;
 }
 
-.note::before {
-    content: "NOTE: ";
-    font-weight: 700;
-}
-
 .buildinfo {
     font-size: 0.7em;
     color: #343838;
+}
+
+.codehilite {
+    width:100%;
+    height: auto;
+    overflow: auto;
+    font-size: 0.8em;
+    border: 1px solid #EFEFEF;
+    margin-bottom: 1.5em;
+    padding-left: 1em;
 }

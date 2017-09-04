@@ -1,37 +1,29 @@
 # ERC specification
 
-An Exectuable Research Compendium (ERC) is a packaging convention for computational research.
+An Executable Research Compendium (ERC) is a packaging convention for computational research.
 It provides a well-defined structure for data, code, text, documentation, and user interface controls for a piece of research and is suitable for long-term archival. As such it can also be perceived as a digital object or asset.
 
-<div class="alert note" markdown="block">
-This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
-</div>
+!!! note
+	This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 
-## Version
+## Preface
+
+### Version
 
 The version of this specification is `1`.
 This version is _under development_!
 
-## Table of contents
-
-- [Introduction](index.md)
-    - [Notational conventions](#notational-conventions)
-    - [Purpose](#purpose)
-    - [Fundamental concepts](#fundamental-concepts)
-- [Structure](#erc-structure)
-- [Security](#security)
-- [Glossary](glossary.md)
-
-## Notational conventions
+### Notational conventions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" are to be interpreted as described in [RFC 2119][rfc2119].
 
 The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the [rationale for the C99 standard][c99-unspecified].
 
-## Purpose and context
+### Purpose and context
 
-This specification defines a structure to carry and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science)).
-It carries technical and conceptual details on how to implement the reproducibility specifications and is as such most suitables for developers. Authors may feel more comfortable with the reference implementation of the ERC and the manual provided in the user guide.
+This specification defines a structure to transport and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science)).
+It carries technical and conceptual details on how to implement the reproducibility specifications and is as such most suitable **for developers**.
+**Authors** may feel more comfortable with the _[user guides](/#user-guides)_.
 
 These analyses typically comprise a workspace on a researcher's computer, that contains _data_, _code_, third party software or libraries, and outputs research results such as plots.
 Code and libraries are required in executable form to re-do a specific analysis.
@@ -42,7 +34,7 @@ The latter is often derived, or "rendered" from the former and can be static, vi
 Putting all of these elements in a self-contained bundle allows examining, reproducing, transferring, archiving, and formal validation of computational research results.
 The ERC specification also defines metadata and file structures to support these actions.
 
-## Fundamental design concepts
+### Fundamental design concepts
 
 The ERC specification is inspired by two approaches to improve development and operation of software.
 First,  [_"convention  over  configuration"_](https://en.wikipedia.org/wiki/Convention_over_configuration), e.g. as  practiced  in  the Java build tool [Maven](https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html).
@@ -61,7 +53,7 @@ We distinguish these containers into the inner or "runtime" container and the ou
 Extensions MAY add any additional structure to an ERC or change defaults.
 But they MUST NOT interfere with this specification, e.g. by changing the meaning of a configuration field. -->
 
-## How to use an ERC
+### How to use an ERC
 
 The steps to (re-)run the analysis contained in an ERC are as follows:
 
@@ -69,7 +61,7 @@ The steps to (re-)run the analysis contained in an ERC are as follows:
 - execute the runtime container
 - compare the output files contained in the outer container with the output files just created by the runtime container
 
-This way ERC allow computational reproducibility based on the original code and data.
+This way an ERC allows computational reproducibility based on the original code and data.
 
 ## ERC structure
 
