@@ -14,6 +14,7 @@ pages:
     - Creation guide for authors: user-guide/creation.md
     - Examination guide for authors: user-guide/examination.md
     - ERC template for authors: user-guide/template.md
+    - Minimal ERC examples: user-guide/minimal.md
     - ERC & OAIS: user-guide/oais.md
     - Developer guide: dev-guide/index.md
   - Glossary: glossary.md
