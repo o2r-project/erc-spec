@@ -4,7 +4,7 @@ An Executable Research Compendium (ERC) is a packaging convention for computatio
 It provides a well-defined structure for data, code, text, documentation, and user interface controls for a piece of research and is suitable for long-term archival. As such it can also be perceived as a digital object or asset.
 
 !!! note
-	This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
+    This is a draft specification. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 
 ## Preface
 
@@ -73,24 +73,32 @@ The base directory MUST contain an [ERC configuration file](#erc-configuration-f
 
 Besides the files mentioned in this specification, the base directory MAY contain any other files and directories.
 
-### Main document & display file
+### Main & display file
 
-An ERC MUST have a _main document_, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
-
-The main document's name SHOULD be `main` with an appropriate file extension and media type.
-For example if the main document is RMarkdown, then the file extension should be `.Rmd` and the media type `text/markdown`.
-
+An ERC MUST have a _main file, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
 An ERC MUST have a _display file_, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.
 
-The display file's name SHOULD be `view` with an appropriate file extension and media type.
-For example if the main document is Hypertext Markup Language (HTML), then the file extension should be `.htm` or `.html` and the media type `text/html`.
+_Main file_ and _display file_ MUST NOT be the same file.
+
+The _main file_ MUST be _executable_ in the sense that a software reads it as the input of a process to create the _display file_.
+The _main file_'s name SHOULD be `main` with an appropriate file extension and media type.
+
+!!! tip "Example"
+    If the main file is an R Markdown document, then the file extension should be `.Rmd` and the media type `text/markdown`.
+    A file `main.Rmd` will consequently be automatically identified by an implementation as the ERC's _main file_.
+
+The display file's name SHOULD be `display` with an appropriate file extension and media type.
+
+!!! tip "Example"
+    If the display file is an Hypertext Markup Language (HTML) document, then the file extension should be `.htm` or `.html` and the media type `text/html`.
+    A file `display.html` will consequently be automatically identified by an implementation as the ERC's _display file_.
+
+The ERC MAY use an interactive document with interactive figures and control elements for the packaged computations as the _display file_.
+The _interactive display file_ MUST have `HTML` format and SHOULD be valid [HTML5](https://www.w3.org/TR/html5/).
 
 !!! note
-    Typically, the _display file_ is "rendered" from the main file, which follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
-
-The ERC MAY contain a document with interactive figures and control elements for interactive manipulation of the packaged computations.
-
-The interaction file MUST have `HTML` format and SHOULD be valid [HTML5](https://www.w3.org/TR/html5/).
+    The _main file_ thus follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
+    Typical examples for the two core documents are R Markdown with HTML output, or an `R` script creating a PNG plot.
 
 ## ERC configuration file
 
@@ -118,13 +126,14 @@ id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 ```
 
-The main and display file can be defined in root-level nodes named `main` and `display` respectively:
+The main and display file MAY be defined in root-level nodes named `main` and `display` respectively.
+If they are not defined and multiple documents use the name `main.[ext]` or `display.[ext]`, an implementation SHOULD use the first file in [alphabetical order](https://en.wikipedia.org/wiki/Alphabetical_order).
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 main: the_paper_document.rmd
-display: view.html
+display: paper.html
 ```
 
 ### Control statements
@@ -213,7 +222,7 @@ The following example shows all possible fields of the core specification with e
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 main: the_paper_document.rmd
-display: view.html
+display: my_paper.html
 execution:
   cmd: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
 licenses: # licenses that the author chooses for their files
@@ -387,7 +396,6 @@ In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base i
 
 ```Dockerfile
 FROM rocker/r-ver:3.3.3
-MAINTAINER o2r
 
 RUN apt-get update -qq \
 	&& apt-get install -y --no-install-recommends \
@@ -417,7 +425,8 @@ RUN install2.r -r "http://cran.rstudio.com" \
 # Save installed packages to file
 RUN dpkg -l > /dpkg-list.txt
 
-LABEL Description="This is an ERC image." \
+LABEL maintainer=o2r \
+  description="This is an ERC image." \
 	info.o2r.bag.id="123456"
 
 VOLUME ["/erc"]
@@ -456,20 +465,17 @@ structure:
   convention: https://github.com/ropensci/rrrpkg
 ```
 
-### R Markdown main document
+### R Markdown main file
 
-The ERC's main document as defined by this extension MUST be a weaved document, which integrates text and code and can be compiled into an interaction file.
-
-The weaved MUST have the [R Markdown](http://rmarkdown.rstudio.com/) format for executable documents.
-Its name MUST be `paper.Rmd`.
-
-!!! note
-    A popular alternative solution is [Sweave](http://www.statistik.lmu.de/~leisch/Sweave/) with the `.Rnw` extension, which is still widely used for vignettes. R Markdown was chosen of LaTex for its simplicity for users who are unfamiliar with LaTeX.
+The ERC's _main file_ for R-based analyses SHOULD be [R Markdown](http://rmarkdown.rstudio.com/).
 
 The main document SHOULD NOT contain code that loads pre-computed results from files, but conduct all analyses, even costly ones, during document weaving.
 
 The document MUST NOT use `cache=TRUE` on any of the code chunks (see [`knitr` options](https://yihui.name/knitr/options/).
-While the previously cached files (`.rdb` and `.rdx`) may be included, they should not be used during the rendering of the document.
+While the previously cached files (`.rdb` and `.rdx`) MAY be included, they SHOULD NOT be used during the rendering of the document.
+
+!!! note
+    A popular alternative solution is [Sweave](http://www.statistik.lmu.de/~leisch/Sweave/) with the `.Rnw` extension, which is still widely used for vignettes. R Markdown was chosen of LaTex for its simplicity for users who are unfamiliar with LaTeX.
 
 ### Fixing the environment in code
 
