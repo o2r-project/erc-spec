@@ -676,6 +676,14 @@ In order to comply to their governing schemas, secondary metadata must include t
 
 Other third party standards that will be considered comprise: _CodeMeta_, _EuDat_, _mets/mods_.
 
+### Development bundle
+
+While complete ERCs are focus of this specification, for collaboration and offline inspection it is useful to provide access to parts of the ERC.
+To support such use cases, a _development bundle_ MAY be provided by implementations.
+This bundle most importantly would not include the _runtime image_, which is potentially a large file.
+
+The _development bundle_ SHOULD always include the _main file_ and (e.g. by choice of the user, or by an implementing platform) MAY include other relevant files for reproduction or editing purposes outside of the runtime environment, such as input data or the _runtime manifest_ for manual environment recreation.
+
 ### Content metadata _under development_
 
 Current JSON dummy to visualise the properties. It SHOULD be filled out as good as possible.
