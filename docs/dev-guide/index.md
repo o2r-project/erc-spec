@@ -31,6 +31,7 @@ However, if a user wants to use `rmarkdown::render(..)` on a file named `publica
 A user shall have access to the files without starting the runtime container.
 Therefore we have at least two items, so we have a bundle and need an outer container.
 As a bonus, the outer container can immediately be used to make an ERC conform to specific use cases, such as long term archival.
+Also the chosen outer container standard is much older and common than the inner container standard, and thus more likely to exist longer.
 
 The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.
 
@@ -45,7 +46,9 @@ That is why the image is not mandatory.
 
 ### Why Docker
 
-...
+- (Docker) containers provide an encapsulation mechanism to package all dependencies of an anylsis
+- during container execution, and substitution, the build in [copy-on-write](https://en.wikipedia.org/wiki/Copy-on-write) storage only creates copy of files that are changed within the container, thus saving storage capacity
+- volume mounts allow easy substitution of input data and configurations of analysis
 
 ### Why not just use plain R?
 
@@ -74,21 +77,25 @@ One of the biggest issues is the **scope of licenses**, namely what to do about 
 
 ### Why use bash
 
+While it is true that..
+
 > "What's oldest lasts longest." [via](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#supplementary-materials)
+
+using containers gives the necessary abstraction and encapsulation, so simply using bash (or make) does not suffice.
 
 ### Why is validation happening outside the container and not _in_ the container
 
 - better user experience (otherwise all info must be transported via stdout)
 - to be sure nothing is manipulated within the validation script
 
-### Why is the data not in the image (inner contaienr) but in the outer container
+### Why is the data not in the image (inner container) but in the outer container
 
 - better accessible in the long term
 - no data duplication
 
 ## o2r Platform
 
-The software developed by the o2r project is the sole implementation of the ERC specification and hence a kind of reference implementation albeit being at a prototypical stage.
+The software developed by the o2r project is the reference implementation of the ERC specification.
 
 ### Web API
 
