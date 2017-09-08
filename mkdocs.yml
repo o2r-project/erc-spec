@@ -1,23 +1,19 @@
-site_name: ERC spec
+site_name: "Executable Reserach Compendium (ERC) Specification"
 site_author: "Daniel Nüst, Matthias Schutzeichel, Markus Konkol"
-site_description: "Executable Research Compendium technical specification, user guides, and developer guide."
+site_description: "Executable Research Compendium technical specification, user guides, developer guides, and support."
 pages:
   - Home: index.md
   - ERC specification: spec/index.md
-    #- Docker Runtime Extension: spec/docker.md
-    #- Archival Extension: spec/archival.md
-    #- Validation Extension: spec/valid.md
-    #- R Extension: spec/r.md
-    #- Manipulation Extension: spec/man.md
-    #- Plain R Runtime Extension: spec/plain_r.md
   - User guides:
     - Creation guide for authors: user-guide/creation.md
     - Examination guide for authors: user-guide/examination.md
     - ERC template for authors: user-guide/template.md
     - Minimal ERC examples: user-guide/minimal.md
     - ERC & OAIS: user-guide/oais.md
+    - ERC as supplement: user-guide/erc_journal_supplement.md
     - Developer guide: dev-guide/index.md
   - Glossary: glossary.md
+  - Support: support.md
 theme:  readthedocs # cinder # material readthedocs # flatly
 repo_url: https://github.com/o2r-project/erc-spec
 repo_name: GitHub

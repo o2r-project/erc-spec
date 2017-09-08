@@ -19,7 +19,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 The key words "unspecified", "undefined", and "implementation-defined" are to be interpreted as described in the [rationale for the C99 standard][c99-unspecified].
 
-### Purpose and context
+### Purpose, target audience, and context
 
 This specification defines a structure to transport and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science)).
 It carries technical and conceptual details on how to implement the reproducibility specifications and is as such most suitable **for developers**.
@@ -48,10 +48,6 @@ The final important notion is the one of _nested containers_.
 We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
 Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
 We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.
-
-<!-- Finally, this specification may be extended or limited further by so called _extensions_.
-Extensions MAY add any additional structure to an ERC or change defaults.
-But they MUST NOT interfere with this specification, e.g. by changing the meaning of a configuration field. -->
 
 ### How to use an ERC
 

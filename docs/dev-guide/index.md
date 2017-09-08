@@ -1,10 +1,10 @@
 # ERC developer guide
 
-An introduction to the ERC rational and the technology choices made within the project _Opening Reproducible Research_.
+An introduction to the ERC rational and the technology choices made within the project _Opening Reproducible Research_, and ideas for downstream products based on ERCs.
 This documents is targeted at developers who wish to create tools for creating, validating, and consuming ERC.
 
 !!! note
-    This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
+    This guide is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 
 ## Convention over configuration
 
@@ -35,11 +35,6 @@ Also the chosen outer container standard is much older and common than the inner
 
 The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.
 
-### Why is the runtime image not mandatory
-
-While having Docker in mind when writing the specification, an alternative idea always was to use the extension mechanisms of a given language environment, e.g. R, only to re-construct the runtime environment.
-That is why the image is not mandatory.
-
 ### Why BagIt
 
 ...
@@ -53,13 +48,19 @@ That is why the image is not mandatory.
 ### Why not just use plain R?
 
 It would be possible to rely solely on R for replication.
-For example, the runtime manifest could be a codemeta document, and the runtime environment is created outside of the ERC when needed.
-Alternatively, the packages for preserving a state of dependencies could be used.
+For example, the runtime manifest could be a [codemeta](https://codemeta.github.io/) document, and the runtime environment is created based on it outside of the ERC when needed, for example by installing R in the required version.
+Additionally a package for preserving a state of dependencies could be used, e.g. [packrat](https://rstudio.github.io/packrat/).
+This solution is potentially less storage intensive, because containers replicate an R installation each time.
+Smaller storages might also ease collaboration.
 
 However, none of these solutions touches the underlying system libraries.
-Even if shipping system binaries within packages is possible (common?), some packages do use system libraries which are not preserved in a plain R approach.
+The complexity of preserving the runtime environment is transferred from the packaging stage to the unpackaging stage, which is unfavourable because that packaging state "everything works", so better control is ensured at that time.
+The burden in a plain R solution shifts from authoring to preservation.
 
-Furthermure, none of the solutions for reproducibility are part of "core R", even if they are trustworthy (e.g. MRAN). CRAN does not support installing specific package versions.
+Even though shipping system binaries within packages is possible (if not common), some packages do use system libraries which are not preserved in a plain R approach.
+Adjusting such packages is not an option.
+
+Furthermore, none of the solutions for reproducibility are part of "core R", even if they are trustworthy (e.g. MRAN). CRAN does not support installing specific package versions.
 
 That is why using an abstraction layer outside of R is preferable.
 
@@ -104,3 +105,17 @@ The software developed by the o2r project is the reference implementation of the
 ### Architecture
 
 [o2r Architecture documentation](http://o2r.info/architecture/)
+
+## ERC completeness score
+
+While the ERC is intended to be simple enough to be created manually, the clear requirements on it's contents also serve a semi-automatic creation.
+For example, a user can upload a workspace with data files, and R Markdown document, and an HTML rendering of the document to an online platform, where the runtime manifest and image are automatically created. In such a case, metadata would still be added manually.
+
+To encourage users, especially during the manual steps of the creation process, to provide valuable input a **completeness score** can be useful.
+Comparable to profile editors on social network sites, a percentage based score can be used to highlight content or aspects going beyond the mandatory requirements.
+
+Implementing platforms may create their own rules, for example which of the optional metadata elements contribute towards reaching a full score.
+Thinking beyond merely the metadata, the score could also cover the runtime manifest (e.g. does it follow common practices, include relevant independent metadata, uses explicit versioning for dependency installation), contained code (e.g. automatic checks against code formatting guidelines, syntactical errors), and contained data (e.g. are open file formats used, maybe rewarding CSV over Shapefiles).
+
+A completeness score can be seen as a _downstream product_ based on the ERC.
+It is unlikely this ever makes it into an ERC specification, but it can be a crucial means towards acceptance, adoption, and success of ERCs.
