@@ -1,5 +1,5 @@
 site_name: "Executable Reserach Compendium (ERC) Specification"
-site_author: "Daniel Nüst, Matthias Schutzeichel, Markus Konkol"
+site_author: "Daniel Nüst, Marc Schutzeichel, Markus Konkol"
 site_description: "Executable Research Compendium technical specification, user guides, developer guides, and support."
 pages:
   - Home: index.md
