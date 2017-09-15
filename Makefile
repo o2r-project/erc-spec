@@ -2,10 +2,13 @@ default:
 	make serve
 
 serve:
-	mkdocs serve
+	mkdocs serve --verbose
 
 build:
 	mkdocs build --clean
+
+build_verbose:
+	mkdocs build --clean --verbose
 
 pdf_epub:
 	mkdocs2pandoc > erc.pd
