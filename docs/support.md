@@ -1,11 +1,10 @@
 # Support
 
-If you have questions about the ERC specification and its usage which are not answered by the [user and developer guides](), feel free to contact us using the options below.
+If you have questions about the ERC specification and its usage which are not answered by the [user and developer guides](index.md#guides), feel free to contact us using the options below.
 
 ## Email
 
-[daniel.nuest@uni-muenster.de](daniel.nuest@uni-muenster.de)
-This specification and guides are developed by the members o
+[daniel.nuest@uni-muenster.de](mailto:daniel.nuest@uni-muenster.de?Subject=ERC%20specification)
 
 ## Discussion forum
 

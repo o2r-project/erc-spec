@@ -6,13 +6,19 @@ This documents is targeted at developers who wish to create tools for creating, 
 !!! note
     This guide is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 
-## Convention over configuration
+## Convention over configuration and DevOps
+
+The ERC specification is inspired by two approaches to improve development and operation of software.
+First,  [_"convention  over  configuration"_](https://en.wikipedia.org/wiki/Convention_over_configuration), e.g. as  practiced  in  the Java build tool [Maven](https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html).
 
 We want to create a directory structure with default file names and sensible defaults.
 This way a typical research workspace should require only minimal configuration in 80% of the cases, while allowing to override each of the settings if need be and providing full customizability in the remaining 20%.
 
 For example, the main command to compile the text manuscript in a bagtainer could be `knitr::knit("<*>.Rmd")`, with `<*>` being replaced by name of the first RMarkdown file.
 However, if a user wants to use `rmarkdown::render(..)` on a file named `publication.md`, then the default behaviour can be overwritten.
+
+Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/DevOps) or [Boettiger](https://doi.org/10.1145/2723872.2723882).
+All processing and configuration shall be scripted, no "click" interaction required.
 
 ## Reasoning and decisions
 

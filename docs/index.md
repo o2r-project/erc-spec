@@ -4,6 +4,8 @@ This is the technical specification of the Executable Research Compendium (ERC).
 
 **Read the [specification](spec/index.md)** and **get [support](support.md)**.
 
+## Guides
+
 Are you a **scientist** and want to publish your research as an ERC? Read **user guides for authors**:
 
 - [ERC creation](user-guide/creation.md)

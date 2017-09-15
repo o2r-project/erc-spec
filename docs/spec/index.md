@@ -11,7 +11,9 @@ It provides a well-defined structure for data, code, text, documentation, and us
 ### Version
 
 The version of this specification is `1`.
-This version is _under development_!
+
+!!! warning
+    This version is _under development_!
 
 ### Notational conventions
 
@@ -34,15 +36,17 @@ The latter is often derived, or "rendered" from the former and can be static, vi
 Putting all of these elements in a self-contained bundle allows examining, reproducing, transferring, archiving, and formal validation of computational research results.
 The ERC specification also defines metadata and file structures to support these actions.
 
-### Fundamental design concepts
+### Major constituents and design goals
 
-The ERC specification is inspired by two approaches to improve development and operation of software.
-First,  [_"convention  over  configuration"_](https://en.wikipedia.org/wiki/Convention_over_configuration), e.g. as  practiced  in  the Java build tool [Maven](https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html).
-Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/DevOps) or [Boettiger](https://doi.org/10.1145/2723872.2723882).
+Three major constituents classify user interaction with ERC:
 
-Another core goal is _simplicity_.
+- [**Create**](../glossary.md#create) means transforming a workspace with data, code and text into an ERC.
+- [**Examine**](../glossary.md#examine) means looking at depths of an ERC, scrutinizing its contents.
+- [**Discover**](../glossary.md#discover) means searching for content powered by ERC properties, such as text, content metadata, code metadata et cetera.
+
+A core design goal is _simplicity_.
 This specification should not re-do something which already exists (if it is an open specification or tool).
-It must be possible to create a valid and working ERC _manually_.
+It must be possible to create a valid and working ERC _manually_, while supporting tools should be able to cover typical use cases with minimal required input by a creating user.
 
 The final important notion is the one of _nested containers_.
 We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
@@ -51,7 +55,7 @@ We distinguish these containers into the inner or "runtime" container and the ou
 
 ### How to use an ERC
 
-The steps to (re-)run the analysis contained in an ERC are as follows:
+The steps to (re-)run the analysis contained in an ERC as part of an [examination](../glossary.md#examine) are as follows:
 
 - (if compressed first extract then) unpack the ERC's outer container
 - execute the runtime container
@@ -879,8 +883,6 @@ Why are ERC not a security risk?
 
 - the spec prohibits use of `EXPOSE`
 - the containers are only executed _without_ external network access using `Network: none`, see [Docker CLI run documentation](https://docs.docker.com/engine/reference/run/#/network-none)
-
-<!-- Prefer checksums from cryptographic hash functions that have not yet been broken by collisions. -->
 
 [c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
 [rfc2119]: http://tools.ietf.org/html/rfc2119
