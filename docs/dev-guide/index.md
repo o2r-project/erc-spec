@@ -51,6 +51,17 @@ The alternative of putting everything into the container itself (e.g. using imag
 - during container execution, and substitution, the build in [copy-on-write](https://en.wikipedia.org/wiki/Copy-on-write) storage only creates copy of files that are changed within the container, thus saving storage capacity
 - volume mounts allow easy substitution of input data and configurations of analysis
 
+### Why not Singularity
+
+[Singularity](http://singularity.lbl.gov/) is an open source containerization solution.
+It might very well be a better choice for reproducible research in the future as it stems from the scientific community (HPC), cf. also [C4RR workshop 2017](https://www.software.ac.uk/c4rr).
+At the point of starting the specification, Docker was more widespread and implementations more readily available.
+Furthermore the origin of Singularity, high performance computing, is out of scope of ERC.
+
+We do not see an issue in not using Singulary.
+Most importantly, the concepts _runtime manifest_ and _runtime image_ are abstract, i.e. independent of Docker and the concrete container tool choice could be made flexible in future versions of the specification.
+Singularity can import Docker images and as such make a transition possible, or even let an implementation use Singularity without touch the specification.
+
 ### Why not just use plain R?
 
 It would be possible to rely solely on R for replication.
