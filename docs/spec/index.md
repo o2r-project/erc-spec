@@ -487,6 +487,59 @@ Sys.setenv("TZ" = "UTC")
 
 The manifest file (i.e. `Dockerfile`) MUST run a plain R session without loading `.RData` files or profiles at startup, i.e. use `R --vanilla`.
 
+## Interactive ERC
+
+Enabling interaction with the contents of an ERC is a crucial goal of this specification (see [Preface](#preface)).
+Therefore this section defines metadata to support two goals:
+
+- aide inspecting users to identify core functions and parameters of an analysis, and
+- allow supporting software tools to create interactive renderings of ERC contents for manipulation.
+
+These goals are manifested in the **UI bindings** as part of the ERC configuration file under the root level property `ui_bindings`.
+
+An ERC MUST denote if UI bindings are present using the boolean property `interactive`.
+If the property is missing it defaults to `false`.
+An implementation MAY use the indicator `interactive: true` to provide other means of displaying the display file.
+
+Example for minimal interaction configuration:
+
+```yml
+---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+ui_bindings:
+  interactive: true
+```
+
+An ERC MAY embed multiple concrete UI bindings.
+Each UI binding is represented by a YAML dictionary.
+
+It MUST comprise a purpose and a widget using the fields `purpose` respectively `widget` (both of type string).
+The values of these fields SHOULD use a concept of an ontology to clearly identify their meaning.
+
+A _purpose_ defines the user's intention, for example [manipulating](../glossary.md#manipulate) a variable or [inspecting](../glossary.md#inspect) dataset or code.
+A _widget_ realizes the purpose with a concrete interaction paradigm chosen by the author, for example an input slider, a form field, or a button.
+
+For each widget, implementations MAY use the properties `code`, `data`, and `text` to further describe how a specific UI binding acts upon the respective part of the ERC.
+
+Example:
+
+```yml
+---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+ui_bindings:
+  interactive: true
+  bindings:
+    - purpose: http://.../data-inspection
+      widget: http://.../tabular-browser
+      code: [...]
+      data: [...]
+      text: [...]
+    - purpose: http://.../parameter-manipulation
+      widget: http://.../dropdown
+```
+
 ## Preservation of ERC
 
 This section places the ERC in the context of preservation workflows by defining structural information and other metadata that guarantee interpretability and enable the bundling of the complete ERC as a self-contained, archivable digital object.
@@ -716,28 +769,7 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
         "doiurl": null,
         "reserveddoi": null
     },
-    "inputfiles": [],
-    "interaction": {
-        "interactive": false,
-    "ui_binding": {
-        "purpose": null,
-		"widget": null,
-		"code": {
-			"filename": null,
-			"function": null,
-			"variable": null,
-			"shinyInputFunction": null,
-			"shinyRenderFunction": null,
-			"functionParameter": {
-				"name": null,
-				"label": null,
-				"min": null,
-				"max": null,
-				"value": null,
-				"step": null
-				}
-			}
-		}
+  "inputfiles": []
  	},
 	"keywords": [],
     "license": {"text": None,
