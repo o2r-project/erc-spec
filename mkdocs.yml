@@ -16,6 +16,7 @@ pages:
   - Glossary: glossary.md
   - Support: support.md
 theme:  readthedocs # cinder # material readthedocs # flatly
+theme_dir: custom_theme
 repo_url: https://github.com/o2r-project/erc-spec
 repo_name: GitHub
 edit_uri: tree/master/docs/
