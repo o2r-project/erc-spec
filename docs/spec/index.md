@@ -100,6 +100,20 @@ The _interactive display file_ MUST have `HTML` format and SHOULD be valid [HTML
     The _main file_ thus follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
     Typical examples for the two core documents are R Markdown with HTML output, or an `R` script creating a PNG plot.
 
+### Nested runtime
+
+The embedding of a representation of the original runtime environment, in which an analysis was conducted, is crucial for supporting reproducible computations.
+Every ERC MUST include two such such representations:
+
+1. an **executable runtime image** of the original analysis environment for re-running the packaged analysis, and 
+2. a **runtime manifest** documenting the image's contents as a complete, self-consistent recipe of the runtime image's contents which is a machine-readable format that allows a respective tool to create the runtime image.
+
+The image MUST be stored as a file, e.g. a "binary", in the ERC base directory.
+The name of the archive file MUST be configured in the ERC configuration file in the node `image` under the root-level node `execution`.
+
+The manifest MUST be stored as a text file in the ERC base directory.
+The name of the manifest file MUST be configured in the ERC configuration file in the node `manifest` under the root-level node `execution`.
+
 ## ERC configuration file
 
 The ERC configuration file is the _reproducibility manifest_ for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.
@@ -240,18 +254,11 @@ ui_bindings:
 
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
 
-## Nested runtime
-
-The embedding of a representation of the original runtime environment, in which an analysis was conducted, is crucial for supporting reproducible computations.
-This section defines two such representations.
-First, an executable image.
-Second, a manifest documenting the image's contents.
+## Docker runtime
 
 The ERC uses [Docker](http://docker.com/) to define, build, and store the nested runtime environment, i.e. the inner container.
 
 ### Runtime image
-
-The base directory SHOULD contain a runnable image, e.g. a "binary", of the original analysis environment that can be used to re-run the packaged analysis using a suitable software.
 
 The _runtime environment or image_ MUST be represented by a [Docker image v1.2.0](https://github.com/docker/docker/blob/master/image/spec/v1.2.md).
 
@@ -262,12 +269,9 @@ The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(c
 
 The image MUST have a [_label_](https://docs.docker.com/engine/reference/commandline/build/#options) of the name `erc` with the ERC's id as value, e.g. `erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
 
-The name of the archive file MAY be configured in the ERC configuration file in the node `image` under the root-level node `execution`.
-
 The image file MAY be compressed.
 
-The default tar archive file names SHOULD be `image.tar`, or `image.tar.gz` if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files).
-Implementations MUST recognize these names as the default values.
+The tar archive file names SHOULD be `image.tar`, or `image.tar.gz` if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files) with an appropriate file extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
 
 !!! note
     Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the label which can be used to extract the image identifier, for example:
@@ -279,31 +283,26 @@ Implementations MUST recognize these names as the default values.
     # save with compression:
     docker save $(docker images --filter "label=erc=1234" -q) | gzip -c >     image.tar.gz
     ```
-
-Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been [manipulated](../glossary.md#manipulate) during a run.
-
-It SHOULD be named `image` with an appropriate file extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
-
-The name of the image file MUST be given in the ERC configuration file under the node `image` under the root-level node `execution`.
+    
+    Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been [manipulated](../glossary.md#manipulate) during a run.
 
 The output of the image execution can be shown to the user to convey detailed information on progress or errors.
 
 ### Runtime manifest
 
-The base directory MUST contain a complete, self-consistent manifest of the runtime image's contents which is a machine-readable format that allows a respective tool to create the runtime image.
-
 The _runtime manifest_ MUST be represented by a valid `Dockerfile`, see [Docker builder reference](https://docs.docker.com/engine/reference/builder/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/builder.md).
 
-The file SHOULD be named `Dockerfile`.
-The name of the manifest file MUST be given in the ERC configuration file under the node `manifest` under the root-level node `execution` if it is different from `Dockerfile`.
+The file MUST be named `Dockerfile`.
 
 The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the [runtime image](#runtime-iamge) using `docker build`, see [Docker CLI build command documentation](https://docs.docker.com/engine/reference/commandline/build/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).
 The build SHOULD be done with the option `--no-cache=true`.
 
-The Dockerfile MUST contain the required instruction `FROM`, which MUST NOT use the `latest` tag.
+The Dockerfile MUST NOT use the `latest` tag in the instruction `FROM`.
 
 !!! note
-    The "latest" tag is [merely a convention](http://container-solutions.com/docker-latest-confusion/) to denote the latest available image. As such, using an image tagged "latest" is much more likely to change over time, although there is no guarantee that images tagged differently, e.g. "v1.2.3" might not change as well.
+    The "latest" tag is [merely a convention](http://container-solutions.com/docker-latest-confusion/) to denote the latest available image, so any tag can have undesired results.
+    Nevertheless, using an image tagged "latest" makes it much more likely to change over time.
+    Although there is no guarantee that images tagged differently, e.g. "v1.2.3" might not change as well, using such tags shall be enforced here.
 
 The Dockerfile SHOULD contain the label `maintainer` to provide authorship information.
 
