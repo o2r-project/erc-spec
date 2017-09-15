@@ -59,7 +59,18 @@ a:hover, a:focus {
     height: auto;
     overflow: auto;
     font-size: 0.8em;
-    border: 1px solid #EFEFEF;
+    border: 1px solid #c9c9c9;
+    margin-bottom: 1.5em;
+    padding-left: 1em;
+}
+
+.admonition .codehilite {
+    width:100%;
+    height: auto;
+    overflow: auto;
+    font-size: 0.8em;
+    border: 1px solid #c9c9c9;
+    background-color: #FFFFFF;
     margin-bottom: 1.5em;
     padding-left: 1em;
 }

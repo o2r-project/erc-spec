@@ -117,24 +117,16 @@ The first document content of this file MUST contain the following string nodes 
 - `spec_version`: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is `1`.
 - `id`: globally unique identifier for a specific ERC. This SHOULD be a URI (see [rfc3986][rfc3986]) or a [UUID][uuid], Version 4.
 
-[//]: # (could use semantic versioning later)
-
-Example:
-
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-```
-
-The main and display file MAY be defined in root-level nodes named `main` and `display` respectively.
+The main and display file MAY be defined in root-level nodes named `main` and `display` respectively, if they differ from the default file names.
 If they are not defined and multiple documents use the name `main.[ext]` or `display.[ext]`, an implementation SHOULD use the first file in [alphabetical order](https://en.wikipedia.org/wiki/Alphabetical_order).
 
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-main: the_paper_document.rmd
-display: paper.html
-```
+!!! tip "Example of ERC configuration file with user-defined main and display files"
+    ```yml
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    spec_version: 1
+    main: the_paper_document.rmd
+    display: paper.html
+    ```
 
 ### Control statements
 
@@ -147,26 +139,25 @@ These commands are given as a list under the node `cmd` under the root-level nod
 If extensions use non-bash commands, they MUST define own nodes under the `execution` node and SHOULD define defaults.
 
 The execution statements MAY ensure the re-computation being independent from the environment, which may be different depending on the host of the execution environment.
-For example, the time zone could be fixed via an environment variable `TZ=CET`, so output formatting of timestamps does not break checking.
+For example, the time zone could be fixed via an environment variable `TZ=CET`, so output formatting of timestamps does not break [checking](../glossary.md#check).
 This is in addition to ERC authors handling such parameters at a script level.
 
-Example control statements:
-
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-execution:
-  cmd:
-    - `./prepare.sh --input my_data`
-    - `./execute.sh --output results --iterations 3`
-```
+!!! tip "Example for control statements"
+    ```yml
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    spec_version: 1
+    execution:
+      cmd:
+        - `./prepare.sh --input my_data`
+        - `./execute.sh --output results --iterations 3`
+    ```
 
 ### License metadata
 
 The file `erc.yml` MUST contain a first level node `licenses` with licensing information for the code, data, and text contained.
 Each of these three have distinct requirements, hence different licenses need to be applied.
 
-The node `licenses` MUST have five child nodes: `text`, `data`, `code`, `uibindings` ("user interface"), and `md` ("metadata").
+The node `licenses` MUST have five child nodes: `text`, `data`, `code`, `ui_bindings`, and `metadata`.
 
 !!! note
     There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
@@ -174,58 +165,55 @@ The node `licenses` MUST have five child nodes: `text`, `data`, `code`, `uibindi
 
 The content of each of these child nodes MUST have one of the following values:
 
-- text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/).
+- text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/), or
 - a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory. 
 
-Example for global licenses:
+!!! tip "Example for global licenses"
+    ```yml
+        ---
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    spec_version: 1
+    licenses:
+      code: Apache-2.0
+      data: ODbL-1.0
+      text: CC0-1.0
+          ui_bindings: CC0-1.0
+          metadata: CC0-1.0
+    ```
 
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-licenses:
-  code: Apache-2.0
-  data: ODbL-1.0
-  text: CC0-1.0
-  uibindings: CC0-1.0
-  md: CC0-1.0
-```
-
-Example using specific licenses for files:
-
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-licenses:
-  code:
-    others_lib.bin: MIT
-    my_code.c: GPL-3.0
-  data: 
-	facts.csv: ODbL-1.0
-  text:
-    README.md: CC0-1.0
-    paper/chapter01.doc: CC-BY-4.0
-    paper/chapter02.tex: CC-BY-4.0
-  uibindings: CC0-1.0
-  md: CC0-1.0
-```
+!!! tip "Example using specific licenses for files"
+    ```yml
+    ---
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    spec_version: 1
+    licenses:
+      code:
+        others_lib.bin: MIT
+        my_code.c: GPL-3.0
+      data: 
+    	facts.csv: ODbL-1.0
+      text:
+        README.md: CC0-1.0
+            paper.Rmd: CC-BY-4.0
+          ui_bindings: CC0-1.0
+          metadata: CC0-1.0
+    ```
 
 !!! note
     It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
-</div>
 
 ### Comprehensive example of erc.yml
 
-The following example shows all possible fields of the core specification with example values.
+The following example shows all possible fields of the ERC specification with example values.
 
 ```yml
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
-main: the_paper_document.rmd
-display: my_paper.html
+main: paper.rmd
+display: paper.html
 execution:
   cmd: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
-licenses: # licenses that the author chooses for their files
+licenses:
   code:
     others_lib.bin: MIT
     my_code.c: GPL-3.0
@@ -233,10 +221,21 @@ licenses: # licenses that the author chooses for their files
 	facts.csv: ODbL-1.0
   text:
     README.md: CC0-1.0
-    paper/chapter01.doc: CC-BY-4.0
-    paper/chapter02.tex: CC-BY-4.0
-  uibindings: CC0-1.0
-  md: CC0-1.0
+    paper.Rmd: CC-BY-4.0
+  ui_bindings: CC0-1.0
+  metadata: CC0-1.0
+structure:
+  convention: https://github.com/ropensci/rrrpkg
+ui_bindings:
+  interactive: true
+  bindings:
+    - purpose: http://.../data-inspection
+      widget: http://.../tabular-browser
+      code: [...]
+      data: [...]
+      text: [...]
+    - purpose: http://.../parameter-manipulation
+      widget: http://.../dropdown
 ```
 
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
@@ -281,7 +280,7 @@ Implementations MUST recognize these names as the default values.
     docker save $(docker images --filter "label=erc=1234" -q) | gzip -c >     image.tar.gz
     ```
 
-Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been manipulated during a run.
+Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been [manipulated](../glossary.md#manipulate) during a run.
 
 It SHOULD be named `image` with an appropriate file extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
 
@@ -318,18 +317,19 @@ The control statements for Docker executions comprise `load`, for importing an i
 Both control statements MUST be configured by using nodes of the same name under the root-level node `execution` in the ERC configuration file.
 Based on the configuration, an implementation can construct the respective run-time commands, i.e. [`docker load`](https://docs.docker.com/engine/reference/commandline/load/) and [`docker run`](https://docs.docker.com/engine/reference/run/), using the correct image file name and further parameters (e.g. performance control options).
 
-The following example shows default values for `image` and `manifest` and typical values for `run`.
+!!! tip "Example"
+    The following example shows default values for `image` and `manifest` and typical values for `run`.
 
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
-execution:
-  image: image.tar.gz
-  manifest: Dockerfile
-  run:
-    environment:
-	  - TZ=CET
-```
+    ```yml
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    version: 1
+    execution:
+      image: image.tar.gz
+      manifest: Dockerfile
+      run:
+        environment:
+    	  - TZ=CET
+    ```
 
 !!! note
     The Docker CLI commands constructed based on this configuration by an implementing service could be as follows:
@@ -344,24 +344,21 @@ execution:
 
 The only option for `load` is `quiet`, which may be set to Boolean `true` or `false`.
 
-```yml
-execution:
-  load:
-    quiet: true
-```
-
 The only option for `run` is `environment` to set environment variables inside containers as defined in [docker-compose](https://docs.docker.com/compose/environment-variables/#setting-environment-variables-in-containers).
 Environment variables are defined as a list separated by `=`.
 
-```yml
-execution:
-  run:
-    environment:
-	  - DEBUG=1
-	  - TZ=CET
-```
+!!! tip "Example for `load` and `run` properties"
+    ```yml
+    execution:
+      load:
+        quiet: true
+      run:
+        environment:
+    	  - DEBUG=1
+    	  - TZ=CET
+    ```
 
-The environment variables SHOULD be used to fix settings out of control of the contained code that can hinder successful ERC checking, e.g. by setting a time zone to avoid issues during checking.
+The environment variables SHOULD be used to fix settings out of control of the contained code that can hinder successful ERC [checking](../glossary.md#check), e.g. by setting a time zone to avoid issues during checking.
 
 The output of the container during execution MAY be shown to the user to convey detailed information to users.
 
@@ -380,62 +377,60 @@ This mountpoint SHOULD be `/erc`.
 Implementations MUST use this value as the default.
 If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mount_point`.
 
-Example for the mountpoint configuration:
+!!! tip "Example for mountpoint configuration"
+    ```yml
+    ---
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    spec_version: 1
+    execution:
+      mount_point: "/erc"
+    ```
 
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-execution:
-  mount_point: "/erc"
-```
+!!! tip "Example Dockerfile"
+    In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to reproduce computations made in R.
 
-### Example Dockerfile
+    ```Dockerfile
+    FROM rocker/r-ver:3.3.3
 
-In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to reproduce computations made in R.
+    RUN apt-get update -qq \
+    	&& apt-get install -y --no-install-recommends \
+    	## Packages required by R extension packages
+    	# required by rmarkdown:
+    	lmodern \
+    	pandoc \
+    	# for devtools (requires git2r, httr):
+    	libcurl4-openssl-dev \
+    	libssl-dev \
+    	git \
+    	# for udunits:
+    	libudunits2-0 \
+    	libudunits2-dev \
+    	# required when knitting the document
+    	pandoc-citeproc \
+    	&& apt-get clean \
+    	&& rm -rf /var/lib/apt/lists/*
 
-```Dockerfile
-FROM rocker/r-ver:3.3.3
+    # install R extension packages
+    RUN install2.r -r "http://cran.rstudio.com" \
+    	  rmarkdown \
+    	  ggplot2 \
+    	  devtools \
+    	  && rm -rf /tmp/downloaded_packages/ /tmp/*.rd
 
-RUN apt-get update -qq \
-	&& apt-get install -y --no-install-recommends \
-	## Packages required by R extension packages
-	# required by rmarkdown:
-	lmodern \
-	pandoc \
-	# for devtools (requires git2r, httr):
-	libcurl4-openssl-dev \
-	libssl-dev \
-	git \
-	# for udunits:
-	libudunits2-0 \
-	libudunits2-dev \
-	# required when knitting the document
-	pandoc-citeproc \
-	&& apt-get clean \
-	&& rm -rf /var/lib/apt/lists/*
+    # Save installed packages to file
+    RUN dpkg -l > /dpkg-list.txt
 
-# install R extension packages
-RUN install2.r -r "http://cran.rstudio.com" \
-	  rmarkdown \
-	  ggplot2 \
-	  devtools \
-	  && rm -rf /tmp/downloaded_packages/ /tmp/*.rd
+    LABEL maintainer=o2r \
+      description="This is an ERC image." \
+    	info.o2r.bag.id="123456"
 
-# Save installed packages to file
-RUN dpkg -l > /dpkg-list.txt
+    VOLUME ["/erc"]
 
-LABEL maintainer=o2r \
-  description="This is an ERC image." \
-	info.o2r.bag.id="123456"
+    ENTRYPOINT ["sh", "-c"]
+    CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\""]
+    ```
 
-VOLUME ["/erc"]
-
-ENTRYPOINT ["sh", "-c"]
-CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\""]
-```
-
-See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
+    See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
 
 ## R workspaces
 
@@ -445,7 +440,7 @@ The structure within the ERC contents directory are intentionally unspecified.
 However, the contents structure MAY follow conventions or be based on templates for organizing research artifacts.
 
 If a convention is followed then it SHOULD be referenced in the ERC configuration file as a node `convention` within the `structure` section.
-The node's value can be any text string which uniquely identifies a convention, but a URI or URL to either a human-readable description or technical specification is RECOMMENDED.
+The node's value can be any text string which uniquely identifies a convention, but a URI or URL to either a human-readable description or formal specification is RECOMMENDED.
 
 A non-exhaustive list of potential conventions and guidelines _for R_ is as follows:
 
@@ -456,14 +451,15 @@ A non-exhaustive list of potential conventions and guidelines _for R_ is as foll
 - [Ben Marwick's template](https://github.com/benmarwick/template)
 - [Karl Broman's comments on reproducibility](http://kbroman.org/knitr_knutshell/pages/reproducible.html)
 
-Example for using the ROPenSci `rrrpkg` convention, using the public link on GitHub as the identifier:
-
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-structure:
-  convention: https://github.com/ropensci/rrrpkg
-```
+!!! tip "Example for using the ROPenSci `rrrpkg` convention"
+    The convention is identified using the public link on GitHub.
+    ```yml
+    ---
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    spec_version: 1
+    structure:
+      convention: https://github.com/ropensci/rrrpkg
+    ```
 
 ### R Markdown main file
 
@@ -492,8 +488,8 @@ The manifest file (i.e. `Dockerfile`) MUST run a plain R session without loading
 Enabling interaction with the contents of an ERC is a crucial goal of this specification (see [Preface](#preface)).
 Therefore this section defines metadata to support two goals:
 
-- aide inspecting users to identify core functions and parameters of an analysis, and
-- allow supporting software tools to create interactive renderings of ERC contents for manipulation.
+- aide [inspecting](../glossary.md#inspect) users to identify core functions and parameters of an analysis, and
+- allow supporting software tools to create interactive renderings of ERC contents for [manipulation](../glossary.md#manipulate).
 
 These goals are manifested in the **UI bindings** as part of the ERC configuration file under the root level property `ui_bindings`.
 
@@ -501,15 +497,14 @@ An ERC MUST denote if UI bindings are present using the boolean property `intera
 If the property is missing it defaults to `false`.
 An implementation MAY use the indicator `interactive: true` to provide other means of displaying the display file.
 
-Example for minimal interaction configuration:
-
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-ui_bindings:
-  interactive: true
-```
+!!! tip "Example for minimal interaction configuration"
+    ```yml
+    ---
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    spec_version: 1
+    ui_bindings:
+      interactive: true
+    ```
 
 An ERC MAY embed multiple concrete UI bindings.
 Each UI binding is represented by a YAML dictionary.
@@ -522,23 +517,22 @@ A _widget_ realizes the purpose with a concrete interaction paradigm chosen by t
 
 For each widget, implementations MAY use the properties `code`, `data`, and `text` to further describe how a specific UI binding acts upon the respective part of the ERC.
 
-Example:
-
-```yml
----
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-ui_bindings:
-  interactive: true
-  bindings:
-    - purpose: http://.../data-inspection
-      widget: http://.../tabular-browser
-      code: [...]
-      data: [...]
-      text: [...]
-    - purpose: http://.../parameter-manipulation
-      widget: http://.../dropdown
-```
+!!! tip "Example of two UI bindings"
+    ```yml
+    ---
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    spec_version: 1
+    ui_bindings:
+      interactive: true
+      bindings:
+        - purpose: http://.../data-inspection
+          widget: http://.../tabular-browser
+          code: [...]
+          data: [...]
+          text: [...]
+        - purpose: http://.../parameter-manipulation
+          widget: http://.../dropdown
+    ```
 
 ## Preservation of ERC
 
@@ -565,32 +559,33 @@ The bag metadata file `bagit.txt` MUST contain the case-sensitive label `Is-Exec
 
 Implementations SHOULD use this field to identify an ERC.
 
-```txt
-Payload-Oxum: 2172457623.43
-Bagging-Date: 2016-02-01
-Bag-Size: 2 GB
-ERC-Version: 1
-```
+!!! tip "Example `bagit.txt`
+    ```txt
+    Payload-Oxum: 2172457623.43
+    Bagging-Date: 2016-02-01
+    Bag-Size: 2 GB
+    Is-Executable-Research-Compendium: true
+    ```
 
-Example file tree for a bagged ERC:
-
-```txt
-├── bag-info.txt
-├── bagit.txt
-├── data
-│   ├── 2016-07-17-sf2.Rmd
-│   ├── erc.yml
-│   ├── metadata.json
-│   ├── Dockerfile
-│   └── image.tar
-├── manifest-md5.txt
-└── tagmanifest-md5.txt
-```
+!!! tip "Example file tree for a bagged ERC"
+    ```txt
+    ├── bag-info.txt
+    ├── bagit.txt
+    ├── data
+    │   ├── 2016-07-17-sf2.Rmd
+    │   ├── erc.yml
+    │   ├── metadata.json
+    │   ├── Dockerfile
+    │   └── image.tar
+    ├── manifest-md5.txt
+    └── tagmanifest-md5.txt
+    ```
 
 #### BagIt profile
 
 !!! note
-    The elements of the o2r Bagit Profile is yet to be specified. - This section is under development.
+    The elements of the o2r Bagit Profile is yet to be specified.
+    This section is under development.
     Current BagIt tools do not include an option to add a BagIt Profile automatically.
 
 A [BagIt Profile][bagitprofiles] as outlined below could make the requirements of this extension more explicit.
@@ -652,30 +647,28 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
 
 Each ERC MUST contain a package leaflet, describing the schemas and standards used. Available schema files are supposed to be included with the ERC, if available (licenses for these schemas may apply).
 
-**Example:**
-
-```json
-{
-	"standards_used": [{
-		"name": "DataCite Metadata Schema 4.0",
-		"name-short": "datacite40",
-		"description": "The DataCite Metadata Schema is a list of core metadata properties chosen for an accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions.",
-		"schema-version": "4.0",
-		"schema-path-local": "erc/schema/datacite40.json ",
-		"schema-url": "https://schema.datacite.org/meta/kernel-4.0/metadata.xsd",
-		"schema-identifier": "doi:10.5438/0013"
-	}, {
-		"name": "Zenodo Metadata Schema",
-		"name-short": "zenodo",
-		"description": "The metadata schema applicable for zenodo 2017.",
-		"schema-version": null,
-		"schema-path-local": "erc/schema/zenodo.json ",
-		"schema-url": null,
-		"schema-identifier": null
-	}]
-}
-```
-
+!!! tip "Example package leaflet"
+    ```json
+    {
+    	"standards_used": [{
+    		"name": "DataCite Metadata Schema 4.0",
+    		"name-short": "datacite40",
+    		"description": "The DataCite Metadata Schema is a list of core metadata properties chosen for an accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions.",
+    		"schema-version": "4.0",
+    		"schema-path-local": "erc/schema/datacite40.json ",
+    		"schema-url": "https://schema.datacite.org/meta/kernel-4.0/metadata.xsd",
+    		"schema-identifier": "doi:10.5438/0013"
+    	}, {
+    		"name": "Zenodo Metadata Schema",
+    		"name-short": "zenodo",
+    		"description": "The metadata schema applicable for zenodo 2017.",
+    		"schema-version": null,
+    		"schema-path-local": "erc/schema/zenodo.json ",
+    		"schema-url": null,
+    		"schema-identifier": null
+    	}]
+    }
+    ```
 
 Elements used for each schema / standard used:
 
@@ -733,7 +726,7 @@ Other third party standards that will be considered comprise: _CodeMeta_, _EuDat
 
 ### Development bundle
 
-While complete ERCs are focus of this specification, for collaboration and offline inspection it is useful to provide access to parts of the ERC.
+While complete ERCs are focus of this specification, for collaboration and offline [inspection](../glossary.md#inspect) it is useful to provide access to parts of the ERC.
 To support such use cases, a _development bundle_ MAY be provided by implementations.
 This bundle most importantly would not include the _runtime image_, which is potentially a large file.
 
@@ -771,8 +764,7 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
         "doiurl": null,
         "reserveddoi": null
     },
-  "inputfiles": []
- 	},
+  "inputfiles": [],
 	"keywords": [],
     "license": {"text": None,
             "data": None,
@@ -867,8 +859,8 @@ Defining explanations on the concept of each metadata element in use.
 
 ### Procedure
 
-A core feature of ERCs is to compare the output of an ERC executions with the original outputs.
-Therefore checking an ERC always comprises two core steps: the execution and the comparison.
+A core feature ERCs are intended to support is comparing the output of an ERC executions with the original outputs.
+Therefore [checking](../glossary.md#check) an ERC always comprises two steps: the execution and the comparison.
 
 The files included in the comparison are the _comparison set_.
 An implementation MUST communicate the comparison set to the user as part of a check.
@@ -879,7 +871,7 @@ Previous to the check, an implementation SHOULD conduct a basic validation of th
 
 The ERC MAY contain a file named `.ercignore` in the base directory to define the comparison set.
 
-Its purpose is to provide a way to efficiently exclude files and directories from checking.
+Its purpose is to provide a way to efficiently exclude files and directories from [checking](../glossary.md#check).
 If this file is present, any files and directories within the outer container which match the patterns within the file `.ercignore` will be excluded from the checking process.
 The check MUST NOT fail when files listed in `.ercignore` are failing comparison.
 
@@ -889,14 +881,13 @@ For the purposes of matching, the root of the context is the ERC's base director
 
 Lines starting with `#` are treated as comments and MUST be ignored by implementations.
 
-Example `.ercignore` file:
-
-```bash
-# comment
-.erc
-*/temp*
-data-old/*
-```
+!!! tip "Example `.ercignore` file"
+    ```bash
+    # comment
+    .erc
+    */temp*
+    data-old/*
+    ```
 
 !!! note
     If using [md5](https://tools.ietf.org/html/rfc1321) file hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
