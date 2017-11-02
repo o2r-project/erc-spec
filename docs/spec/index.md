@@ -10,7 +10,7 @@ It provides a well-defined structure for data, code, text, documentation, and us
 
 ### Version
 
-The version of this specification is `1`.
+Specification version: `1`
 
 !!! warning
     This version is _under development_!
@@ -560,7 +560,7 @@ The bag metadata file `bagit.txt` MUST contain the case-sensitive label `Is-Exec
 
 Implementations SHOULD use this field to identify an ERC.
 
-!!! tip "Example `bagit.txt`
+!!! tip "Example `bagit.txt`"
     ```txt
     Payload-Oxum: 2172457623.43
     Bagging-Date: 2016-02-01
@@ -891,7 +891,8 @@ Lines starting with `#` are treated as comments and MUST be ignored by implement
     ```
 
 !!! note
-    If using [md5](https://tools.ietf.org/html/rfc1321) file hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml). Of course the comparison set should include files which contain results of an analysis.
+    If using [md5](https://tools.ietf.org/html/rfc1321) file hashes for comparison, the set could include plain text files, for example the `text/*` [media types](https://en.wikipedia.org/wiki/Media_type) (see [IANA's full list of media types](https://www.iana.org/assignments/media-types/media-types.xhtml).
+    Of course the comparison set should include files which contain results of an analysis.
 
 ### Comparing plain text documents
 
