@@ -19,7 +19,7 @@ This specification is written in [Markdown](https://daringfireball.net/projects/
 Use `mkdocs` to render it locally.
 
 ```bash
-# pip install mkdocs mkdocs-cinder
+# pip install mkdocs mkdocs-cinder pymdown-extensions
 mkdocs serve
 ```
 

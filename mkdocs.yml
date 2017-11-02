@@ -1,24 +1,32 @@
-site_name: ERC spec
-site_author: "Daniel Nüst, Matthias Schutzeichel, Markus Konkol"
-site_description: "Executable Research Compendium specification, user guide and developer guide"
+site_name: "Executable Reserach Compendium (ERC) Specification"
+site_author: "Daniel Nüst, Marc Schutzeichel, Markus Konkol"
+site_description: "Executable Research Compendium technical specification, user guides, developer guides, and support."
+copyright: "Licensed under Creative Commons CC0 1.0 Universal License."
 pages:
   - Home: index.md
-  - ERC:
-    - Specification: spec/index.md
-    - Docker Runtime Extension: spec/docker.md
-    - Archival Extension: spec/archival.md
-    - Validation Extension: spec/valid.md
-    - R Extension: spec/r.md
-    - Manipulation Extension: spec/man.md
-    - Plain R Runtime Extension: spec/plain_r.md
-  - User guide:
-    - ERC creation guide: user-guide/creation.md
-    - ERC template: user-guide/template.md
-  - Developer guide: dev-guide/index.md
+  - ERC specification: spec/index.md
+  - User guides:
+    - Creation guide for authors: user-guide/creation.md
+    - Examination guide for authors: user-guide/examination.md
+    - ERC template for authors: user-guide/template.md
+    - Minimal ERC examples: user-guide/minimal.md
+    - ERC & OAIS: user-guide/oais.md
+    - ERC as supplement: user-guide/erc_journal_supplement.md
+    - Developer guide: dev-guide/index.md
   - Glossary: glossary.md
-theme:  cinder # material readthedocs # flatly
+  - Support: support.md
+theme:  readthedocs # cinder # material readthedocs # flatly
+theme_dir: custom_theme
 repo_url: https://github.com/o2r-project/erc-spec
 repo_name: GitHub
-edit_uri: blog/master/docs/
+edit_uri: tree/master/docs/
 site_dir: site
 extra_css: [erc.css]
+markdown_extensions:
+  - admonition
+  - smarty
+  - codehilite(guess_lang=False)
+  - toc(permalink=true)
+  #- pymdownx.inlinehilite
+  - pymdownx.tilde
+  - pymdownx.superfences # does not work with guess_lang=True

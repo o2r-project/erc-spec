@@ -1,10 +1,24 @@
 # Executable Research Compendium
 
-- [Specification](spec/index.md)
-- **User guide**
-    - [Manual ERC creation](user-guide/creation.md)
-    - [ERC templates](user-guide/template.md)
+This is the technical specification of the Executable Research Compendium (ERC).
+
+**Read the [specification](spec/index.md)** and **get [support](support.md)**.
+
+## Guides
+
+Are you a **scientist** and want to publish your research as an ERC? Read **user guides for authors**:
+
+- [ERC creation](user-guide/creation.md)
+- [ERC examination](user-guide/examination.md)
+- [ERC template](user-guide/template.md)
+
+Are you a **developer** and want to build applications for ERCs? Read **user guides for developers**:
+
 - [Developer guide](dev-guide/index.md)
+
+Are your a **librarian** or **preservationist** and want to use ERCs for archival of scholarly works? Read **user guides for librarians and preservationists**:
+
+- [ERC & OAIS](user-guide/oais.md)
 
 ## Credits
 

@@ -2,12 +2,11 @@
 
 This user guide comprises instructions how to create an ERC _by hand_.
 It is thus limited to mandatory elements in some places.
-However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document.
+However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document. It is supposed to ease the understanding of the ERC especially for the authors of scientific publications.
 For using tools or services for creation and validation of ERCs, please see the [developer guide](../dev-guide/index.md).
 
-<div class="alert note" markdown="block">
-This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
-</div>
+!!! note
+    This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 
 ## Step 1: create workspace
 
@@ -34,7 +33,7 @@ To create a working ERC you must include a complete environment description and 
 
 We recommend using Docker, so a Dockerfile and a Docker image tarball archive file, to achieve these goals.
 
-See the [Docker extension](../spec/docker.md) for detailed requirements, including links to the relevant Docker commands.
+See the [runtime section](../spec/index.md#nested-runtime) for detailed requirements, including links to the relevant Docker commands.
 
 ## Step 3: create metadata
 
@@ -58,10 +57,7 @@ License information must be put into the ERC configuration file `erc.yml` as def
 
 ### Content metadata
 
-Content metadata are used for making your work findable. Properties for the content metadata are defined in the [specification](../spec/index.md#Content-metadata) and must be put into the `metadata.json` file.
-
-<!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
-
+Content metadata are used for making your work findable. Properties for the content metadata are defined in the [specification](../spec/index.md#content-metadata) and must be put into the `metadata.json` file.
 
 ### Secondary metadata
 
@@ -70,30 +66,30 @@ _As of now, we do not recommend creating secondary metadata by hand._
 Secondary metadata are used for third party services, e.g. repositories that define their own obligatory metadata.
 In general they can be added in different formats to support different use cases.
 
-More information on secondary metadata can be found in the [archival extention](../spec/archival.md#Secondary-metadata-files).
+More information on secondary metadata can be found in the [preservation section](../spec/index.md#preservation-of-erc).
 
 
 ## Step 4: validate
 
-You can use the container created in step 2 for validation purposes, too. Run the analysis in the container, then copy the analysis output to a temporary directory on the host system, and finally compare the original workspace and the temporary directory according the [validation rules](../spec/index.md#validation) to ensure a complete replication.
-
-<!-- _To simplify the validation process, an ERC validation tool and accompanying [validation extension](../spec/index.md#Validation) are under development._ -->
+You can use the container created in step 2 for validation purposes, too.
+Run the analysis in the container, then copy the analysis output to a temporary directory on the host system, and finally compare the original workspace and the temporary directory according the [validation rules](../spec/index.md#validation) to ensure a complete replication.
 
 ## Step 5: create bag
 
-To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags. Take a look at the [archival extension](../spec/archival.md) for a detailed background about the purpose of BagIt and other digital preservation aspects.
+To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags.
+Take a look at the [preservation section](../spec/index.md#preservation-of-erc) for a detailed background about the purpose of BagIt and other digital preservation aspects.
 
 
 ### Third party tools for creating BagIt bags
 
-- [Bagger](https://github.com/LibraryOfCongress/bagger) (Java-based, with UI)
+- [Bagger](https://github.com/LibraryOfCongress/bagger) (version 2.7, Java-based, with UI)
 - [bagit-python](https://libraryofcongress.github.io/bagit-python/) (Python package)
 
 ### Creating the bag
 
-In this guide we will create the bag manually by using the LoC Bagger 2.7 Java-Programm, listed above.
+In this guide we will create the bag manually by using the Library of Congress's (LoC) tool _Bagger_, listed above.
 
-1. Start by selecting "Create new bag" from the main menu and proceed with "<no profile>".
+1. Start by selecting "Create new bag" from the main menu and proceed with "&lt;no profile&gt;".
 2. Add your files with the "+" Button.
 3. Uncheck the "Standard" feature in the Bag-Info-Editor on the right and add `ERC-Version` with the appropriate version you want to use, e.g. `1`. Optionally fill out additional Bag-Info metadata, e.g. _contact information_.
 4. Save your bag using the main menu.
@@ -115,5 +111,5 @@ A file tree for the final bagged ERC may look like this:
 └── tagmanifest-md5.txt
 ```
 
-You can validate your bag with LoC Bagger by loading the bag and then clicking on "Validate Bag" in the main menu.
-The programm will check for completeness of bagit-related files and verify the integrity of the data files by computing their checksums (hashes) and report any potential issues.
+You can validate your bag with _Bagger_ by loading the bag and then clicking on "Validate Bag" in the main menu.
+The programme will check for completeness of BagIt-related files and verify the integrity of the data files by computing their checksums (hashes) and report any potential issues.
