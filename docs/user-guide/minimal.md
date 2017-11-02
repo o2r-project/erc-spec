@@ -1,8 +1,11 @@
 # Minimal examples for ERCs
 
+1. [R script with png plot](#r-script-with-png-plot)
+1. [R Markdown with HTML output](#r-markdown-with-html-output)
+
 ## R script with png plot
 
-### Main document
+### Main file `main.R`
 
 ```R
 # http://www.budgetshippingcontainers.co.uk/info/how-many-shipping-containers-are-there-in-the-world/
@@ -16,12 +19,24 @@ barplot(containers, names.arg = c("in service", "ex-service", "new"),
     )
 ```
 
-### Display document
+### Display file `display.png`
 
 ![Minimal ERC example display.png](/img/minimal/display.png)
 
+### ERC configuration file
+
+```yml
+---
+id: "289a9jcl9o"
+spec_version: "1"
+main: main.R
+display: display.png
+```
+
 
 ## R Markdown with HTML output
+
+### Main file `main.Rmd`
 
 ````markdown
 ---
@@ -43,6 +58,18 @@ barplot(data, ylab = "Capacity", sub = "© Statista 2017")
 Sources: UNCTAD; Clarkson Research Services, via [statista](https://www.statista.com/statistics/267603/capacity-of-container-ships-in-the-global-seaborne-trade/).
 ````
 
-<iframe src="/img/minimal/seaborne-trade.html" width="100%" height="500" style="border: 2px solid grey;">
+### Display file `display.html`
 
-[raw HTML]()
+<iframe src="/img/minimal/seaborne-trade.html" width="100%" height="500" style="border: 2px solid grey;"></iframe>
+
+**[HTML](/img/minimal/seaborne-trade.html)**
+
+### ERC configuration file
+
+```yml
+---
+id: "v97cplst6b"
+spec_version: "1"
+main: main.Rmd
+display: display.html
+```

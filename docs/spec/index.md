@@ -81,7 +81,10 @@ An ERC MUST have a _display file_, i.e. the file which is shown to the user firs
 _Main file_ and _display file_ MUST NOT be the same file.
 
 The _main file_ MUST be _executable_ in the sense that a software reads it as the input of a process to create the _display file_.
-The _main file_'s name SHOULD be `main` with an appropriate file extension and media type.
+The _main file_'s name SHOULD be `main` with an appropriate file extension and [media type](https://en.wikipedia.org/wiki/Media_type).
+
+!!! note
+    The _main file_ thus follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
 
 !!! tip "Example"
     If the main file is an R Markdown document, then the file extension should be `.Rmd` and the media type `text/markdown`.
@@ -96,9 +99,8 @@ The display file's name SHOULD be `display` with an appropriate file extension a
 The ERC MAY use an interactive document with interactive figures and control elements for the packaged computations as the _display file_.
 The _interactive display file_ MUST have `HTML` format and SHOULD be valid [HTML5](https://www.w3.org/TR/html5/).
 
-!!! note
-    The _main file_ thus follows the [literate programming paradigm](https://en.wikipedia.org/wiki/Literate_programming).
-    Typical examples for the two core documents are R Markdown with HTML output, or an `R` script creating a PNG plot.
+!!! tip "Example"
+    Typical examples for the two core documents are R Markdown with HTML output (i.e. `main.Rmd` and `display.html`), or an `R` script creating a PNG file (i.e. `main.R` and `display.png`).
 
 ### Nested runtime
 
