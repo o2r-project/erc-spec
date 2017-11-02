@@ -24,7 +24,7 @@ pdf:
 	sed -i 's/!!! tip/**Example:** /g' erc.pd
 	# remove all leading whitespace (breaks code blocks but improves admonitions...)
 	#sed -i 's/^[ \t]*//' erc.pd
-	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks -o erc-spec-v${CURRENT_VERSION}.pdf erc.pd --latex-engine=xelatex --filter pandoc-latex-admonition --verbose
+	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks -o erc-spec-v${CURRENT_VERSION}.pdf erc.pd --latex-engine=xelatex --filter pandoc-latex-admonition
 	# via HTML with a CSS file (pre, code { white-space: pre-wrap !important; }): works to have line breaks in code blocks
 	#pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks -t html5 --css pdf.css -o erc-spec-v${CURRENT_VERSION}.pdf erc.pd --latex-engine=xelatex --filter pandoc-latex-admonition --verbose
 	#rm erc.pd
