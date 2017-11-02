@@ -8,7 +8,7 @@
   
   <meta name="author" content="Daniel Nüst, Marc Schutzeichel, Markus Konkol">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>ERC template for authors - Executable Reserach Compendium (ERC) Specification</title>
+  <title>ERC & OAIS - Executable Reserach Compendium (ERC) Specification</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "ERC template for authors";
-    var mkdocs_page_input_path = "user-guide/template.md";
-    var mkdocs_page_url = "/user-guide/template/";
+    var mkdocs_page_name = "ERC & OAIS";
+    var mkdocs_page_input_path = "user-guide/oais.md";
+    var mkdocs_page_url = "/user-guide/oais/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -70,29 +70,29 @@
                     
     <a class="" href="../examination/">Examination guide for authors</a>
                 </li>
-                <li class=" current">
+                <li class="">
                     
-    <a class="current" href="./">ERC template for authors</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#user-guide-erc-template-work-in-progress">User guide: ERC template - WORK IN PROGRESS</a></li>
-    
-        <ul>
-        
-            <li><a class="toctree-l4" href="#geoscience-research-in-r">Geoscience research in R</a></li>
-        
-        </ul>
-    
-
-    </ul>
+    <a class="" href="../template/">ERC template for authors</a>
                 </li>
                 <li class="">
                     
     <a class="" href="../minimal/">Minimal ERC examples</a>
                 </li>
-                <li class="">
+                <li class=" current">
                     
-    <a class="" href="../oais/">ERC & OAIS</a>
+    <a class="current" href="./">ERC & OAIS</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#erc-preservation-aspects-in-the-light-of-oais">ERC preservation aspects in the light of OAIS</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#references">References</a></li>
+        
+        </ul>
+    
+
+    </ul>
                 </li>
                 <li class="">
                     
@@ -141,10 +141,10 @@
         
       
     
-    <li>ERC template for authors</li>
+    <li>ERC & OAIS</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/o2r-project/erc-spec/tree/master/docs/user-guide/template.md"
+        <a href="https://github.com/o2r-project/erc-spec/tree/master/docs/user-guide/oais.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -154,37 +154,14 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="user-guide-erc-template-work-in-progress">User guide: ERC template - WORK IN PROGRESS<a class="headerlink" href="#user-guide-erc-template-work-in-progress" title="Permanent link">&para;</a></h1>
-<p>If you want to create an ERC for your research already at the beginning, and not &ldquo;post-hoc&rdquo; after your research is complete, these templates can hopefully help.
-They are divided into specific domains to be more concrete.</p>
-<h2 id="geoscience-research-in-r">Geoscience research in R<a class="headerlink" href="#geoscience-research-in-r" title="Permanent link">&para;</a></h2>
-<p><strong>Files in this template</strong></p>
+                <h1 id="erc-preservation-aspects-in-the-light-of-oais">ERC preservation aspects in the light of OAIS<a class="headerlink" href="#erc-preservation-aspects-in-the-light-of-oais" title="Permanent link">&para;</a></h1>
+<p>The Open Archival Information System (OAIS) reference model is a framework for the preservation and dissimination of digital objects (assets). It has been created by the Consultative Committee for Space Data Systems (CCSDS) and  has since been adopted by a wide range of international institutions. The OAIS provides the terminology and concept of the <em>information package</em> as primitive of the digital preservation workflow. Submission information packages (SIP), Dissimination information packages (DIP) and Archival information packages (AIP) refer to different functional roles of a digital object during (long term) preservation.</p>
+<p>The representation information object within OAIS consists of structural and semantic information and is itself linked to other units of representation information, building a representation network. The information contained within the ERC and its metadata serves as representation information and enables the interpretability of the archived software, environment, code, data, text and UI bindings. Standards used for representation are included as local copy of the underlying schema and as reference to their persistent identifiers. The network of information objects describes how the parts of the ERC relate to each other and how they are to be used and understood.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>document.md</code> use RMarkdown, this is the main document</li>
-<li><code>erc.yml</code> is template for the ERC configuration file with placeholders for all required fields</li>
-<li><code>Dockerfile</code> is a template Dockerfile with some commands you can re-use to make sure all packages and tools that you need are installed</li>
+<li>CCSDS (2012): RECOMMENDED PRACTICE FOR AN OAIS REFERENCE MODEL. CCSDS 650.0-M-2 (Magenta Book). <a href="http://public.ccsds.org/publications/archive/650x0m2.pdf">http://public.ccsds.org/publications/archive/650x0m2.pdf</a></li>
+<li>Maack, M.N. (2015). The Open Archival Information System (oais) Reference Model.</li>
 </ul>
-<h3 id="header-template">Header template<a class="headerlink" href="#header-template" title="Permanent link">&para;</a></h3>
-<p>The yaml header of the <code>document.md</code> file is the right place to enter your meta information right away from the start: Fill out the metadata fields, included in the template, as early in your personal workflow as possible and keep them up-to-date to prepare for the ERC creation progress. The metadata extractor of the o2r service will collect and prefer information from RMarkdown document headers.</p>
-<pre class="codehilite"><code class="language-yml">---
-author:
-  - name: Your Name
-    affiliation: Your affiliation
-    orcid: Your ORCid
-  - name: Your co-author's name
-    affiliation: Their affiliation
-    orcid: Their ORCid
-title: The title of your publication
-abstract:
-  A concise description of your publication
-keywords: [lorem, ipsum, dolor, sit, amet]
-date: 2017-01-13
-license: cc-by
----</code></pre>
-
-<p><strong>Filename</strong> | <strong>Template</strong> | <strong>ERC-Spec</strong> 
------- | ------ | ------ |
-<a href="https://github.com/o2r-project/erc-spec/blob/master/templates/geo/geo_template.zip">geo_template.zip</a> | Geoscience research in R | V.1</p>
               
             </div>
           </div>
@@ -192,10 +169,10 @@ license: cc-by
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../minimal/" class="btn btn-neutral float-right" title="Minimal ERC examples">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../erc_journal_supplement/" class="btn btn-neutral float-right" title="ERC as supplement">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../examination/" class="btn btn-neutral" title="Examination guide for authors"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../minimal/" class="btn btn-neutral" title="Minimal ERC examples"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -225,10 +202,10 @@ license: cc-by
           <a href="https://github.com/o2r-project/erc-spec/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../examination/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../minimal/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../minimal/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../erc_journal_supplement/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

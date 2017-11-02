@@ -1,342 +1,319 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <meta name="author" content="Daniel Nüst, Matthias Schutzeichel, Markus Konkol">  
-    <link rel="shortcut icon" href="../img/favicon.ico">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Daniel Nüst, Marc Schutzeichel, Markus Konkol">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Glossary - Executable Reserach Compendium (ERC) Specification</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-    <title>Glossary - ERC spec</title>
-
-    <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="../css/base.css" rel="stylesheet">
-    <link href="../css/cinder.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/highlight.css">
-
-
-    <link href="../erc.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
-
-    
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../erc.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Glossary";
+    var mkdocs_page_input_path = "glossary.md";
+    var mkdocs_page_url = "/glossary/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
 </head>
 
-<body>
+<body class="wy-body-for-nav" role="document">
 
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
+  <div class="wy-grid-for-nav">
 
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-
-            <!-- Main title -->
-            <a class="navbar-brand" href="..">ERC spec</a>
-        </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-            
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li >
-                        <a href="..">Home</a>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ERC <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../spec/">Specification</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spec/docker/">Docker Runtime Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spec/archival/">Archival Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spec/valid/">Validation Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spec/r/">R Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spec/man/">Manipulation Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../spec/plain_r/">Plain R Runtime Extension</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User guide <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../user-guide/creation/">ERC creation guide</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../user-guide/template/">ERC template</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../dev-guide/">Developer guide</a>
-                    </li>
-                
-                
-                
-                    <li class="active">
-                        <a href="./">Glossary</a>
-                    </li>
-                
-                
-                </ul>
-            
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                
-                    <li >
-                        <a rel="next" href="../dev-guide/">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li class="disabled">
-                        <a rel="prev" >
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
-                
-                
-                    <li>
-                        <a href="https://github.com/o2r-project/erc-spec">
-                            
-                                <i class="fa fa-github"></i>
-                            
-                            GitHub
-                        </a>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Executable Reserach Compendium (ERC) Specification</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
 </div>
+      </div>
 
-    <div class="container">
-        
-        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-    
-        <li class="first-level active"><a href="#glossary">Glossary</a></li>
-        
-            <li class="second-level"><a href="#computational-analysis">(Computational) Analysis</a></li>
-            
-        
-            <li class="second-level"><a href="#bag">Bag</a></li>
-            
-        
-            <li class="second-level"><a href="#bundle">Bundle</a></li>
-            
-        
-            <li class="second-level"><a href="#compendium-contents">Compendium contents</a></li>
-            
-        
-            <li class="second-level"><a href="#container">Container</a></li>
-            
-        
-            <li class="second-level"><a href="#docker-container">Docker container</a></li>
-            
-        
-            <li class="second-level"><a href="#erc">ERC</a></li>
-            
-        
-            <li class="second-level"><a href="#erc-contents">ERC contents</a></li>
-            
-        
-            <li class="second-level"><a href="#erc-metadata">ERC metadata</a></li>
-            
-        
-            <li class="second-level"><a href="#inner-container">Inner container</a></li>
-            
-        
-            <li class="second-level"><a href="#interaction-file">Interaction file</a></li>
-            
-        
-            <li class="second-level"><a href="#oais">OAIS</a></li>
-            
-        
-            <li class="second-level"><a href="#outer-container">Outer container</a></li>
-            
-        
-            <li class="second-level"><a href="#reproducible-reproducibility-replication">Reproducible, Reproducibility, Replication</a></li>
-            
-        
-            <li class="second-level"><a href="#runtime-container">Runtime container</a></li>
-            
-        
-            <li class="second-level"><a href="#ui-bindings">UI bindings</a></li>
-            
-        
-    
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../spec/">ERC specification</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">User guides</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../user-guide/creation/">Creation guide for authors</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../user-guide/examination/">Examination guide for authors</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../user-guide/template/">ERC template for authors</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../user-guide/minimal/">Minimal ERC examples</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../user-guide/oais/">ERC & OAIS</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../user-guide/erc_journal_supplement/">ERC as supplement</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../dev-guide/">Developer guide</a>
+                </li>
     </ul>
-</div></div>
-        <div class="col-md-9" role="main">
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">Glossary</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#glossary">Glossary</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#computational-analysis">(Computational) Analysis</a></li>
+        
+            <li><a class="toctree-l3" href="#bag">Bag</a></li>
+        
+            <li><a class="toctree-l3" href="#compendium-contents">Compendium contents</a></li>
+        
+            <li><a class="toctree-l3" href="#container">Container</a></li>
+        
+            <li><a class="toctree-l3" href="#check">Check</a></li>
+        
+            <li><a class="toctree-l3" href="#create">Create</a></li>
+        
+            <li><a class="toctree-l3" href="#discover">Discover</a></li>
+        
+            <li><a class="toctree-l3" href="#docker-container">Docker container</a></li>
+        
+            <li><a class="toctree-l3" href="#erc">ERC</a></li>
+        
+            <li><a class="toctree-l3" href="#erc-contents">ERC contents</a></li>
+        
+            <li><a class="toctree-l3" href="#erc-metadata">ERC metadata</a></li>
+        
+            <li><a class="toctree-l3" href="#examine">Examine</a></li>
+        
+            <li><a class="toctree-l3" href="#inner-container">Inner container</a></li>
+        
+            <li><a class="toctree-l3" href="#inspect">Inspect</a></li>
+        
+            <li><a class="toctree-l3" href="#display-file">Display file</a></li>
+        
+            <li><a class="toctree-l3" href="#manipulate">Manipulate</a></li>
+        
+            <li><a class="toctree-l3" href="#oais">OAIS</a></li>
+        
+            <li><a class="toctree-l3" href="#outer-container">Outer container</a></li>
+        
+            <li><a class="toctree-l3" href="#reproducible-reproducibility-replication">Reproducible, Reproducibility, Replication</a></li>
+        
+            <li><a class="toctree-l3" href="#runtime-container">Runtime container</a></li>
+        
+            <li><a class="toctree-l3" href="#substitute">Substitute</a></li>
+        
+            <li><a class="toctree-l3" href="#ui-bindings">UI bindings</a></li>
+        
+            <li><a class="toctree-l3" href="#workspace">Workspace</a></li>
+        
+        </ul>
+    
 
-<h1 id="glossary">Glossary</h1>
-<h2 id="computational-analysis">(Computational) Analysis</h2>
-<p>A scientific workflow that is to be preserved in an ERC. It conducts a number of operations on data and generates an output (text, numbers, plots).</p>
-<h2 id="bag">Bag</h2>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../support/">Support</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Executable Reserach Compendium (ERC) Specification</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Glossary</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/o2r-project/erc-spec/tree/master/docs/glossary.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h1>
+<h2 id="computational-analysis">(Computational) Analysis<a class="headerlink" href="#computational-analysis" title="Permanent link">&para;</a></h2>
+<p>A scientific workflow that is to be preserved in an ERC.
+It conducts a number of operations on data and generates an output (text, numbers, plots).</p>
+<h2 id="bag">Bag<a class="headerlink" href="#bag" title="Permanent link">&para;</a></h2>
 <p>See <a href="https://tools.ietf.org/html/draft-kunze-bagit">BagIt specification</a>.</p>
 <blockquote>
 <p>A set of opaque data contained within the structure defined by this specification.</p>
 </blockquote>
-<h2 id="bundle">Bundle</h2>
-<p>TBD
-<!-- RO Bundle?! --></p>
-<h2 id="compendium-contents">Compendium contents</h2>
+<h2 id="compendium-contents">Compendium contents<a class="headerlink" href="#compendium-contents" title="Permanent link">&para;</a></h2>
 <p>See <a href="#erc-contents">ERC contents</a></p>
-<h2 id="container">Container</h2>
-<p>A receptacle holding a collection of things ("payload" or "contents"). In the context of this specification, several of such containers are distinguished: <a href="#runtime-container">runtime container</a>, <a href="#outer-container">outer container</a>, and <a href="#docker-container">Docker container</a>.</p>
-<p>See also <a href="#bundle">bundle</a>.</p>
-<h2 id="docker-container">Docker container</h2>
+<h2 id="container">Container<a class="headerlink" href="#container" title="Permanent link">&para;</a></h2>
+<p>A receptacle holding a collection of things (&ldquo;payload&rdquo; or &ldquo;contents&rdquo;).
+In the context of this specification, several containers are distinguished: <a href="#runtime-container">runtime container</a> (with <a href="#docker-container">Docker container</a> as a concrete instance) and <a href="#outer-container">outer container</a>.</p>
+<h2 id="check">Check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
+<p>A subconstituent of <a href="#examine"><em>Examine</em></a>.
+Checking an ERC is a syntactical validation, which may be largely automated by a software tool reporting the check result and potential errors.
+A check comprises (a) the validation of a concrete ERC against the ERC specification, e.g. are required files and metadata fields present, and (b) an execution of the contained analysis.
+The execution includes a comparison of the result files in the just executed inner container with the result stored in the outer container.</p>
+<h2 id="create">Create<a class="headerlink" href="#create" title="Permanent link">&para;</a></h2>
+<p>One of the major constituents of ERC interaction.
+The user can create an ERC by following the technical instructions included in the Specification (ERC Spec) or use the o2r reproducibility service, which has been referentially implemented as &ldquo;o2r platform&rdquo;.
+For more information, see [erc-spec/user-guide/creation/]</p>
+<h2 id="discover">Discover<a class="headerlink" href="#discover" title="Permanent link">&para;</a></h2>
+<p>One of the major constituents of ERC interaction.
+Discovery comprises the findability of the ERC as well as the exploration of its features, e.g. time and space driven search operations.</p>
+<h2 id="docker-container">Docker container<a class="headerlink" href="#docker-container" title="Permanent link">&para;</a></h2>
 <p>TBD</p>
-<h2 id="erc">ERC</h2>
+<h2 id="erc">ERC<a class="headerlink" href="#erc" title="Permanent link">&para;</a></h2>
 <p>Executable Research Compendium, see <a href="https://doi.org/10.1045/january2017-nuest">this article</a></p>
-<h2 id="erc-contents">ERC contents</h2>
-<p>The file created by the author of the original analysis.</p>
-<h2 id="erc-metadata">ERC metadata</h2>
+<h2 id="erc-contents">ERC contents<a class="headerlink" href="#erc-contents" title="Permanent link">&para;</a></h2>
+<p>See <a href="#workspace">workspace</a>.</p>
+<h2 id="erc-metadata">ERC metadata<a class="headerlink" href="#erc-metadata" title="Permanent link">&para;</a></h2>
 <p>Schema compliant information about the ERC, its contents and creators.</p>
-<h2 id="inner-container">Inner container</h2>
+<h2 id="examine">Examine<a class="headerlink" href="#examine" title="Permanent link">&para;</a></h2>
+<p>One of the major constituents of ERC interaction.
+It comprises <em>Check</em>, <em>Inspect</em>, <em>Manipulate</em> and <em>Substitute</em>.
+To examine an ERC means to explore its contents in depth, i.e. check the reproduced version, inspect text, code and data, manipulate interactive elements, as well as exchange input data.</p>
+<h2 id="inner-container">Inner container<a class="headerlink" href="#inner-container" title="Permanent link">&para;</a></h2>
 <p>See <a href="#runtime-container">runtime container</a></p>
-<h2 id="interaction-file">Interaction file</h2>
-<p>The file in the container that a reader opens using a suitable tool to read the text and explore the graphics.</p>
-<h2 id="oais">OAIS</h2>
-<p>The Open Archival Information System and its reference model.</p>
-<h2 id="outer-container">Outer container</h2>
-<p>...</p>
-<h2 id="reproducible-reproducibility-replication">Reproducible, Reproducibility, Replication</h2>
-<p>See <a href="https://doi.org/10.1045/january2017-nuest">section 2.1 "Definition of Reproducibility"</a>.</p>
-<h2 id="runtime-container">Runtime container</h2>
-<p>...</p>
-<h2 id="ui-bindings">UI bindings</h2>
-<p>TBD</p></div>
-        
-    </div>
-
-    <footer class="col-md-12 text-center">
-        <hr>
-        <p>
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
-    </footer>
-
-    <script src="../js/jquery-1.10.2.min.js"></script>
-    <script src="../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script>
-    var base_url = '..';
-    </script>
-    <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-    <script src="../js/base.js"></script>
-
-    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        From here you can search these documents. Enter your search terms below.
-                    </p>
-                    <form role="form">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                        </div>
-                    </form>
-                    <div id="mkdocs-search-results"></div>
-                </div>
-                <div class="modal-footer">
-                </div>
+<h2 id="inspect">Inspect<a class="headerlink" href="#inspect" title="Permanent link">&para;</a></h2>
+<p>A subconstituent of <a href="#examine"><em>Examine</em></a>.
+Inspection includes looking at all the contents of an ERC, such as code or data files, and metadata documents.
+A user conducting inspection evaluates the meaning of the ERC&rsquo;s artifacts.</p>
+<h2 id="display-file">Display file<a class="headerlink" href="#display-file" title="Permanent link">&para;</a></h2>
+<p>The file in the container that a reader software uses as the first display to a user to read text and explore graphics.
+The entry point for <a href="#examine">examination</a>. </p>
+<h2 id="manipulate">Manipulate<a class="headerlink" href="#manipulate" title="Permanent link">&para;</a></h2>
+<p>A subconstituent of <a href="#examine"><em>Examine</em></a>.
+A manipulation comprises interactive changing of selected, pre-defined parameters that influence the computation packaged in an ERC.
+For example, the number of layers in a neural network, the size/selection method of the training dataset in supervised machine learning, or the variogram model of geostatistical kriging.
+These parameters are defined via <a href="#ui-bindings">UI bindings</a>.</p>
+<h2 id="oais">OAIS<a class="headerlink" href="#oais" title="Permanent link">&para;</a></h2>
+<p>The <a href="https://en.wikipedia.org/wiki/Open_Archival_Information_System">Open Archival Information System</a> and its <a href="https://web.archive.org/web/20131020200910/http://public.ccsds.org/publications/archive/650x0m2.pdf">reference model</a>.</p>
+<h2 id="outer-container">Outer container<a class="headerlink" href="#outer-container" title="Permanent link">&para;</a></h2>
+<p>Term used to distinguish the &ldquo;outer&rdquo; <a href="#bag">Bag</a> from the embedded <a href="#runtime-container">runtime container</a>.</p>
+<h2 id="reproducible-reproducibility-replication">Reproducible, Reproducibility, Replication<a class="headerlink" href="#reproducible-reproducibility-replication" title="Permanent link">&para;</a></h2>
+<p>See <a href="https://doi.org/10.1045/january2017-nuest">section 2.1 &ldquo;Definition of Reproducibility&rdquo;</a>.</p>
+<h2 id="runtime-container">Runtime container<a class="headerlink" href="#runtime-container" title="Permanent link">&para;</a></h2>
+<p>TBD</p>
+<h2 id="substitute">Substitute<a class="headerlink" href="#substitute" title="Permanent link">&para;</a></h2>
+<p>A subconstituent of <a href="#examine"><em>Examine</em></a>.
+During a substitution, compatible parts of an ERC are exchanged, e.g. similar data sets for a given analysis, or exchanging an analysis script.
+A substution process usually creates a new ERC based on two input ERCs: the <em>base ERC</em> and the <em>overlay ERC</em>.
+One or several data or code files from the <em>overlay ERC</em> replace corresponding files in the <em>base ERC</em>, to create a new ERC.</p>
+<h2 id="ui-bindings">UI bindings<a class="headerlink" href="#ui-bindings" title="Permanent link">&para;</a></h2>
+<p>TBD</p>
+<h2 id="workspace">Workspace<a class="headerlink" href="#workspace" title="Permanent link">&para;</a></h2>
+<p>The files created by the author of the original analysis, packages together with ERC metadata in the <a href="#outer-container">outer container</a>.</p>
+              
             </div>
-        </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../support/" class="btn btn-neutral float-right" title="Support">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../dev-guide/" class="btn btn-neutral" title="Developer guide"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
     </div>
+  
 
-    </body>
+  <hr/>
 
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Licensed under Creative Commons CC0 1.0 Universal License.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/o2r-project/erc-spec/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../dev-guide/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../support/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
 </html>

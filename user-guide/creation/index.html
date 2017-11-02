@@ -1,275 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <meta name="author" content="Daniel Nüst, Matthias Schutzeichel, Markus Konkol">  
-    <link rel="shortcut icon" href="../../img/favicon.ico">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Daniel Nüst, Marc Schutzeichel, Markus Konkol">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Creation guide for authors - Executable Reserach Compendium (ERC) Specification</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-    <title>ERC creation guide - ERC spec</title>
-
-    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
-    <link href='//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href="../../css/base.css" rel="stylesheet">
-    <link href="../../css/cinder.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../css/highlight.css">
-
-
-    <link href="../../erc.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
-
-    
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+  <link href="../../erc.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Creation guide for authors";
+    var mkdocs_page_input_path = "user-guide/creation.md";
+    var mkdocs_page_url = "/user-guide/creation/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js"></script>
+  <script src="../../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script> 
+  
 </head>
 
-<body>
+<body class="wy-body-for-nav" role="document">
 
-    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
+  <div class="wy-grid-for-nav">
 
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            
-
-            <!-- Main title -->
-            <a class="navbar-brand" href="../..">ERC spec</a>
-        </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-            
-                <!-- Main navigation -->
-                <ul class="nav navbar-nav">
-                
-                
-                    <li >
-                        <a href="../..">Home</a>
-                    </li>
-                
-                
-                
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ERC <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li >
-    <a href="../../spec/">Specification</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../../spec/docker/">Docker Runtime Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../../spec/archival/">Archival Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../../spec/valid/">Validation Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../../spec/r/">R Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../../spec/man/">Manipulation Extension</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../../spec/plain_r/">Plain R Runtime Extension</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User guide <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-<li class="active">
-    <a href="./">ERC creation guide</a>
-</li>
-
-                        
-                            
-<li >
-    <a href="../template/">ERC template</a>
-</li>
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../../dev-guide/">Developer guide</a>
-                    </li>
-                
-                
-                
-                    <li >
-                        <a href="../../glossary/">Glossary</a>
-                    </li>
-                
-                
-                </ul>
-            
-
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                
-                    <li >
-                        <a rel="next" href="../../spec/plain_r/">
-                            <i class="fa fa-arrow-left"></i> Previous
-                        </a>
-                    </li>
-                    <li >
-                        <a rel="prev" href="../template/">
-                            Next <i class="fa fa-arrow-right"></i>
-                        </a>
-                    </li>
-                
-                
-                    <li>
-                        <a href="https://github.com/o2r-project/erc-spec">
-                            
-                                <i class="fa fa-github"></i>
-                            
-                            GitHub
-                        </a>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Executable Reserach Compendium (ERC) Specification</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
 </div>
+      </div>
 
-    <div class="container">
-        
-        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../spec/">ERC specification</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">User guides</span>
+    <ul class="subnav">
+                <li class=" current">
+                    
+    <a class="current" href="./">Creation guide for authors</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#user-guide-erc-creation">User guide: ERC creation</a></li>
     
-        <li class="first-level active"><a href="#user-guide-erc-creation">User guide: ERC creation</a></li>
+        <ul>
         
-            <li class="second-level"><a href="#step-1-create-workspace">Step 1: create workspace</a></li>
-            
-                <li class="third-level"><a href="#code-and-versioning">Code and versioning</a></li>
-            
-                <li class="third-level"><a href="#workspace-structure">Workspace structure</a></li>
-            
+            <li><a class="toctree-l4" href="#step-1-create-workspace">Step 1: create workspace</a></li>
         
-            <li class="second-level"><a href="#step-2-create-image-container-for-runtime">Step 2: create image container for runtime</a></li>
-            
+            <li><a class="toctree-l4" href="#step-2-create-image-container-for-runtime">Step 2: create image container for runtime</a></li>
         
-            <li class="second-level"><a href="#step-3-create-metadata">Step 3: create metadata</a></li>
-            
-                <li class="third-level"><a href="#erc-metadata">ERC metadata</a></li>
-            
-                <li class="third-level"><a href="#license-metadata">License metadata</a></li>
-            
-                <li class="third-level"><a href="#content-metadata">Content metadata</a></li>
-            
-                <li class="third-level"><a href="#secondary-metadata">Secondary metadata</a></li>
-            
+            <li><a class="toctree-l4" href="#step-3-create-metadata">Step 3: create metadata</a></li>
         
-            <li class="second-level"><a href="#step-4-validate">Step 4: validate</a></li>
-            
+            <li><a class="toctree-l4" href="#step-4-validate">Step 4: validate</a></li>
         
-            <li class="second-level"><a href="#step-5-create-bag">Step 5: create bag</a></li>
-            
-                <li class="third-level"><a href="#third-party-tools-for-creating-bagit-bags">Third party tools for creating BagIt bags</a></li>
-            
-                <li class="third-level"><a href="#creating-the-bag">Creating the bag</a></li>
-            
-                <li class="third-level"><a href="#validating-the-bag">Validating the bag</a></li>
-            
+            <li><a class="toctree-l4" href="#step-5-create-bag">Step 5: create bag</a></li>
         
+        </ul>
     
+
     </ul>
-</div></div>
-        <div class="col-md-9" role="main">
+                </li>
+                <li class="">
+                    
+    <a class="" href="../examination/">Examination guide for authors</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../template/">ERC template for authors</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../minimal/">Minimal ERC examples</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../oais/">ERC & OAIS</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../erc_journal_supplement/">ERC as supplement</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../dev-guide/">Developer guide</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../glossary/">Glossary</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../support/">Support</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
 
-<h1 id="user-guide-erc-creation">User guide: ERC creation</h1>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Executable Reserach Compendium (ERC) Specification</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>User guides &raquo;</li>
+        
+      
+    
+    <li>Creation guide for authors</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/o2r-project/erc-spec/tree/master/docs/user-guide/creation.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="user-guide-erc-creation">User guide: ERC creation<a class="headerlink" href="#user-guide-erc-creation" title="Permanent link">&para;</a></h1>
 <p>This user guide comprises instructions how to create an ERC <em>by hand</em>.
 It is thus limited to mandatory elements in some places.
-However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document.
+However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document. It is supposed to ease the understanding of the ERC especially for the authors of scientific publications.
 For using tools or services for creation and validation of ERCs, please see the <a href="../../dev-guide/">developer guide</a>.</p>
-<div class="alert note" markdown="block">
-This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.</p>
 </div>
-
-<h2 id="step-1-create-workspace">Step 1: create workspace</h2>
+<h2 id="step-1-create-workspace">Step 1: create workspace<a class="headerlink" href="#step-1-create-workspace" title="Permanent link">&para;</a></h2>
 <p><em>Do your research and create something useful that works for you.</em>
 The ERC specification makes no restrictions on the contents of a workspace, but guidelines and best practices do exist and should be followed by users during their research i.e. even before packaging it in an ERC.</p>
-<h3 id="code-and-versioning">Code and versioning</h3>
+<h3 id="code-and-versioning">Code and versioning<a class="headerlink" href="#code-and-versioning" title="Permanent link">&para;</a></h3>
 <p>If the base directory contains a script file or source code used to conduct the packaged analysis, we recommend this code is managed using <a href="https://en.wikipedia.org/wiki/Distributed_version_control">distributed version control</a>, see <a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#keeping-track-of-changes">software carpentry guidelines</a>.
 The base directory should contain a copy of the complete repository in that case.</p>
-<h3 id="workspace-structure">Workspace structure</h3>
+<h3 id="workspace-structure">Workspace structure<a class="headerlink" href="#workspace-structure" title="Permanent link">&para;</a></h3>
 <p>The base directory contents should follow common guidelines to project organisation.
 Some useful resources are</p>
 <ul>
-<li><a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#project-organization">Software carpentry paper "Good enough practices in Scientific Computing"</a></li>
+<li><a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#project-organization">Software carpentry paper &ldquo;Good enough practices in Scientific Computing&rdquo;</a></li>
 <li><a href="https://github.com/ropensci/rrrpkg">ROpenSci research compendium</a>).</li>
 <li><a href="https://ropensci.github.io/reproducibility-guide/sections/introduction">ROpenSci reproducibility guide</a></li>
 </ul>
-<h2 id="step-2-create-image-container-for-runtime">Step 2: create image container for runtime</h2>
+<h2 id="step-2-create-image-container-for-runtime">Step 2: create image container for runtime<a class="headerlink" href="#step-2-create-image-container-for-runtime" title="Permanent link">&para;</a></h2>
 <p>To create a working ERC you must include a complete environment description and an executable image.</p>
 <p>We recommend using Docker, so a Dockerfile and a Docker image tarball archive file, to achieve these goals.</p>
-<p>See the <a href="../../spec/docker/">Docker extension</a> for detailed requirements, including links to the relevant Docker commands.</p>
-<h2 id="step-3-create-metadata">Step 3: create metadata</h2>
-<h3 id="erc-metadata">ERC metadata</h3>
+<p>See the <a href="../../spec/#nested-runtime">runtime section</a> for detailed requirements, including links to the relevant Docker commands.</p>
+<h2 id="step-3-create-metadata">Step 3: create metadata<a class="headerlink" href="#step-3-create-metadata" title="Permanent link">&para;</a></h2>
+<h3 id="erc-metadata">ERC metadata<a class="headerlink" href="#erc-metadata" title="Permanent link">&para;</a></h3>
 <p>Structural &amp; administrative metadata must be put into the ERC configuration file <code>erc.yml</code> as defined in the <a href="../../spec/#erc-configuration-file">specification</a>.</p>
 <p>When creating the erc manually, you can receive a uuid4 as <code>id</code> for the erc configuration file using an online service, e.g. <a href="https://www.uuidgenerator.net/version4">uuidgenerator</a> or one of the numerous implementations for the common programming languages.</p>
-<h3 id="license-metadata">License metadata</h3>
+<h3 id="license-metadata">License metadata<a class="headerlink" href="#license-metadata" title="Permanent link">&para;</a></h3>
 <p>Please consult your employer or legal department for a suitable license for your work. Make sure you hold the copyright for any code that you want to release under a self-chosen license.</p>
 <p>Further resources that are linked here without any endorsement or being checked:</p>
 <ul>
@@ -278,37 +202,35 @@ Some useful resources are</p>
 <li><a href="https://speakerdeck.com/labarba/a-short-lecture-on-open-licensing">A short lecture on Open Licensing by Lorena A. Barba</a></li>
 </ul>
 <p>License information must be put into the ERC configuration file <code>erc.yml</code> as defined in the <a href="../../spec/#erc-configuration-file">specification</a>.</p>
-<h3 id="content-metadata">Content metadata</h3>
-<p>Content metadata are used for making your work findable. Properties for the content metadata are defined in the <a href="../../spec/#Content-metadata">specification</a> and must be put into the <code>metadata.json</code> file.</p>
-<!-- `erc_metadata.json` == `web-api/<compendium>.metadata.o2r`, or `bagit.txt`? -->
-
-<h3 id="secondary-metadata">Secondary metadata</h3>
+<h3 id="content-metadata">Content metadata<a class="headerlink" href="#content-metadata" title="Permanent link">&para;</a></h3>
+<p>Content metadata are used for making your work findable. Properties for the content metadata are defined in the <a href="../../spec/#content-metadata">specification</a> and must be put into the <code>metadata.json</code> file.</p>
+<h3 id="secondary-metadata">Secondary metadata<a class="headerlink" href="#secondary-metadata" title="Permanent link">&para;</a></h3>
 <p><em>As of now, we do not recommend creating secondary metadata by hand.</em></p>
 <p>Secondary metadata are used for third party services, e.g. repositories that define their own obligatory metadata.
 In general they can be added in different formats to support different use cases.</p>
-<p>More information on secondary metadata can be found in the <a href="../../spec/archival/#Secondary-metadata-files">archival extention</a>.</p>
-<h2 id="step-4-validate">Step 4: validate</h2>
-<p>You can use the container created in step 2 for validation purposes, too. Run the analysis in the container, then copy the analysis output to a temporary directory on the host system, and finally compare the original workspace and the temporary directory according the <a href="../../spec/#validation">validation rules</a> to ensure a complete replication.</p>
-<!-- _To simplify the validation process, an ERC validation tool and accompanying [validation extension](../spec/index.md#Validation) are under development._ -->
-
-<h2 id="step-5-create-bag">Step 5: create bag</h2>
-<p>To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags. Take a look at the <a href="../../spec/archival/">archival extension</a> for a detailed background about the purpose of BagIt and other digital preservation aspects.</p>
-<h3 id="third-party-tools-for-creating-bagit-bags">Third party tools for creating BagIt bags</h3>
+<p>More information on secondary metadata can be found in the <a href="../../spec/#preservation-of-erc">preservation section</a>.</p>
+<h2 id="step-4-validate">Step 4: validate<a class="headerlink" href="#step-4-validate" title="Permanent link">&para;</a></h2>
+<p>You can use the container created in step 2 for validation purposes, too.
+Run the analysis in the container, then copy the analysis output to a temporary directory on the host system, and finally compare the original workspace and the temporary directory according the <a href="../../spec/#validation">validation rules</a> to ensure a complete replication.</p>
+<h2 id="step-5-create-bag">Step 5: create bag<a class="headerlink" href="#step-5-create-bag" title="Permanent link">&para;</a></h2>
+<p>To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags.
+Take a look at the <a href="../../spec/#preservation-of-erc">preservation section</a> for a detailed background about the purpose of BagIt and other digital preservation aspects.</p>
+<h3 id="third-party-tools-for-creating-bagit-bags">Third party tools for creating BagIt bags<a class="headerlink" href="#third-party-tools-for-creating-bagit-bags" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://github.com/LibraryOfCongress/bagger">Bagger</a> (Java-based, with UI)</li>
+<li><a href="https://github.com/LibraryOfCongress/bagger">Bagger</a> (version 2.7, Java-based, with UI)</li>
 <li><a href="https://libraryofcongress.github.io/bagit-python/">bagit-python</a> (Python package)</li>
 </ul>
-<h3 id="creating-the-bag">Creating the bag</h3>
-<p>In this guide we will create the bag manually by using the LoC Bagger 2.7 Java-Programm, listed above.</p>
+<h3 id="creating-the-bag">Creating the bag<a class="headerlink" href="#creating-the-bag" title="Permanent link">&para;</a></h3>
+<p>In this guide we will create the bag manually by using the Library of Congress&rsquo;s (LoC) tool <em>Bagger</em>, listed above.</p>
 <ol>
-<li>Start by selecting "Create new bag" from the main menu and proceed with "<no profile>".</li>
-<li>Add your files with the "+" Button.</li>
-<li>Uncheck the "Standard" feature in the Bag-Info-Editor on the right and add <code>ERC-Version</code> with the appropriate version you want to use, e.g. <code>1</code>. Optionally fill out additional Bag-Info metadata, e.g. <em>contact information</em>.</li>
+<li>Start by selecting &ldquo;Create new bag&rdquo; from the main menu and proceed with &ldquo;&lt;no profile&gt;&ldquo;.</li>
+<li>Add your files with the &ldquo;+&rdquo; Button.</li>
+<li>Uncheck the &ldquo;Standard&rdquo; feature in the Bag-Info-Editor on the right and add <code>ERC-Version</code> with the appropriate version you want to use, e.g. <code>1</code>. Optionally fill out additional Bag-Info metadata, e.g. <em>contact information</em>.</li>
 <li>Save your bag using the main menu.</li>
 </ol>
-<h3 id="validating-the-bag">Validating the bag</h3>
+<h3 id="validating-the-bag">Validating the bag<a class="headerlink" href="#validating-the-bag" title="Permanent link">&para;</a></h3>
 <p>A file tree for the final bagged ERC may look like this:</p>
-<pre><code class="txt">├── bag-info.txt
+<pre class="codehilite"><code class="language-txt">├── bag-info.txt
 ├── bagit.txt
 ├── data
 │   ├── 2016-07-17-myPaper.Rmd
@@ -317,57 +239,61 @@ In general they can be added in different formats to support different use cases
 │   ├── Dockerfile
 │   └── image.tar
 ├── manifest-md5.txt
-└── tagmanifest-md5.txt
-</code></pre>
+└── tagmanifest-md5.txt</code></pre>
 
-<p>You can validate your bag with LoC Bagger by loading the bag and then clicking on "Validate Bag" in the main menu.
-The programm will check for completeness of bagit-related files and verify the integrity of the data files by computing their checksums (hashes) and report any potential issues.</p></div>
-        
-    </div>
-
-    <footer class="col-md-12 text-center">
-        <hr>
-        <p>
-        <small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
-    </footer>
-
-    <script src="../../js/jquery-1.10.2.min.js"></script>
-    <script src="../../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../../js/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script>
-    var base_url = '../..';
-    </script>
-    <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
-    <script src="../../js/base.js"></script>
-
-    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                </div>
-                <div class="modal-body">
-                    <p>
-                        From here you can search these documents. Enter your search terms below.
-                    </p>
-                    <form role="form">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                        </div>
-                    </form>
-                    <div id="mkdocs-search-results"></div>
-                </div>
-                <div class="modal-footer">
-                </div>
+<p>You can validate your bag with <em>Bagger</em> by loading the bag and then clicking on &ldquo;Validate Bag&rdquo; in the main menu.
+The programme will check for completeness of BagIt-related files and verify the integrity of the data files by computing their checksums (hashes) and report any potential issues.</p>
+              
             </div>
-        </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../examination/" class="btn btn-neutral float-right" title="Examination guide for authors">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../spec/" class="btn btn-neutral" title="ERC specification"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
     </div>
+  
 
-    </body>
+  <hr/>
 
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Licensed under Creative Commons CC0 1.0 Universal License.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/o2r-project/erc-spec/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../../spec/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../examination/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/require.js"></script>
+      <script src="../../search/search.js"></script>
+
+</body>
 </html>

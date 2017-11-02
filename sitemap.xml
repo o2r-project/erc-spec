@@ -4,68 +4,60 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2017-04-13</lastmod>
+     <lastmod>2017-11-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
-        
     <url>
      <loc>/spec/</loc>
-     <lastmod>2017-04-13</lastmod>
+     <lastmod>2017-11-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
-        
-    <url>
-     <loc>/spec/docker/</loc>
-     <lastmod>2017-04-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/spec/archival/</loc>
-     <lastmod>2017-04-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/spec/valid/</loc>
-     <lastmod>2017-04-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/spec/r/</loc>
-     <lastmod>2017-04-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/spec/man/</loc>
-     <lastmod>2017-04-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
-    <url>
-     <loc>/spec/plain_r/</loc>
-     <lastmod>2017-04-13</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-        
     
 
     
         
     <url>
      <loc>/user-guide/creation/</loc>
-     <lastmod>2017-04-13</lastmod>
+     <lastmod>2017-11-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/user-guide/examination/</loc>
+     <lastmod>2017-11-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/user-guide/template/</loc>
-     <lastmod>2017-04-13</lastmod>
+     <lastmod>2017-11-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/user-guide/minimal/</loc>
+     <lastmod>2017-11-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/user-guide/oais/</loc>
+     <lastmod>2017-11-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/user-guide/erc_journal_supplement/</loc>
+     <lastmod>2017-11-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>/dev-guide/</loc>
+     <lastmod>2017-11-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -73,16 +65,16 @@
 
     
     <url>
-     <loc>/dev-guide/</loc>
-     <lastmod>2017-04-13</lastmod>
+     <loc>/glossary/</loc>
+     <lastmod>2017-11-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
-     <loc>/glossary/</loc>
-     <lastmod>2017-04-13</lastmod>
+     <loc>/support/</loc>
+     <lastmod>2017-11-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
     

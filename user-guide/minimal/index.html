@@ -8,7 +8,7 @@
   
   <meta name="author" content="Daniel Nüst, Marc Schutzeichel, Markus Konkol">
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>ERC template for authors - Executable Reserach Compendium (ERC) Specification</title>
+  <title>Minimal ERC examples - Executable Reserach Compendium (ERC) Specification</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "ERC template for authors";
-    var mkdocs_page_input_path = "user-guide/template.md";
-    var mkdocs_page_url = "/user-guide/template/";
+    var mkdocs_page_name = "Minimal ERC examples";
+    var mkdocs_page_input_path = "user-guide/minimal.md";
+    var mkdocs_page_url = "/user-guide/minimal/";
   </script>
   
   <script src="../../js/jquery-2.1.1.min.js"></script>
@@ -70,25 +70,27 @@
                     
     <a class="" href="../examination/">Examination guide for authors</a>
                 </li>
+                <li class="">
+                    
+    <a class="" href="../template/">ERC template for authors</a>
+                </li>
                 <li class=" current">
                     
-    <a class="current" href="./">ERC template for authors</a>
+    <a class="current" href="./">Minimal ERC examples</a>
     <ul class="subnav">
             
-    <li class="toctree-l3"><a href="#user-guide-erc-template-work-in-progress">User guide: ERC template - WORK IN PROGRESS</a></li>
+    <li class="toctree-l3"><a href="#minimal-examples-for-ercs">Minimal examples for ERCs</a></li>
     
         <ul>
         
-            <li><a class="toctree-l4" href="#geoscience-research-in-r">Geoscience research in R</a></li>
+            <li><a class="toctree-l4" href="#r-script-with-png-plot">R script with png plot</a></li>
+        
+            <li><a class="toctree-l4" href="#r-markdown-with-html-output">R Markdown with HTML output</a></li>
         
         </ul>
     
 
     </ul>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../minimal/">Minimal ERC examples</a>
                 </li>
                 <li class="">
                     
@@ -141,10 +143,10 @@
         
       
     
-    <li>ERC template for authors</li>
+    <li>Minimal ERC examples</li>
     <li class="wy-breadcrumbs-aside">
       
-        <a href="https://github.com/o2r-project/erc-spec/tree/master/docs/user-guide/template.md"
+        <a href="https://github.com/o2r-project/erc-spec/tree/master/docs/user-guide/minimal.md"
           class="icon icon-github"> Edit on GitHub</a>
       
     </li>
@@ -154,37 +156,62 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="user-guide-erc-template-work-in-progress">User guide: ERC template - WORK IN PROGRESS<a class="headerlink" href="#user-guide-erc-template-work-in-progress" title="Permanent link">&para;</a></h1>
-<p>If you want to create an ERC for your research already at the beginning, and not &ldquo;post-hoc&rdquo; after your research is complete, these templates can hopefully help.
-They are divided into specific domains to be more concrete.</p>
-<h2 id="geoscience-research-in-r">Geoscience research in R<a class="headerlink" href="#geoscience-research-in-r" title="Permanent link">&para;</a></h2>
-<p><strong>Files in this template</strong></p>
-<ul>
-<li><code>document.md</code> use RMarkdown, this is the main document</li>
-<li><code>erc.yml</code> is template for the ERC configuration file with placeholders for all required fields</li>
-<li><code>Dockerfile</code> is a template Dockerfile with some commands you can re-use to make sure all packages and tools that you need are installed</li>
-</ul>
-<h3 id="header-template">Header template<a class="headerlink" href="#header-template" title="Permanent link">&para;</a></h3>
-<p>The yaml header of the <code>document.md</code> file is the right place to enter your meta information right away from the start: Fill out the metadata fields, included in the template, as early in your personal workflow as possible and keep them up-to-date to prepare for the ERC creation progress. The metadata extractor of the o2r service will collect and prefer information from RMarkdown document headers.</p>
-<pre class="codehilite"><code class="language-yml">---
-author:
-  - name: Your Name
-    affiliation: Your affiliation
-    orcid: Your ORCid
-  - name: Your co-author's name
-    affiliation: Their affiliation
-    orcid: Their ORCid
-title: The title of your publication
-abstract:
-  A concise description of your publication
-keywords: [lorem, ipsum, dolor, sit, amet]
-date: 2017-01-13
-license: cc-by
----</code></pre>
+                <h1 id="minimal-examples-for-ercs">Minimal examples for ERCs<a class="headerlink" href="#minimal-examples-for-ercs" title="Permanent link">&para;</a></h1>
+<ol>
+<li><a href="#r-script-with-png-plot">R script with png plot</a></li>
+<li><a href="#r-markdown-with-html-output">R Markdown with HTML output</a></li>
+</ol>
+<h2 id="r-script-with-png-plot">R script with png plot<a class="headerlink" href="#r-script-with-png-plot" title="Permanent link">&para;</a></h2>
+<h3 id="main-file-mainr">Main file <code>main.R</code><a class="headerlink" href="#main-file-mainr" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-R"># http://www.budgetshippingcontainers.co.uk/info/how-many-shipping-containers-are-there-in-the-world/
+containers &lt;- c(23000000,14000000,6000000)
+set.seed(42)
+barplot(containers, names.arg = c(&quot;in service&quot;, &quot;ex-service&quot;, &quot;new&quot;),
+    col = sample(colors(), 3),
+    main = paste0(
+        format(sum(containers), scientific = FALSE),
+        &quot; containers in the world&quot;)
+    )</code></pre>
 
-<p><strong>Filename</strong> | <strong>Template</strong> | <strong>ERC-Spec</strong> 
------- | ------ | ------ |
-<a href="https://github.com/o2r-project/erc-spec/blob/master/templates/geo/geo_template.zip">geo_template.zip</a> | Geoscience research in R | V.1</p>
+<h3 id="display-file-displaypng">Display file <code>display.png</code><a class="headerlink" href="#display-file-displaypng" title="Permanent link">&para;</a></h3>
+<p><img alt="Minimal ERC example display.png" src="../../img/minimal/display.png" /></p>
+<h3 id="erc-configuration-file">ERC configuration file<a class="headerlink" href="#erc-configuration-file" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-yml">---
+id: &quot;289a9jcl9o&quot;
+spec_version: &quot;1&quot;
+main: main.R
+display: display.png</code></pre>
+
+<h2 id="r-markdown-with-html-output">R Markdown with HTML output<a class="headerlink" href="#r-markdown-with-html-output" title="Permanent link">&para;</a></h2>
+<h3 id="main-file-mainrmd">Main file <code>main.Rmd</code><a class="headerlink" href="#main-file-mainrmd" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-markdown">---
+title: &quot;Capacity of container ships in seaborne trade from 1980 to 2016 (in million dwt)*&quot;
+author: &quot;Daniel Nüst&quot;
+date: &quot;2017&quot;
+output: html_document
+---
+
+```{r plot, echo=FALSE}
+data &lt;- c(&quot;1980&quot; = 11, &quot;1985&quot; = 20, &quot;1990&quot; = 26, &quot;1995&quot; = 44,
+          &quot;2000&quot; = 64, &quot;2005&quot; = 98, &quot;2010&quot; = 169, &quot;2014&quot; = 216,
+          &quot;2015&quot; = 228, &quot;2016&quot; = 244)
+barplot(data, ylab = &quot;Capacity&quot;, sub = &quot;© Statista 2017&quot;)
+```
+
+&gt; This statistic portrays the capacity of the world container ship fleet from 1980 through 2016. In 2016, the world merchant container ship fleet had a capacity of around 244 million metric tons deadweight. As of January 2016, there were 5,239 container ships in the world's merchant fleet ([source](https://www.statista.com/statistics/264024/number-of-merchant-ships-worldwide-by-type/)).
+
+Sources: UNCTAD; Clarkson Research Services, via [statista](https://www.statista.com/statistics/267603/capacity-of-container-ships-in-the-global-seaborne-trade/).</code></pre>
+
+<h3 id="display-file-displayhtml">Display file <code>display.html</code><a class="headerlink" href="#display-file-displayhtml" title="Permanent link">&para;</a></h3>
+<iframe src="/img/minimal/seaborne-trade.html" width="100%" height="500" style="border: 2px solid grey;"></iframe>
+
+<p><strong><a href="../../img/minimal/seaborne-trade.html">HTML</a></strong></p>
+<h3 id="erc-configuration-file_1">ERC configuration file<a class="headerlink" href="#erc-configuration-file_1" title="Permanent link">&para;</a></h3>
+<pre class="codehilite"><code class="language-yml">---
+id: &quot;v97cplst6b&quot;
+spec_version: &quot;1&quot;
+main: main.Rmd
+display: display.html</code></pre>
               
             </div>
           </div>
@@ -192,10 +219,10 @@ license: cc-by
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../minimal/" class="btn btn-neutral float-right" title="Minimal ERC examples">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../oais/" class="btn btn-neutral float-right" title="ERC & OAIS">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../examination/" class="btn btn-neutral" title="Examination guide for authors"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../template/" class="btn btn-neutral" title="ERC template for authors"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -225,10 +252,10 @@ license: cc-by
           <a href="https://github.com/o2r-project/erc-spec/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../examination/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../template/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../minimal/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../oais/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
