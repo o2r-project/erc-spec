@@ -12,12 +12,11 @@ build_verbose:
 
 # pip install pandoc-latex-admonition (https://github.com/chdemko/pandoc-latex-admonition)
 # https://github.com/chdemko/pandoc-latex-admonition/issues/1
-# sudo apt-get install xvfb libfontconfig wkhtmltopdf
 CURRENT_VERSION := $(shell grep -Po '(Specification version: \`)\K([0-9]|\.)*' docs/spec/index.md)
 pdf:
 	mkdocs2pandoc --outfile erc.pd
 	# handle admonitions:
-	sed -i 's:/img/:./docs/img/:g' erc.pd
+	sed -i 's:/img/:docs/img/:g' erc.pd
 	sed -i 's/!!! warning/**Warning:**\n /g' erc.pd
 	sed -i 's/!!! note/**Note:**\n /g' erc.pd
 	sed -i 's/!!! tip "Example"/**Example:**\n /g' erc.pd
@@ -27,7 +26,7 @@ pdf:
 	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks -o erc-spec-v${CURRENT_VERSION}.pdf erc.pd --latex-engine=xelatex --filter pandoc-latex-admonition
 	# via HTML with a CSS file (pre, code { white-space: pre-wrap !important; }): works to have line breaks in code blocks
 	#pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks -t html5 --css pdf.css -o erc-spec-v${CURRENT_VERSION}.pdf erc.pd --latex-engine=xelatex --filter pandoc-latex-admonition --verbose
-	#rm erc.pd
+	rm erc.pd
 
 pdf_travis:
 	make pdf
