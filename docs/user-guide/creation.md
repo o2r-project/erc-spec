@@ -2,11 +2,14 @@
 
 This user guide comprises instructions how to create an ERC _by hand_.
 It is thus limited to mandatory elements in some places.
-However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document. It is supposed to ease the understanding of the ERC especially for the authors of scientific publications.
+However, a fundamental goal of the ERC specification is to be simple enough to allow manual ERC creation as demonstrated in this document.
+It is supposed to ease the understanding of the ERC especially for the authors of scientific publications.
 For using tools or services for creation and validation of ERCs, please see the [developer guide](../dev-guide/index.md).
 
 !!! note
-    This is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
+    This is a draft.
+    If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>.
+    If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
 
 ## Step 1: create workspace
 
@@ -57,7 +60,8 @@ License information must be put into the ERC configuration file `erc.yml` as def
 
 ### Content metadata
 
-Content metadata are used for making your work findable. Properties for the content metadata are defined in the [specification](../spec/index.md#content-metadata) and must be put into the `metadata.json` file.
+Content metadata are used for making your work findable.
+Properties for the content metadata are defined in the [specification](../spec/index.md#content-metadata) and must be put into the `metadata.json` file.
 
 ### Secondary metadata
 
