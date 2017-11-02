@@ -7,7 +7,7 @@ addons:
     packages:
       - fonts-lmodern
       - lmodern pandoc
-      - texlive-base
+      - texlive-full
       - texlive-latex-extra
       - texlive-fonts-recommended
       - texlive-latex-recommended
