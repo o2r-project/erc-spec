@@ -1,4 +1,5 @@
 language: R # https://github.com/jgm/pandoc/wiki/Using-pandoc-in-Travis-CI
+sudo: false
 #python:
 #  - "3.5"
 script: true
@@ -17,7 +18,7 @@ script: true
 #before_install:
 #  - tlmgr install xcolor # https://github.com/travis-ci/travis-ci/issues/7863
 install:
-  - pip install pyopenssl ndg-httpsclient pyasn1 # https://stackoverflow.com/a/29202163
+  #- pip install pyopenssl ndg-httpsclient pyasn1 # https://stackoverflow.com/a/29202163
   - pip install mkdocs --user
   - pip install pymdown-extensions
   - pip install mkdocs-pandoc
