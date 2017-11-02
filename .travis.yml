@@ -20,9 +20,9 @@ script: true
 install:
   #- pip install pyopenssl ndg-httpsclient pyasn1 # https://stackoverflow.com/a/29202163
   - pip install mkdocs --user
-  - pip install pymdown-extensions
-  - pip install mkdocs-pandoc
-  - pip install pandoc-latex-admonition
+  - pip install pymdown-extensions --user
+  - pip install mkdocs-pandoc --user
+  - pip install pandoc-latex-admonition --user
 after_success:
   - make pdf_travis
   - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.deploy.sh ; fi
