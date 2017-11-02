@@ -3,8 +3,12 @@ python:
   - "3.5"
 script: true
 install:
-  - "pip install mkdocs"
-  - "pip install pymdown-extensions"
+  - apt-get install fonts-lmodern lmodern pandoc texlive-base texlive-latex-extra texlive-fonts-recommended texlive-latex-recommended texlive-xetex
+  - pip install mkdocs
+  - pip install pymdown-extensions
+  - pip install mkdocs-pandoc
+  # https://github.com/jgm/pandoc/wiki/Using-pandoc-in-Travis-CI
+  - pip install pandoc-latex-admonition
 after_success:
   - make pdf_travis
   - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.deploy.sh ; fi
