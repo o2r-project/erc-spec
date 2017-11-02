@@ -163,10 +163,12 @@
 </ol>
 <h2 id="r-script-with-png-plot">R script with png plot<a class="headerlink" href="#r-script-with-png-plot" title="Permanent link">&para;</a></h2>
 <h3 id="main-file-mainr">Main file <code>main.R</code><a class="headerlink" href="#main-file-mainr" title="Permanent link">&para;</a></h3>
-<pre class="codehilite"><code class="language-R"># http://www.budgetshippingcontainers.co.uk/info/how-many-shipping-containers-are-there-in-the-world/
+<pre class="codehilite"><code class="language-R"># http://www.budgetshippingcontainers.co.uk/info/
+# how-many-shipping-containers-are-there-in-the-world/
 containers &lt;- c(23000000,14000000,6000000)
 set.seed(42)
-barplot(containers, names.arg = c(&quot;in service&quot;, &quot;ex-service&quot;, &quot;new&quot;),
+barplot(containers,
+    names.arg = c(&quot;in service&quot;, &quot;ex-service&quot;, &quot;new&quot;),
     col = sample(colors(), 3),
     main = paste0(
         format(sum(containers), scientific = FALSE),
