@@ -16,7 +16,7 @@ script: true
 #      - texlive-latex-recommended
 #      - texlive-xetex
 before_install:
-  - tlmgr install xcolor mdframed # https://github.com/travis-ci/travis-ci/issues/7863
+  - tlmgr install xcolor mdframed needspace # https://github.com/travis-ci/travis-ci/issues/7863
 install:
   #- pip install pyopenssl ndg-httpsclient pyasn1 # https://stackoverflow.com/a/29202163
   - pip install mkdocs --user
