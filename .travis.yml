@@ -17,8 +17,8 @@ script: true
 #before_install:
 #  - tlmgr install xcolor # https://github.com/travis-ci/travis-ci/issues/7863
 install:
-  - pip install requests[security]
-  - pip install mkdocs
+  - pip install requests[security] # https://stackoverflow.com/a/29202163
+  - pip install mkdocs --user
   - pip install pymdown-extensions
   - pip install mkdocs-pandoc
   - pip install pandoc-latex-admonition
