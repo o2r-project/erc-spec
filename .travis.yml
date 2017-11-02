@@ -2,8 +2,17 @@ language: python
 python:
   - "3.5"
 script: true
+addons:
+  apt:
+    packages:
+      - fonts-lmodern
+      - lmodern pandoc
+      - texlive-base
+      - texlive-latex-extra
+      - texlive-fonts-recommended
+      - texlive-latex-recommended
+      - texlive-xetex
 install:
-  - apt-get install fonts-lmodern lmodern pandoc texlive-base texlive-latex-extra texlive-fonts-recommended texlive-latex-recommended texlive-xetex
   - pip install mkdocs
   - pip install pymdown-extensions
   - pip install mkdocs-pandoc
