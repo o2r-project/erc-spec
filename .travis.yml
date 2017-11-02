@@ -12,7 +12,6 @@ addons:
       - texlive-fonts-recommended
       - texlive-latex-recommended
       - texlive-xetex
-      - tlmgr
 before_install:
   - tlmgr install xcolor # https://github.com/travis-ci/travis-ci/issues/7863
 install:
