@@ -24,7 +24,7 @@ Are your a **librarian** or **preservationist** and want to use ERCs for archiva
 
 This specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research
 
-[![Opening Reproducible Research](o2r-logo.png)](http://o2r.info)
+[![Opening Reproducible Research](./o2r-logo.png)](http://o2r.info)
 
 ## License
 

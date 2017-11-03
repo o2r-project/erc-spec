@@ -18,13 +18,13 @@ script: true
 before_install:
   - tlmgr install xcolor mdframed needspace # https://github.com/travis-ci/travis-ci/issues/7863
 install:
-  #- pip install pyopenssl ndg-httpsclient pyasn1 # https://stackoverflow.com/a/29202163
   - pip install mkdocs --user
   - pip install pymdown-extensions --user
   - pip install mkdocs-pandoc --user
   - pip install pandoc-latex-admonition --user
+  - pip install git+https://github.com/twardoch/mkdocs-combine.git --user
 after_success:
-  - make pdf_travis
+  - make pdf
   - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.deploy.sh ; fi
 env:
   global:

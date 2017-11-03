@@ -30,9 +30,3 @@ markdown_extensions:
   #- pymdownx.inlinehilite
   - pymdownx.tilde
   - pymdownx.superfences # does not work with guess_lang=True
-# for https://github.com/Fiware/tools.Md2pdf
-files_order:
-    - 'docs/pdf_cover.md'
-    - 'docs/spec/index.md'
-    - 'docs/glossary.md'
-    - 'docs/support.md'
