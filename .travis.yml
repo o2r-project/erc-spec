@@ -12,8 +12,9 @@ install:
   - pip install pandoc-latex-admonition --user
   - pip install git+https://github.com/twardoch/mkdocs-combine.git --user
 after_success:
-  - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.deploy.sh ; fi
+  - mkdir -p site
   - make pdf
+  - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.deploy.sh ; fi
 env:
   global:
     - SITE_URL: https://o2r.info/erc-spec
