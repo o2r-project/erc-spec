@@ -24,12 +24,12 @@ pdf:
 	sed -i 's/!!! tip "Example"/**Example:**\n /g' erc.pd
 	sed -i 's/!!! tip/**Example:** /g' erc.pd
 	# remove unwanted content: nothing after the first user guide, nothing before the spec title (first occurence)
-	sed -i '/User\ guide:\ ERC\ creation/Q' erc.pd
-	sed -n -i '/ERC\ specification/,$$p' erc.pd
+	#sed -i '/User\ guide:\ ERC\ creation/Q' erc.pd
+	#sed -n -i '/ERC\ specification/,$$p' erc.pd
 	# remove all leading whitespace (breaks code blocks but improves admonitions...)
 	#sed -i 's/^[ \t]*//' erc.pd
 	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks --include-before-body docs/pdf_cover.tex --include-in-header docs/pdf_header.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
-	rm erc.pd
+	#rm erc.pd
 	mv erc-spec*.pdf site/
 
 # fiware/md2pdf and pdftk
