@@ -16,6 +16,7 @@ CURRENT_VERSION := $(shell grep -Po '(Specification version: \`)\K([0-9]|\.)*' d
 pdf:
 	#mkdocs2pandoc --outfile erc.pd
 	# pip install git+https://github.com/twardoch/mkdocs-combine.git
+	@echo Running in ${CURDIR}
 	mkdocscombine --outfile erc.pd --no-titles
 	# handle admonitions:
 	sed -i 's:/img/:docs/img/:g' erc.pd
