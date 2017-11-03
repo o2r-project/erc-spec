@@ -30,6 +30,7 @@ pdf:
 	#sed -i 's/^[ \t]*//' erc.pd
 	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks --include-before-body docs/pdf_cover.tex --include-in-header docs/pdf_header.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
 	#rm erc.pd
+	mv erc.pd site/erc.pd
 	mv erc-spec*.pdf site/
 
 # fiware/md2pdf and pdftk
