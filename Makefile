@@ -28,7 +28,7 @@ pdf:
 	sed -n -i '/ERC\ specification/,$$p' erc.pd
 	# remove all leading whitespace (breaks code blocks but improves admonitions...)
 	#sed -i 's/^[ \t]*//' erc.pd
-	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
+	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks --include-before-body docs/pdf_cover.tex --include-in-header docs/pdf_header.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
 	rm erc.pd
 	mv erc-spec*.pdf site/
 
