@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -o errexit -o nounset
 
-# Get curent commit revision
-rev=$(git rev-parse --short HEAD)
-
 # Initialize gh-pages checkout
 mkdir -p site
 (
@@ -25,12 +22,3 @@ CURRENT_DATE=$(git show -s --format=%ci $CURRENT_VERSION)
 echo $CURRENT_VERSION "@" $CURRENT_DATE
 sed -i "s/@@VERSION@@/$CURRENT_VERSION/g" site/index.html
 sed -i "s/@@TIMESTAMP@@/$CURRENT_DATE/g" site/index.html
-
-# Commit and push the documentation to gh-pages
-(
-  cd site
-  touch .
-  git add -A .
-  git commit -m "Rebuild pages at ${rev}"
-  git push -q upstream HEAD:gh-pages
-)
