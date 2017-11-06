@@ -1,10 +1,12 @@
 language: R # https://github.com/jgm/pandoc/wiki/Using-pandoc-in-Travis-CI
 sudo: false
-#python:
-#  - "3.5"
+python:
+  - "3.5"
 script: true
 before_install:
   - tlmgr install xcolor mdframed needspace # https://github.com/travis-ci/travis-ci/issues/7863
+#  - alias pip=pip3
+#  - alias python=python3
 install:
   - pip install mkdocs --user
   - pip install pymdown-extensions --user
