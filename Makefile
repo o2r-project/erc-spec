@@ -19,8 +19,8 @@ prepare_pd:
 	# fix image paths
 	sed -i 's:/img/:docs/img/:g' erc.pd
 	# remove unwanted content: nothing after the first user guide, nothing before the spec title (first occurence)
-	sed -i '/User\ guide:\ ERC\ creation/Q' erc.pd
-	sed -n -i '/ERC\ specification/,$$p' erc.pd
+	#sed -i '/User\ guide:\ ERC\ creation/Q' erc.pd
+	#sed -n -i '/ERC\ specification/,$$p' erc.pd
 	# add config for admonitions:
 	cat docs/admonition_config.yml erc.pd > erc.tmp
 	mv erc.tmp erc.pd
@@ -30,6 +30,7 @@ pdf: prepare_pd
 
 travis_pdf: prepare_pd
 	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks --include-before-body docs/pdf_cover.tex --include-in-header docs/pdf_header.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
+	mv erc.pd site/
 	mv erc-spec*.pdf site/
 
 # fiware/md2pdf and pdftk
