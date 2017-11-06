@@ -10,7 +10,7 @@ install:
   - pip install pymdown-extensions --user
   - pip install mkdocs-pandoc --user
   - pip install pandoc-latex-admonition --user
-  - pip install git+https://github.com/twardoch/mkdocs-combine.git --user
+  - pip install git+https://github.com/o2r-project/mkdocs-combine.git --user
 after_success:
   - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.site_build.sh ; fi
   - make pdf
