@@ -2,6 +2,7 @@ language: R # https://github.com/jgm/pandoc/wiki/Using-pandoc-in-Travis-CI
 sudo: false
 script: true
 before_install:
+  - shopt -s expand_aliases
   - tlmgr install xcolor mdframed needspace # https://github.com/travis-ci/travis-ci/issues/7863
   - alias pip=pip3
   - alias python=python3
