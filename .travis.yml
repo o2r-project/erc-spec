@@ -6,8 +6,6 @@ before_install:
   - pyenv versions
   - pyenv global 3.5.3
   - tlmgr install xcolor mdframed needspace # https://github.com/travis-ci/travis-ci/issues/7863
-  #- alias pip=pip3.5
-  #- alias python=python3.5
   - pip install --upgrade pip
 install:
   - pip install mkdocs --user
