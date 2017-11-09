@@ -33,12 +33,12 @@ update_build_version:
 	sed -i 's/___VCS_REF___/${VCS_REF}/g' docs/pdf_cover.tex
 
 pdf: prepare_pd update_build_version
-	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
+	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
 	rm erc.pd
 
 travis_pdf: prepare_pd update_build_version
 	cp erc.pd site/
-	pandoc --toc -f markdown+grid_tables+table_captions -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition --verbose erc.pd
+	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition --verbose erc.pd
 	mv erc-spec*.pdf site/
 	rm erc.pd
 
