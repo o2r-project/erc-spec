@@ -1,13 +1,24 @@
-language: python
-python:
-  - "3.5"
+language: R # https://github.com/jgm/pandoc/wiki/Using-pandoc-in-Travis-CI
+sudo: false
 script: true
+before_install:
+  - shopt -s expand_aliases
+  - pyenv versions
+  - pyenv global 3.5.3
+  - tlmgr install xcolor mdframed needspace # https://github.com/travis-ci/travis-ci/issues/7863
+  #- alias pip=pip3.5
+  #- alias python=python3.5
+  - pip install --upgrade pip
 install:
-  - "pip install mkdocs"
-  - "pip install pymdown-extensions"
+  - pip install mkdocs --user
+  - pip install pymdown-extensions --user
+  - pip install mkdocs-pandoc --user
+  - pip install pandoc-latex-admonition --user
+  - pip install git+https://github.com/o2r-project/mkdocs-combine.git --user
 after_success:
-  - make pdf_travis
-  - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.deploy.sh ; fi
+  - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.site_build.sh ; fi
+  - make travis_pdf
+  - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.site_deploy.sh ; fi
 env:
   global:
     - SITE_URL: https://o2r.info/erc-spec
