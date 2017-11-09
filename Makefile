@@ -20,7 +20,7 @@ prepare_pd:
 	sed -i 's:/img/:docs/img/:g' erc.pd
 	# remove unwanted content: nothing after the first user guide, nothing before the spec title (first occurence)
 	sed -i '/User\ guide:\ ERC\ creation/Q' erc.pd
-	#sed -n -i '/ERC\ specification/,$$p' erc.pd
+	sed -n -i '/ERC\ specification/,$$p' erc.pd
 	# add config for admonitions:
 	cat docs/admonition_config.yml erc.pd > erc.tmp
 	mv erc.tmp erc.pd
