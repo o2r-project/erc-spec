@@ -34,7 +34,7 @@ prepare_pd:
 
 update_version:
 	sed -i 's/___VCS_REF___/${VCS_REF}/g' docs/pdf_cover.tex
-	sed -i 's/@@PDF_FILE@@/${SPEC_FILE_NAME}/g' docs/index.md
+	sed -i 's/@@PDF_FILE@@/${SPEC_FILE_NAME}/g' site/index.md
 
 update_version_in_pdf:
 	sed -i 's/@@VERSION@@/${VCS_REF}/g' erc.pd
