@@ -15,6 +15,7 @@ build_verbose:
 CURRENT_VERSION := $(shell grep -Po '(Specification version: \`)\K([0-9]|\.)*' docs/spec/index.md)
 VCS_REF := $(shell git rev-parse --short HEAD)
 CURRENT_DATE := $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
+SPEC_FILE_NAME := $(shell echo erc-spec-v`grep -Po '(Specification version: \`)\K([0-9]|\.)*' docs/spec/index.md`.pdf)
 prepare_pd:
 	@echo Running in ${CURDIR}
 	mkdocscombine --outfile erc.pd --no-titles --admonitions-md --verbose
@@ -31,18 +32,21 @@ prepare_pd:
 	sed -i 'N;/^\n$$/D;P;D;' erc.tmp
 	mv erc.tmp erc.pd
 
-update_build_version:
+update_version:
 	sed -i 's/___VCS_REF___/${VCS_REF}/g' docs/pdf_cover.tex
+	sed -i 's/@@PDF_FILE@@/${SPEC_FILE_NAME}/g' docs/index.md
+
+update_version_in_pdf:
 	sed -i 's/@@VERSION@@/${VCS_REF}/g' erc.pd
 	sed -i 's/@@TIMESTAMP@@/${CURRENT_DATE}/g' erc.pd
 
-pdf: prepare_pd update_build_version
-	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
+pdf: prepare_pd update_version_in_pdf
+	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME} --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
 	rm erc.pd
 
-travis_pdf: prepare_pd update_build_version
+travis_pdf: prepare_pd update_version_in_pdf update_version
 	cp erc.pd site/
-	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output erc-spec-v${CURRENT_VERSION}.pdf --latex-engine=xelatex --filter pandoc-latex-admonition --verbose erc.pd
+	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME} --latex-engine=xelatex --filter pandoc-latex-admonition --verbose erc.pd
 	mv erc-spec*.pdf site/
 	rm erc.pd
 
