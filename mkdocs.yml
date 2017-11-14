@@ -20,6 +20,7 @@ theme_dir: custom_theme
 repo_url: https://github.com/o2r-project/erc-spec
 repo_name: GitHub
 edit_uri: tree/master/docs/
+site_url: http://o2r.info/erc-spec/
 site_dir: site
 extra_css: [erc.css]
 markdown_extensions:
@@ -30,9 +31,3 @@ markdown_extensions:
   #- pymdownx.inlinehilite
   - pymdownx.tilde
   - pymdownx.superfences # does not work with guess_lang=True
-# for https://github.com/Fiware/tools.Md2pdf
-files_order:
-    - 'docs/pdf_cover.md'
-    - 'docs/spec/index.md'
-    - 'docs/glossary.md'
-    - 'docs/support.md'
