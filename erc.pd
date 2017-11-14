@@ -64,7 +64,7 @@ The o2r Executable Research Compendium specification is licensed under [Creative
 To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.
 This work is published from: Germany.
 
-<div class="buildinfo">Build 27e849d @ 2017-11-14T14:05:36Z</div>
+<div class="buildinfo">Build 5538902 @ 2017-11-14T14:31:09Z</div>
 
 ## ERC specification
 
@@ -211,6 +211,8 @@ main: the_paper_document.rmd
 display: paper.html
 ```
 </p></div>
+
+Additionally, related resources such as a related publication can be stated with the `relatedIdentifier` element field. A related identifier SHOULD be a globally unique persistent identifier and SHOULD be a URI.
 
 #### Control statements
 
