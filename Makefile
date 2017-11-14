@@ -15,41 +15,59 @@ build_verbose:
 CURRENT_VERSION := $(shell grep -Po '(Specification version: \`)\K([0-9]|\.)*' docs/spec/index.md)
 VCS_REF := $(shell git rev-parse --short HEAD)
 CURRENT_DATE := $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
-SPEC_FILE_NAME := $(shell echo erc-spec-v`grep -Po '(Specification version: \`)\K([0-9]|\.)*' docs/spec/index.md`.pdf)
-prepare_pd:
-	@echo Running in ${CURDIR}
-	mkdocscombine --outfile erc.pd --no-titles --admonitions-md --verbose
+SPEC_FILE_NAME_PDF := $(shell echo erc-spec-v`grep -Po '(Specification version: \`)\K([0-9]|\.)*' docs/spec/index.md`.pdf)
+SPEC_FILE_NAME_MD  := $(shell echo erc-spec-v`grep -Po '(Specification version: \`)\K([0-9]|\.)*' docs/spec/index.md`.md)
+
+prepare_md:
+	mkdocscombine --outfile erc.md --no-titles --verbose
 	# fix image paths
-	sed -i 's:/img/:docs/img/:g' erc.pd
+	sed -i 's:/img/:docs/img/:g' erc.md
 	# remove unwanted content: nothing after the first user guide
-	sed -i '/User\ guide:\ ERC\ creation/Q' erc.pd
-	# BRORKEN: remove unwanted content: nothing before the spec title
+	sed -i '/User\ guide:\ ERC\ creation/Q' erc.md
+	# BROKEN: remove unwanted content: nothing before the spec title
 	#sed -n -i '/ERC\ specification/,$$p' erc.pd
 	#sed -i '/ERC\ specification/,$$!d' erc.pd
-	# add config for admonitions:
-	cat docs/admonition_config.yml erc.pd > erc.tmp
+	# remove multiple empty lines:
+	sed -i 'N;/^\n$$/D;P;D;' erc.md
+
+prepare_md_for_pdf:
+	mkdocscombine --outfile erc.tmp --no-titles --admonitions-md --verbose
+	# fix image paths
+	sed -i 's:/img/:docs/img/:g' erc.tmp
+	# remove unwanted content: nothing after the first user guide
+	sed -i '/User\ guide:\ ERC\ creation/Q' erc.tmp
+	# BROKEN: remove unwanted content: nothing before the spec title
+	#sed -n -i '/ERC\ specification/,$$p' erc.pd
+	#sed -i '/ERC\ specification/,$$!d' erc.pd
 	# remove multiple empty lines:
 	sed -i 'N;/^\n$$/D;P;D;' erc.tmp
-	mv erc.tmp erc.pd
+	# update dates
+	sed -i 's/@@VERSION@@/${VCS_REF}/g' erc.tmp
+	sed -i 's/@@TIMESTAMP@@/${CURRENT_DATE}/g' erc.tmp
+	# add config for admonitions:
+	cat docs/admonition_config.yml erc.tmp > erc.tmp2
+	mv erc.tmp2 erc.tmp
 
-update_version:
+pdf: prepare_md_for_pdf
+	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME_PDF} --latex-engine=xelatex --filter pandoc-latex-admonition erc.tmp
+	rm erc.tmp
+
+travis_pdf: prepare_md_for_pdf
+	# update version in cover page
 	sed -i 's/___VCS_REF___/${VCS_REF}/g' docs/pdf_cover.tex
-
-update_version_in_pdf:
-	sed -i 's/@@VERSION@@/${VCS_REF}/g' erc.pd
-	sed -i 's/@@TIMESTAMP@@/${CURRENT_DATE}/g' erc.pd
-
-pdf: prepare_pd update_version_in_pdf
-	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME} --latex-engine=xelatex --filter pandoc-latex-admonition erc.pd
-	rm erc.pd
-
-travis_pdf: prepare_pd update_version_in_pdf update_version
-	cp erc.pd site/
-	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME} --latex-engine=xelatex --filter pandoc-latex-admonition --verbose erc.pd
+	# create PDF
+	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME_PDF} --latex-engine=xelatex --filter pandoc-latex-admonition --verbose erc.tmp
 	mv erc-spec*.pdf site/
 	# create unversioned file for current spec PDF
 	cp `ls site/erc-spec-v*.pdf | sort | tail -n 1` site/erc-spec.pdf
-	rm erc.pd
+	rm erc.tmp
+
+# publish a single file Markdown version of the spec
+travis_md: prepare_md
+	sed -i 's/@@VERSION@@/${VCS_REF}/g' erc.md
+	sed -i 's/@@TIMESTAMP@@/${CURRENT_DATE}/g' erc.md
+	mv erc.md site/${SPEC_FILE_NAME_MD}
+	cp `ls site/erc-spec-v*.md | sort | tail -n 1` site/erc-spec.md
 
 # fiware/md2pdf and pdftk
 pdf_md2pdf:
