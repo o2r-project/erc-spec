@@ -2,7 +2,7 @@
 
 This is the technical specification of the Executable Research Compendium (ERC).
 
-**Read the [specification](spec/index.md)** ([PDF download](@@PDF_FILE@@)) and **get [support](support.md)**.
+**Read the [specification](spec/index.md)** ([PDF download](erc-spec.pdf)) and **get [support](support.md)**.
 
 ## Guides
 
