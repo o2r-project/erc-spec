@@ -144,6 +144,9 @@ If they are not defined and multiple documents use the name `main.[ext]` or `dis
     display: paper.html
     ```
 
+Additionally, related resources such as a related publication can be stated with the `relatedIdentifier` element field. A related identifier SHOULD be a globally unique persistent identifier and SHOULD be a URI.
+
+
 ### Control statements
 
 The configuration file MUST contain statements to control the runtime container.
