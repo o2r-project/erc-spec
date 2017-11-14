@@ -3,7 +3,7 @@
 
     
     <url>
-     <loc>/</loc>
+     <loc>http://o2r.info/erc-spec//</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -11,7 +11,7 @@
 
     
     <url>
-     <loc>/spec/</loc>
+     <loc>http://o2r.info/erc-spec//spec/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -20,43 +20,43 @@
     
         
     <url>
-     <loc>/user-guide/creation/</loc>
+     <loc>http://o2r.info/erc-spec//user-guide/creation/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/user-guide/examination/</loc>
+     <loc>http://o2r.info/erc-spec//user-guide/examination/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/user-guide/template/</loc>
+     <loc>http://o2r.info/erc-spec//user-guide/template/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/user-guide/minimal/</loc>
+     <loc>http://o2r.info/erc-spec//user-guide/minimal/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/user-guide/oais/</loc>
+     <loc>http://o2r.info/erc-spec//user-guide/oais/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/user-guide/erc_journal_supplement/</loc>
+     <loc>http://o2r.info/erc-spec//user-guide/erc_journal_supplement/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>/dev-guide/</loc>
+     <loc>http://o2r.info/erc-spec//dev-guide/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -65,7 +65,7 @@
 
     
     <url>
-     <loc>/glossary/</loc>
+     <loc>http://o2r.info/erc-spec//glossary/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
@@ -73,7 +73,7 @@
 
     
     <url>
-     <loc>/support/</loc>
+     <loc>http://o2r.info/erc-spec//support/</loc>
      <lastmod>2017-11-14</lastmod>
      <changefreq>daily</changefreq>
     </url>
