@@ -48,7 +48,7 @@ travis_pdf: prepare_pd update_version_in_pdf update_version
 	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME} --latex-engine=xelatex --filter pandoc-latex-admonition --verbose erc.pd
 	mv erc-spec*.pdf site/
 	# create unversioned file for current spec PDF
-	cp $(shell ls site/erc-spec-v*.pdf | sort | tail -n 1) site/erc-spec.pdf
+	cp `ls site/erc-spec-v*.pdf | sort | tail -n 1` site/erc-spec.pdf
 	rm erc.pd
 
 # fiware/md2pdf and pdftk
