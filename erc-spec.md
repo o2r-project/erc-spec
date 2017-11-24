@@ -34,7 +34,7 @@ The o2r Executable Research Compendium specification is licensed under [Creative
 To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.
 This work is published from: Germany.
 
-<div class="buildinfo">Build 78bb459 @ 2017-11-14T15:29:53Z</div>
+<div class="buildinfo">Build 2056534 @ 2017-11-24T07:32:41Z</div>
 
 ## ERC specification
 
