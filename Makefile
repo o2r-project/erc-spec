@@ -49,17 +49,21 @@ prepare_md_for_pdf:
 	mv erc.tmp2 erc.tmp
 
 pdf: prepare_md_for_pdf
-	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME_PDF} --latex-engine=xelatex --filter pandoc-latex-admonition erc.tmp
+	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME_PDF} --pdf-engine=xelatex --filter pandoc-latex-admonition erc.tmp
 	rm erc.tmp
 
 travis_pdf: prepare_md_for_pdf
 	# update version in cover page
 	sed -i 's/___VCS_REF___/${VCS_REF}/g' docs/pdf_cover.tex
 	# create PDF
-	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME_PDF} --latex-engine=xelatex --filter pandoc-latex-admonition --verbose erc.tmp
+	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME_PDF} --pdf-engine=xelatex --filter pandoc-latex-admonition --verbose erc.tmp
 	mv erc-spec*.pdf site/
 	# create unversioned file for current spec PDF
 	cp `ls site/erc-spec-v*.pdf | sort | tail -n 1` site/erc-spec.pdf
+	rm erc.tmp
+
+pdf_tinytex: prepare_md_for_pdf
+	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME_PDF} --filter pandoc-latex-admonition erc.tmp
 	rm erc.tmp
 
 # publish a single file Markdown version of the spec
