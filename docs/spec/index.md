@@ -576,11 +576,11 @@ Implementations SHOULD use this field to identify an ERC.
     ├── bag-info.txt
     ├── bagit.txt
     ├── data
-    │   ├── 2016-07-17-sf2.Rmd
-    │   ├── erc.yml
-    │   ├── metadata.json
-    │   ├── Dockerfile
-    │   └── image.tar
+    │   ├── 2016-07-17-sf2.Rmd
+    │   ├── erc.yml
+    │   ├── metadata.json
+    │   ├── Dockerfile
+    │   └── image.tar
     ├── manifest-md5.txt
     └── tagmanifest-md5.txt
     ```
@@ -654,35 +654,31 @@ Each ERC MUST contain a package leaflet, describing the schemas and standards us
 !!! tip "Example package leaflet"
     ```json
     {
-    	"standards_used": [{
-    		"name": "DataCite Metadata Schema 4.0",
-    		"name-short": "datacite40",
-    		"description": "The DataCite Metadata Schema is a list of core metadata properties chosen for an accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions.",
-    		"schema-version": "4.0",
-    		"schema-path-local": "erc/schema/datacite40.json ",
-    		"schema-url": "https://schema.datacite.org/meta/kernel-4.0/metadata.xsd",
-    		"schema-identifier": "doi:10.5438/0013"
-    	}, {
-    		"name": "Zenodo Metadata Schema",
-    		"name-short": "zenodo",
-    		"description": "The metadata schema applicable for zenodo 2017.",
-    		"schema-version": null,
-    		"schema-path-local": "erc/schema/zenodo.json ",
-    		"schema-url": null,
-    		"schema-identifier": null
-    	}]
-    }
+    "standards_used": [
+        {
+            "o2r": {
+                "map_description": "maps raw extracted metadata to o2r schema compliant metadata",
+                "mode": "json",
+                "name": "o2r",
+                "outputfile": "metadata_o2r.json",
+                "root": ""
+            }
+        },
+        {
+            "zenodo_sandbox": {
+                "map_description": "maps o2r schema compliant MD to Zenodo Sandbox for deposition creation",
+                "mode": "json",
+                "name": "zenodo_sandbox",
+                "outputfile": "metadata_zenodo_sandbox.json",
+                "root": "metadata"
+            }
+        }
+    ]
+}
     ```
 
-Elements used for each schema / standard used:
+Elements used for each schema standard used are contributed via the MD mapping files in the o2r meta tool suite.
 
-- `name`: The name of the schema.
-- `name-short`: The abbreviated name.
-- `description`: The description of the schema.
-- `schema-version`: The version of the schema as stated in the corresponding official schema file.
-- `schema-path-local`: The path to the local version of the schema. It may point to a translated version of the original schema, e.g. json file from xml file.
-- `schema-url`: The official URL of the schema file
-- `schema-identifier`: The persistent identifier for the schema/standard.
 
 #### Secondary metadata files
 
@@ -726,7 +722,7 @@ In order to comply to their governing schemas, secondary metadata must include t
 	+ Publication Year
 	+ Resource Type
 
-Other third party standards that will be considered comprise: _CodeMeta_, _EuDat_, _mets/mods_.
+
 
 ### Development bundle
 
@@ -736,9 +732,9 @@ This bundle most importantly would not include the _runtime image_, which is pot
 
 The _development bundle_ SHOULD always include the _main file_ and (e.g. by choice of the user, or by an implementing platform) MAY include other relevant files for reproduction or editing purposes outside of the runtime environment, such as input data or the _runtime manifest_ for manual environment recreation.
 
-### Content metadata _under development_
+### Content metadata
 
-Current JSON dummy to visualise the properties. It SHOULD be filled out as good as possible.
+The current JSON dummy file to visualises the properties. These elements SHOULD be filled out as good as possible in the user interface.
 
 ```json
 {
@@ -795,69 +791,51 @@ Current JSON dummy to visualise the properties. It SHOULD be filled out as good 
 }
 ```
 
-The path to the o2r metadata file MUST be `<path-to-bag>/data/metadata.json`.
+The path to the o2r metadata file MUST be `<path-to-bag>/data/metadata_raw.json` and the refined version metadata_o2r.json.
 
-### Description of metadata properties
+### Description of o2r metadata properties
 
-Defining explanations on the concept of each metadata element in use.
-
-+ `access_right` Modify embargo status, default is `open`.
-+ `author` Contains a list of authors, each containing author related information.
-+ `author.affiliation` A list of institutions, organizations or other groups that the creator of the asset is associated with.
-+ `author.name` The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.
-+ `author.orcid` The ORCid of the creator of the asset.
-+ `codefiles` A list of files, containing programm code (i.e. script files, e.g. .R files) retrieved during the extraction.
-+ `community` Indicates belonging to a scientific community, e.g. on a repositoy platform.
-+ `depends` A block for each entity that the software is directly dependent on for execution. The dependency information is designed for the identification of dependent packages within packaging systems. A depends block may describe a transitive dependency.
-+ `depends.identifier` An identifying name for the depending package.
-+ `depends.version` The computer software and hardware required to run the software.
-+ `depends.packageSystem` The package manager system that makes the dependency entity available.
-+ `description` A text representation conveying the purpose and scope of the asset (the abstract).
-+ `ercIdentifier` A universally unique character string associated with the asset as _executable research compendium_, provided by the o2r service.
-+ `file` A block for the main source file for the metadata (e.g. rmd file), generated and used by the o2r service.
-+ `file.filename` See above 
-+ `file.filepath` See above 
-+ `file.mimetype` See above 
-+ `generatedBy` The entity, person or tool, that created the software.
-+ `identifier` Contains information related to persitent identifiers for the asset.
-+ `identifier.doi` The DOI for the asset.
-+ `identifier.doiurl` The resolving URL for the asset.
-+ `identifier.reserveddoi` The assigned but inactive DOI for the asset. Might be minted by a repository during publication.
-+ `inputfiles` A list of files that are loaded as resources by the main or code files of a workspace.
-+ `interaction` Information on interactive elements in the asset.
-+ `interaction.interactive` 'TRUE' if interactive elements are already included, otherwise 'FALSE'.
-+ `interaction.ui_binding` A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation. Final structure depends on purpose.
-+ `interaction.ui_binding.purpose` What the UI binding is supposed to do.
-+ `interaction.ui_binding.widget` Which UI widget realizes the purpose.
-+ `interaction.ui_binding.code` A block containing source-code-specific information required to realize the UI binding.
-+ `interaction.ui_binding.code.filename` Name of the file including the plot function that creates the figure.
-+ `interaction.ui_binding.code.function` Name of the function that plots the figure.
-+ `interaction.ui_binding.code.functionParameter` Parameters required by the shinyInputFunction. Final set of parameters depends on UI widget.
-+ `interaction.ui_binding.variable` Variable that should be controlled by the UI widget.
-+ `interaction.ui_binding.code.shinyInputFunction` Function that incorporates the UI widgets, provided by Shiny. 
-+ `interaction.ui_binding.code.shinyRenderFunction` Function that renders the plot after each change, provided by Shiny.
-+ `keywords` Tags associated with the asset.
-+ `license` License information for each part of the ERC.
-+ `license.code` License for the code part of the ERC
-+ `license.text` License for the text part of the ERC
-+ `license.data` License for the data part of the ERC
-+ `license.uibindings` License for the user interface bindings of the ERC
-+ `license.md` License for the metadata of the ERC
-+ `paperLanguage` A list of language codes that indicate the language of the asset, e.g. _en_.
-+ `paperSource` The text document file of the paper.
-+ `publicationDate` The publication date of the paper publication as [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) string.
-+ `publication_type` The type of the publication. Default is `other` since the ERC may contain text, data, code and interaction widgets not depictable by other categories.
-+ `recordDateCreated` The date that this metadata record was created as [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) string.
-+ `softwarePaperCitation` Related citation information for the asset, e.g. a citation of the related journal article.
-+ `spatial` Information about the geometric bounding box of the underlying data/software.
-+ `spatial.files` A Geojson object of the file-wise bounding boxes of the underlying data/software.
-+ `spatial.union` A Geojson object displaying the spatial properties, e.g. a bounding box of the whole data.
-+ `temporal` Aggregated information about the relevant time period of the underlying data sets.
-+ `temporal.begin` The starting point of the relevant time period.
-+ `temporal.end` The end point of the relevant time period.
-+ `title` The distinguishing name of the paper publication.
-+ `upload_type` The zenodo upload type, default is `publication`. This element will be removed, once the target repository is completely configurabe within the o2r shipper micro service.
-+ `view_file` The main display file.
+- `access_right` _String_.
+- `creators` _Array of objects_.
+- `creators.name` _String_.
+- `creators.orcid` _String_.
+- `creators.affiliation` _String_.
+- `codefiles` _Array of strings_ List of all files of the recursively parsed workspace that have an extension belonging to a ("R") codefile.
+- `communities` _Array of objects_ prepared zenodo MD element
+- `communities[0].identifier` _String_. Indicating the collection as required in zenodo MD, default "o2r".
+- `depends` _Array of objects_.
+- `depends.operatingSystem` _String_.
+- `depends.identifier` _String_.
+- `depends.packageSystem` _String_. URL
+- `depends.version` _String_.
+- `description` _String_. A text representation conveying the purpose and scope of the asset (the abstract).
+- `displayfile` _String_. The suggested file for viewing the text of the workspace, i.e. a rendering of the suggested mainfile.
+- `displayfile_candidates` _Array of strings_. An unsorted list of candidates for displayfiles.
+- `ercIdentifier` _String_. A universally unique character string associated with the asset as executable research compendium, provided by the o2r service.
+- `identifier` _Object_.
+- `inputfiles` _Array of strings_. A compiled list of files from the extracted workspace that is called or used in the extracted code of the workspace.
+- `interaction` TBD
+- `keywords` _Array of strings_. Tags associated with the asset.
+- `license`_Object_.  License information for the entire ERC.
+- `license.code` _String_. License information for the code included.
+- `license.data `_String_. License information for the data included.
+- `license.md` _String_. License information for the metadata included. Should be cc0 to include in catalogues.
+- `license.text`_String_. License information for the text included.
+- `license.uibindings` _String_. License information for the UI-bindings included.
+- `mainfile` _String_. The suggested main file of workspace
+- `mainfile_candidates` _Array_. Unsorted list of mainfile candidates of the workspace.
+- `paperLanguage` _Array of strings_. List of guessed languages for the workspace.
+- `publication_date` _String_. The publication date of the paper publication as ISO8601 string.
+- `publication_type` _String_.
+- `related_identifier` _String_.
+- `spatial` _Object_. Spatial information of the workspace.
+- `spatial.files` _Array of objects_.
+- `spatial.union` _Array of objects_.
+- `temporal` _Object_. Aggregated information about the relevant time period of the underlying data sets.
+- `temporal.begin`
+- `temporal.end`
+- `title` The distinguishing name of the paper publication.
+- `upload_type` _String._ Zenodo preset. Defaults to "publication".
 
 ## ERC checking
 
