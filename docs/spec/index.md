@@ -27,7 +27,7 @@ This specification defines a structure to transport and execute a computational 
 It carries technical and conceptual details on how to implement the reproducibility specifications and is as such most suitable **for developers**.
 **Authors** may feel more comfortable with the _[user guides](/#user-guides)_.
 
-These analyses typically comprise a workspace on a researcher's computer, that contains _data_, _code_, third party software or libraries, and outputs research results such as plots.
+These analyses typically comprise a workspace on a researcher's computer, which contains _data_ ([born digital](https://en.wikipedia.org/wiki/Born-digital), simulated, or other), _code_, third party _software_ or libraries, and _outputs_ of research such as digital plots or data.
 Code and libraries are required in executable form to re-do a specific analysis.
 Research is only put into a context by a _textual_ publication, a research paper, which is published in [scholarly communication](https://en.wikipedia.org/wiki/Scholarly_communication).
 The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
@@ -76,7 +76,7 @@ Besides the files mentioned in this specification, the base directory MAY contai
 ### Main & display file
 
 An ERC MUST have a _main file, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
-An ERC MUST have a _display file_, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.
+An ERC MUST have a _display file_, i.e. the file which is shown to a user first when she opens an ERC in a supporting platform or tool.
 
 _Main file_ and _display file_ MUST NOT be the same file.
 
@@ -696,7 +696,7 @@ Duplicate information is accepted, because it lowers the entry barrier for domai
 
 Metadata documents of specific use cases MUST be stored in a directory `.erc`, which is a child-directory of the ERC base directory.
 
-Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. `datacite40.xml` or `zenodo_sandbox10.json`, and SHOULD use a suitable mime type.
+Metadata documents SHOULD be named according to the used standard/model, format/encoding, and version, e.g. `datacite40.xml` or `zenodo_sandbox10.json`, and SHOULD use a suitable mime type.
 
 ##### Requirements of secondary metadata
 

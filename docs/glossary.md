@@ -30,8 +30,8 @@ The execution includes a comparison of the result files in the just executed inn
 ## Create
 
 One of the major constituents of ERC interaction.
-The user can create an ERC by following the technical instructions included in the Specification (ERC Spec) or use the o2r reproducibility service, which has been referentially implemented as "o2r platform".
-For more information, see [erc-spec/user-guide/creation/]
+The user can create an ERC by following the technical instructions included in the Specification (ERC Spec) or use the o2r reproducibility service.
+For more information, see [erc-spec/user-guide/creation/]().
 
 ## Discover
 
@@ -44,7 +44,7 @@ TBD
 
 ## ERC
 
-Executable Research Compendium, see [this article](https://doi.org/10.1045/january2017-nuest)
+Executable Research Compendium, see [article](https://doi.org/10.1045/january2017-nuest).
 
 ## ERC contents
 

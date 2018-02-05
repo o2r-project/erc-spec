@@ -14,7 +14,7 @@ First,  [_"convention  over  configuration"_](https://en.wikipedia.org/wiki/Conv
 We want to create a directory structure with default file names and sensible defaults.
 This way a typical research workspace should require only minimal configuration in 80% of the cases, while allowing to override each of the settings if need be and providing full customizability in the remaining 20%.
 
-For example, the main command to compile the text manuscript in a bagtainer could be `knitr::knit("<*>.Rmd")`, with `<*>` being replaced by name of the first RMarkdown file.
+For example, the main command to compile the text manuscript in a compendium could be `knitr::knit("<*>.Rmd")`, with `<*>` being replaced by name of the first RMarkdown file.
 However, if a user wants to use `rmarkdown::render(..)` on a file named `publication.md`, then the default behaviour can be overwritten.
 
 Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/DevOps) or [Boettiger](https://doi.org/10.1145/2723872.2723882).
@@ -24,12 +24,13 @@ All processing and configuration shall be scripted, no "click" interaction requi
 
 ### Some observations
 
+- research workflows with environmental or generated data can be _"born digital_" from beginning and stay that way to the end (sensors, data storage, data analysis, presentation, review, publication)
 - researchers do their thing and need independence/flexibility, so post-hoc creation will probably be most common and ERC must have low to no impact on workflow
 - data storage, citation and preservation is solved (repos, bitstream preservation in archives)
 - packaging methods/methodology is solved (R packages, Python packages, ...)
 - software preservation is _not_ solved (methods are there, like migration, emulation, but complexity is too high to do this at high granularity)
 - reproducible paper is solved (literate programming, R package dependency handling solutions, ..)
-- computational RR requires sandboxing (to make sure everything is there as much as security)
+- computational RR requires sandboxing (to make sure everything is there, but also for security)
 - a service is needed to create ERC for researchers and executes them in a controlled environment
 
 ### Why nested containers
@@ -43,11 +44,12 @@ The alternative of putting everything into the container itself (e.g. using imag
 
 ### Why BagIt
 
-...
+- BagIt is something that preservation experts understand and covers what they care about (bitstream preservation), so it seemed a good fit in the first project vision.
+- BagIt originally was the required packaging for uploading of data, but that has changed. Users upload their data and analysis, and then execute the analysis to ensure the output matches what they created themselves. This is more important than correct bits, which become relevant again after creation of an ERC when it is stored and a bag is created.
 
 ### Why Docker
 
-- (Docker) containers provide an encapsulation mechanism to package all dependencies of an anylsis
+- (Docker) containers provide an encapsulation mechanism to package all dependencies of an analysis
 - during container execution, and substitution, the build in [copy-on-write](https://en.wikipedia.org/wiki/Copy-on-write) storage only creates copy of files that are changed within the container, thus saving storage capacity
 - volume mounts allow easy substitution of input data and configurations of analysis
 
@@ -77,7 +79,8 @@ The burden in a plain R solution shifts from authoring to preservation.
 Even though shipping system binaries within packages is possible (if not common), some packages do use system libraries which are not preserved in a plain R approach.
 Adjusting such packages is not an option.
 
-Furthermore, none of the solutions for reproducibility are part of "core R", even if they are trustworthy (e.g. MRAN). CRAN does not support installing specific package versions.
+Furthermore, none of the solutions for reproducibility are part of "core R", even if they are trustworthy (e.g. MRAN).
+CRAN does not support installing specific package versions.
 
 That is why using an abstraction layer outside of R is preferable.
 
@@ -111,17 +114,13 @@ using containers gives the necessary abstraction and encapsulation, so simply us
 - better accessible in the long term
 - no data duplication
 
-## o2r Platform
+## o2r
 
 The software developed by the o2r project is the reference implementation of the ERC specification.
 
-### Web API
-
-[o2r Web API specification](http://o2r.info/o2r-web-api)
-
-### Architecture
-
-[o2r Architecture documentation](http://o2r.info/architecture/)
+- [o2r Web API specification](http://o2r.info/o2r-web-api)
+- [o2r Architecture documentation](http://o2r.info/architecture/)
+- [o2r Reference Implementation](https://github.com/o2r-project/reference-implementation)
 
 ## ERC completeness score
 
