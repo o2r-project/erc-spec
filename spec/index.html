@@ -187,7 +187,7 @@ It provides a well-defined structure for data, code, text, documentation, and us
 <p>This specification defines a structure to transport and execute a computational scientific analyses (cf. <a href="https://en.wikipedia.org/wiki/Computational_science">computational science</a>).
 It carries technical and conceptual details on how to implement the reproducibility specifications and is as such most suitable <strong>for developers</strong>.
 <strong>Authors</strong> may feel more comfortable with the <em><a href="../#user-guides">user guides</a></em>.</p>
-<p>These analyses typically comprise a workspace on a researcher&rsquo;s computer, that contains <em>data</em>, <em>code</em>, third party software or libraries, and outputs research results such as plots.
+<p>These analyses typically comprise a workspace on a researcher&rsquo;s computer, which contains <em>data</em> (<a href="https://en.wikipedia.org/wiki/Born-digital">born digital</a>, simulated, or other), <em>code</em>, third party <em>software</em> or libraries, and <em>outputs</em> of research such as digital plots or data.
 Code and libraries are required in executable form to re-do a specific analysis.
 Research is only put into a context by a <em>textual</em> publication, a research paper, which is published in <a href="https://en.wikipedia.org/wiki/Scholarly_communication">scholarly communication</a>.
 The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
@@ -223,7 +223,7 @@ We distinguish these containers into the inner or &ldquo;runtime&rdquo; containe
 <p>Besides the files mentioned in this specification, the base directory MAY contain any other files and directories.</p>
 <h3 id="main-display-file">Main &amp; display file<a class="headerlink" href="#main-display-file" title="Permanent link">&para;</a></h3>
 <p>An ERC MUST have a <em>main file, i.e. the file which contains the text and instructions being the basis for the scientific publication describing the packaged analysis.
-An ERC MUST have a _display file</em>, i.e. the file which is shown to the user first when he opens an ERC in a supporting platform or tool.</p>
+An ERC MUST have a _display file</em>, i.e. the file which is shown to a user first when she opens an ERC in a supporting platform or tool.</p>
 <p><em>Main file</em> and <em>display file</em> MUST NOT be the same file.</p>
 <p>The <em>main file</em> MUST be <em>executable</em> in the sense that a software reads it as the input of a process to create the <em>display file</em>.
 The <em>main file</em>&lsquo;s name SHOULD be <code>main</code> with an appropriate file extension and <a href="https://en.wikipedia.org/wiki/Media_type">media type</a>.</p>
@@ -639,11 +639,11 @@ Is-Executable-Research-Compendium: true</code></pre>
 <pre class="codehilite"><code class="language-txt">├── bag-info.txt
 ├── bagit.txt
 ├── data
-│   ├── 2016-07-17-sf2.Rmd
-│   ├── erc.yml
-│   ├── metadata.json
-│   ├── Dockerfile
-│   └── image.tar
+│   ├── 2016-07-17-sf2.Rmd
+│   ├── erc.yml
+│   ├── metadata.json
+│   ├── Dockerfile
+│   └── image.tar
 ├── manifest-md5.txt
 └── tagmanifest-md5.txt</code></pre>
 
@@ -707,37 +707,32 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
 <p>Each ERC MUST contain a package leaflet, describing the schemas and standards used. Available schema files are supposed to be included with the ERC, if available (licenses for these schemas may apply).</p>
 <div class="admonition tip">
 <p class="admonition-title">Example package leaflet</p>
-<pre class="codehilite"><code class="language-json">{
-    &quot;standards_used&quot;: [{
-        &quot;name&quot;: &quot;DataCite Metadata Schema 4.0&quot;,
-        &quot;name-short&quot;: &quot;datacite40&quot;,
-        &quot;description&quot;: &quot;The DataCite Metadata Schema is a list of core metadata properties chosen for an accurate and consistent identification of a resource for citation and retrieval purposes, along with recommended use instructions.&quot;,
-        &quot;schema-version&quot;: &quot;4.0&quot;,
-        &quot;schema-path-local&quot;: &quot;erc/schema/datacite40.json &quot;,
-        &quot;schema-url&quot;: &quot;https://schema.datacite.org/meta/kernel-4.0/metadata.xsd&quot;,
-        &quot;schema-identifier&quot;: &quot;doi:10.5438/0013&quot;
-    }, {
-        &quot;name&quot;: &quot;Zenodo Metadata Schema&quot;,
-        &quot;name-short&quot;: &quot;zenodo&quot;,
-        &quot;description&quot;: &quot;The metadata schema applicable for zenodo 2017.&quot;,
-        &quot;schema-version&quot;: null,
-        &quot;schema-path-local&quot;: &quot;erc/schema/zenodo.json &quot;,
-        &quot;schema-url&quot;: null,
-        &quot;schema-identifier&quot;: null
-    }]
-}</code></pre>
-
+<p>```json
+{
+&ldquo;standards_used&rdquo;: [
+    {
+        &ldquo;o2r&rdquo;: {
+            &ldquo;map_description&rdquo;: &ldquo;maps raw extracted metadata to o2r schema compliant metadata&rdquo;,
+            &ldquo;mode&rdquo;: &ldquo;json&rdquo;,
+            &ldquo;name&rdquo;: &ldquo;o2r&rdquo;,
+            &ldquo;outputfile&rdquo;: &ldquo;metadata_o2r.json&rdquo;,
+            &ldquo;root&rdquo;: &ldquo;&rdquo;
+        }
+    },
+    {
+        &ldquo;zenodo_sandbox&rdquo;: {
+            &ldquo;map_description&rdquo;: &ldquo;maps o2r schema compliant MD to Zenodo Sandbox for deposition creation&rdquo;,
+            &ldquo;mode&rdquo;: &ldquo;json&rdquo;,
+            &ldquo;name&rdquo;: &ldquo;zenodo_sandbox&rdquo;,
+            &ldquo;outputfile&rdquo;: &ldquo;metadata_zenodo_sandbox.json&rdquo;,
+            &ldquo;root&rdquo;: &ldquo;metadata&rdquo;
+        }
+    }
+]</p>
 </div>
-<p>Elements used for each schema / standard used:</p>
-<ul>
-<li><code>name</code>: The name of the schema.</li>
-<li><code>name-short</code>: The abbreviated name.</li>
-<li><code>description</code>: The description of the schema.</li>
-<li><code>schema-version</code>: The version of the schema as stated in the corresponding official schema file.</li>
-<li><code>schema-path-local</code>: The path to the local version of the schema. It may point to a translated version of the original schema, e.g. json file from xml file.</li>
-<li><code>schema-url</code>: The official URL of the schema file</li>
-<li><code>schema-identifier</code>: The persistent identifier for the schema/standard.</li>
-</ul>
+<p>}
+    ```</p>
+<p>Elements used for each schema standard used are contributed via the MD mapping files in the o2r meta tool suite.</p>
 <h4 id="secondary-metadata-files">Secondary metadata files<a class="headerlink" href="#secondary-metadata-files" title="Permanent link">&para;</a></h4>
 <p>The ERC as an object can be used in a broad range of cases. For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference or it can be a preserved item in a digital archive. All of these have their own standards and requirements to apply, when it comes to metadata.</p>
 <p>These metadata requirements <em>are not</em> part of this specification, but the following conventions are made to simplify and coordinate the variety.</p>
@@ -745,7 +740,7 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
 Domain metadata SHOULD follow domain conventions and standards regarding format and encoding of metadata.
 Duplicate information is accepted, because it lowers the entry barrier for domain experts and systems, who can simply pick up a metadata copy in a format known to them.</p>
 <p>Metadata documents of specific use cases MUST be stored in a directory <code>.erc</code>, which is a child-directory of the ERC base directory.</p>
-<p>Metadata documents SHOULD be named according to the used standard or platform, and the used format respectively encoding, e.g. <code>datacite40.xml</code> or <code>zenodo_sandbox10.json</code>, and SHOULD use a suitable mime type.</p>
+<p>Metadata documents SHOULD be named according to the used standard/model, format/encoding, and version, e.g. <code>datacite40.xml</code> or <code>zenodo_sandbox10.json</code>, and SHOULD use a suitable mime type.</p>
 <h5 id="requirements-of-secondary-metadata">Requirements of secondary metadata<a class="headerlink" href="#requirements-of-secondary-metadata" title="Permanent link">&para;</a></h5>
 <p>In order to comply to their governing schemas, secondary metadata must include the mandatory information as set by 3rd party services. While the documentation of this quality is a perpetual task, we have gathered the information most relevant our selection of connected services.</p>
 <p><strong>Zenodo</strong></p>
@@ -776,14 +771,13 @@ Duplicate information is accepted, because it lowers the entry barrier for domai
 </ul>
 </li>
 </ul>
-<p>Other third party standards that will be considered comprise: <em>CodeMeta</em>, <em>EuDat</em>, <em>mets/mods</em>.</p>
 <h3 id="development-bundle">Development bundle<a class="headerlink" href="#development-bundle" title="Permanent link">&para;</a></h3>
 <p>While complete ERCs are focus of this specification, for collaboration and offline <a href="../glossary/#inspect">inspection</a> it is useful to provide access to parts of the ERC.
 To support such use cases, a <em>development bundle</em> MAY be provided by implementations.
 This bundle most importantly would not include the <em>runtime image</em>, which is potentially a large file.</p>
 <p>The <em>development bundle</em> SHOULD always include the <em>main file</em> and (e.g. by choice of the user, or by an implementing platform) MAY include other relevant files for reproduction or editing purposes outside of the runtime environment, such as input data or the <em>runtime manifest</em> for manual environment recreation.</p>
-<h3 id="content-metadata-under-development">Content metadata <em>under development</em><a class="headerlink" href="#content-metadata-under-development" title="Permanent link">&para;</a></h3>
-<p>Current JSON dummy to visualise the properties. It SHOULD be filled out as good as possible.</p>
+<h3 id="content-metadata">Content metadata<a class="headerlink" href="#content-metadata" title="Permanent link">&para;</a></h3>
+<p>The current JSON dummy file to visualises the properties. These elements SHOULD be filled out as good as possible in the user interface.</p>
 <pre class="codehilite"><code class="language-json">{
     &quot;access_right&quot;: &quot;open&quot;,
     &quot;author&quot;: [{
@@ -837,67 +831,50 @@ This bundle most importantly would not include the <em>runtime image</em>, which
     &quot;viewfiles&quot;: []
 }</code></pre>
 
-<p>The path to the o2r metadata file MUST be <code>&lt;path-to-bag&gt;/data/metadata.json</code>.</p>
-<h3 id="description-of-metadata-properties">Description of metadata properties<a class="headerlink" href="#description-of-metadata-properties" title="Permanent link">&para;</a></h3>
-<p>Defining explanations on the concept of each metadata element in use.</p>
+<p>The path to the o2r metadata file MUST be <code>&lt;path-to-bag&gt;/data/metadata_raw.json</code> and the refined version metadata_o2r.json.</p>
+<h3 id="description-of-o2r-metadata-properties">Description of o2r metadata properties<a class="headerlink" href="#description-of-o2r-metadata-properties" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>access_right</code> Modify embargo status, default is <code>open</code>.</li>
-<li><code>author</code> Contains a list of authors, each containing author related information.</li>
-<li><code>author.affiliation</code> A list of institutions, organizations or other groups that the creator of the asset is associated with.</li>
-<li><code>author.name</code> The name of the human individual, institution, organization, machine or other entity that acts as creator of the asset.</li>
-<li><code>author.orcid</code> The ORCid of the creator of the asset.</li>
-<li><code>codefiles</code> A list of files, containing programm code (i.e. script files, e.g. .R files) retrieved during the extraction.</li>
-<li><code>community</code> Indicates belonging to a scientific community, e.g. on a repositoy platform.</li>
-<li><code>depends</code> A block for each entity that the software is directly dependent on for execution. The dependency information is designed for the identification of dependent packages within packaging systems. A depends block may describe a transitive dependency.</li>
-<li><code>depends.identifier</code> An identifying name for the depending package.</li>
-<li><code>depends.version</code> The computer software and hardware required to run the software.</li>
-<li><code>depends.packageSystem</code> The package manager system that makes the dependency entity available.</li>
-<li><code>description</code> A text representation conveying the purpose and scope of the asset (the abstract).</li>
-<li><code>ercIdentifier</code> A universally unique character string associated with the asset as <em>executable research compendium</em>, provided by the o2r service.</li>
-<li><code>file</code> A block for the main source file for the metadata (e.g. rmd file), generated and used by the o2r service.</li>
-<li><code>file.filename</code> See above </li>
-<li><code>file.filepath</code> See above </li>
-<li><code>file.mimetype</code> See above </li>
-<li><code>generatedBy</code> The entity, person or tool, that created the software.</li>
-<li><code>identifier</code> Contains information related to persitent identifiers for the asset.</li>
-<li><code>identifier.doi</code> The DOI for the asset.</li>
-<li><code>identifier.doiurl</code> The resolving URL for the asset.</li>
-<li><code>identifier.reserveddoi</code> The assigned but inactive DOI for the asset. Might be minted by a repository during publication.</li>
-<li><code>inputfiles</code> A list of files that are loaded as resources by the main or code files of a workspace.</li>
-<li><code>interaction</code> Information on interactive elements in the asset.</li>
-<li><code>interaction.interactive</code> &lsquo;TRUE&rsquo; if interactive elements are already included, otherwise &lsquo;FALSE&rsquo;.</li>
-<li><code>interaction.ui_binding</code> A block for each UI binding - extends a figure by a UI widget, e.g. for manipulation. Final structure depends on purpose.</li>
-<li><code>interaction.ui_binding.purpose</code> What the UI binding is supposed to do.</li>
-<li><code>interaction.ui_binding.widget</code> Which UI widget realizes the purpose.</li>
-<li><code>interaction.ui_binding.code</code> A block containing source-code-specific information required to realize the UI binding.</li>
-<li><code>interaction.ui_binding.code.filename</code> Name of the file including the plot function that creates the figure.</li>
-<li><code>interaction.ui_binding.code.function</code> Name of the function that plots the figure.</li>
-<li><code>interaction.ui_binding.code.functionParameter</code> Parameters required by the shinyInputFunction. Final set of parameters depends on UI widget.</li>
-<li><code>interaction.ui_binding.variable</code> Variable that should be controlled by the UI widget.</li>
-<li><code>interaction.ui_binding.code.shinyInputFunction</code> Function that incorporates the UI widgets, provided by Shiny. </li>
-<li><code>interaction.ui_binding.code.shinyRenderFunction</code> Function that renders the plot after each change, provided by Shiny.</li>
-<li><code>keywords</code> Tags associated with the asset.</li>
-<li><code>license</code> License information for each part of the ERC.</li>
-<li><code>license.code</code> License for the code part of the ERC</li>
-<li><code>license.text</code> License for the text part of the ERC</li>
-<li><code>license.data</code> License for the data part of the ERC</li>
-<li><code>license.uibindings</code> License for the user interface bindings of the ERC</li>
-<li><code>license.md</code> License for the metadata of the ERC</li>
-<li><code>paperLanguage</code> A list of language codes that indicate the language of the asset, e.g. <em>en</em>.</li>
-<li><code>paperSource</code> The text document file of the paper.</li>
-<li><code>publicationDate</code> The publication date of the paper publication as <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601</a> string.</li>
-<li><code>publication_type</code> The type of the publication. Default is <code>other</code> since the ERC may contain text, data, code and interaction widgets not depictable by other categories.</li>
-<li><code>recordDateCreated</code> The date that this metadata record was created as <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO8601</a> string.</li>
-<li><code>softwarePaperCitation</code> Related citation information for the asset, e.g. a citation of the related journal article.</li>
-<li><code>spatial</code> Information about the geometric bounding box of the underlying data/software.</li>
-<li><code>spatial.files</code> A Geojson object of the file-wise bounding boxes of the underlying data/software.</li>
-<li><code>spatial.union</code> A Geojson object displaying the spatial properties, e.g. a bounding box of the whole data.</li>
-<li><code>temporal</code> Aggregated information about the relevant time period of the underlying data sets.</li>
-<li><code>temporal.begin</code> The starting point of the relevant time period.</li>
-<li><code>temporal.end</code> The end point of the relevant time period.</li>
+<li><code>access_right</code> <em>String</em>.</li>
+<li><code>creators</code> <em>Array of objects</em>.</li>
+<li><code>creators.name</code> <em>String</em>.</li>
+<li><code>creators.orcid</code> <em>String</em>.</li>
+<li><code>creators.affiliation</code> <em>String</em>.</li>
+<li><code>codefiles</code> <em>Array of strings</em> List of all files of the recursively parsed workspace that have an extension belonging to a (&ldquo;R&rdquo;) codefile.</li>
+<li><code>communities</code> <em>Array of objects</em> prepared zenodo MD element</li>
+<li><code>communities[0].identifier</code> <em>String</em>. Indicating the collection as required in zenodo MD, default &ldquo;o2r&rdquo;.</li>
+<li><code>depends</code> <em>Array of objects</em>.</li>
+<li><code>depends.operatingSystem</code> <em>String</em>.</li>
+<li><code>depends.identifier</code> <em>String</em>.</li>
+<li><code>depends.packageSystem</code> <em>String</em>. URL</li>
+<li><code>depends.version</code> <em>String</em>.</li>
+<li><code>description</code> <em>String</em>. A text representation conveying the purpose and scope of the asset (the abstract).</li>
+<li><code>displayfile</code> <em>String</em>. The suggested file for viewing the text of the workspace, i.e. a rendering of the suggested mainfile.</li>
+<li><code>displayfile_candidates</code> <em>Array of strings</em>. An unsorted list of candidates for displayfiles.</li>
+<li><code>ercIdentifier</code> <em>String</em>. A universally unique character string associated with the asset as executable research compendium, provided by the o2r service.</li>
+<li><code>identifier</code> <em>Object</em>.</li>
+<li><code>inputfiles</code> <em>Array of strings</em>. A compiled list of files from the extracted workspace that is called or used in the extracted code of the workspace.</li>
+<li><code>interaction</code> TBD</li>
+<li><code>keywords</code> <em>Array of strings</em>. Tags associated with the asset.</li>
+<li><code>license</code><em>Object</em>.  License information for the entire ERC.</li>
+<li><code>license.code</code> <em>String</em>. License information for the code included.</li>
+<li><code>license.data</code><em>String</em>. License information for the data included.</li>
+<li><code>license.md</code> <em>String</em>. License information for the metadata included. Should be cc0 to include in catalogues.</li>
+<li><code>license.text</code><em>String</em>. License information for the text included.</li>
+<li><code>license.uibindings</code> <em>String</em>. License information for the UI-bindings included.</li>
+<li><code>mainfile</code> <em>String</em>. The suggested main file of workspace</li>
+<li><code>mainfile_candidates</code> <em>Array</em>. Unsorted list of mainfile candidates of the workspace.</li>
+<li><code>paperLanguage</code> <em>Array of strings</em>. List of guessed languages for the workspace.</li>
+<li><code>publication_date</code> <em>String</em>. The publication date of the paper publication as ISO8601 string.</li>
+<li><code>publication_type</code> <em>String</em>.</li>
+<li><code>related_identifier</code> <em>String</em>.</li>
+<li><code>spatial</code> <em>Object</em>. Spatial information of the workspace.</li>
+<li><code>spatial.files</code> <em>Array of objects</em>.</li>
+<li><code>spatial.union</code> <em>Array of objects</em>.</li>
+<li><code>temporal</code> <em>Object</em>. Aggregated information about the relevant time period of the underlying data sets.</li>
+<li><code>temporal.begin</code></li>
+<li><code>temporal.end</code></li>
 <li><code>title</code> The distinguishing name of the paper publication.</li>
-<li><code>upload_type</code> The zenodo upload type, default is <code>publication</code>. This element will be removed, once the target repository is completely configurabe within the o2r shipper micro service.</li>
-<li><code>view_file</code> The main display file.</li>
+<li><code>upload_type</code> <em>String.</em> Zenodo preset. Defaults to &ldquo;publication&rdquo;.</li>
 </ul>
 <h2 id="erc-checking">ERC checking<a class="headerlink" href="#erc-checking" title="Permanent link">&para;</a></h2>
 <h3 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h3>

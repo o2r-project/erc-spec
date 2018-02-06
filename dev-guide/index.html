@@ -99,7 +99,7 @@
         
             <li><a class="toctree-l4" href="#reasoning-and-decisions">Reasoning and decisions</a></li>
         
-            <li><a class="toctree-l4" href="#o2r-platform">o2r Platform</a></li>
+            <li><a class="toctree-l4" href="#o2r">o2r</a></li>
         
             <li><a class="toctree-l4" href="#erc-completeness-score">ERC completeness score</a></li>
         
@@ -172,19 +172,20 @@ This documents is targeted at developers who wish to create tools for creating, 
 First,  <a href="https://en.wikipedia.org/wiki/Convention_over_configuration"><em>&ldquo;convention  over  configuration&rdquo;</em></a>, e.g. as  practiced  in  the Java build tool <a href="https://books.sonatype.com/mvnref-book/reference/installation-sect-conventionConfiguration.html">Maven</a>.</p>
 <p>We want to create a directory structure with default file names and sensible defaults.
 This way a typical research workspace should require only minimal configuration in 80% of the cases, while allowing to override each of the settings if need be and providing full customizability in the remaining 20%.</p>
-<p>For example, the main command to compile the text manuscript in a bagtainer could be <code>knitr::knit("&lt;*&gt;.Rmd")</code>, with <code>&lt;*&gt;</code> being replaced by name of the first RMarkdown file.
+<p>For example, the main command to compile the text manuscript in a compendium could be <code>knitr::knit("&lt;*&gt;.Rmd")</code>, with <code>&lt;*&gt;</code> being replaced by name of the first RMarkdown file.
 However, if a user wants to use <code>rmarkdown::render(..)</code> on a file named <code>publication.md</code>, then the default behaviour can be overwritten.</p>
 <p>Second, <em>&ldquo;DevOps&rdquo;</em>, see <a href="https://en.wikipedia.org/wiki/DevOps">Wikipedia</a> or <a href="https://doi.org/10.1145/2723872.2723882">Boettiger</a>.
 All processing and configuration shall be scripted, no &ldquo;click&rdquo; interaction required.</p>
 <h2 id="reasoning-and-decisions">Reasoning and decisions<a class="headerlink" href="#reasoning-and-decisions" title="Permanent link">&para;</a></h2>
 <h3 id="some-observations">Some observations<a class="headerlink" href="#some-observations" title="Permanent link">&para;</a></h3>
 <ul>
+<li>research workflows with environmental or generated data can be <em>&ldquo;born digital</em>&rdquo; from beginning and stay that way to the end (sensors, data storage, data analysis, presentation, review, publication)</li>
 <li>researchers do their thing and need independence/flexibility, so post-hoc creation will probably be most common and ERC must have low to no impact on workflow</li>
 <li>data storage, citation and preservation is solved (repos, bitstream preservation in archives)</li>
 <li>packaging methods/methodology is solved (R packages, Python packages, &hellip;)</li>
 <li>software preservation is <em>not</em> solved (methods are there, like migration, emulation, but complexity is too high to do this at high granularity)</li>
 <li>reproducible paper is solved (literate programming, R package dependency handling solutions, ..)</li>
-<li>computational RR requires sandboxing (to make sure everything is there as much as security)</li>
+<li>computational RR requires sandboxing (to make sure everything is there, but also for security)</li>
 <li>a service is needed to create ERC for researchers and executes them in a controlled environment</li>
 </ul>
 <h3 id="why-nested-containers">Why nested containers<a class="headerlink" href="#why-nested-containers" title="Permanent link">&para;</a></h3>
@@ -194,10 +195,13 @@ As a bonus, the outer container can immediately be used to make an ERC conform t
 Also the chosen outer container standard is much older and common than the inner container standard, and thus more likely to exist longer.</p>
 <p>The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.</p>
 <h3 id="why-bagit">Why BagIt<a class="headerlink" href="#why-bagit" title="Permanent link">&para;</a></h3>
-<p>&hellip;</p>
+<ul>
+<li>BagIt is something that preservation experts understand and covers what they care about (bitstream preservation), so it seemed a good fit in the first project vision.</li>
+<li>BagIt originally was the required packaging for uploading of data, but that has changed. Users upload their data and analysis, and then execute the analysis to ensure the output matches what they created themselves. This is more important than correct bits, which become relevant again after creation of an ERC when it is stored and a bag is created.</li>
+</ul>
 <h3 id="why-docker">Why Docker<a class="headerlink" href="#why-docker" title="Permanent link">&para;</a></h3>
 <ul>
-<li>(Docker) containers provide an encapsulation mechanism to package all dependencies of an anylsis</li>
+<li>(Docker) containers provide an encapsulation mechanism to package all dependencies of an analysis</li>
 <li>during container execution, and substitution, the build in <a href="https://en.wikipedia.org/wiki/Copy-on-write">copy-on-write</a> storage only creates copy of files that are changed within the container, thus saving storage capacity</li>
 <li>volume mounts allow easy substitution of input data and configurations of analysis</li>
 </ul>
@@ -220,7 +224,8 @@ The complexity of preserving the runtime environment is transferred from the pac
 The burden in a plain R solution shifts from authoring to preservation.</p>
 <p>Even though shipping system binaries within packages is possible (if not common), some packages do use system libraries which are not preserved in a plain R approach.
 Adjusting such packages is not an option.</p>
-<p>Furthermore, none of the solutions for reproducibility are part of &ldquo;core R&rdquo;, even if they are trustworthy (e.g. MRAN). CRAN does not support installing specific package versions.</p>
+<p>Furthermore, none of the solutions for reproducibility are part of &ldquo;core R&rdquo;, even if they are trustworthy (e.g. MRAN).
+CRAN does not support installing specific package versions.</p>
 <p>That is why using an abstraction layer outside of R is preferable.</p>
 <h3 id="licensing-information">Licensing information<a class="headerlink" href="#licensing-information" title="Permanent link">&para;</a></h3>
 <p>Without proper license credits, the contents of an ERC would be useless based on today&rsquo;s copyright laws.
@@ -247,12 +252,13 @@ Therefore we rather have the extra work for authors to define a license than to 
 <li>better accessible in the long term</li>
 <li>no data duplication</li>
 </ul>
-<h2 id="o2r-platform">o2r Platform<a class="headerlink" href="#o2r-platform" title="Permanent link">&para;</a></h2>
+<h2 id="o2r">o2r<a class="headerlink" href="#o2r" title="Permanent link">&para;</a></h2>
 <p>The software developed by the o2r project is the reference implementation of the ERC specification.</p>
-<h3 id="web-api">Web API<a class="headerlink" href="#web-api" title="Permanent link">&para;</a></h3>
-<p><a href="http://o2r.info/o2r-web-api">o2r Web API specification</a></p>
-<h3 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h3>
-<p><a href="http://o2r.info/architecture/">o2r Architecture documentation</a></p>
+<ul>
+<li><a href="http://o2r.info/o2r-web-api">o2r Web API specification</a></li>
+<li><a href="http://o2r.info/architecture/">o2r Architecture documentation</a></li>
+<li><a href="https://github.com/o2r-project/reference-implementation">o2r Reference Implementation</a></li>
+</ul>
 <h2 id="erc-completeness-score">ERC completeness score<a class="headerlink" href="#erc-completeness-score" title="Permanent link">&para;</a></h2>
 <p>While the ERC is intended to be simple enough to be created manually, the clear requirements on it&rsquo;s contents also serve a semi-automatic creation.
 For example, a user can upload a workspace with data files, and R Markdown document, and an HTML rendering of the document to an online platform, where the runtime manifest and image are automatically created. In such a case, metadata would still be added manually.</p>
