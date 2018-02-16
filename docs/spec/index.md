@@ -139,7 +139,15 @@ The file MUST be encoded in `UTF-8` and MUST NOT contain a byte-order mark (BOM)
 The first document content of this file MUST contain the following string nodes at the root level.
 
 - `spec_version`: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is `1`.
-- `id`: globally unique identifier for a specific ERC. This SHOULD be a URI (see [rfc3986][rfc3986]) or a [UUID][uuid], Version 4.
+- `id`: globally unique identifier for a specific ERC. `id` MUST only contain lowercase letters, digits and single separators. Valid separators are period, underscore, or dash. A name component MUST NOT start or end with a separator. An implementation MAY introduce further restrictions on minimum and maximum length of identifiers.
+
+!!! Note
+    While URIs (see [rfc3986][rfc3986]) are very common identifiers, not all systems support them as identifiers.
+    For example they cannot be used for Docker image names.
+
+    A regular expression to validate identifiers is `[a-z0-9][a-z0-9._-]+[a-z0-9]`.
+
+    An identifier MAY be an [UUID][uuid], Version 4.
 
 The main and display file MAY be defined in root-level nodes named `main` and `display` respectively, if they differ from the default file names.
 If they are not defined and multiple documents use the name `main.[ext]` or `display.[ext]`, an implementation SHOULD use the first file in [alphabetical order](https://en.wikipedia.org/wiki/Alphabetical_order).
@@ -148,35 +156,41 @@ If they are not defined and multiple documents use the name `main.[ext]` or `dis
     ```yml
     id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
     spec_version: 1
-    main: the_paper_document.rmd
+    main: workflow.Rmd
     display: paper.html
     ```
 
-Additionally, related resources such as a related publication can be stated with the `relatedIdentifier` element field. A related identifier SHOULD be a globally unique persistent identifier and SHOULD be a URI.
-
+Additionally, related resources such as a related publication can be stated with the `relatedIdentifier` element field.
+A related identifier SHOULD be a globally unique persistent identifier and SHOULD be a URI.
 
 ### Control statements
 
-The configuration file MUST contain statements to control the runtime container.
+The configuration file SHOULD contain statements to control the execution of the runtime image.
 
 These statements MUST be in an array under the root-level node `execution` in the ERC configuration file in the order in which they must be executed.
 
 Implementations SHOULD support a list of [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) commands as control statements.
 These commands are given as a list under the node `cmd` under the root-level node `execution`.
-If extensions use non-bash commands, they MUST define own nodes under the `execution` node and SHOULD define defaults.
+Non-bash commands MUST be defined under own nodes under the `execution` node.
+The current/working directory for these commands MUST be the [ERC base directory](#base-directory).
 
 The execution statements MAY ensure the re-computation being independent from the environment, which may be different depending on the host of the execution environment.
 For example, the time zone could be fixed via an environment variable `TZ=CET`, so output formatting of timestamps does not break [checking](../glossary.md#check).
 This is in addition to ERC authors handling such parameters at a script level.
 
-!!! tip "Example for control statements"
+!!! tip "Examples for control statements"
     ```yml
-    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-    spec_version: 1
     execution:
       cmd:
         - `./prepare.sh --input my_data`
         - `./execute.sh --output results --iterations 3`
+    ```
+
+    ```yml
+    id: 12345
+    execution:
+      cmd: >-
+        'docker run -it --rm --volume $(pwd):/erc --volume $(pwd)/other_data.csv:/erc/data.csv:ro erc:12345'
     ```
 
 ### License metadata
@@ -280,21 +294,21 @@ The _runtime environment or image_ MUST be represented by a [Docker image v1.2.0
 
 The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)), i.e. an archive file, of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
 
-The image MUST have a [_label_](https://docs.docker.com/engine/reference/commandline/build/#options) of the name `erc` with the ERC's id as value, e.g. `erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
+The image MUST have a tag `erc:<erc identifier`, for example `erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
 
 The image file MAY be compressed.
 
 The tar archive file names SHOULD be `image.tar`, or `image.tar.gz` if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files) with an appropriate file extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
 
 !!! note
-    Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the label which can be used to extract the image identifier, for example:
+    Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the tag which can be used to identify the image, for example:
     
     ```bash
-    docker build --label erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
-    docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec"
-    docker save $(docker images --filter "label=erc=1234" -q) > image.tar
+    docker build --tag erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
+    docker images erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    docker save erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec > image.tar
     # save with compression:
-    docker save $(docker images --filter "label=erc=1234" -q) | gzip -c >     image.tar.gz
+    docker save erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec | gzip -c > image.tar.gz
     ```
     
     Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been [manipulated](../glossary.md#manipulate) during a run.
@@ -348,11 +362,10 @@ Based on the configuration, an implementation can construct the respective run-t
     
     ```bash
     docker load --input image.tar
-    IMAGE_ID=$(docker images --filter "label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec" -q)
-    docker run -it --name run_abc123 -e TZ=CET -v /storage/erc/abc123:/erc --label user:o2r $IMAGE_ID
+    docker run -it --name run_b9b0099e -e TZ=CET -v /storage/erc/abc123:/erc erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 	```
 	
-	In this case the implementation uses `-it` to pass stdout streams to the user and adds some metadata using `--name` and `--label`</code>`.
+	In this case the implementation uses `-it` to pass stdout streams to the user and adds an identifier for the container using `--name`.
 
 The only option for `load` is `quiet`, which may be set to Boolean `true` or `false`.
 
