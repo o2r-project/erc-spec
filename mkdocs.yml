@@ -31,3 +31,4 @@ markdown_extensions:
   #- pymdownx.inlinehilite
   - pymdownx.tilde
   - pymdownx.superfences # does not work with guess_lang=True
+  - def_list
