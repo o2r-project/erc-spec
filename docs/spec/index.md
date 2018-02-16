@@ -10,7 +10,7 @@ It provides a well-defined structure for data, code, text, documentation, and us
 
 ### Version
 
-Specification version: `1`
+Specification version: **`1`**
 
 !!! warning
     This version is _under development_!
@@ -23,33 +23,41 @@ The key words "unspecified", "undefined", and "implementation-defined" are to be
 
 ### Purpose, target audience, and context
 
-This specification defines a structure to transport and execute a computational scientific analyses (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science)).
-It carries technical and conceptual details on how to implement the reproducibility specifications and is as such most suitable **for developers**.
+This specification defines a structure to transport and execute a computational scientific analysis (cf. [computational science](https://en.wikipedia.org/wiki/Computational_science)).
+It carries technical and conceptual details on how to implement tools to enhance reproducibility and is most suitable **for developers**.
 **Authors** may feel more comfortable with the _[user guides](/#user-guides)_.
 
-These analyses typically comprise a workspace on a researcher's computer, which contains _data_ ([born digital](https://en.wikipedia.org/wiki/Born-digital), simulated, or other), _code_, third party _software_ or libraries, and _outputs_ of research such as digital plots or data.
-Code and libraries are required in executable form to re-do a specific analysis.
-Research is only put into a context by a _textual_ publication, a research paper, which is published in [scholarly communication](https://en.wikipedia.org/wiki/Scholarly_communication).
-The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
-The latter is often derived, or "rendered" from the former and can be static, visual, or even interactive following a trend towards more interactivity between reader and scientific publication.
+These analyses typically comprise a digital workspace on a researcher's computer, which contains _data_ ([born digital](https://en.wikipedia.org/wiki/Born-digital), simulated, or other), _code_, third party _software_ or libraries, and _outputs_ of research such as digital plots or data.
+Code and libraries are required in executable form to re-do a specific analysis or workflow.
+Research is only put into a context by a _text_, e.g. a research paper, which is published in [scholarly communication](https://en.wikipedia.org/wiki/Scholarly_communication).
+The text comes in two forms: one that is machine readable, and another one that is suitable for being viewed by humans.
+The latter is derived, or "rendered", from the former.
+The viewing experience can be static, textual, visual, or interactive.
 
-Putting all of these elements in a self-contained bundle allows examining, reproducing, transferring, archiving, and formal validation of computational research results.
-The ERC specification also defines metadata and file structures to support these actions.
+Putting all of these elements in a self-contained bundle allows examining, reproducing, transferring, archiving, and formally validating computational research results in a time frame for peer review and collaboration.
+The ERC specification defines metadata and file structures to support these actions.
 
-### Major constituents and design goals
+### Major constituents
 
-Three major constituents classify user interaction with ERC:
+Three major constituents group possible user interactions with ERC.
 
-- [**Create**](../glossary.md#create) means transforming a workspace with data, code and text into an ERC.
-- [**Examine**](../glossary.md#examine) means looking at depths of an ERC, scrutinizing its contents.
-- [**Discover**](../glossary.md#discover) means searching for content powered by ERC properties, such as text, content metadata, code metadata et cetera.
+Create
+: [Creation](../glossary.md#create) is transforming a workspace with data, code and text into an ERC.
 
-A core design goal is _simplicity_.
-This specification should not re-do something which already exists (if it is an open specification or tool).
+Examine
+: [Examination](../glossary.md#examine) is evaluating ERC at different levels, from inspecting contents to creating derived analyses.
+
+Discover
+: [Discovery](../glossary.md#discover) is searching for content powered by ERC properties, such as text, content metadata, code metadata et cetera.
+
+### Design goals
+
+Simplicity
+: This specification should not re-do something which already exists (if it is an open specification or tool).
 It must be possible to create a valid and working ERC _manually_, while supporting tools should be able to cover typical use cases with minimal required input by a creating user.
 
-The final important notion is the one of _nested containers_.
-We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
+Nested containers
+: We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
 Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
 We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.
 
@@ -104,7 +112,7 @@ The _interactive display file_ MUST have `HTML` format and SHOULD be valid [HTML
 
 ### Nested runtime
 
-The embedding of a representation of the original runtime environment, in which an analysis was conducted, is crucial for supporting reproducible computations.
+The embedding of a representation of the original runtime environment, in which the analysis was conducted, is crucial for supporting reproducible computations.
 Every ERC MUST include two such such representations:
 
 1. an **executable runtime image** of the original analysis environment for re-running the packaged analysis, and 
@@ -180,7 +188,7 @@ The node `licenses` MUST have five child nodes: `text`, `data`, `code`, `ui_bind
 
 !!! note
     There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
-    Tools for automatic creation of ERC may add such detailed licensing information and define an extension to the ERC 
+    Tools for automatic creation of ERC may add such detailed licensing information and define additional metadata.
 
 The content of each of these child nodes MUST have one of the following values:
 
@@ -585,14 +593,14 @@ Implementations SHOULD use this field to identify an ERC.
     └── tagmanifest-md5.txt
     ```
 
-#### BagIt profile
+#### BagIt profile - DRAFT
 
 !!! note
     The elements of the o2r Bagit Profile is yet to be specified.
     This section is under development.
     Current BagIt tools do not include an option to add a BagIt Profile automatically.
 
-A [BagIt Profile][bagitprofiles] as outlined below could make the requirements of this extension more explicit.
+A [BagIt Profile][bagitprofiles] as outlined below would make the requirements more explicit.
 The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate additional information, attached to bags.
 
 ```json
@@ -635,7 +643,7 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
   ],
   "Tag-Files-Required":[
      ".erc/metadata.json",
-     ".erc.yml"
+     "erc.yml"
   ],
   "Accept-BagIt-Version":[
      "0.96"
@@ -645,7 +653,6 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
 
 [bagit]: http://tools.ietf.org/html/draft-kunze-bagit
 [bagitprofiles]: https://github.com/ruebot/bagit-profiles
-
 
 #### Package leaflet
 
@@ -678,7 +685,6 @@ Each ERC MUST contain a package leaflet, describing the schemas and standards us
     ```
 
 Elements used for each schema standard used are contributed via the MD mapping files in the o2r meta tool suite.
-
 
 #### Secondary metadata files
 
@@ -721,8 +727,6 @@ In order to comply to their governing schemas, secondary metadata must include t
 	+ Publisher
 	+ Publication Year
 	+ Resource Type
-
-
 
 ### Development bundle
 
