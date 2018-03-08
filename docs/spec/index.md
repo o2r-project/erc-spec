@@ -298,10 +298,10 @@ The image MUST have a tag `erc:<erc identifier`, for example `erc:b9b0099e-9f8d-
 
 The image file MAY be compressed.
 
-The tar archive file names SHOULD be `image.tar`, or `image.tar.gz` if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files) with an appropriate file extension, such as `.tar`, `tar.gz` or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
+The tar archive file names MUST be `image` with an appropriate file extension, such as `.tar`, `.tar.gz` (if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files)) or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
 
 !!! note
-    Before exporting the Docker image, first [build it](https://docs.docker.com/engine/reference/commandline/build/) from the Dockerfile, including the tag which can be used to identify the image, for example:
+    Before exporting the Docker image, it should be [build](https://docs.docker.com/engine/reference/commandline/build/) from the runtime manifest, including the tag which can be used to identify the image, for example:
     
     ```bash
     docker build --tag erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
@@ -312,8 +312,6 @@ The tar archive file names SHOULD be `image.tar`, or `image.tar.gz` if a [gzip c
     ```
     
     Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been [manipulated](../glossary.md#manipulate) during a run.
-
-The output of the image execution can be shown to the user to convey detailed information on progress or errors.
 
 ### Runtime manifest
 
@@ -396,20 +394,10 @@ For archival, it can also be confusing to replicate code and text, albeit them b
 Therefore a host directory is [mounted into a container](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) at runtime using a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
 
 The Dockerfile SHOULD NOT contain a `COPY` or `ADD` command to include data, code or text from the ERC into the image.
+It may be used to copy code or libraries which must be available during the image build.
 
 The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC base directory within the container.
-This mountpoint SHOULD be `/erc`.
-Implementations MUST use this value as the default.
-If the mountpoint is different from `/erc`, the value MUST be defined in `erc.yml` in a node `execution.mount_point`.
-
-!!! tip "Example for mountpoint configuration"
-    ```yml
-    ---
-    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-    spec_version: 1
-    execution:
-      mount_point: "/erc"
-    ```
+This mount point MUST be `/erc`.
 
 !!! tip "Example Dockerfile"
     In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to reproduce computations made in R.
@@ -456,6 +444,9 @@ If the mountpoint is different from `/erc`, the value MUST be defined in `erc.ym
     ```
 
     See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
+
+!!! tip "Main and display file in the container"
+    The fixed mount point have the advantage that users and tools can be sure the main and display files are usually available at `/erc/main.Rmd` and `/erc/display.html` respectively.
 
 ## R workspaces
 
@@ -865,6 +856,7 @@ The files included in the comparison are the _comparison set_.
 An implementation MUST communicate the comparison set to the user as part of a check.
 
 Previous to the check, an implementation SHOULD conduct a basic validation of the outer container's integrity, i.e. check the file hashes.
+The output of the image execution can be shown to the user to convey detailed information on progress or errors.
 
 ### Comparison set file
 
