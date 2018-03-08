@@ -140,17 +140,15 @@ The file MUST be encoded in `UTF-8` and MUST NOT contain a byte-order mark (BOM)
 The first document content of this file MUST contain the following string nodes at the root level.
 
 - `spec_version`: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is `1`.
-- `id`: globally unique identifier for a specific ERC. `id` MUST only contain lowercase letters, digits and single separators. Valid separators are period, underscore, or dash. A name component MUST NOT start or end with a separator. An implementation MAY introduce further restrictions on minimum and maximum length of identifiers.
+- `id`: globally unique identifier for a specific ERC. `id` MUST not be empty and MUST only contain lowercase letters, uppercase letters, digits and single separators. Valid separators are period, underscore, or dash. A name component MUST NOT start or end with a separator. An implementation MAY introduce further restrictions on minimum and maximum length of identifiers.
 
 !!! Note
     While URIs (see [rfc3986][rfc3986]) are very common identifiers, not all systems support them as identifiers.
     For example they cannot be used for Docker image names.
+    A [UUID][uuid] is a valid `id`.
+    A regular expression to validate identifiers is `/^[^-_.][a-zA-Z0-9._-]+[^-_.]$/`.
 
-    A regular expression to validate identifiers is `[a-z0-9][a-z0-9._-]+[a-z0-9]`.
-
-    An identifier MAY be an [UUID][uuid], Version 4.
-
-The main and display file MAY be defined in root-level nodes named `main` and `display` respectively, if they differ from the default file names.
+The main and display file MAY be defined in root-level nodes named `main` and `display` respectively.
 If they are not defined and multiple documents use the name `main.[ext]` or `display.[ext]`, an implementation SHOULD use the first file in [alphabetical order](https://en.wikipedia.org/wiki/Alphabetical_order).
 
 !!! tip "Example of ERC configuration file with user-defined main and display files"
@@ -303,15 +301,13 @@ The tar archive file names MUST be `image` with an appropriate file extension, s
 
 !!! note
     Before exporting the Docker image, it should be [build](https://docs.docker.com/engine/reference/commandline/build/) from the runtime manifest, including the tag which can be used to identify the image, for example:
-    
     ```bash
-    docker build --tag erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
-    docker images erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-    docker save erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec > image.tar
+    docker build --tag erc:b9b0099e-9f8d .
+    docker images erc:b9b0099e-9f8d
+    docker save erc:b9b0099e-9f8d > image.tar
     # save with compression:
-    docker save erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec | gzip -c > image.tar.gz
+    docker save erc:b9b0099e-9f8d | gzip -c > image.tar.gz
     ```
-    
     Do _not_ use `docker export`, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been [manipulated](../glossary.md#manipulate) during a run.
 
 ### Runtime manifest
@@ -441,7 +437,8 @@ This mount point MUST be `/erc`.
     VOLUME ["/erc"]
 
     ENTRYPOINT ["sh", "-c"]
-    CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\""]
+    CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd', \
+        output_dir = '/erc', output_format = rmarkdown::html_document())\""]
     ```
 
     See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
@@ -450,6 +447,8 @@ This mount point MUST be `/erc`.
     The fixed mount point have the advantage that users and tools can be sure the main and display files are usually available at `/erc/main.Rmd` and `/erc/display.html` respectively.
 
 ## R workspaces
+
+ERC support the [R](https://www.r-project.org/) software environment for statistical computing and graphics.
 
 ### Structure
 
@@ -516,7 +515,6 @@ An implementation MAY use the indicator `interactive: true` to provide other mea
 
 !!! tip "Example for minimal interaction configuration"
     ```yml
-    ---
     id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
     spec_version: 1
     ui_bindings:
@@ -536,7 +534,6 @@ For each widget, implementations MAY use the properties `code`, `data`, and `tex
 
 !!! tip "Example of two UI bindings"
     ```yml
-    ---
     id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
     spec_version: 1
     ui_bindings:
@@ -615,7 +612,8 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
   "Source-Organization":"o2r.info",
   "Contact-Name":"o2r Team",
   "Contact-Email":"o2r@uni-muenster.de",
-  "External-Description":"BagIt profile for packaging executable research compendia.",
+  "External-Description":"BagIt profile for packaging
+        executable research compendia.",
   "Version":"1"
   },
   "Bag-Info":{
@@ -669,7 +667,8 @@ Each ERC MUST contain a package leaflet, describing the schemas and standards us
     "standards_used": [
         {
             "o2r": {
-                "map_description": "maps raw extracted metadata to o2r schema compliant metadata",
+                    "map_description": "maps raw extracted metadata to
+                        o2r schema compliant metadata",
                 "mode": "json",
                 "name": "o2r",
                 "outputfile": "metadata_o2r.json",
@@ -678,7 +677,8 @@ Each ERC MUST contain a package leaflet, describing the schemas and standards us
         },
         {
             "zenodo_sandbox": {
-                "map_description": "maps o2r schema compliant MD to Zenodo Sandbox for deposition creation",
+                    "map_description": "maps o2r schema compliant MD to
+                        Zenodo Sandbox for deposition creation",
                 "mode": "json",
                 "name": "zenodo_sandbox",
                 "outputfile": "metadata_zenodo_sandbox.json",
@@ -800,7 +800,11 @@ The current JSON dummy file to visualises the properties. These elements SHOULD 
 }
 ```
 
-The path to the o2r metadata file MUST be `<path-to-bag>/data/metadata_raw.json` and the refined version metadata_o2r.json.
+The path to the o2r metadata file MUST be
+
+`<path-to-bag>/data/metadata_raw.json`
+
+and the refined version `metadata_o2r.json`.
 
 ### Description of o2r metadata properties
 
