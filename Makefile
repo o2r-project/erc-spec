@@ -54,7 +54,7 @@ pdf: prepare_md_for_pdf
 
 travis_pdf: prepare_md_for_pdf
 	# update version in cover page
-	sed -i 's/___VCS_REF___/${VCS_REF}/g' docs/pdf_cover.tex
+	sed -i 's/@@VCSREF@@/${VCS_REF}/g' docs/pdf_cover.tex
 	# create PDF
 	pandoc --toc -f markdown -V colorlinks --include-before-body docs/pdf_cover.tex --highlight-style pygments --output ${SPEC_FILE_NAME_PDF} --pdf-engine=xelatex --filter pandoc-latex-admonition --verbose erc.tmp
 	mv erc-spec*.pdf site/
@@ -72,9 +72,3 @@ travis_md: prepare_md
 	sed -i 's/@@TIMESTAMP@@/${CURRENT_DATE}/g' erc.md
 	mv erc.md site/${SPEC_FILE_NAME_MD}
 	cp `ls site/erc-spec-v*.md | sort | tail -n 1` site/erc-spec.md
-
-# fiware/md2pdf and pdftk
-pdf_md2pdf:
-	docker run -v ${CURDIR}:/md2pdf fiware/md2pdf --input /md2pdf/mkdocs.yml --output /md2pdf/spectmp.pdf
-	pdftk spectmp.pdf cat 2-end output erc-spec-v${CURRENT_VERSION}.pdf
-	rm spectmp.pdf
