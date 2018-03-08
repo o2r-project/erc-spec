@@ -1,3 +1,4 @@
+\newpage
 # ERC specification
 
 An Executable Research Compendium (ERC) is a packaging convention for computational research.

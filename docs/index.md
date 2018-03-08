@@ -1,3 +1,4 @@
+\newpage
 # Executable Research Compendium
 
 This is the technical specification of the Executable Research Compendium (ERC).
@@ -20,6 +21,7 @@ Are your a **librarian** or **preservationist** and want to use ERCs for archiva
 
 - [ERC & OAIS](user-guide/oais.md)
 
+\newpage
 ## Credits
 
 This specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research
