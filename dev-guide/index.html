@@ -97,9 +97,9 @@
         
             <li><a class="toctree-l4" href="#convention-over-configuration-and-devops">Convention over configuration and DevOps</a></li>
         
-            <li><a class="toctree-l4" href="#reasoning-and-decisions">Reasoning and decisions</a></li>
+            <li><a class="toctree-l4" href="#related-initiatives-specifications">Related initiatives, specifications, ...</a></li>
         
-            <li><a class="toctree-l4" href="#o2r">o2r</a></li>
+            <li><a class="toctree-l4" href="#reasoning-and-decisions">Reasoning and decisions</a></li>
         
             <li><a class="toctree-l4" href="#erc-completeness-score">ERC completeness score</a></li>
         
@@ -161,8 +161,14 @@
             <div class="section">
               
                 <h1 id="erc-developer-guide">ERC developer guide<a class="headerlink" href="#erc-developer-guide" title="Permanent link">&para;</a></h1>
-<p>An introduction to the ERC rational and the technology choices made within the project <em>Opening Reproducible Research</em>, and ideas for downstream products based on ERCs.
-This documents is targeted at developers who wish to create tools for creating, validating, and consuming ERC.</p>
+<p>An introduction to the ERC rational and the technology choices made within the project <em>Opening Reproducible Research</em> (o2r), and ideas for downstream products based on ERCs.
+This documents is targeted at <strong>developers</strong> who wish to create tools for creating, validating, and consuming ERC or who wonder about why specific tools or approaches were taken in designing the ERC specification.</p>
+<p>More information about the software developed by o2r:</p>
+<ul>
+<li><a href="http://o2r.info/o2r-web-api">o2r Web API specification</a></li>
+<li><a href="http://o2r.info/architecture/">o2r Architecture documentation</a></li>
+<li><a href="https://github.com/o2r-project/reference-implementation">o2r Reference Implementation</a></li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This guide is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.</p>
@@ -176,36 +182,74 @@ This way a typical research workspace should require only minimal configuration 
 However, if a user wants to use <code>rmarkdown::render(..)</code> on a file named <code>publication.md</code>, then the default behaviour can be overwritten.</p>
 <p>Second, <em>&ldquo;DevOps&rdquo;</em>, see <a href="https://en.wikipedia.org/wiki/DevOps">Wikipedia</a> or <a href="https://doi.org/10.1145/2723872.2723882">Boettiger</a>.
 All processing and configuration shall be scripted, no &ldquo;click&rdquo; interaction required.</p>
+<h2 id="related-initiatives-specifications">Related initiatives, specifications, &hellip;<a class="headerlink" href="#related-initiatives-specifications" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="http://www.activepapers.org/">ActivePapers</a></li>
+<li><a href="https://elifesciences.org/labs/7dbeb390/reproducible-document-stack-supporting-the-next-generation-research-article">eLife Reproducible Document Stack</a> and the <code>dar</code> format</li>
+<li><a href="http://wholetale.org/">Whole Tale</a>, see its <a href="https://github.com/whole-tale/whole-tale/issues/24">serialization format</a></li>
+<li><a href="https://reanahub.io">REANA</a> by CERN</li>
+</ul>
 <h2 id="reasoning-and-decisions">Reasoning and decisions<a class="headerlink" href="#reasoning-and-decisions" title="Permanent link">&para;</a></h2>
-<h3 id="some-observations">Some observations<a class="headerlink" href="#some-observations" title="Permanent link">&para;</a></h3>
+<h3 id="what-is-the-life-span-of-an-erc">What is the life span of an ERC?<a class="headerlink" href="#what-is-the-life-span-of-an-erc" title="Permanent link">&para;</a></h3>
+<p>Short answer: 10 years.</p>
+<p>Software that is &ldquo;archived&rdquo; is <em>not</em> intended to be &ldquo;used&rdquo; anymore.
+In 50 or 60 years time we cannot imagine how software or computers will look like.
+Science historians might still find a lot of valuable information in ERC, though.</p>
+<p>The ERC focusses on providing a <strong>usable environment for research workflows</strong> in the context of scholarly publishing (reviews etc.).
+Two aspects have an impact on the time frame we target for ERCs: (a) the nature of financing science and (b) the requirement to actually have a piece of code and data that is still interesting to use.</p>
+<p>Financing of scientific research is normally based on projects with a specific life span.
+We follow common guidelines for <em>publishing scientific data</em>, which require projects to ensure data availability for 10 years.</p>
+<p>Although much of the software we use today (like R) is actually quite &ldquo;old&rdquo;, we do not expect pieces of software that are relevant and useful to disappear for many years and only be preserved in ERCs.
+So, valuable software will exists and be maintained outside of ERCs.
+Specific software might only exist in ERCs and can be thoroughly inspected forever, but <em>potentially</em> not be executed anymore after a decade.</p>
+<p>We acknowledge a <a href="http://ivory.idyll.org/blog/2017-pof-software-archivability.html">half life</a> of computations, but the <strong>medium term reproducibility of ERC are already a huge improvement</strong> over <a href="https://doi.org/10.1016/j.cub.2013.11.014">the current state</a> at the example of research data.
+The situation for research data might have improved in the last years, but the situation for code is mostly unknown and might be even worse.</p>
+<h3 id="notes-and-decisions-to-elaborate-on">Notes and decisions to elaborate on&hellip;<a class="headerlink" href="#notes-and-decisions-to-elaborate-on" title="Permanent link">&para;</a></h3>
 <ul>
 <li>research workflows with environmental or generated data can be <em>&ldquo;born digital</em>&rdquo; from beginning and stay that way to the end (sensors, data storage, data analysis, presentation, review, publication)</li>
 <li>researchers do their thing and need independence/flexibility, so post-hoc creation will probably be most common and ERC must have low to no impact on workflow</li>
-<li>data storage, citation and preservation is solved (repos, bitstream preservation in archives)</li>
-<li>packaging methods/methodology is solved (R packages, Python packages, &hellip;)</li>
+<li>data storage, citation (for giving credit) and preservation is solved (repos, DOIs, bitstream preservation in archives)</li>
+<li>packaging methods/methodology for software is solved (R packages, Python packages, &hellip;)</li>
 <li>software preservation is <em>not</em> solved (methods are there, like migration, emulation, but complexity is too high to do this at high granularity)</li>
-<li>reproducible paper is solved (literate programming, R package dependency handling solutions, ..)</li>
+<li>reproducible paper is somewhat solved (literate programming, R package dependency handling solutions, ..)</li>
 <li>computational RR requires sandboxing (to make sure everything is there, but also for security)</li>
 <li>a service is needed to create ERC for researchers and executes them in a controlled environment</li>
 </ul>
-<h3 id="why-nested-containers">Why nested containers<a class="headerlink" href="#why-nested-containers" title="Permanent link">&para;</a></h3>
+<h3 id="why-nested-containers">Why nested containers?<a class="headerlink" href="#why-nested-containers" title="Permanent link">&para;</a></h3>
 <p>A user shall have access to the files without starting the runtime container.
 Therefore we have at least two items, so we have a bundle and need an outer container.
 As a bonus, the outer container can immediately be used to make an ERC conform to specific use cases, such as long term archival.
-Also the chosen outer container standard is much older and common than the inner container standard, and thus more likely to exist longer.</p>
+Also the chosen outer container solution (zip, tarball) is much older and common than the inner container standard, and thus more likely to exist longer.</p>
+<blockquote>
+<p>&ldquo;What&rsquo;s oldest lasts longest.&rdquo; <a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#supplementary-materials">source</a></p>
+</blockquote>
 <p>The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.</p>
-<h3 id="why-bagit">Why BagIt<a class="headerlink" href="#why-bagit" title="Permanent link">&para;</a></h3>
+<h3 id="why-bagit">Why BagIt?<a class="headerlink" href="#why-bagit" title="Permanent link">&para;</a></h3>
 <ul>
 <li>BagIt is something that preservation experts understand and covers what they care about (bitstream preservation), so it seemed a good fit in the first project vision.</li>
 <li>BagIt originally was the required packaging for uploading of data, but that has changed. Users upload their data and analysis, and then execute the analysis to ensure the output matches what they created themselves. This is more important than correct bits, which become relevant again after creation of an ERC when it is stored and a bag is created.</li>
 </ul>
-<h3 id="why-docker">Why Docker<a class="headerlink" href="#why-docker" title="Permanent link">&para;</a></h3>
+<h3 id="what-about-the-limitations-of-containers">What about the limitations of containers?<a class="headerlink" href="#what-about-the-limitations-of-containers" title="Permanent link">&para;</a></h3>
+<p>We are aware of the limitations that containers have.
+Most importantly the operating system and the kernel are not included.
+This results in smaller container size and better performance (e.g. quicker start because no &ldquo;boot&rdquo;) and also has security advantages.
+However, it also means that the encapsulated runtime environment in ERCs is <em>not</em> &ldquo;all the way down&rdquo;.</p>
+<p>It must be noted that of course changes in the operating system and it&rsquo;s kernel may break a workflow encapsulated in a container.</p>
+<p>Let&rsquo;s consider the <strong>Linux Kernel</strong>.
+Those breaking changes are <a href="https://www.reddit.com/r/linux/comments/3jyscd/has_there_been_a_time_when_the_linux_kernel/">very rare</a>.</p>
+<p>Let&rsquo;s consider <strong>Docker</strong>.
+Docker containers have by now been <a href="https://www.opencontainers.org/release-notices/v1-0-0">standardised by the OCI</a> and ERCs <a href="https://github.com/o2r-project/erc-spec/issues/7">should rely on the open standard in the future</a> (contributions welcome).
+The <a href="https://success.docker.com/article/Maintenance_Lifecycle">maintenance lifecycle</a> and <a href="https://success.docker.com/article/Compatibility_Matrix">compatibility matrix</a> of Docker do not imply they are suitable for the targeted time frame for ERCs.</p>
+<p>However, all these projects are Open Source software or documentation, and a long term provider for ERC (i.e. not a small research project) can handle these limitations in different ways, for example <strong>organisationally</strong> with long term maintenance contracts or <strong>technically</strong> as outlined in the o2r architecture <a href="http://o2r.info/architecture/#72-production-sketch">in the production architecture sketch</a>.
+These include specialised hardware and operating system specifics.</p>
+<h3 id="why-docker">Why Docker?<a class="headerlink" href="#why-docker" title="Permanent link">&para;</a></h3>
 <ul>
 <li>(Docker) containers provide an encapsulation mechanism to package all dependencies of an analysis</li>
+<li>Docker now basically is OCI, so switching to other tools should be possible.</li>
 <li>during container execution, and substitution, the build in <a href="https://en.wikipedia.org/wiki/Copy-on-write">copy-on-write</a> storage only creates copy of files that are changed within the container, thus saving storage capacity</li>
 <li>volume mounts allow easy substitution of input data and configurations of analysis</li>
 </ul>
-<h3 id="why-not-singularity">Why not Singularity<a class="headerlink" href="#why-not-singularity" title="Permanent link">&para;</a></h3>
+<h3 id="why-not-singularity">Why not Singularity?<a class="headerlink" href="#why-not-singularity" title="Permanent link">&para;</a></h3>
 <p><a href="http://singularity.lbl.gov/">Singularity</a> is an open source containerization solution.
 It might very well be a better choice for reproducible research in the future as it stems from the scientific community (HPC), cf. also <a href="https://www.software.ac.uk/c4rr">C4RR workshop 2017</a>.
 At the point of starting the specification, Docker was more widespread and implementations more readily available.
@@ -227,37 +271,62 @@ Adjusting such packages is not an option.</p>
 <p>Furthermore, none of the solutions for reproducibility are part of &ldquo;core R&rdquo;, even if they are trustworthy (e.g. MRAN).
 CRAN does not support installing specific package versions.</p>
 <p>That is why using an abstraction layer outside of R is preferable.</p>
-<h3 id="licensing-information">Licensing information<a class="headerlink" href="#licensing-information" title="Permanent link">&para;</a></h3>
+<h3 id="what-if-licensing-information-is-not-detailed-enough">What if licensing information is not detailed enough?<a class="headerlink" href="#what-if-licensing-information-is-not-detailed-enough" title="Permanent link">&para;</a></h3>
 <p>Without proper license credits, the contents of an ERC would be useless based on today&rsquo;s copyright laws.
-Therefore we rather have the extra work for authors to define a license than to create something that is unusable by others.</p>
+Therefore we rather have the extra work for authors to define a couple of licenses than to create something that is unusable by others.</p>
 <p>One of the biggest issues is the <strong>scope of licenses</strong>, namely what to do about having multiple pieces of code, text, or data with different licenses.</p>
-<h3 id="put-the-identifier-into-the-erc">Put the identifier into the ERC<a class="headerlink" href="#put-the-identifier-into-the-erc" title="Permanent link">&para;</a></h3>
+<p><strong>Ideas/Notes</strong></p>
+<p>The <code>erc.yml</code> could also hold more complex license metadata, for specific directories or files.
+Probably this is better solved in specialised formats, though.</p>
+<div class="admonition tip">
+<p class="admonition-title">Example using specific licenses</p>
+<pre class="codehilite"><code class="language-yml">---
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+licenses:
+  code:
+    others_lib.bin: MIT
+    my_code.c: GPL-3.0
+  data: 
+    facts.csv: ODbL-1.0
+  text:
+    README.md: CC0-1.0
+        paper.Rmd: CC-BY-4.0
+      ui_bindings: CC0-1.0
+      metadata: CC0-1.0</code></pre>
+
+</div>
+<p>It could even be possible to assign one license to a directory and override that assignment for a single file within that directory, or use globs or regular expressions.</p>
+<h3 id="why-not-put-x-into-the-erc-configuration-file">Why (not) put &ldquo;X&rdquo; into the ERC configuration file?<a class="headerlink" href="#why-not-put-x-into-the-erc-configuration-file" title="Permanent link">&para;</a></h3>
 <ul>
+<li>identifier<ul>
 <li>makes it easier to track across platforms</li>
 <li>is harder for manual creation</li>
 </ul>
-<h3 id="why-use-bash">Why use bash<a class="headerlink" href="#why-use-bash" title="Permanent link">&para;</a></h3>
-<p>While it is true that..</p>
-<blockquote>
-<p>&ldquo;What&rsquo;s oldest lasts longest.&rdquo; <a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#supplementary-materials">via</a></p>
-</blockquote>
-<p>using containers gives the necessary abstraction and encapsulation, so simply using bash (or make) does not suffice.</p>
-<h3 id="why-is-validation-happening-outside-the-container-and-not-in-the-container">Why is validation happening outside the container and not <em>in</em> the container<a class="headerlink" href="#why-is-validation-happening-outside-the-container-and-not-in-the-container" title="Permanent link">&para;</a></h3>
+</li>
+<li>kernel<ul>
+<li>would have to use our own label within image metadata</li>
+</ul>
+</li>
+<li>os and architecture<ul>
+<li>are already clearly defined im image spec</li>
+<li>can be extracted from a plain text file in the image tarball, so implementations can get them (quickly) before loading an image (a potentially costly operation)</li>
+</ul>
+</li>
+<li>Docker version<ul>
+<li>is already clearly defined in image spec</li>
+</ul>
+</li>
+</ul>
+<h3 id="why-is-validation-happening-outside-the-container-and-not-in-the-container">Why is validation happening outside the container and not <em>in</em> the container?<a class="headerlink" href="#why-is-validation-happening-outside-the-container-and-not-in-the-container" title="Permanent link">&para;</a></h3>
 <ul>
 <li>better user experience (otherwise all info must be transported via stdout)</li>
 <li>to be sure nothing is manipulated within the validation script</li>
 </ul>
-<h3 id="why-is-the-data-not-in-the-image-inner-container-but-in-the-outer-container">Why is the data not in the image (inner container) but in the outer container<a class="headerlink" href="#why-is-the-data-not-in-the-image-inner-container-but-in-the-outer-container" title="Permanent link">&para;</a></h3>
+<h3 id="why-is-the-data-not-in-the-image-inner-container-but-in-the-outer-container">Why is the data not in the image (inner container) but in the outer container?<a class="headerlink" href="#why-is-the-data-not-in-the-image-inner-container-but-in-the-outer-container" title="Permanent link">&para;</a></h3>
 <ul>
 <li>better accessible in the long term</li>
 <li>no data duplication</li>
-</ul>
-<h2 id="o2r">o2r<a class="headerlink" href="#o2r" title="Permanent link">&para;</a></h2>
-<p>The software developed by the o2r project is the reference implementation of the ERC specification.</p>
-<ul>
-<li><a href="http://o2r.info/o2r-web-api">o2r Web API specification</a></li>
-<li><a href="http://o2r.info/architecture/">o2r Architecture documentation</a></li>
-<li><a href="https://github.com/o2r-project/reference-implementation">o2r Reference Implementation</a></li>
 </ul>
 <h2 id="erc-completeness-score">ERC completeness score<a class="headerlink" href="#erc-completeness-score" title="Permanent link">&para;</a></h2>
 <p>While the ERC is intended to be simple enough to be created manually, the clear requirements on it&rsquo;s contents also serve a semi-automatic creation.

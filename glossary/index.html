@@ -116,8 +116,6 @@
         
             <li><a class="toctree-l3" href="#discover">Discover</a></li>
         
-            <li><a class="toctree-l3" href="#docker-container">Docker container</a></li>
-        
             <li><a class="toctree-l3" href="#erc">ERC</a></li>
         
             <li><a class="toctree-l3" href="#erc-contents">ERC contents</a></li>
@@ -130,6 +128,8 @@
         
             <li><a class="toctree-l3" href="#inspect">Inspect</a></li>
         
+            <li><a class="toctree-l3" href="#dependency">Dependency</a></li>
+        
             <li><a class="toctree-l3" href="#display-file">Display file</a></li>
         
             <li><a class="toctree-l3" href="#manipulate">Manipulate</a></li>
@@ -141,6 +141,8 @@
             <li><a class="toctree-l3" href="#reproducible-reproducibility-replication">Reproducible, Reproducibility, Replication</a></li>
         
             <li><a class="toctree-l3" href="#runtime-container">Runtime container</a></li>
+        
+            <li><a class="toctree-l3" href="#runtime-manifest">Runtime manifest</a></li>
         
             <li><a class="toctree-l3" href="#substitute">Substitute</a></li>
         
@@ -207,7 +209,7 @@ It conducts a number of operations on data and generates an output (text, number
 <p>See <a href="#erc-contents">ERC contents</a></p>
 <h2 id="container">Container<a class="headerlink" href="#container" title="Permanent link">&para;</a></h2>
 <p>A receptacle holding a collection of things (&ldquo;payload&rdquo; or &ldquo;contents&rdquo;).
-In the context of this specification, several containers are distinguished: <a href="#runtime-container">runtime container</a> (with <a href="#docker-container">Docker container</a> as a concrete instance) and <a href="#outer-container">outer container</a>.</p>
+In the context of this specification, two containers are distinguished: <a href="#runtime-container">runtime container</a> and <a href="#outer-container">outer container</a>.</p>
 <h2 id="check">Check<a class="headerlink" href="#check" title="Permanent link">&para;</a></h2>
 <p>A subconstituent of <a href="#examine"><em>Examine</em></a>.
 Checking an ERC is a syntactical validation, which may be largely automated by a software tool reporting the check result and potential errors.
@@ -219,9 +221,7 @@ The user can create an ERC by following the technical instructions included in t
 For more information, see <a href="">erc-spec/user-guide/creation/</a>.</p>
 <h2 id="discover">Discover<a class="headerlink" href="#discover" title="Permanent link">&para;</a></h2>
 <p>One of the major constituents of ERC interaction.
-Discovery comprises the findability of the ERC as well as the exploration of its features, e.g. time and space driven search operations.</p>
-<h2 id="docker-container">Docker container<a class="headerlink" href="#docker-container" title="Permanent link">&para;</a></h2>
-<p>TBD</p>
+Discovery comprises the <a href="https://en.wikipedia.org/wiki/Findability">findability</a> of the ERC as well as the exploration of its features, e.g. time and space driven search operations.</p>
 <h2 id="erc">ERC<a class="headerlink" href="#erc" title="Permanent link">&para;</a></h2>
 <p>Executable Research Compendium, see <a href="https://doi.org/10.1045/january2017-nuest">article</a>.</p>
 <h2 id="erc-contents">ERC contents<a class="headerlink" href="#erc-contents" title="Permanent link">&para;</a></h2>
@@ -238,6 +238,10 @@ To examine an ERC means to explore its contents in depth, i.e. check the reprodu
 <p>A subconstituent of <a href="#examine"><em>Examine</em></a>.
 Inspection includes looking at all the contents of an ERC, such as code or data files, and metadata documents.
 A user conducting inspection evaluates the meaning of the ERC&rsquo;s artifacts.</p>
+<h2 id="dependency">Dependency<a class="headerlink" href="#dependency" title="Permanent link">&para;</a></h2>
+<p>If software/<a href="https://en.wikipedia.org/wiki/Library_(computing)">library</a> <code>X</code> is required by software/tool <code>Y</code> to function properly, then <code>Y</code> has the dependency <code>X</code> or <code>X</code> is a dependency of <code>Y</code>.
+Collecting all the right dependencies, which work with each other, can be a hard problem, see <a href="https://en.wikipedia.org/wiki/Dependency_hell">Dependency hell</a>.
+Dependencies can be packages of the same language (like R extension package requiring another R extension package) or system dependencies (like a Python library from PyPI requiring a specific library available via the operating system <a href="https://en.wikipedia.org/wiki/Package_manager">package manager</a>).</p>
 <h2 id="display-file">Display file<a class="headerlink" href="#display-file" title="Permanent link">&para;</a></h2>
 <p>The file in the container that a reader software uses as the first display to a user to read text and explore graphics.
 The entry point for <a href="#examine">examination</a>. </p>
@@ -253,16 +257,25 @@ These parameters are defined via <a href="#ui-bindings">UI bindings</a>.</p>
 <h2 id="reproducible-reproducibility-replication">Reproducible, Reproducibility, Replication<a class="headerlink" href="#reproducible-reproducibility-replication" title="Permanent link">&para;</a></h2>
 <p>See <a href="https://doi.org/10.1045/january2017-nuest">section 2.1 &ldquo;Definition of Reproducibility&rdquo;</a>.</p>
 <h2 id="runtime-container">Runtime container<a class="headerlink" href="#runtime-container" title="Permanent link">&para;</a></h2>
-<p>TBD</p>
+<p>A <a href="https://en.wikipedia.org/wiki/LXC">Linux container</a>, more specifically a <a href="https://en.wikipedia.org/wiki/Docker_(software)">Docker container</a>, which is a special format to package an application and its <a href="#dependency">dependencies</a>.
+For usage in this specification, the runtime container can be used to provide the <a href="">computational environment</a> needed for execution of an ERC&rsquo;s workflow.
+It is a transferable snapshot of the authors computer, but also documents the software used by an ERC.</p>
+<h2 id="runtime-manifest">Runtime manifest<a class="headerlink" href="#runtime-manifest" title="Permanent link">&para;</a></h2>
+<p>A formal description or recipe for a <a href="#runtime-container">runtime container</a>, more specifically a <a href="https://docs.docker.com/engine/reference/builder/">Dockerfile</a>.</p>
+<blockquote>
+<p><em>Docker can build images automatically by reading the instructions from a Dockerfile. A Dockerfile is a text document that contains all the commands a user could call on the command line to assemble an image.</em> <a href="https://docs.docker.com/engine/reference/builder/">source</a></p>
+</blockquote>
 <h2 id="substitute">Substitute<a class="headerlink" href="#substitute" title="Permanent link">&para;</a></h2>
 <p>A subconstituent of <a href="#examine"><em>Examine</em></a>.
 During a substitution, compatible parts of an ERC are exchanged, e.g. similar data sets for a given analysis, or exchanging an analysis script.
-A substution process usually creates a new ERC based on two input ERCs: the <em>base ERC</em> and the <em>overlay ERC</em>.
+A substitution process usually creates a new ERC based on two input ERCs: the <em>base ERC</em> and the <em>overlay ERC</em>.
 One or several data or code files from the <em>overlay ERC</em> replace corresponding files in the <em>base ERC</em>, to create a new ERC.</p>
 <h2 id="ui-bindings">UI bindings<a class="headerlink" href="#ui-bindings" title="Permanent link">&para;</a></h2>
-<p>TBD</p>
+<p>Formal descriptions of parameters and interactions used during <a href="#examine"><em>Examine</em></a>.
+The UI bindings are included in the configuration file and may be created manually or with help of a user-friendly wizard.</p>
 <h2 id="workspace">Workspace<a class="headerlink" href="#workspace" title="Permanent link">&para;</a></h2>
-<p>The files created by the author of the original analysis, packages together with ERC metadata in the <a href="#outer-container">outer container</a>.</p>
+<p>The files created by the author of the original analysis.
+The workspace is packaged together with ERC metadata, <a href="#runtime-container">runtime container</a> and <a href="#runtime-manifest">runtime manifest</a> in the payload directory of the <a href="#outer-container">outer container</a>.</p>
               
             </div>
           </div>

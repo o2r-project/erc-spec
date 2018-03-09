@@ -68,7 +68,7 @@
         
             <li><a class="toctree-l3" href="#erc-configuration-file">ERC configuration file</a></li>
         
-            <li><a class="toctree-l3" href="#docker-runtime">Docker runtime</a></li>
+            <li><a class="toctree-l3" href="#runtime-manifest-and-image">Runtime manifest and image</a></li>
         
             <li><a class="toctree-l3" href="#r-workspaces">R workspaces</a></li>
         
@@ -78,7 +78,7 @@
         
             <li><a class="toctree-l3" href="#erc-checking">ERC checking</a></li>
         
-            <li><a class="toctree-l3" href="#security-considerations">Security considerations</a></li>
+            <li><a class="toctree-l3" href="#comprehensive-example-of-ercyml">Comprehensive example of erc.yml</a></li>
         
         </ul>
     
@@ -166,7 +166,8 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="erc-specification">ERC specification<a class="headerlink" href="#erc-specification" title="Permanent link">&para;</a></h1>
+                <p>\newpage</p>
+<h1 id="erc-specification">ERC specification<a class="headerlink" href="#erc-specification" title="Permanent link">&para;</a></h1>
 <p>An Executable Research Compendium (ERC) is a packaging convention for computational research.
 It provides a well-defined structure for data, code, text, documentation, and user interface controls for a piece of research and is suitable for long-term archival. As such it can also be perceived as a digital object or asset.</p>
 <div class="admonition note">
@@ -175,7 +176,7 @@ It provides a well-defined structure for data, code, text, documentation, and us
 </div>
 <h2 id="preface">Preface<a class="headerlink" href="#preface" title="Permanent link">&para;</a></h2>
 <h3 id="version">Version<a class="headerlink" href="#version" title="Permanent link">&para;</a></h3>
-<p>Specification version: <code>1</code></p>
+<p>Specification version: <strong><code>1</code></strong></p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This version is <em>under development</em>!</p>
@@ -184,30 +185,41 @@ It provides a well-defined structure for data, code, text, documentation, and us
 <p>The key words &ldquo;MUST&rdquo;, &ldquo;MUST NOT&rdquo;, &ldquo;REQUIRED&rdquo;, &ldquo;SHALL&rdquo;, &ldquo;SHALL NOT&rdquo;, &ldquo;SHOULD&rdquo;, &ldquo;SHOULD NOT&rdquo;, &ldquo;RECOMMENDED&rdquo;, &ldquo;MAY&rdquo;, and &ldquo;OPTIONAL&rdquo; are to be interpreted as described in <a href="http://tools.ietf.org/html/rfc2119">RFC 2119</a>.</p>
 <p>The key words &ldquo;unspecified&rdquo;, &ldquo;undefined&rdquo;, and &ldquo;implementation-defined&rdquo; are to be interpreted as described in the <a href="http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18">rationale for the C99 standard</a>.</p>
 <h3 id="purpose-target-audience-and-context">Purpose, target audience, and context<a class="headerlink" href="#purpose-target-audience-and-context" title="Permanent link">&para;</a></h3>
-<p>This specification defines a structure to transport and execute a computational scientific analyses (cf. <a href="https://en.wikipedia.org/wiki/Computational_science">computational science</a>).
-It carries technical and conceptual details on how to implement the reproducibility specifications and is as such most suitable <strong>for developers</strong>.
+<p>This specification defines a structure to transport and execute a computational scientific analysis (cf. <a href="https://en.wikipedia.org/wiki/Computational_science">computational science</a>).
+It carries technical and conceptual details on how to implement tools to enhance reproducibility and is most suitable <strong>for developers</strong>.
 <strong>Authors</strong> may feel more comfortable with the <em><a href="../#user-guides">user guides</a></em>.</p>
-<p>These analyses typically comprise a workspace on a researcher&rsquo;s computer, which contains <em>data</em> (<a href="https://en.wikipedia.org/wiki/Born-digital">born digital</a>, simulated, or other), <em>code</em>, third party <em>software</em> or libraries, and <em>outputs</em> of research such as digital plots or data.
-Code and libraries are required in executable form to re-do a specific analysis.
-Research is only put into a context by a <em>textual</em> publication, a research paper, which is published in <a href="https://en.wikipedia.org/wiki/Scholarly_communication">scholarly communication</a>.
-The text comes in two forms: one that is machine readable, and another one that is suitable for being read by humans.
-The latter is often derived, or &ldquo;rendered&rdquo; from the former and can be static, visual, or even interactive following a trend towards more interactivity between reader and scientific publication.</p>
-<p>Putting all of these elements in a self-contained bundle allows examining, reproducing, transferring, archiving, and formal validation of computational research results.
-The ERC specification also defines metadata and file structures to support these actions.</p>
-<h3 id="major-constituents-and-design-goals">Major constituents and design goals<a class="headerlink" href="#major-constituents-and-design-goals" title="Permanent link">&para;</a></h3>
-<p>Three major constituents classify user interaction with ERC:</p>
-<ul>
-<li><a href="../glossary/#create"><strong>Create</strong></a> means transforming a workspace with data, code and text into an ERC.</li>
-<li><a href="../glossary/#examine"><strong>Examine</strong></a> means looking at depths of an ERC, scrutinizing its contents.</li>
-<li><a href="../glossary/#discover"><strong>Discover</strong></a> means searching for content powered by ERC properties, such as text, content metadata, code metadata et cetera.</li>
-</ul>
-<p>A core design goal is <em>simplicity</em>.
-This specification should not re-do something which already exists (if it is an open specification or tool).
-It must be possible to create a valid and working ERC <em>manually</em>, while supporting tools should be able to cover typical use cases with minimal required input by a creating user.</p>
-<p>The final important notion is the one of <em>nested containers</em>.
-We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
-Therefore an ERC comprises <em>one or more containers but is itself subject to being put into a container</em>.
-We distinguish these containers into the inner or &ldquo;runtime&rdquo; container and the outer container, which is used for transfer of complete ERC and not content-aware validation.</p>
+<p>These analyses typically comprise a digital workspace on a researcher&rsquo;s computer, which contains <em>data</em> (<a href="https://en.wikipedia.org/wiki/Born-digital">born digital</a>, simulated, or other), <em>code</em>, third party <em>software</em> or libraries, and <em>outputs</em> of research such as digital plots or data.
+Code and libraries are required in executable form to re-do a specific analysis or workflow.
+Research is only put into a context by a <em>text</em>, e.g. a research paper, which is published in <a href="https://en.wikipedia.org/wiki/Scholarly_communication">scholarly communication</a>.
+The text comes in two forms: one that is machine readable, and another one that is suitable for being viewed by humans.
+The latter is derived, or &ldquo;rendered&rdquo;, from the former.
+The viewing experience can be static, textual, visual, or interactive.</p>
+<p>Putting all of these elements in a self-contained bundle allows examining, reproducing, transferring, archiving, and formally validating computational research results in a time frame for peer review and collaboration.
+The ERC specification defines metadata and file structures to support these actions.</p>
+<h3 id="major-constituents">Major constituents<a class="headerlink" href="#major-constituents" title="Permanent link">&para;</a></h3>
+<p>Three major constituents group possible user interactions with ERC.</p>
+<dl>
+<dt>Create</dt>
+<dd><a href="../glossary/#create">Creation</a> is transforming a workspace with data, code and text into an ERC.</dd>
+<dt>Examine</dt>
+<dd><a href="../glossary/#examine">Examination</a> is evaluating ERC at different levels, from inspecting contents to creating derived analyses.</dd>
+<dt>Discover</dt>
+<dd><a href="../glossary/#discover">Discovery</a> is searching for content powered by ERC properties, such as text, content metadata, code metadata et cetera.</dd>
+</dl>
+<h3 id="design-principles">Design principles<a class="headerlink" href="#design-principles" title="Permanent link">&para;</a></h3>
+<dl>
+<dt>Simplicity</dt>
+<dd>This specification should not re-do something which already exists (if it is an open specification or tool).
+  The risk of scattering information is mitigated by clear documentation. 
+  It must be possible to create a valid and working ERC <em>manually</em>, while supporting tools should be able to cover typical use cases with minimal required input by a creating user.</dd>
+<dt>Nested containers</dt>
+<dd>We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
+  Therefore an ERC comprises <em>one or more containers but is itself subject to being put into a container</em>.
+  We distinguish these containers into the inner or &ldquo;runtime&rdquo; container and the outer container, which is used for transfer of complete ERC and not content-aware validation.</dd>
+<dt>Transparency, Stability, and Openness</dt>
+<dd>Plain text files usable by both humans and computers are the backbone to make sure ERCs are acceptable by users from all scientific domains, are understandable today and tomorrow, and are easy to extend.
+  The ERC contains everything needed to execute a workflow.</dd>
+</dl>
 <h3 id="how-to-use-an-erc">How to use an ERC<a class="headerlink" href="#how-to-use-an-erc" title="Permanent link">&para;</a></h3>
 <p>The steps to (re-)run the analysis contained in an ERC as part of an <a href="../glossary/#examine">examination</a> are as follows:</p>
 <ul>
@@ -216,6 +228,28 @@ We distinguish these containers into the inner or &ldquo;runtime&rdquo; containe
 <li>compare the output files contained in the outer container with the output files just created by the runtime container</li>
 </ul>
 <p>This way an ERC allows computational reproducibility based on the original code and data.</p>
+<h3 id="three-questions">Three questions<a class="headerlink" href="#three-questions" title="Permanent link">&para;</a></h3>
+<p>[Section inspired by <a href="https://reana.readthedocs.io/en/latest/concepts.html#four-questions">REANA&rsquo;s &ldquo;Four Questions&rdquo;</a>]</p>
+<p>The ERC helps to make research papers more transparent an reusable by giving minimal structure for contents and context.
+They help to answer the &ldquo;Three Questions&rdquo; both for users, but more importantly for tools and services built around them.</p>
+<ol>
+<li><strong>What is your result?</strong><ul>
+<li>file I should look at to see the description and visualisations</li>
+<li>the &ldquo;display file&rdquo; shown by applications based on ERC</li>
+</ul>
+</li>
+<li><strong>What is your workflow?</strong><ul>
+<li>file I should look at as a reader when I want to understand your code/analysis/workflow, the steps you took</li>
+<li>the &ldquo;main file&rdquo; used by applications based on ERC for creating ERCs and executing them, which means running the analysis and creating the result</li>
+</ul>
+</li>
+<li><strong>What is your environment?</strong><ul>
+<li>operating system you used</li>
+<li>software you used (libraries, your own scripts, &hellip;)</li>
+<li>can be used by tools to recreate the same environment</li>
+</ul>
+</li>
+</ol>
 <h2 id="erc-structure">ERC structure<a class="headerlink" href="#erc-structure" title="Permanent link">&para;</a></h2>
 <h3 id="base-directory">Base directory<a class="headerlink" href="#base-directory" title="Permanent link">&para;</a></h3>
 <p>An ERC MUST has a <em>base directory</em>. All paths within this document are relative to this base directory.</p>
@@ -249,16 +283,33 @@ The <em>interactive display file</em> MUST have <code>HTML</code> format and SHO
 <p>Typical examples for the two core documents are R Markdown with HTML output (i.e. <code>main.Rmd</code> and <code>display.html</code>), or an <code>R</code> script creating a PNG file (i.e. <code>main.R</code> and <code>display.png</code>).</p>
 </div>
 <h3 id="nested-runtime">Nested runtime<a class="headerlink" href="#nested-runtime" title="Permanent link">&para;</a></h3>
-<p>The embedding of a representation of the original runtime environment, in which an analysis was conducted, is crucial for supporting reproducible computations.
+<p>The embedding of a representation of the original runtime environment, in which the analysis was conducted, is crucial for supporting reproducible computations.
 Every ERC MUST include two such such representations:</p>
 <ol>
 <li>an <strong>executable runtime image</strong> of the original analysis environment for re-running the packaged analysis, and </li>
 <li>a <strong>runtime manifest</strong> documenting the image&rsquo;s contents as a complete, self-consistent recipe of the runtime image&rsquo;s contents which is a machine-readable format that allows a respective tool to create the runtime image.</li>
 </ol>
-<p>The image MUST be stored as a file, e.g. a &ldquo;binary&rdquo;, in the ERC base directory.
-The name of the archive file MUST be configured in the ERC configuration file in the node <code>image</code> under the root-level node <code>execution</code>.</p>
-<p>The manifest MUST be stored as a text file in the ERC base directory.
-The name of the manifest file MUST be configured in the ERC configuration file in the node <code>manifest</code> under the root-level node <code>execution</code>.</p>
+<p>The image MUST be stored as a file, e.g. a &ldquo;binary&rdquo; or &ldquo;archive&rdquo;, in the ERC base directory.</p>
+<p>The manifest MUST be stored as a text file in the ERC base directory.</p>
+<p><strong>System environment</strong></p>
+<p>The nested runtime encapsulates software, files, and configurations up to a specific level of abstraction.
+It may not include a complete operating system, for example for better performance or security reasons.
+While this information is included in the nested runtime, it MUST be accessible without executing the runtime.
+Hard to obtain information SHOULD be replicated in the configuration file.</p>
+<p>If the nested runtime does not include the operating system, then the configuration file MUST include the following data about the environment used to create the ERC:</p>
+<ul>
+<li><em>architecture</em></li>
+<li><em>operating system</em></li>
+<li><em>kernel</em> (if applicable)</li>
+<li><em>runtime software version</em></li>
+</ul>
+<p>An implementation SHOULD notify the user if the provided system environment is incompatible with the implementations capabilities.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>A partially incompatible system environment, especially a different kernel version, may still produce the desired result, as breaking changes are very rare.
+An implementation may utilise <a href="https://semver.org/">semantic versioning</a> to improve its compatibility tests.
+An incompatible operating system, e.g. <code>linux</code> vs. <code>windows</code>, and architecture, e.g. <code>amd64</code> or <code>arm/v7</code>, are likely to fail.</p>
+</div>
 <h2 id="erc-configuration-file">ERC configuration file<a class="headerlink" href="#erc-configuration-file" title="Permanent link">&para;</a></h2>
 <p>The ERC configuration file is the <em>reproducibility manifest</em> for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.</p>
 <h3 id="name-format-and-encoding">Name, format, and encoding<a class="headerlink" href="#name-format-and-encoding" title="Permanent link">&para;</a></h3>
@@ -269,148 +320,94 @@ The file MUST be encoded in <code>UTF-8</code> and MUST NOT contain a byte-order
 <p>The first document content of this file MUST contain the following string nodes at the root level.</p>
 <ul>
 <li><code>spec_version</code>: a text string noting the version of the used ERC specification. The appropriate version for an ERC conforming to this version of the specification is <code>1</code>.</li>
-<li><code>id</code>: globally unique identifier for a specific ERC. This SHOULD be a URI (see <a href="https://tools.ietf.org/html/rfc3986">rfc3986</a>) or a <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a>, Version 4.</li>
+<li><code>id</code>: globally unique identifier for a specific ERC. <code>id</code> MUST not be empty and MUST only contain lowercase letters, uppercase letters, digits and single separators. Valid separators are period, underscore, or dash. A name component MUST NOT start or end with a separator. An implementation MAY introduce further restrictions on minimum and maximum length of identifiers.</li>
 </ul>
-<p>The main and display file MAY be defined in root-level nodes named <code>main</code> and <code>display</code> respectively, if they differ from the default file names.
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While URIs (see <a href="https://tools.ietf.org/html/rfc3986">rfc3986</a>) are very common identifiers, not all systems support them as identifiers.
+For example they cannot be used for Docker image names.
+A <a href="https://en.wikipedia.org/wiki/Universally_unique_identifier">UUID</a> is a valid <code>id</code>.
+A regular expression to validate identifiers is <code>/^[^-_.][a-zA-Z0-9._-]+[^-_.]$/</code>.</p>
+</div>
+<p>The main and display file MAY be defined in root-level nodes named <code>main</code> and <code>display</code> respectively.
 If they are not defined and multiple documents use the name <code>main.[ext]</code> or <code>display.[ext]</code>, an implementation SHOULD use the first file in <a href="https://en.wikipedia.org/wiki/Alphabetical_order">alphabetical order</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Example of ERC configuration file with user-defined main and display files</p>
 <pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
-main: the_paper_document.rmd
+main: workflow.Rmd
 display: paper.html</code></pre>
 
 </div>
-<p>Additionally, related resources such as a related publication can be stated with the <code>relatedIdentifier</code> element field. A related identifier SHOULD be a globally unique persistent identifier and SHOULD be a URI.</p>
-<h3 id="control-statements">Control statements<a class="headerlink" href="#control-statements" title="Permanent link">&para;</a></h3>
-<p>The configuration file MUST contain statements to control the runtime container.</p>
-<p>These statements MUST be in an array under the root-level node <code>execution</code> in the ERC configuration file in the order in which they must be executed.</p>
-<p>Implementations SHOULD support a list of <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">bash</a> commands as control statements.
-These commands are given as a list under the node <code>cmd</code> under the root-level node <code>execution</code>.
-If extensions use non-bash commands, they MUST define own nodes under the <code>execution</code> node and SHOULD define defaults.</p>
-<p>The execution statements MAY ensure the re-computation being independent from the environment, which may be different depending on the host of the execution environment.
-For example, the time zone could be fixed via an environment variable <code>TZ=CET</code>, so output formatting of timestamps does not break <a href="../glossary/#check">checking</a>.
-This is in addition to ERC authors handling such parameters at a script level.</p>
-<div class="admonition tip">
-<p class="admonition-title">Example for control statements</p>
-<pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-execution:
-  cmd:
-    - `./prepare.sh --input my_data`
-    - `./execute.sh --output results --iterations 3`</code></pre>
-
-</div>
-<h3 id="license-metadata">License metadata<a class="headerlink" href="#license-metadata" title="Permanent link">&para;</a></h3>
-<p>The file <code>erc.yml</code> MUST contain a first level node <code>licenses</code> with licensing information for the code, data, and text contained.
-Each of these three have distinct requirements, hence different licenses need to be applied.</p>
+<p>Additionally, related resources such as a related publication can be stated with the <code>relatedIdentifier</code> element field.
+A related identifier SHOULD be a globally unique persistent identifier and SHOULD be a URI.</p>
+<h3 id="author-and-license-metadata">Author and license metadata<a class="headerlink" href="#author-and-license-metadata" title="Permanent link">&para;</a></h3>
+<p>The main document MUST include information about the authors.
+It SHOULD contain this information in a structured way so it can be parsed by tools supporting ERCs.</p>
+<p>The file <code>erc.yml</code> MUST contain a first level node <code>licenses</code> with licensing information for contained artefacts.
+Each of these artefacts, e.g. code or data, have distinct requirements so it must be possible to apply different licenses.</p>
 <p>The node <code>licenses</code> MUST have five child nodes: <code>text</code>, <code>data</code>, <code>code</code>, <code>ui_bindings</code>, and <code>metadata</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
-Tools for automatic creation of ERC may add such detailed licensing information and define an extension to the ERC </p>
+<p>There is currently no mechanism to define the licenses of all the used libraries and software in a structured format.
+Manual creation would be tedious.
+Tools for automatic creation of ERC may add such detailed licensing information and define additional metadata elements.</p>
 </div>
-<p>The content of each of these child nodes MUST have one of the following values:</p>
+<p>The content of each of these child nodes MUST be a string with one of the following contents:</p>
 <ul>
-<li>text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the <a href="http://licenses.opendefinition.org/">Open Definition Licenses Service</a>, or</li>
-<li>a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory. </li>
+<li><em>license identifier</em> as defined by the <a href="http://licenses.opendefinition.org/">Open Definition Licenses Service</a></li>
+<li><em>name of file</em> with either documentation on licensing or a full license text</li>
 </ul>
 <div class="admonition tip">
-<p class="admonition-title">Example for global licenses</p>
-<pre class="codehilite"><code class="language-yml">    ---
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+<p class="admonition-title">Example for common licenses</p>
+<pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 licenses:
-  code: Apache-2.0
-  data: ODbL-1.0
-  text: CC0-1.0
-      ui_bindings: CC0-1.0
-      metadata: CC0-1.0</code></pre>
+    code: Apache-2.0
+    data: ODbL-1.0
+    text: CC0-1.0
+    ui_bindings: CC0-1.0
+    metadata: CC0-1.0</code></pre>
 
 </div>
 <div class="admonition tip">
-<p class="admonition-title">Example using specific licenses for files</p>
-<pre class="codehilite"><code class="language-yml">---
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-licenses:
-  code:
-    others_lib.bin: MIT
-    my_code.c: GPL-3.0
-  data: 
-    facts.csv: ODbL-1.0
-  text:
-    README.md: CC0-1.0
-        paper.Rmd: CC-BY-4.0
-      ui_bindings: CC0-1.0
-      metadata: CC0-1.0</code></pre>
-
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.</p>
-</div>
-<h3 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml<a class="headerlink" href="#comprehensive-example-of-ercyml" title="Permanent link">&para;</a></h3>
-<p>The following example shows all possible fields of the ERC specification with example values.</p>
+<p class="admonition-title">Example for non-standard licenses</p>
 <pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
-main: paper.rmd
-display: paper.html
-execution:
-  cmd: &quot;Rscript -e 'rmarkdown::render(input = \&quot;paper.Rmd\&quot;, output_format = \&quot;html\&quot;)'&quot;
 licenses:
-  code:
-    others_lib.bin: MIT
-    my_code.c: GPL-3.0
-  data:
-    facts.csv: ODbL-1.0
-  text:
-    README.md: CC0-1.0
-    paper.Rmd: CC-BY-4.0
-  ui_bindings: CC0-1.0
-  metadata: CC0-1.0
-structure:
-  convention: https://github.com/ropensci/rrrpkg
-ui_bindings:
-  interactive: true
-  bindings:
-    - purpose: http://.../data-inspection
-      widget: http://.../tabular-browser
-      code: [...]
-      data: [...]
-      text: [...]
-    - purpose: http://.../parameter-manipulation
-      widget: http://.../dropdown</code></pre>
+    code: Apache-2.0
+    data: data-licenses.txt
+    text: &quot;Creative Commons Attribution 2.0 Generic (CC BY 2.0)&quot;
+    ui_bindings: CC0-1.0
+    metadata: &quot;see metadata license headers&quot;</code></pre>
 
-<p>The path to the ERC configuration file subsequently MUST be <code>&lt;path-to-bag&gt;/data/erc.yml</code>.</p>
-<h2 id="docker-runtime">Docker runtime<a class="headerlink" href="#docker-runtime" title="Permanent link">&para;</a></h2>
-<p>The ERC uses <a href="http://docker.com/">Docker</a> to define, build, and store the nested runtime environment, i.e. the inner container.</p>
+</div>
+<h2 id="runtime-manifest-and-image">Runtime manifest and image<a class="headerlink" href="#runtime-manifest-and-image" title="Permanent link">&para;</a></h2>
+<p>The ERC uses <a href="http://docker.com/">Docker</a> to define, build, and store the nested runtime environment.</p>
 <h3 id="runtime-image">Runtime image<a class="headerlink" href="#runtime-image" title="Permanent link">&para;</a></h3>
-<p>The <em>runtime environment or image</em> MUST be represented by a <a href="https://github.com/docker/docker/blob/master/image/spec/v1.2.md">Docker image v1.2.0</a>.</p>
+<p>The <em>runtime environment or image</em> MUST be represented by a <a href="https://github.com/docker/docker/blob/master/image/spec/v1.2.md">Docker image <code>v1.2.0</code></a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>A concrete implementation of ERC may choose to rely on constructing the runtime environment from the manifest when needed, e.g. for export to a repository, while the ERC is constructed.</p>
 </div>
 <p>The base directory MUST contain a <a href="https://en.wikipedia.org/wiki/Tar_(computing)">tarball</a>, i.e. an archive file, of a Docker image as created be the command <code>docker save</code>, see <a href="https://docs.docker.com/engine/reference/commandline/save/">Docker CLI save command documentation</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md"><code>1.12.x</code></a>.</p>
-<p>The image MUST have a <a href="https://docs.docker.com/engine/reference/commandline/build/#options"><em>label</em></a> of the name <code>erc</code> with the ERC&rsquo;s id as value, e.g. <code>erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec</code>.</p>
+<p>The image MUST have a tag <code>erc:&lt;erc identifier&gt;</code>, for example <code>erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec</code>.</p>
 <p>The image file MAY be compressed.</p>
-<p>The tar archive file names SHOULD be <code>image.tar</code>, or <code>image.tar.gz</code> if a <a href="https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files">gzip compression is used for the archive</a> with an appropriate file extension, such as <code>.tar</code>, <code>tar.gz</code> or <code>.bin</code>, and have an appropriate mime type, e.g. <code>application/vnd.oci.image.layer.tar+gzip</code>.</p>
+<p>The image archive file name MUST be <code>image</code> with an appropriate file extension, such as <code>.tar</code>, <code>.tar.gz</code> (if a <a href="https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files">gzip compression is used for the archive</a>) or <code>.bin</code>, and have an appropriate mime type, e.g. <code>application/vnd.oci.image.layer.tar+gzip</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Before exporting the Docker image, first <a href="https://docs.docker.com/engine/reference/commandline/build/">build it</a> from the Dockerfile, including the label which can be used to extract the image identifier, for example:</p>
-<pre class="codehilite"><code class="language-bash">docker build --label erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec .
-docker images --filter &quot;label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec&quot;
-docker save $(docker images --filter &quot;label=erc=1234&quot; -q) &gt; image.tar
+<p>Before exporting the Docker image, it should be <a href="https://docs.docker.com/engine/reference/commandline/build/">build</a> from the runtime manifest, including the tag which can be used to identify the image, for example:
+<pre class="codehilite"><code class="language-bash">docker build --tag erc:b9b0099e-9f8d .
+docker images erc:b9b0099e-9f8d
+docker save erc:b9b0099e-9f8d &gt; image.tar
 # save with compression:
-docker save $(docker images --filter &quot;label=erc=1234&quot; -q) | gzip -c &gt;     image.tar.gz</code></pre>
-
-<p>Do <em>not</em> use <code>docker export</code>, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been <a href="../glossary/#manipulate">manipulated</a> during a run.</p>
+docker save erc:b9b0099e-9f8d | gzip -c &gt; image.tar.gz</code></pre>
+Do <em>not</em> use <code>docker export</code>, because it is used to create a snapshot of a container, which must not match the Dockerfile anymore as it may have been <a href="../glossary/#manipulate">manipulated</a> during a run.</p>
 </div>
-<p>The output of the image execution can be shown to the user to convey detailed information on progress or errors.</p>
 <h3 id="runtime-manifest">Runtime manifest<a class="headerlink" href="#runtime-manifest" title="Permanent link">&para;</a></h3>
 <p>The <em>runtime manifest</em> MUST be represented by a valid <code>Dockerfile</code>, see <a href="https://docs.docker.com/engine/reference/builder/">Docker builder reference</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/builder.md"><code>1.12.x</code></a>.</p>
 <p>The file MUST be named <code>Dockerfile</code>.</p>
-<p>The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the <a href="#runtime-iamge">runtime image</a> using <code>docker build</code>, see <a href="https://docs.docker.com/engine/reference/commandline/build/">Docker CLI build command documentation</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md"><code>1.12.x</code></a>.
+<p>The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the <a href="#runtime-image">runtime image</a> using <code>docker build</code>, see <a href="https://docs.docker.com/engine/reference/commandline/build/">Docker CLI build command documentation</a>, as defined in version <a href="https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md"><code>1.12.x</code></a>.
 The build SHOULD be done with the option <code>--no-cache=true</code>.</p>
 <p>The Dockerfile MUST NOT use the <code>latest</code> tag in the instruction <code>FROM</code>.</p>
 <div class="admonition note">
@@ -422,67 +419,102 @@ Although there is no guarantee that images tagged differently, e.g. &ldquo;v1.2.
 <p>The Dockerfile SHOULD contain the label <code>maintainer</code> to provide authorship information.</p>
 <p>The Dockerfile MUST have an active instruction <code>CMD</code>, or a combination of the instructions <code>ENTRYPOINT</code> and <code>CMD</code>, which executes the packaged analysis.</p>
 <p>The Dockerfile SHOULD NOT contain <code>EXPOSE</code> instructions.</p>
-<h3 id="docker-control-statements">Docker control statements<a class="headerlink" href="#docker-control-statements" title="Permanent link">&para;</a></h3>
-<p>The control statements for Docker executions comprise <code>load</code>, for importing an image from the archive, and <code>run</code> for starting a container of the loaded image.
-Both control statements MUST be configured by using nodes of the same name under the root-level node <code>execution</code> in the ERC configuration file.
-Based on the configuration, an implementation can construct the respective run-time commands, i.e. <a href="https://docs.docker.com/engine/reference/commandline/load/"><code>docker load</code></a> and <a href="https://docs.docker.com/engine/reference/run/"><code>docker run</code></a>, using the correct image file name and further parameters (e.g. performance control options).</p>
+<h3 id="system-environment">System environment<a class="headerlink" href="#system-environment" title="Permanent link">&para;</a></h3>
+<p>The following <em>system environment configurations</em> MUST be provided as nodes under the root-level node <code>execution</code>:</p>
+<ul>
+<li>(if applicable) <em>kernel</em>, node <code>kernel</code></li>
+</ul>
+<p>The following <em>system environment configurations</em> are available within the <a href="https://github.com/moby/moby/blob/master/image/spec/v1.2.md">runtime image metadata</a> and therefore not be replicated in the ERC configuration file.</p>
+<ul>
+<li><em>operating system</em>,  node <code>os</code>,</li>
+<li><em>architecture</em>, node <code>architecture</code></li>
+<li><em>runtime software version</em>, node <code>DockerVersion</code> in output of <code>docker inspect</code> and node <code>docker_version</code> in image metadata JSON file (cf. <a href="https://github.com/moby/moby/blob/17.05.x/image/image.go#L45">source code</a>).</li>
+</ul>
 <div class="admonition tip">
-<p class="admonition-title">Example</p>
-<p>The following example shows default values for <code>image</code> and <code>manifest</code> and typical values for <code>run</code>.</p>
-<pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-version: 1
-execution:
-  image: image.tar.gz
-  manifest: Dockerfile
-  run:
-    environment:
-      - TZ=CET</code></pre>
-
+<p class="admonition-title">Accessing system environment configurations from image metadata in a saved image tarball</p>
+<p><code>manifest.json</code> contains a list of the layers and the config as the name of the configuration file.
+The image metadata is in the <code>&lt;image id&gt;.json</code> file in the root directory of the tarball.
+The following commands show how to extract the image metadata file from the tarball and print the relevant properties to the console using the JSON cli tool <a href="https://stedolan.github.io/jq/">jq</a>.
+<pre class="codehilite"><code class="language-bash">$ tar -xf image.tar --wildcards --no-anchored '[!manifest]*.json'
+$ cat *.json | jq '.architecture, .os, .docker_version'
+&quot;amd64&quot;
+&quot;linux&quot;
+&quot;17.05.0-ce&quot;</code></pre></p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The Docker CLI commands constructed based on this configuration by an implementing service could be as follows:</p>
-<pre class="codehilite"><code class="language-bash">docker load --input image.tar
-IMAGE_ID=$(docker images --filter &quot;label=erc=b9b0099e-9f8d-4a33-8acf-cb0c062efaec&quot; -q)
-docker run -it --name run_abc123 -e TZ=CET -v /storage/erc/abc123:/erc --label user:o2r $IMAGE_ID</code></pre>
-
-<p>In this case the implementation uses <code>-it</code> to pass stdout streams to the user and adds some metadata using <code>--name</code> and <code>--label</code></code>`.</p>
-</div>
-<p>The only option for <code>load</code> is <code>quiet</code>, which may be set to Boolean <code>true</code> or <code>false</code>.</p>
-<p>The only option for <code>run</code> is <code>environment</code> to set environment variables inside containers as defined in <a href="https://docs.docker.com/compose/environment-variables/#setting-environment-variables-in-containers">docker-compose</a>.
-Environment variables are defined as a list separated by <code>=</code>.</p>
+<p>Together the image metadata and ERC configuration file provide all properties of the underlying system environment.
+An implementation SHOULD notify the user if the required system environment is incompatible with the implementation&rsquo;s capabilities.</p>
 <div class="admonition tip">
-<p class="admonition-title">Example for <code>load</code> and <code>run</code> properties</p>
-<pre class="codehilite"><code class="language-yml">execution:
-  load:
-    quiet: true
-  run:
-    environment:
-      - DEBUG=1
-      - TZ=CET</code></pre>
-
+<p class="admonition-title">System environment incompatibilities</p>
+<p>A partially incompatible system environment, especially a different kernel version, may still produce the desired result, as breaking changes are very rare.
+An implementation could utilise <a href="https://semver.org/">semantic versioning</a> to improve its compatibility tests.
+An incompatible operating system, e.g. <code>linux</code> vs. <code>windows</code>, and architecture, e.g. <code>amd64</code> or <code>arm/v7</code>, are likely to fail.</p>
 </div>
-<p>The environment variables SHOULD be used to fix settings out of control of the contained code that can hinder successful ERC <a href="../glossary/#check">checking</a>, e.g. by setting a time zone to avoid issues during checking.</p>
-<p>The output of the container during execution MAY be shown to the user to convey detailed information to users.</p>
-<h3 id="making-data-code-and-text-available-within-container">Making data, code, and text available within container<a class="headerlink" href="#making-data-code-and-text-available-within-container" title="Permanent link">&para;</a></h3>
-<p>The runtime environment image contains all dependencies and libraries needed by the code in an ERC.
-Especially for large datasets, it in unfeasible to replicate the complete dataset contained within the ERC in the image.
-For archival, it can also be confusing to replicate code and text, albeit them being relatively small in size, within the container.</p>
-<p>Therefore a host directory is <a href="https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only">mounted into a container</a> at runtime using a <a href="https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume">data volume</a>.</p>
-<p>The Dockerfile SHOULD NOT contain a <code>COPY</code> or <code>ADD</code> command to include data, code or text from the ERC into the image.</p>
-<p>The Dockerfile MUST contain a <code>VOLUME</code> instruction to define the mount point of the ERC base directory within the container.
-This mountpoint SHOULD be <code>/erc</code>.
-Implementations MUST use this value as the default.
-If the mountpoint is different from <code>/erc</code>, the value MUST be defined in <code>erc.yml</code> in a node <code>execution.mount_point</code>.</p>
 <div class="admonition tip">
-<p class="admonition-title">Example for mountpoint configuration</p>
-<pre class="codehilite"><code class="language-yml">---
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+<p class="admonition-title">Example of ERC configuration file with user-defined kernel and excerpt from runtime image metadata</p>
+<p><strong>ERC configuration file</strong>
+<pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d
 spec_version: 1
 execution:
-  mount_point: &quot;/erc&quot;</code></pre>
-
+    kernel: `4.13.0-32-generic`</code></pre>
+<strong>Image metadata (excerpt)</strong> (results of an <code>docker image inspect</code> call):
+<pre class="codehilite"><code class="language-json">[
+    {
+        &quot;Id&quot;: &quot;sha256:87362162878143c5e10e94a6ec9b7e925b...&quot;,
+        &quot;RepoTags&quot;: [],
+        &quot;RepoDigests&quot;: [],
+        &quot;Parent&quot;: &quot;sha256:a280c143ff833d99274e96bbcfdc86...&quot;,
+        &quot;Created&quot;: &quot;2018-02-15T15:18:42.623467682Z&quot;,
+        &quot;Container&quot;: &quot;840b75b48121012a0847bbae148ed96df7...&quot;,
+        &quot;ContainerConfig&quot;: { ... },
+        &quot;DockerVersion&quot;: &quot;17.05.0-ce&quot;,
+        &quot;Author&quot;: &quot;&lt;http://o2r.info&gt;&quot;,
+        &quot;Config&quot;: { ... },
+        &quot;Architecture&quot;: &quot;amd64&quot;,
+        &quot;Os&quot;: &quot;linux&quot;,
+        [...]
+    }
+]</code></pre>
+<strong>Image metadata (excerpt)</strong> (content of <code>&lt;image id&gt;.json</code> from <code>image.tar</code>):
+<pre class="codehilite"><code class="language-json">{
+    &quot;architecture&quot;: &quot;amd64&quot;,
+    &quot;config&quot;: { ...,
+        &quot;Labels&quot;: {
+            &quot;maintainer&quot;: &quot;o2r&quot;
+        }
+    },
+    &quot;container&quot;: &quot;747198d654630530c2a6523abbc19e41d7fcf977833c6854a2a48fb11b8c607c&quot;,
+    &quot;container_config&quot;: { ... },
+    &quot;created&quot;: &quot;2018-03-08T15:24:20.164740334Z&quot;,
+    &quot;docker_version&quot;: &quot;17.05.0-ce&quot;,
+    &quot;history&quot;: [ ... ],
+    &quot;os&quot;: &quot;linux&quot;,
+    &quot;rootfs&quot;: {
+        &quot;type&quot;: &quot;layers&quot;,
+        &quot;diff_ids&quot;: [
+            &quot;sha256:8568818b1f7f534832b393c531edfcb4a30e7eb40b573e68fdea90358987231f&quot;,
+            &quot;sha256:fccd38ea8016190426aa7ef4baba29b0c92de1ee863c3460a34151695fbcba08&quot;,
+            &quot;sha256:cf52051fff5bb6430c972ef822d435e9b5242117398b43c6d36f1ed71d978a94&quot;,
+            &quot;sha256:5535e4fbfa3ed182d3cc87bfe643f87801c91be6c171535675effb4efc8c1e5a&quot;,
+            &quot;sha256:9d55d57e41e02115f48e428a880d88d7bf0af993a232d0c967cc17f012e2e250&quot;
+        ]
+    }
+}
+</code></pre></p>
 </div>
+<h3 id="execution">Execution<a class="headerlink" href="#execution" title="Permanent link">&para;</a></h3>
+<p>The configuration file MUST provide enough information to for implementations to create the <em>commands</em> for execution of the runtime image and to provide access to the data and software in the ERC.
+Implementations MUST support <a href="https://docs.docker.com/engine/api/v1.35/">Docker Engine API <code>v1.35</code></a> (or compatible).</p>
+<h4 id="making-data-code-and-text-available-within-container">Making data, code, and text available within container<a class="headerlink" href="#making-data-code-and-text-available-within-container" title="Permanent link">&para;</a></h4>
+<p>The runtime environment image contains all dependencies and libraries needed by the code in an ERC.
+Especially for large datasets, it in unfeasible to replicate the complete dataset contained within the ERC in the image.
+For archival, it can also be confusing to replicate code and text, albeit them potentially being relatively small in size, within the container.</p>
+<p>Therefore a host directory MUST be <a href="https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only"><strong>mounted</strong></a> (also &ldquo;bind-mounted&rdquo;) into the compendium container at runtime using a <a href="https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume">data volume</a>.</p>
+<p>The Dockerfile MUST contain a <code>VOLUME</code> instruction to define the mount point of the ERC base directory within the container.
+This mount point MUST be <code>/erc</code> and the bind MUST be configured as with <em>read and write access</em>.
+Implementations SHOULD make sure an execution does not interfere with original uploaded files, but a write access is required to store the created display file outside of the container.</p>
+<p>The Dockerfile MUST contain a <code>WORKDIR</code> instruction with the value <code>/erc</code>.</p>
+<p>The Dockerfile SHOULD NOT contain a <code>COPY</code> or <code>ADD</code> command to include data, code or text from the ERC into the image.
+These commands MAY be used to copy code or libraries which must be available during the image build.</p>
 <div class="admonition tip">
 <p class="admonition-title">Example Dockerfile</p>
 <p>In this example we use a <a href="https://github.com/rocker-org/rocker"><em>Rocker</em></a> base image to reproduce computations made in R.</p>
@@ -521,17 +553,82 @@ LABEL maintainer=o2r \
     info.o2r.bag.id=&quot;123456&quot;
 
 VOLUME [&quot;/erc&quot;]
+WORKDIR [&quot;/erc&quot;]
 
 ENTRYPOINT [&quot;sh&quot;, &quot;-c&quot;]
-CMD [&quot;R --vanilla -e \&quot;rmarkdown::render(input = '/erc/myPaper.rmd', output_dir = '/erc', output_format = rmarkdown::html_document())\&quot;&quot;]</code></pre>
+CMD [&quot;R --vanilla -e \&quot;rmarkdown::render(input = '/erc/myPaper.rmd', \
+    output_dir = '/erc', output_format = rmarkdown::html_document())\&quot;&quot;]</code></pre>
 
-<p>See also: <a href="https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run">Best practices for writing Dockerfiles</a>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Main and display file in the container</p>
+<p>The fixed mount point have the advantage that users and tools can be sure the main and display files are usually available at <code>/erc/main.Rmd</code> and <code>/erc/display.html</code> respectively.</p>
+</div>
+<h4 id="default-execution">Default execution<a class="headerlink" href="#default-execution" title="Permanent link">&para;</a></h4>
+<p>If no execution information is provided, then the implementation MUST assume an unconfigured Docker control flow for loading and executing the nested runtime environment is sufficient.
+Unconfigured means that NO configuration besides providing a mount of the compendium files (see previous section) MAY be applied.</p>
+<p>The control statements for Docker executions comprise <code>load</code>, for importing an image from the archive, and <code>run</code> for starting a container of the loaded image.
+Both control statements MUST be configured by using nodes of the same name under the root-level node <code>execution</code> in the ERC configuration file.
+Based on the configuration, an implementation can construct the respective runtime software&rsquo;s commands, i.e. <a href="https://docs.docker.com/engine/reference/commandline/load/"><code>docker load</code></a> and <a href="https://docs.docker.com/engine/reference/run/"><code>docker run</code></a>, using the correct image file name and further parameters (e.g. performance control options).</p>
+<div class="admonition note">
+<p class="admonition-title">Constructing the execution commands</p>
+<p>The Docker CLI commands constructed based on configuration file for ERC with ID <code>b9b0099e-9f8d</code> could be as follows.
+In this case the implementation uses <code>-it</code> to pass stdout streams to the user and adds an identifier for the container using <code>--name</code>.
+<pre class="codehilite"><code class="language-bash">docker load --input image.tar
+docker run -it --name run_b9b0099e \
+    --volume /storage/erc/abc123:/erc \
+    erc:b9b0099e-9f8d</code></pre></p>
+</div>
+<p>The output of the container during execution MAY be shown to the user to convey detailed information to users.</p>
+<h4 id="adjusted-execution">Adjusted execution<a class="headerlink" href="#adjusted-execution" title="Permanent link">&para;</a></h4>
+<p>Two means MAY be used to adjust the execution of a compendium: <strong>environment variables</strong> and <strong>bind mounts</strong>.</p>
+<p><em>Environment variables</em> can be <a href="https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e-env-env-file">set for containers</a> at runtime.
+They overwrite variables that are defined within the image and thus SHOULD be used sparsely, for example only when the same configuration can not be achieved within the main file, and only to <em>increase reproducibility</em>.</p>
+<p>The MUST NOT be used for <a href="../glossary/#substitute">manipulating</a> the compendium&rsquo;s workflow instead of using <a href="#interactive-erc">UI bindings</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Environment variable use case: Time zone</p>
+<p>A possible use case for environment variables can be setting the time zone.
+When the display file contains text output of times and timestamps, running the analysis on a machine with a different time zone may wrongly cause errors during <a href="#erc-checking">checking</a>.
+While a careful author can cover this within the main file via settings or controlling output, she may also be offered during a creation workflow to freeze the timezone.
+The following command sets the system time zone to <code>CET</code>.
+<pre class="codehilite"><code class="language-bash">docker run -it --name run_b9b0099e \
+    --volume /storage/erc/abc123:/erc --env TZ=CET \
+    erc:b9b0099e-9f8d</code></pre></p>
+</div>
+<p>In addition to the mandatory mount of all compendium files, <em>bind mounts</em> MAY be added to replace specific files for <a href="../glossary/#substitute">substitution</a>.</p>
+<p>The mounts MUST be configured in a list node <code>bind_mounts</code> under the root-level node <code>execution</code> in the ERC configuration file.
+Implementations SHOULD apply them in the same order as given in the configuration file.
+Each mount MUST include the following nodes:</p>
+<ul>
+<li><code>source</code>: mount source file or directory.</li>
+<li><code>destination</code>: mount target path within the container; MUST be an absolute path.</li>
+</ul>
+<p>The binds MUST be configured as read only.</p>
+<p>If a list of mounts is configured, it MAY include the mandatory bind mount.</p>
+<div class="admonition tip">
+<p class="admonition-title">Example: data file replacement with bind mounts</p>
+<p>The following example includes an explicit definition of the mandatory mount to <code>/erc</code> and an overlay bind mount of a CSV file. 
+<pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d
+spec_version: 1
+execution:
+    bind_mounts:
+        - source: '/storage/erc/abc123'
+          destination: /erc
+        - source: /storage/erc/other/input_data/fixed.csv
+          destination: /erc/data.csv</code></pre>
+It can be translated by an implementation to the following bind string:
+<pre class="codehilite"><code class="language-txt">/storage/compendium/other123/input_data/fixed.csv:/erc/data.csv:ro</code></pre></p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">More on mounts and binds</p>
+<p>See Docker API specification section <a href="https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate">Create a container</a> &gt; <code>HostConfig</code> &gt; <code>Binds</code>/<code>Mounts</code>.</p>
 </div>
 <h2 id="r-workspaces">R workspaces<a class="headerlink" href="#r-workspaces" title="Permanent link">&para;</a></h2>
+<p>ERC support the <a href="https://www.r-project.org/">R</a> software environment for statistical computing and graphics.</p>
 <h3 id="structure">Structure<a class="headerlink" href="#structure" title="Permanent link">&para;</a></h3>
-<p>The structure within the ERC contents directory are intentionally unspecified.
-However, the contents structure MAY follow conventions or be based on templates for organizing research artifacts.</p>
-<p>If a convention is followed then it SHOULD be referenced in the ERC configuration file as a node <code>convention</code> within the <code>structure</code> section.
+<p>The structure (file names for data, directories, etc.) within the ERC are intentionally unspecified.
+However, the content&rsquo;s structure MAY follow conventions or be based on templates for organizing research artifacts.</p>
+<p>If a convention is followed then it SHOULD be referenced in the ERC configuration file as a node <code>convention</code> section.
 The node&rsquo;s value can be any text string which uniquely identifies a convention, but a URI or URL to either a human-readable description or formal specification is RECOMMENDED.</p>
 <p>A non-exhaustive list of potential conventions and guidelines <em>for R</em> is as follows:</p>
 <ul>
@@ -541,18 +638,18 @@ The node&rsquo;s value can be any text string which uniquely identifies a conven
 <li><a href="https://github.com/Pakillo/template">Francisco Rodriguez-Sanchez&rsquo;s template</a></li>
 <li><a href="https://github.com/benmarwick/template">Ben Marwick&rsquo;s template</a></li>
 <li><a href="http://kbroman.org/knitr_knutshell/pages/reproducible.html">Karl Broman&rsquo;s comments on reproducibility</a></li>
+<li><a href="https://cran.r-project.org/doc/manuals/r-release/R-exts.html">R package: &ldquo;Writing R Extensions&rdquo;</a></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Example for using the ROPenSci <code>rrrpkg</code> convention</p>
 <p>The convention is identified using the public link on GitHub.
-<pre class="codehilite"><code class="language-yml">---
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+<pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
-structure:
-  convention: https://github.com/ropensci/rrrpkg</code></pre></p>
+convention: https://github.com/ropensci/rrrpkg</code></pre></p>
 </div>
 <h3 id="r-markdown-main-file">R Markdown main file<a class="headerlink" href="#r-markdown-main-file" title="Permanent link">&para;</a></h3>
 <p>The ERC&rsquo;s <em>main file</em> for R-based analyses SHOULD be <a href="http://rmarkdown.rstudio.com/">R Markdown</a>.</p>
+<p>If the main file is R Markdown, it SHOULD include basic metadata in its <a href="https://rmarkdown.rstudio.com/html_document_format.html#overview">YAML front matter</a>: author(s), title, date, et cetera.</p>
 <p>The main document SHOULD NOT contain code that loads pre-computed results from files, but conduct all analyses, even costly ones, during document weaving.</p>
 <p>The document MUST NOT use <code>cache=TRUE</code> on any of the code chunks (see <a href="https://yihui.name/knitr/options/"><code>knitr</code> options</a>.
 While the previously cached files (<code>.rdb</code> and <code>.rdx</code>) MAY be included, they SHOULD NOT be used during the rendering of the document.</p>
@@ -578,8 +675,7 @@ If the property is missing it defaults to <code>false</code>.
 An implementation MAY use the indicator <code>interactive: true</code> to provide other means of displaying the display file.</p>
 <div class="admonition tip">
 <p class="admonition-title">Example for minimal interaction configuration</p>
-<pre class="codehilite"><code class="language-yml">---
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+<pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 ui_bindings:
   interactive: true</code></pre>
@@ -594,8 +690,7 @@ A <em>widget</em> realizes the purpose with a concrete interaction paradigm chos
 <p>For each widget, implementations MAY use the properties <code>code</code>, <code>data</code>, and <code>text</code> to further describe how a specific UI binding acts upon the respective part of the ERC.</p>
 <div class="admonition tip">
 <p class="admonition-title">Example of two UI bindings</p>
-<pre class="codehilite"><code class="language-yml">---
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+<pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 ui_bindings:
   interactive: true
@@ -648,14 +743,14 @@ Is-Executable-Research-Compendium: true</code></pre>
 └── tagmanifest-md5.txt</code></pre>
 
 </div>
-<h4 id="bagit-profile">BagIt profile<a class="headerlink" href="#bagit-profile" title="Permanent link">&para;</a></h4>
+<h4 id="bagit-profile-draft">BagIt profile - DRAFT<a class="headerlink" href="#bagit-profile-draft" title="Permanent link">&para;</a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The elements of the o2r Bagit Profile is yet to be specified.
 This section is under development.
 Current BagIt tools do not include an option to add a BagIt Profile automatically.</p>
 </div>
-<p>A <a href="https://github.com/ruebot/bagit-profiles">BagIt Profile</a> as outlined below could make the requirements of this extension more explicit.
+<p>A <a href="https://github.com/ruebot/bagit-profiles">BagIt Profile</a> as outlined below would make the requirements more explicit.
 The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate additional information, attached to bags.</p>
 <pre class="codehilite"><code class="language-json">{
   &quot;BagIt-Profile-Info&quot;:{
@@ -663,7 +758,8 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
   &quot;Source-Organization&quot;:&quot;o2r.info&quot;,
   &quot;Contact-Name&quot;:&quot;o2r Team&quot;,
   &quot;Contact-Email&quot;:&quot;o2r@uni-muenster.de&quot;,
-  &quot;External-Description&quot;:&quot;BagIt profile for packaging executable research compendia.&quot;,
+  &quot;External-Description&quot;:&quot;BagIt profile for packaging
+        executable research compendia.&quot;,
   &quot;Version&quot;:&quot;1&quot;
   },
   &quot;Bag-Info&quot;:{
@@ -696,7 +792,7 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
   ],
   &quot;Tag-Files-Required&quot;:[
      &quot;.erc/metadata.json&quot;,
-     &quot;.erc.yml&quot;
+     &quot;erc.yml&quot;
   ],
   &quot;Accept-BagIt-Version&quot;:[
      &quot;0.96&quot;
@@ -707,31 +803,32 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
 <p>Each ERC MUST contain a package leaflet, describing the schemas and standards used. Available schema files are supposed to be included with the ERC, if available (licenses for these schemas may apply).</p>
 <div class="admonition tip">
 <p class="admonition-title">Example package leaflet</p>
-<p>```json
-{
-&ldquo;standards_used&rdquo;: [
-    {
-        &ldquo;o2r&rdquo;: {
-            &ldquo;map_description&rdquo;: &ldquo;maps raw extracted metadata to o2r schema compliant metadata&rdquo;,
-            &ldquo;mode&rdquo;: &ldquo;json&rdquo;,
-            &ldquo;name&rdquo;: &ldquo;o2r&rdquo;,
-            &ldquo;outputfile&rdquo;: &ldquo;metadata_o2r.json&rdquo;,
-            &ldquo;root&rdquo;: &ldquo;&rdquo;
+<pre class="codehilite"><code class="language-json">{
+    &quot;standards_used&quot;: [
+        {
+            &quot;o2r&quot;: {
+                &quot;map_description&quot;: &quot;maps raw extracted metadata to
+                    o2r schema compliant metadata&quot;,
+                &quot;mode&quot;: &quot;json&quot;,
+                &quot;name&quot;: &quot;o2r&quot;,
+                &quot;outputfile&quot;: &quot;metadata_o2r.json&quot;,
+                &quot;root&quot;: &quot;&quot;
+            }
+        },
+        {
+            &quot;zenodo_sandbox&quot;: {
+                &quot;map_description&quot;: &quot;maps o2r schema compliant MD to
+                    Zenodo Sandbox for deposition creation&quot;,
+                &quot;mode&quot;: &quot;json&quot;,
+                &quot;name&quot;: &quot;zenodo_sandbox&quot;,
+                &quot;outputfile&quot;: &quot;metadata_zenodo_sandbox.json&quot;,
+                &quot;root&quot;: &quot;metadata&quot;
+            }
         }
-    },
-    {
-        &ldquo;zenodo_sandbox&rdquo;: {
-            &ldquo;map_description&rdquo;: &ldquo;maps o2r schema compliant MD to Zenodo Sandbox for deposition creation&rdquo;,
-            &ldquo;mode&rdquo;: &ldquo;json&rdquo;,
-            &ldquo;name&rdquo;: &ldquo;zenodo_sandbox&rdquo;,
-            &ldquo;outputfile&rdquo;: &ldquo;metadata_zenodo_sandbox.json&rdquo;,
-            &ldquo;root&rdquo;: &ldquo;metadata&rdquo;
-        }
-    }
-]</p>
+    ]
+}</code></pre>
+
 </div>
-<p>}
-    ```</p>
 <p>Elements used for each schema standard used are contributed via the MD mapping files in the o2r meta tool suite.</p>
 <h4 id="secondary-metadata-files">Secondary metadata files<a class="headerlink" href="#secondary-metadata-files" title="Permanent link">&para;</a></h4>
 <p>The ERC as an object can be used in a broad range of cases. For example, it can be an item under review during a journal publication, it can be the actual publication at a workshop or conference or it can be a preserved item in a digital archive. All of these have their own standards and requirements to apply, when it comes to metadata.</p>
@@ -831,7 +928,9 @@ This bundle most importantly would not include the <em>runtime image</em>, which
     &quot;viewfiles&quot;: []
 }</code></pre>
 
-<p>The path to the o2r metadata file MUST be <code>&lt;path-to-bag&gt;/data/metadata_raw.json</code> and the refined version metadata_o2r.json.</p>
+<p>The path to the o2r metadata file MUST be</p>
+<p><code>&lt;path-to-bag&gt;/data/metadata_raw.json</code></p>
+<p>and the refined version <code>metadata_o2r.json</code>.</p>
 <h3 id="description-of-o2r-metadata-properties">Description of o2r metadata properties<a class="headerlink" href="#description-of-o2r-metadata-properties" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>access_right</code> <em>String</em>.</li>
@@ -882,7 +981,8 @@ This bundle most importantly would not include the <em>runtime image</em>, which
 Therefore <a href="../glossary/#check">checking</a> an ERC always comprises two steps: the execution and the comparison.</p>
 <p>The files included in the comparison are the <em>comparison set</em>.
 An implementation MUST communicate the comparison set to the user as part of a check.</p>
-<p>Previous to the check, an implementation SHOULD conduct a basic validation of the outer container&rsquo;s integrity, i.e. check the file hashes.</p>
+<p>Previous to the check, an implementation SHOULD conduct a basic validation of the outer container&rsquo;s integrity, i.e. check the file hashes.
+The output of the image execution can be shown to the user to convey detailed information on progress or errors.</p>
 <h3 id="comparison-set-file">Comparison set file<a class="headerlink" href="#comparison-set-file" title="Permanent link">&para;</a></h3>
 <p>The ERC MAY contain a file named <code>.ercignore</code> in the base directory to define the comparison set.</p>
 <p>Its purpose is to provide a way to efficiently exclude files and directories from <a href="../glossary/#check">checking</a>.
@@ -908,13 +1008,32 @@ Of course the comparison set should include files which contain results of an an
 <h3 id="comparing-plain-text-documents">Comparing plain text documents<a class="headerlink" href="#comparing-plain-text-documents" title="Permanent link">&para;</a></h3>
 <p>&hellip;</p>
 <h3 id="comparing-graphics-and-binary-output">Comparing graphics and binary output<a class="headerlink" href="#comparing-graphics-and-binary-output" title="Permanent link">&para;</a></h3>
-<p>This section outlines possibilities beyond simple comparison and incorporates &ldquo;harder&rdquo; to compare files and what to do with them, e.g. plots/figures, PDFs, &hellip;</p>
-<h2 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
-<p>Why are ERC not a security risk?</p>
-<ul>
-<li>the spec prohibits use of <code>EXPOSE</code></li>
-<li>the containers are only executed <em>without</em> external network access using <code>Network: none</code>, see <a href="https://docs.docker.com/engine/reference/run/#/network-none">Docker CLI run documentation</a></li>
-</ul>
+<p>This section outlines possibilities beyond simple comparison and incorporates &ldquo;harder&rdquo; to compare files and what to do with them, e.g. plots/figures, PDF files, &hellip;</p>
+<h2 id="comprehensive-example-of-ercyml">Comprehensive example of erc.yml<a class="headerlink" href="#comprehensive-example-of-ercyml" title="Permanent link">&para;</a></h2>
+<p>The following example shows all possible fields of the ERC specification with example values.</p>
+<pre class="codehilite"><code class="language-yml">id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+main: paper.rmd
+display: paper.html
+execution:
+  bind_mounts: ...
+licenses:
+  code: MIT
+  data: ODbL-1.0
+  text: &quot;data_licenses_info.pdf&quot;
+  ui_bindings: CC0-1.0
+  metadata: CC0-1.0
+convention: https://github.com/ropensci/rrrpkg
+ui_bindings:
+  interactive: true
+  bindings:
+    - purpose: http://.../data-inspection
+      widget: http://.../tabular-browser
+      code: [...]
+      data: [...]
+      text: [...]
+    - purpose: http://.../parameter-manipulation
+      widget: http://.../dropdown</code></pre>
               
             </div>
           </div>
