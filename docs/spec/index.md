@@ -407,10 +407,10 @@ ERC support the [R](https://www.r-project.org/) software environment for statist
 
 ### Structure
 
-The structure within the ERC contents directory are intentionally unspecified.
-However, the contents structure MAY follow conventions or be based on templates for organizing research artifacts.
+The structure (file names for data, directories, etc.) within the ERC are intentionally unspecified.
+However, the content's structure MAY follow conventions or be based on templates for organizing research artifacts.
 
-If a convention is followed then it SHOULD be referenced in the ERC configuration file as a node `convention` within the `structure` section.
+If a convention is followed then it SHOULD be referenced in the ERC configuration file as a node `convention` section.
 The node's value can be any text string which uniquely identifies a convention, but a URI or URL to either a human-readable description or formal specification is RECOMMENDED.
 
 A non-exhaustive list of potential conventions and guidelines _for R_ is as follows:
@@ -421,15 +421,14 @@ A non-exhaustive list of potential conventions and guidelines _for R_ is as foll
 - [Francisco Rodriguez-Sanchez's template](https://github.com/Pakillo/template)
 - [Ben Marwick's template](https://github.com/benmarwick/template)
 - [Karl Broman's comments on reproducibility](http://kbroman.org/knitr_knutshell/pages/reproducible.html)
+- [R package: "Writing R Extensions"](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
 
 !!! tip "Example for using the ROPenSci `rrrpkg` convention"
     The convention is identified using the public link on GitHub.
     ```yml
-    ---
     id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
     spec_version: 1
-    structure:
-      convention: https://github.com/ropensci/rrrpkg
+    convention: https://github.com/ropensci/rrrpkg
     ```
 
 ### R Markdown main file
