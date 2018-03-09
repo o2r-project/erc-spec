@@ -55,12 +55,12 @@ Discover
 
 Simplicity
 : This specification should not re-do something which already exists (if it is an open specification or tool).
-It must be possible to create a valid and working ERC _manually_, while supporting tools should be able to cover typical use cases with minimal required input by a creating user.
+  It must be possible to create a valid and working ERC _manually_, while supporting tools should be able to cover typical use cases with minimal required input by a creating user.
 
 Nested containers
 : We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
-Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
-We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.
+  Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
+  We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.
 
 ### How to use an ERC
 
@@ -122,7 +122,7 @@ Every ERC MUST include two such such representations:
 The image MUST be stored as a file, e.g. a "binary" or "archive", in the ERC base directory.
 
 The manifest MUST be stored as a text file in the ERC base directory.
-
+ 
 **System environment**
 
 The nested runtime encapsulates software, files, and configurations up to a specific level of abstraction.
@@ -203,10 +203,10 @@ The content of each of these child nodes MUST be a string with one of the follow
     id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
     spec_version: 1
     licenses:
-      code: Apache-2.0
-      data: ODbL-1.0
-      text: CC0-1.0
-          ui_bindings: CC0-1.0
+        code: Apache-2.0
+        data: ODbL-1.0
+        text: CC0-1.0
+        ui_bindings: CC0-1.0
         metadata: CC0-1.0
     ```
 
@@ -431,10 +431,82 @@ These commands MAY be used to copy code or libraries which must be available dur
         output_dir = '/erc', output_format = rmarkdown::html_document())\""]
     ```
 
-    See also: [Best practices for writing Dockerfiles](https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#run).
-
 !!! tip "Main and display file in the container"
     The fixed mount point have the advantage that users and tools can be sure the main and display files are usually available at `/erc/main.Rmd` and `/erc/display.html` respectively.
+
+#### Default execution
+
+If no execution information is provided, then the implementation MUST assume an unconfigured Docker control flow for loading and executing the nested runtime environment is sufficient.
+Unconfigured means that NO configuration besides providing a mount of the compendium files (see previous section) MAY be applied.
+
+The control statements for Docker executions comprise `load`, for importing an image from the archive, and `run` for starting a container of the loaded image.
+Both control statements MUST be configured by using nodes of the same name under the root-level node `execution` in the ERC configuration file.
+Based on the configuration, an implementation can construct the respective runtime software's commands, i.e. [`docker load`](https://docs.docker.com/engine/reference/commandline/load/) and [`docker run`](https://docs.docker.com/engine/reference/run/), using the correct image file name and further parameters (e.g. performance control options).
+
+!!! note "Constructing the execution commands"
+    The Docker CLI commands constructed based on configuration file for ERC with ID `b9b0099e-9f8d` could be as follows.
+    In this case the implementation uses `-it` to pass stdout streams to the user and adds an identifier for the container using `--name`.
+    ```bash
+    docker load --input image.tar
+    docker run -it --name run_b9b0099e \
+        --volume /storage/erc/abc123:/erc \
+        erc:b9b0099e-9f8d
+    ```
+
+The output of the container during execution MAY be shown to the user to convey detailed information to users.
+
+#### Adjusted execution
+
+Two means MAY be used to adjust the execution of a compendium: **environment variables** and **bind mounts**.
+
+_Environment variables_ can be [set for containers](https://docs.docker.com/engine/reference/commandline/run/#set-environment-variables--e-env-env-file) at runtime.
+They overwrite variables that are defined within the image and thus SHOULD be used sparsely, for example only when the same configuration can not be achieved within the main file, and only to _increase reproducibility_.
+
+The MUST NOT be used for [manipulating](../glossary.md#substitute) the compendium's workflow instead of using [UI bindings](#interactive-erc).
+
+!!! tip "Environment variable use case: Time zone"
+    A possible use case for environment variables can be setting the time zone.
+    When the display file contains text output of times and timestamps, running the analysis on a machine with a different time zone may wrongly cause errors during [checking](#erc-checking).
+    While a careful author can cover this within the main file via settings or controlling output, she may also be offered during a creation workflow to freeze the timezone.
+    The following command sets the system time zone to `CET`.
+    ```bash
+    docker run -it --name run_b9b0099e \
+        --volume /storage/erc/abc123:/erc --env TZ=CET \
+        erc:b9b0099e-9f8d
+    ```
+
+In addition to the mandatory mount of all compendium files, _bind mounts_ MAY be added to replace specific files for [substitution](../glossary.md#substitute).
+
+The mounts MUST be configured in a list node `bind_mounts` under the root-level node `execution` in the ERC configuration file.
+Implementations SHOULD apply them in the same order as given in the configuration file.
+Each mount MUST include the following nodes:
+
+- `source`: mount source file or directory.
+- `destination`: mount target path within the container; MUST be an absolute path.
+
+The binds MUST be configured as read only.
+
+If a list of mounts is configured, it MAY include the mandatory bind mount.
+
+!!! tip "Example: data file replacement with bind mounts"
+    The following example includes an explicit definition of the mandatory mount to `/erc` and an overlay bind mount of a CSV file. 
+    ```yml
+    id: b9b0099e-9f8d
+    spec_version: 1
+    execution:
+        bind_mounts:
+            - source: '/storage/erc/abc123'
+              destination: /erc
+            - source: /storage/erc/other/input_data/fixed.csv
+              destination: /erc/data.csv
+    ```
+    It can be translated by an implementation to the following bind string:
+    ```txt
+    /storage/compendium/other123/input_data/fixed.csv:/erc/data.csv:ro
+    ```
+
+!!! Note "More on mounts and binds"
+    See Docker API specification section [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate) > `HostConfig` > `Binds`/`Mounts`.
 
 ## R workspaces
 
@@ -653,29 +725,29 @@ Each ERC MUST contain a package leaflet, describing the schemas and standards us
 !!! tip "Example package leaflet"
     ```json
     {
-    "standards_used": [
-        {
-            "o2r": {
+        "standards_used": [
+            {
+                "o2r": {
                     "map_description": "maps raw extracted metadata to
                         o2r schema compliant metadata",
-                "mode": "json",
-                "name": "o2r",
-                "outputfile": "metadata_o2r.json",
-                "root": ""
-            }
-        },
-        {
-            "zenodo_sandbox": {
+                    "mode": "json",
+                    "name": "o2r",
+                    "outputfile": "metadata_o2r.json",
+                    "root": ""
+                }
+            },
+            {
+                "zenodo_sandbox": {
                     "map_description": "maps o2r schema compliant MD to
                         Zenodo Sandbox for deposition creation",
-                "mode": "json",
-                "name": "zenodo_sandbox",
-                "outputfile": "metadata_zenodo_sandbox.json",
-                "root": "metadata"
+                    "mode": "json",
+                    "name": "zenodo_sandbox",
+                    "outputfile": "metadata_zenodo_sandbox.json",
+                    "root": "metadata"
+                }
             }
-        }
-    ]
-}
+        ]
+    }
     ```
 
 Elements used for each schema standard used are contributed via the MD mapping files in the o2r meta tool suite.
