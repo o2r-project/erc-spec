@@ -315,6 +315,7 @@ It may be used to copy code or libraries which must be available during the imag
 
 The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC base directory within the container.
 This mount point MUST be `/erc`.
+The Dockerfile MUST contain a `WORKDIR` instruction with the value `/erc`.
 
 !!! tip "Example Dockerfile"
     In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to reproduce computations made in R.
@@ -355,6 +356,7 @@ This mount point MUST be `/erc`.
     	info.o2r.bag.id="123456"
 
     VOLUME ["/erc"]
+    WORKDIR ["/erc"]
 
     ENTRYPOINT ["sh", "-c"]
     CMD ["R --vanilla -e \"rmarkdown::render(input = '/erc/myPaper.rmd', \
