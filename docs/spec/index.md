@@ -222,25 +222,24 @@ The content of each of these child nodes MUST be a string with one of the follow
         metadata: "see metadata license headers"
     ```
 
+## Runtime manifest and image
 
-## Docker runtime
-
-The ERC uses [Docker](http://docker.com/) to define, build, and store the nested runtime environment, i.e. the inner container.
+The ERC uses [Docker](http://docker.com/) to define, build, and store the nested runtime environment.
 
 ### Runtime image
 
-The _runtime environment or image_ MUST be represented by a [Docker image v1.2.0](https://github.com/docker/docker/blob/master/image/spec/v1.2.md).
+The _runtime environment or image_ MUST be represented by a [Docker image `v1.2.0`](https://github.com/docker/docker/blob/master/image/spec/v1.2.md).
 
 !!! note
     A concrete implementation of ERC may choose to rely on constructing the runtime environment from the manifest when needed, e.g. for export to a repository, while the ERC is constructed.
 
 The base directory MUST contain a [tarball](https://en.wikipedia.org/wiki/Tar_(computing)), i.e. an archive file, of a Docker image as created be the command `docker save`, see [Docker CLI save command documentation](https://docs.docker.com/engine/reference/commandline/save/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/save.md).
 
-The image MUST have a tag `erc:<erc identifier`, for example `erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
+The image MUST have a tag `erc:<erc identifier>`, for example `erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec`.
 
 The image file MAY be compressed.
 
-The tar archive file names MUST be `image` with an appropriate file extension, such as `.tar`, `.tar.gz` (if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files)) or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
+The image archive file name MUST be `image` with an appropriate file extension, such as `.tar`, `.tar.gz` (if a [gzip compression is used for the archive](https://en.wikipedia.org/wiki/Tar_(computing)#Suffixes_for_compressed_files)) or `.bin`, and have an appropriate mime type, e.g. `application/vnd.oci.image.layer.tar+gzip`.
 
 !!! note
     Before exporting the Docker image, it should be [build](https://docs.docker.com/engine/reference/commandline/build/) from the runtime manifest, including the tag which can be used to identify the image, for example:
@@ -259,7 +258,7 @@ The _runtime manifest_ MUST be represented by a valid `Dockerfile`, see [Docker 
 
 The file MUST be named `Dockerfile`.
 
-The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the [runtime image](#runtime-iamge) using `docker build`, see [Docker CLI build command documentation](https://docs.docker.com/engine/reference/commandline/build/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).
+The Dockerfile MUST contain the build instructions for the runtime environment and MUST have been used to create the image saved to the [runtime image](#runtime-image) using `docker build`, see [Docker CLI build command documentation](https://docs.docker.com/engine/reference/commandline/build/), as defined in version [`1.12.x`](https://github.com/docker/docker/blob/1.12.x/docs/reference/commandline/build.md).
 The build SHOULD be done with the option `--no-cache=true`.
 
 The Dockerfile MUST NOT use the `latest` tag in the instruction `FROM`.
