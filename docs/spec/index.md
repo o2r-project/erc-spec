@@ -119,11 +119,9 @@ Every ERC MUST include two such such representations:
 1. an **executable runtime image** of the original analysis environment for re-running the packaged analysis, and 
 2. a **runtime manifest** documenting the image's contents as a complete, self-consistent recipe of the runtime image's contents which is a machine-readable format that allows a respective tool to create the runtime image.
 
-The image MUST be stored as a file, e.g. a "binary", in the ERC base directory.
-The name of the archive file MUST be configured in the ERC configuration file in the node `image` under the root-level node `execution`.
+The image MUST be stored as a file, e.g. a "binary" or "archive", in the ERC base directory.
 
 The manifest MUST be stored as a text file in the ERC base directory.
-The name of the manifest file MUST be configured in the ERC configuration file in the node `manifest` under the root-level node `execution`.
 
 ## ERC configuration file
 
