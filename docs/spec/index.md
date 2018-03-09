@@ -274,48 +274,116 @@ The Dockerfile MUST have an active instruction `CMD`, or a combination of the in
 
 The Dockerfile SHOULD NOT contain `EXPOSE` instructions.
 
+### System environment
 
+The following _system environment configurations_ MUST be provided as nodes under the root-level node `execution`:
 
+- (if applicable) _kernel_, node `kernel`
 
+The following _system environment configurations_ are available within the [runtime image metadata](https://github.com/moby/moby/blob/master/image/spec/v1.2.md) and therefore not be replicated in the ERC configuration file.
 
+- _operating system_,  node `os`,
+- _architecture_, node `architecture`
+- _runtime software version_, node `DockerVersion` in output of `docker inspect` and node `docker_version` in image metadata JSON file (cf. [source code](https://github.com/moby/moby/blob/17.05.x/image/image.go#L45)).
 
-!!! tip "Accessing system environment configurations from image metadata"
-
-
-The only option for `load` is `quiet`, which may be set to Boolean `true` or `false`.
-
-The only option for `run` is `environment` to set environment variables inside containers as defined in [docker-compose](https://docs.docker.com/compose/environment-variables/#setting-environment-variables-in-containers).
-Environment variables are defined as a list separated by `=`.
-
-!!! tip "Example for `load` and `run` properties"
-    ```yml
-    execution:
-      load:
-        quiet: true
-      run:
-        environment:
-    	  - DEBUG=1
-    	  - TZ=CET
+!!! tip "Accessing system environment configurations from image metadata in a saved image tarball"
+    `manifest.json` contains a list of the layers and the config as the name of the configuration file.
+    The image metadata is in the `<image id>.json` file in the root directory of the tarball.
+    The following commands show how to extract the image metadata file from the tarball and print the relevant properties to the console using the JSON cli tool [jq](https://stedolan.github.io/jq/).
+    ```bash
+    $ tar -xf image.tar --wildcards --no-anchored '[!manifest]*.json'
+    $ cat *.json | jq '.architecture, .os, .docker_version'
+    "amd64"
+    "linux"
+    "17.05.0-ce"
     ```
 
-The environment variables SHOULD be used to fix settings out of control of the contained code that can hinder successful ERC [checking](../glossary.md#check), e.g. by setting a time zone to avoid issues during checking.
+Together the image metadata and ERC configuration file provide all properties of the underlying system environment.
+An implementation SHOULD notify the user if the required system environment is incompatible with the implementation's capabilities.
 
-The output of the container during execution MAY be shown to the user to convey detailed information to users.
+!!! tip "System environment incompatibilities"
+    A partially incompatible system environment, especially a different kernel version, may still produce the desired result, as breaking changes are very rare.
+    An implementation could utilise [semantic versioning](https://semver.org/) to improve its compatibility tests.
+    An incompatible operating system, e.g. `linux` vs. `windows`, and architecture, e.g. `amd64` or `arm/v7`, are likely to fail.
 
-### Making data, code, and text available within container
+!!! tip "Example of ERC configuration file with user-defined kernel and excerpt from runtime image metadata"
+    **ERC configuration file**
+    ```yml
+    id: b9b0099e-9f8d
+    spec_version: 1
+    execution:
+        kernel: `4.13.0-32-generic`
+    ```
+    **Image metadata (excerpt)** (results of an `docker image inspect` call):
+    ```json
+    [
+        {
+            "Id": "sha256:87362162878143c5e10e94a6ec9b7e925b...",
+            "RepoTags": [],
+            "RepoDigests": [],
+            "Parent": "sha256:a280c143ff833d99274e96bbcfdc86...",
+            "Created": "2018-02-15T15:18:42.623467682Z",
+            "Container": "840b75b48121012a0847bbae148ed96df7...",
+            "ContainerConfig": { ... },
+            "DockerVersion": "17.05.0-ce",
+            "Author": "<http://o2r.info>",
+            "Config": { ... },
+            "Architecture": "amd64",
+            "Os": "linux",
+            [...]
+        }
+    ]
+    ```
+    **Image metadata (excerpt)** (content of `<image id>.json` from `image.tar`):
+    ```json
+    {
+        "architecture": "amd64",
+        "config": { ...,
+            "Labels": {
+                "maintainer": "o2r"
+            }
+        },
+        "container": "747198d654630530c2a6523abbc19e41d7fcf977833c6854a2a48fb11b8c607c",
+        "container_config": { ... },
+        "created": "2018-03-08T15:24:20.164740334Z",
+        "docker_version": "17.05.0-ce",
+        "history": [ ... ],
+        "os": "linux",
+        "rootfs": {
+            "type": "layers",
+            "diff_ids": [
+                "sha256:8568818b1f7f534832b393c531edfcb4a30e7eb40b573e68fdea90358987231f",
+                "sha256:fccd38ea8016190426aa7ef4baba29b0c92de1ee863c3460a34151695fbcba08",
+                "sha256:cf52051fff5bb6430c972ef822d435e9b5242117398b43c6d36f1ed71d978a94",
+                "sha256:5535e4fbfa3ed182d3cc87bfe643f87801c91be6c171535675effb4efc8c1e5a",
+                "sha256:9d55d57e41e02115f48e428a880d88d7bf0af993a232d0c967cc17f012e2e250"
+            ]
+        }
+    }
+
+    ```
+
+### Execution
+
+The configuration file MUST provide enough information to for implementations to create the _commands_ for execution of the runtime image and to provide access to the data and software in the ERC.
+Implementations MUST support [Docker Engine API `v1.35`](https://docs.docker.com/engine/api/v1.35/) (or compatible).
+
+#### Making data, code, and text available within container
 
 The runtime environment image contains all dependencies and libraries needed by the code in an ERC.
 Especially for large datasets, it in unfeasible to replicate the complete dataset contained within the ERC in the image.
-For archival, it can also be confusing to replicate code and text, albeit them being relatively small in size, within the container.
+For archival, it can also be confusing to replicate code and text, albeit them potentially being relatively small in size, within the container.
 
-Therefore a host directory is [mounted into a container](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) at runtime using a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
-
-The Dockerfile SHOULD NOT contain a `COPY` or `ADD` command to include data, code or text from the ERC into the image.
-It may be used to copy code or libraries which must be available during the image build.
+Therefore a host directory MUST be [**mounted**](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) (also "bind-mounted") into the compendium container at runtime using a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
 
 The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC base directory within the container.
-This mount point MUST be `/erc`.
+This mount point MUST be `/erc` and the bind MUST be configured as with _read and write access_.
+Implementations SHOULD make sure an execution does not interfere with original uploaded files, but a write access is required to store the created display file outside of the container.
+
 The Dockerfile MUST contain a `WORKDIR` instruction with the value `/erc`.
+
+The Dockerfile SHOULD NOT contain a `COPY` or `ADD` command to include data, code or text from the ERC into the image.
+These commands MAY be used to copy code or libraries which must be available during the image build.
 
 !!! tip "Example Dockerfile"
     In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to reproduce computations made in R.
