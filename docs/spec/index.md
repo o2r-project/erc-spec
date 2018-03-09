@@ -219,41 +219,7 @@ The content of each of these child nodes MUST be a string with one of the follow
         data: data-licenses.txt
         text: "Creative Commons Attribution 2.0 Generic (CC BY 2.0)"
         ui_bindings: CC0-1.0
-
-### Comprehensive example of erc.yml
-
-The following example shows all possible fields of the ERC specification with example values.
-
-```yml
-id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-spec_version: 1
-main: paper.rmd
-display: paper.html
-execution:
-  cmd: "Rscript -e 'rmarkdown::render(input = \"paper.Rmd\", output_format = \"html\")'"
-licenses:
-  code:
-    others_lib.bin: MIT
-    my_code.c: GPL-3.0
-  data:
-	facts.csv: ODbL-1.0
-  text:
-    README.md: CC0-1.0
-    paper.Rmd: CC-BY-4.0
-  ui_bindings: CC0-1.0
-  metadata: CC0-1.0
-structure:
-  convention: https://github.com/ropensci/rrrpkg
-ui_bindings:
-  interactive: true
-  bindings:
-    - purpose: http://.../data-inspection
-      widget: http://.../tabular-browser
-      code: [...]
-      data: [...]
-      text: [...]
-    - purpose: http://.../parameter-manipulation
-      widget: http://.../dropdown
+        metadata: "see metadata license headers"
     ```
 
 
@@ -851,8 +817,35 @@ Lines starting with `#` are treated as comments and MUST be ignored by implement
 
 This section outlines possibilities beyond simple comparison and incorporates "harder" to compare files and what to do with them, e.g. plots/figures, PDF files, ...
 
+## Comprehensive example of erc.yml
 
+The following example shows all possible fields of the ERC specification with example values.
 
+```yml
+id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+spec_version: 1
+main: paper.rmd
+display: paper.html
+execution:
+  bind_mounts: ...
+licenses:
+  code: MIT
+  data: ODbL-1.0
+  text: "data_licenses_info.pdf"
+  ui_bindings: CC0-1.0
+  metadata: CC0-1.0
+convention: https://github.com/ropensci/rrrpkg
+ui_bindings:
+  interactive: true
+  bindings:
+    - purpose: http://.../data-inspection
+      widget: http://.../tabular-browser
+      code: [...]
+      data: [...]
+      text: [...]
+    - purpose: http://.../parameter-manipulation
+      widget: http://.../dropdown
+```
 
 
 [c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
