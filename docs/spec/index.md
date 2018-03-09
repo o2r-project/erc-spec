@@ -294,7 +294,7 @@ The Dockerfile MUST NOT use the `latest` tag in the instruction `FROM`.
     Nevertheless, using an image tagged "latest" makes it much more likely to change over time.
     Although there is no guarantee that images tagged differently, e.g. "v1.2.3" might not change as well, using such tags shall be enforced here.
 
-The Dockerfile SHOULD contain the label `maintainer` to provide authorship information.
+The Dockerfile SHOULD contain the [label `maintainer`](https://docs.docker.com/engine/reference/builder/#maintainer-deprecated) to provide authorship information.
 
 The Dockerfile MUST have an active instruction `CMD`, or a combination of the instructions `ENTRYPOINT` and `CMD`, which executes the packaged analysis.
 

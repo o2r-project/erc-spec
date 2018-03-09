@@ -76,7 +76,17 @@ Also the chosen outer container solution (zip, tarball) is much older and common
 
 > "What's oldest lasts longest." [source](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#supplementary-materials)
 
-The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.
+### Why your own configuration file?
+
+Because it gives control and freedom.
+The ERC has more than one building block, and if we want to make any of them configurable, we need a place to get users as well as tools started, an "entrypoint".
+
+**Why not use container labels?**
+
+The alternative of putting everything into the container itself (e.g. using image labels for metadata and configuration) can be evaluated in the future.
+The idea is interesting as labels can be named/grouped with "namespaces" and could contain more complex information than currently prevalent.
+
+See also [#19](https://github.com/o2r-project/erc-spec/issues/19).
 
 ### Why BagIt?
 
