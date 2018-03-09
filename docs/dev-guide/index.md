@@ -26,6 +26,13 @@ However, if a user wants to use `rmarkdown::render(..)` on a file named `publica
 Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/DevOps) or [Boettiger](https://doi.org/10.1145/2723872.2723882).
 All processing and configuration shall be scripted, no "click" interaction required.
 
+## Related initiatives, specifications, ...
+
+- [ActivePapers](http://www.activepapers.org/)
+- [eLife Reproducible Document Stack](https://elifesciences.org/labs/7dbeb390/reproducible-document-stack-supporting-the-next-generation-research-article) and the `dar` format
+- [Whole Tale](http://wholetale.org/), see its [serialization format](https://github.com/whole-tale/whole-tale/issues/24)
+- [REANA](https://reanahub.io) by CERN
+
 ## Reasoning and decisions
 
 ### What is the life span of an ERC?
@@ -49,7 +56,7 @@ Specific software might only exist in ERCs and can be thoroughly inspected forev
 We acknowledge a [half life](http://ivory.idyll.org/blog/2017-pof-software-archivability.html) of computations, but the **medium term reproducibility of ERC are already a huge improvement** over [the current state](https://doi.org/10.1016/j.cub.2013.11.014) at the example of research data.
 The situation for research data might have improved in the last years, but the situation for code is mostly unknown and might be even worse.
 
-### Some observations
+### Notes and decisions to elaborate on...
 
 - research workflows with environmental or generated data can be _"born digital_" from beginning and stay that way to the end (sensors, data storage, data analysis, presentation, review, publication)
 - researchers do their thing and need independence/flexibility, so post-hoc creation will probably be most common and ERC must have low to no impact on workflow
@@ -133,7 +140,7 @@ CRAN does not support installing specific package versions.
 
 That is why using an abstraction layer outside of R is preferable.
 
-### Licensing information is not detailed enough
+### What if licensing information is not detailed enough?
 
 Without proper license credits, the contents of an ERC would be useless based on today's copyright laws.
 Therefore we rather have the extra work for authors to define a couple of licenses than to create something that is unusable by others.
@@ -165,17 +172,25 @@ Probably this is better solved in specialised formats, though.
 
 It could even be possible to assign one license to a directory and override that assignment for a single file within that directory, or use globs or regular expressions.
 
-### Put the identifier into the ERC
+### Why (not) put "X" into the ERC configuration file?
 
-- makes it easier to track across platforms
-- is harder for manual creation
+- identifier
+    - makes it easier to track across platforms
+    - is harder for manual creation
+- kernel
+    - would have to use our own label within image metadata
+- os and architecture
+    - are already clearly defined im image spec
+    - can be extracted from a plain text file in the image tarball, so implementations can get them (quickly) before loading an image (a potentially costly operation)
+- Docker version
+    - is already clearly defined in image spec
 
-### Why is validation happening outside the container and not _in_ the container
+### Why is validation happening outside the container and not _in_ the container?
 
 - better user experience (otherwise all info must be transported via stdout)
 - to be sure nothing is manipulated within the validation script
 
-### Why is the data not in the image (inner container) but in the outer container
+### Why is the data not in the image (inner container) but in the outer container?
 
 - better accessible in the long term
 - no data duplication
