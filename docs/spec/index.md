@@ -213,23 +213,23 @@ This is in addition to ERC authors handling such parameters at a script level.
 
 ### License metadata
 
-The file `erc.yml` MUST contain a first level node `licenses` with licensing information for the code, data, and text contained.
-Each of these three have distinct requirements, hence different licenses need to be applied.
+The file `erc.yml` MUST contain a first level node `licenses` with licensing information for contained artefacts.
+Each of these artefacts, e.g. code or data, have distinct requirements so it must be possible to apply different licenses.
 
 The node `licenses` MUST have five child nodes: `text`, `data`, `code`, `ui_bindings`, and `metadata`.
 
 !!! note
-    There is currently no mechanism to define the licenses of the used libraries, as manual creation would be tedious.
-    Tools for automatic creation of ERC may add such detailed licensing information and define additional metadata.
+    There is currently no mechanism to define the licenses of all the used libraries and software in a structured format.
+    Manual creation would be tedious.
+    Tools for automatic creation of ERC may add such detailed licensing information and define additional metadata elements.
 
-The content of each of these child nodes MUST have one of the following values:
+The content of each of these child nodes MUST be a string with one of the following contents:
 
-- text string with license identifier or license text. This SHOULD be a standardized identifier of an existing license as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/), or
-- a dictionary of all files or directories and their respective license, each of the values following the previous statement. The node values are the file paths relative to the base directory. 
+- _license identifier_ as defined by the [Open Definition Licenses Service](http://licenses.opendefinition.org/)
+- _name of file_ with either documentation on licensing or a full license text
 
-!!! tip "Example for global licenses"
+!!! tip "Example for common licenses"
     ```yml
-        ---
     id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
     spec_version: 1
     licenses:
@@ -237,29 +237,18 @@ The content of each of these child nodes MUST have one of the following values:
       data: ODbL-1.0
       text: CC0-1.0
           ui_bindings: CC0-1.0
-          metadata: CC0-1.0
+        metadata: CC0-1.0
     ```
 
-!!! tip "Example using specific licenses for files"
+!!! tip "Example for non-standard licenses"
     ```yml
-    ---
     id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
     spec_version: 1
     licenses:
-      code:
-        others_lib.bin: MIT
-        my_code.c: GPL-3.0
-      data: 
-    	facts.csv: ODbL-1.0
-      text:
-        README.md: CC0-1.0
-            paper.Rmd: CC-BY-4.0
-          ui_bindings: CC0-1.0
-          metadata: CC0-1.0
-    ```
-
-!!! note
-    It IS NOT possible to assign one license to a directory and override that assignment or a single file within that directory, NOR IS it possible to use globs or regular expressions.
+        code: Apache-2.0
+        data: data-licenses.txt
+        text: "Creative Commons Attribution 2.0 Generic (CC BY 2.0)"
+        ui_bindings: CC0-1.0
 
 ### Comprehensive example of erc.yml
 
@@ -295,7 +284,7 @@ ui_bindings:
       text: [...]
     - purpose: http://.../parameter-manipulation
       widget: http://.../dropdown
-```
+    ```
 
 The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
 
