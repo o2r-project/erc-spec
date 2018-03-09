@@ -895,16 +895,11 @@ Lines starting with `#` are treated as comments and MUST be ignored by implement
 
 ### Comparing graphics and binary output
 
-This section outlines possibilities beyond simple comparison and incorporates "harder" to compare files and what to do with them, e.g. plots/figures, PDFs, ...
+This section outlines possibilities beyond simple comparison and incorporates "harder" to compare files and what to do with them, e.g. plots/figures, PDF files, ...
 
-## Security considerations
 
-Why are ERC not a security risk?
 
-[//]: # (take a look at https://tools.ietf.org/html/draft-kunze-bagit-14#section-6)
 
-- the spec prohibits use of `EXPOSE`
-- the containers are only executed _without_ external network access using `Network: none`, see [Docker CLI run documentation](https://docs.docker.com/engine/reference/run/#/network-none)
 
 [c99-unspecified]: http://www.open-std.org/jtc1/sc22/wg14/www/C99RationaleV5.10.pdf#page=18
 [rfc2119]: http://tools.ietf.org/html/rfc2119
