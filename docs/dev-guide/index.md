@@ -1,7 +1,13 @@
 # ERC developer guide
 
-An introduction to the ERC rational and the technology choices made within the project _Opening Reproducible Research_, and ideas for downstream products based on ERCs.
-This documents is targeted at developers who wish to create tools for creating, validating, and consuming ERC.
+An introduction to the ERC rational and the technology choices made within the project _Opening Reproducible Research_ (o2r), and ideas for downstream products based on ERCs.
+This documents is targeted at **developers** who wish to create tools for creating, validating, and consuming ERC or who wonder about why specific tools or approaches were taken in designing the ERC specification.
+
+More information about the software developed by o2r:
+
+- [o2r Web API specification](http://o2r.info/o2r-web-api)
+- [o2r Architecture documentation](http://o2r.info/architecture/)
+- [o2r Reference Implementation](https://github.com/o2r-project/reference-implementation)
 
 !!! note
     This guide is a draft. If you have comments or suggestions please file them in the <a href="https://github.com/o2r-project/erc-spec/issues">issue tracker</a>. If you have explicit changes please fork the <a href="https://github.com/o2r-project/erc-spec">git repo</a> and submit a pull request.
@@ -20,40 +26,90 @@ However, if a user wants to use `rmarkdown::render(..)` on a file named `publica
 Second, _"DevOps"_, see [Wikipedia](https://en.wikipedia.org/wiki/DevOps) or [Boettiger](https://doi.org/10.1145/2723872.2723882).
 All processing and configuration shall be scripted, no "click" interaction required.
 
+## Related initiatives, specifications, ...
+
+- [ActivePapers](http://www.activepapers.org/)
+- [eLife Reproducible Document Stack](https://elifesciences.org/labs/7dbeb390/reproducible-document-stack-supporting-the-next-generation-research-article) and the `dar` format
+- [Whole Tale](http://wholetale.org/), see its [serialization format](https://github.com/whole-tale/whole-tale/issues/24)
+- [REANA](https://reanahub.io) by CERN
+
 ## Reasoning and decisions
 
-### Some observations
+### What is the life span of an ERC?
+
+Short answer: 10 years.
+
+Software that is "archived" is _not_ intended to be "used" anymore.
+In 50 or 60 years time we cannot imagine how software or computers will look like.
+Science historians might still find a lot of valuable information in ERC, though.
+
+The ERC focusses on providing a **usable environment for research workflows** in the context of scholarly publishing (reviews etc.).
+Two aspects have an impact on the time frame we target for ERCs: (a) the nature of financing science and (b) the requirement to actually have a piece of code and data that is still interesting to use.
+
+Financing of scientific research is normally based on projects with a specific life span.
+We follow common guidelines for _publishing scientific data_, which require projects to ensure data availability for 10 years.
+
+Although much of the software we use today (like R) is actually quite "old", we do not expect pieces of software that are relevant and useful to disappear for many years and only be preserved in ERCs.
+So, valuable software will exists and be maintained outside of ERCs.
+Specific software might only exist in ERCs and can be thoroughly inspected forever, but _potentially_ not be executed anymore after a decade.
+
+We acknowledge a [half life](http://ivory.idyll.org/blog/2017-pof-software-archivability.html) of computations, but the **medium term reproducibility of ERC are already a huge improvement** over [the current state](https://doi.org/10.1016/j.cub.2013.11.014) at the example of research data.
+The situation for research data might have improved in the last years, but the situation for code is mostly unknown and might be even worse.
+
+### Notes and decisions to elaborate on...
 
 - research workflows with environmental or generated data can be _"born digital_" from beginning and stay that way to the end (sensors, data storage, data analysis, presentation, review, publication)
 - researchers do their thing and need independence/flexibility, so post-hoc creation will probably be most common and ERC must have low to no impact on workflow
-- data storage, citation and preservation is solved (repos, bitstream preservation in archives)
-- packaging methods/methodology is solved (R packages, Python packages, ...)
+- data storage, citation (for giving credit) and preservation is solved (repos, DOIs, bitstream preservation in archives)
+- packaging methods/methodology for software is solved (R packages, Python packages, ...)
 - software preservation is _not_ solved (methods are there, like migration, emulation, but complexity is too high to do this at high granularity)
-- reproducible paper is solved (literate programming, R package dependency handling solutions, ..)
+- reproducible paper is somewhat solved (literate programming, R package dependency handling solutions, ..)
 - computational RR requires sandboxing (to make sure everything is there, but also for security)
 - a service is needed to create ERC for researchers and executes them in a controlled environment
 
-### Why nested containers
+### Why nested containers?
 
 A user shall have access to the files without starting the runtime container.
 Therefore we have at least two items, so we have a bundle and need an outer container.
 As a bonus, the outer container can immediately be used to make an ERC conform to specific use cases, such as long term archival.
-Also the chosen outer container standard is much older and common than the inner container standard, and thus more likely to exist longer.
+Also the chosen outer container solution (zip, tarball) is much older and common than the inner container standard, and thus more likely to exist longer.
+
+> "What's oldest lasts longest." [source](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#supplementary-materials)
 
 The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.
 
-### Why BagIt
+### Why BagIt?
 
 - BagIt is something that preservation experts understand and covers what they care about (bitstream preservation), so it seemed a good fit in the first project vision.
 - BagIt originally was the required packaging for uploading of data, but that has changed. Users upload their data and analysis, and then execute the analysis to ensure the output matches what they created themselves. This is more important than correct bits, which become relevant again after creation of an ERC when it is stored and a bag is created.
 
-### Why Docker
+### What about the limitations of containers?
+
+We are aware of the limitations that containers have.
+Most importantly the operating system and the kernel are not included.
+This results in smaller container size and better performance (e.g. quicker start because no "boot") and also has security advantages.
+However, it also means that the encapsulated runtime environment in ERCs is _not_ "all the way down".
+
+It must be noted that of course changes in the operating system and it's kernel may break a workflow encapsulated in a container.
+
+Let's consider the **Linux Kernel**.
+Those breaking changes are [very rare](https://www.reddit.com/r/linux/comments/3jyscd/has_there_been_a_time_when_the_linux_kernel/).
+
+Let's consider **Docker**.
+Docker containers have by now been [standardised by the OCI](https://www.opencontainers.org/release-notices/v1-0-0) and ERCs [should rely on the open standard in the future](https://github.com/o2r-project/erc-spec/issues/7) (contributions welcome).
+The [maintenance lifecycle](https://success.docker.com/article/Maintenance_Lifecycle) and [compatibility matrix](https://success.docker.com/article/Compatibility_Matrix) of Docker do not imply they are suitable for the targeted time frame for ERCs.
+
+However, all these projects are Open Source software or documentation, and a long term provider for ERC (i.e. not a small research project) can handle these limitations in different ways, for example **organisationally** with long term maintenance contracts or **technically** as outlined in the o2r architecture [in the production architecture sketch](http://o2r.info/architecture/#72-production-sketch).
+These include specialised hardware and operating system specifics.
+
+### Why Docker?
 
 - (Docker) containers provide an encapsulation mechanism to package all dependencies of an analysis
+- Docker now basically is OCI, so switching to other tools should be possible.
 - during container execution, and substitution, the build in [copy-on-write](https://en.wikipedia.org/wiki/Copy-on-write) storage only creates copy of files that are changed within the container, thus saving storage capacity
 - volume mounts allow easy substitution of input data and configurations of analysis
 
-### Why not Singularity
+### Why not Singularity?
 
 [Singularity](http://singularity.lbl.gov/) is an open source containerization solution.
 It might very well be a better choice for reproducible research in the future as it stems from the scientific community (HPC), cf. also [C4RR workshop 2017](https://www.software.ac.uk/c4rr).
@@ -84,43 +140,60 @@ CRAN does not support installing specific package versions.
 
 That is why using an abstraction layer outside of R is preferable.
 
-### Licensing information
+### What if licensing information is not detailed enough?
 
 Without proper license credits, the contents of an ERC would be useless based on today's copyright laws.
-Therefore we rather have the extra work for authors to define a license than to create something that is unusable by others.
+Therefore we rather have the extra work for authors to define a couple of licenses than to create something that is unusable by others.
 
 One of the biggest issues is the **scope of licenses**, namely what to do about having multiple pieces of code, text, or data with different licenses.
 
-### Put the identifier into the ERC
+**Ideas/Notes**
 
-- makes it easier to track across platforms
-- is harder for manual creation
+The `erc.yml` could also hold more complex license metadata, for specific directories or files.
+Probably this is better solved in specialised formats, though.
 
-### Why use bash
+!!! tip "Example using specific licenses"
+    ```yml
+    ---
+    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
+    spec_version: 1
+    licenses:
+      code:
+        others_lib.bin: MIT
+        my_code.c: GPL-3.0
+      data: 
+    	facts.csv: ODbL-1.0
+      text:
+        README.md: CC0-1.0
+            paper.Rmd: CC-BY-4.0
+          ui_bindings: CC0-1.0
+          metadata: CC0-1.0
+    ```
 
-While it is true that..
+It could even be possible to assign one license to a directory and override that assignment for a single file within that directory, or use globs or regular expressions.
 
-> "What's oldest lasts longest." [via](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#supplementary-materials)
+### Why (not) put "X" into the ERC configuration file?
 
-using containers gives the necessary abstraction and encapsulation, so simply using bash (or make) does not suffice.
+- identifier
+    - makes it easier to track across platforms
+    - is harder for manual creation
+- kernel
+    - would have to use our own label within image metadata
+- os and architecture
+    - are already clearly defined im image spec
+    - can be extracted from a plain text file in the image tarball, so implementations can get them (quickly) before loading an image (a potentially costly operation)
+- Docker version
+    - is already clearly defined in image spec
 
-### Why is validation happening outside the container and not _in_ the container
+### Why is validation happening outside the container and not _in_ the container?
 
 - better user experience (otherwise all info must be transported via stdout)
 - to be sure nothing is manipulated within the validation script
 
-### Why is the data not in the image (inner container) but in the outer container
+### Why is the data not in the image (inner container) but in the outer container?
 
 - better accessible in the long term
 - no data duplication
-
-## o2r
-
-The software developed by the o2r project is the reference implementation of the ERC specification.
-
-- [o2r Web API specification](http://o2r.info/o2r-web-api)
-- [o2r Architecture documentation](http://o2r.info/architecture/)
-- [o2r Reference Implementation](https://github.com/o2r-project/reference-implementation)
 
 ## ERC completeness score
 

@@ -74,3 +74,9 @@ a:hover, a:focus {
     margin-bottom: 1.5em;
     padding-left: 1em;
 }
+
+h2 {
+    border-top: 1px solid #004286;
+    margin-top: 2em;
+    padding-top: 1em;
+}

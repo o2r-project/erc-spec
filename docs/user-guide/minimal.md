@@ -62,9 +62,9 @@ Sources: UNCTAD; Clarkson Research Services, via [statista](https://www.statista
 
 ### Display file `display.html`
 
-<iframe src="/img/minimal/seaborne-trade.html" width="100%" height="500" style="border: 2px solid grey;"></iframe>
+<iframe src="../../img/minimal/seaborne-trade.html" width="100%" height="500" style="border: 2px solid grey;"></iframe>
 
-**[HTML](/img/minimal/seaborne-trade.html)**
+**[HTML](../../img/minimal/seaborne-trade.html)**
 
 ### ERC configuration file
 
