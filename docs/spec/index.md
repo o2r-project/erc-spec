@@ -123,6 +123,27 @@ The image MUST be stored as a file, e.g. a "binary" or "archive", in the ERC bas
 
 The manifest MUST be stored as a text file in the ERC base directory.
 
+**System environment**
+
+The nested runtime encapsulates software, files, and configurations up to a specific level of abstraction.
+It may not include a complete operating system, for example for better performance or security reasons.
+While this information is included in the nested runtime, it MUST be accessible without executing the runtime.
+Hard to obtain information SHOULD be replicated in the configuration file.
+
+If the nested runtime does not include the operating system, then the configuration file MUST include the following data about the environment used to create the ERC:
+
+- _architecture_
+- _operating system_
+- _kernel_ (if applicable)
+- _runtime software version_
+
+An implementation SHOULD notify the user if the provided system environment is incompatible with the implementations capabilities.
+
+!!! tip
+    A partially incompatible system environment, especially a different kernel version, may still produce the desired result, as breaking changes are very rare.
+    An implementation may utilise [semantic versioning](https://semver.org/) to improve its compatibility tests.
+    An incompatible operating system, e.g. `linux` vs. `windows`, and architecture, e.g. `amd64` or `arm/v7`, are likely to fail.
+
 ## ERC configuration file
 
 The ERC configuration file is the _reproducibility manifest_ for an ERC. It defines the main entry points for actions performed on an ERC and core metadata elements.
