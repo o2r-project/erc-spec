@@ -51,16 +51,21 @@ Examine
 Discover
 : [Discovery](../glossary.md#discover) is searching for content powered by ERC properties, such as text, content metadata, code metadata et cetera.
 
-### Design goals
+### Design principles
 
 Simplicity
 : This specification should not re-do something which already exists (if it is an open specification or tool).
+  The risk of scattering information is mitigated by clear documentation. 
   It must be possible to create a valid and working ERC _manually_, while supporting tools should be able to cover typical use cases with minimal required input by a creating user.
 
 Nested containers
 : We acknowledge well defined standards for packaging a set of files, and different approaches to create an executable code package.
   Therefore an ERC comprises _one or more containers but is itself subject to being put into a container_.
   We distinguish these containers into the inner or "runtime" container and the outer container, which is used for transfer of complete ERC and not content-aware validation.
+
+Transparency, Stability, and Openness
+: Plain text files usable by both humans and computers are the backbone to make sure ERCs are acceptable by users from all scientific domains, are understandable today and tomorrow, and are easy to extend.
+  The ERC contains everything needed to execute a workflow.
 
 ### How to use an ERC
 
@@ -71,6 +76,24 @@ The steps to (re-)run the analysis contained in an ERC as part of an [examinatio
 - compare the output files contained in the outer container with the output files just created by the runtime container
 
 This way an ERC allows computational reproducibility based on the original code and data.
+
+### Three questions
+
+[Section inspired by [REANA's "Four Questions"](https://reana.readthedocs.io/en/latest/concepts.html#four-questions)]
+
+The ERC helps to make research papers more transparent an reusable by giving minimal structure for contents and context.
+They help to answer the "Three Questions" both for users, but more importantly for tools and services built around them.
+
+1. **What is your result?**
+    - file I should look at to see the description and visualisations
+    - the "display file" shown by applications based on ERC
+1. **What is your workflow?**
+    - file I should look at as a reader when I want to understand your code/analysis/workflow, the steps you took
+    - the "main file" used by applications based on ERC for creating ERCs and executing them, which means running the analysis and creating the result
+1. **What is your environment?**
+    - operating system you used
+    - software you used (libraries, your own scripts, ...)
+    - can be used by tools to recreate the same environment
 
 ## ERC structure
 
@@ -181,7 +204,10 @@ If they are not defined and multiple documents use the name `main.[ext]` or `dis
 Additionally, related resources such as a related publication can be stated with the `relatedIdentifier` element field.
 A related identifier SHOULD be a globally unique persistent identifier and SHOULD be a URI.
 
-### License metadata
+### Author and license metadata
+
+The main document MUST include information about the authors.
+It SHOULD contain this information in a structured way so it can be parsed by tools supporting ERCs.
 
 The file `erc.yml` MUST contain a first level node `licenses` with licensing information for contained artefacts.
 Each of these artefacts, e.g. code or data, have distinct requirements so it must be possible to apply different licenses.
@@ -541,6 +567,8 @@ A non-exhaustive list of potential conventions and guidelines _for R_ is as foll
 ### R Markdown main file
 
 The ERC's _main file_ for R-based analyses SHOULD be [R Markdown](http://rmarkdown.rstudio.com/).
+
+If the main file is R Markdown, it SHOULD include basic metadata in its [YAML front matter](https://rmarkdown.rstudio.com/html_document_format.html#overview): author(s), title, date, et cetera.
 
 The main document SHOULD NOT contain code that loads pre-computed results from files, but conduct all analyses, even costly ones, during document weaving.
 
