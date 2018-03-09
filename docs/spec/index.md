@@ -181,36 +181,6 @@ If they are not defined and multiple documents use the name `main.[ext]` or `dis
 Additionally, related resources such as a related publication can be stated with the `relatedIdentifier` element field.
 A related identifier SHOULD be a globally unique persistent identifier and SHOULD be a URI.
 
-### Control statements
-
-The configuration file SHOULD contain statements to control the execution of the runtime image.
-
-These statements MUST be in an array under the root-level node `execution` in the ERC configuration file in the order in which they must be executed.
-
-Implementations SHOULD support a list of [bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) commands as control statements.
-These commands are given as a list under the node `cmd` under the root-level node `execution`.
-Non-bash commands MUST be defined under own nodes under the `execution` node.
-The current/working directory for these commands MUST be the [ERC base directory](#base-directory).
-
-The execution statements MAY ensure the re-computation being independent from the environment, which may be different depending on the host of the execution environment.
-For example, the time zone could be fixed via an environment variable `TZ=CET`, so output formatting of timestamps does not break [checking](../glossary.md#check).
-This is in addition to ERC authors handling such parameters at a script level.
-
-!!! tip "Examples for control statements"
-    ```yml
-    execution:
-      cmd:
-        - `./prepare.sh --input my_data`
-        - `./execute.sh --output results --iterations 3`
-    ```
-
-    ```yml
-    id: 12345
-    execution:
-      cmd: >-
-        'docker run -it --rm --volume $(pwd):/erc --volume $(pwd)/other_data.csv:/erc/data.csv:ro erc:12345'
-    ```
-
 ### License metadata
 
 The file `erc.yml` MUST contain a first level node `licenses` with licensing information for contained artefacts.
@@ -286,7 +256,6 @@ ui_bindings:
       widget: http://.../dropdown
     ```
 
-The path to the ERC configuration file subsequently MUST be `<path-to-bag>/data/erc.yml`.
 
 ## Docker runtime
 
@@ -340,35 +309,13 @@ The Dockerfile MUST have an active instruction `CMD`, or a combination of the in
 
 The Dockerfile SHOULD NOT contain `EXPOSE` instructions.
 
-### Docker control statements
 
-The control statements for Docker executions comprise `load`, for importing an image from the archive, and `run` for starting a container of the loaded image.
-Both control statements MUST be configured by using nodes of the same name under the root-level node `execution` in the ERC configuration file.
-Based on the configuration, an implementation can construct the respective run-time commands, i.e. [`docker load`](https://docs.docker.com/engine/reference/commandline/load/) and [`docker run`](https://docs.docker.com/engine/reference/run/), using the correct image file name and further parameters (e.g. performance control options).
 
-!!! tip "Example"
-    The following example shows default values for `image` and `manifest` and typical values for `run`.
 
-    ```yml
-    id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-    version: 1
-    execution:
-      image: image.tar.gz
-      manifest: Dockerfile
-      run:
-        environment:
-    	  - TZ=CET
-    ```
 
-!!! note
-    The Docker CLI commands constructed based on this configuration by an implementing service could be as follows:
-    
-    ```bash
-    docker load --input image.tar
-    docker run -it --name run_b9b0099e -e TZ=CET -v /storage/erc/abc123:/erc erc:b9b0099e-9f8d-4a33-8acf-cb0c062efaec
-	```
-	
-	In this case the implementation uses `-it` to pass stdout streams to the user and adds an identifier for the container using `--name`.
+
+!!! tip "Accessing system environment configurations from image metadata"
+
 
 The only option for `load` is `quiet`, which may be set to Boolean `true` or `false`.
 
