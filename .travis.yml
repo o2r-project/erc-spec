@@ -1,11 +1,16 @@
 language: R # https://github.com/jgm/pandoc/wiki/Using-pandoc-in-Travis-CI
 sudo: false
 script: true
+pandoc_version: 2.1.2
+addons:
+  apt:
+    packages:
+      - texlive-xetex
 before_install:
   - shopt -s expand_aliases
   - pyenv versions
   - pyenv global 3.6.3
-  - tlmgr install xcolor mdframed needspace # https://github.com/travis-ci/travis-ci/issues/7863
+  - tlmgr install xcolor mdframed needspace unicode-math filehook lm-math # https://github.com/travis-ci/travis-ci/issues/7863
   - pip install --upgrade pip
 install:
   - pip install mkdocs --user
