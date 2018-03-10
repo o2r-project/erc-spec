@@ -223,7 +223,13 @@ Also the chosen outer container solution (zip, tarball) is much older and common
 <blockquote>
 <p>&ldquo;What&rsquo;s oldest lasts longest.&rdquo; <a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/index.md#supplementary-materials">source</a></p>
 </blockquote>
-<p>The alternative of putting everything into the container itself (e.g. using image labels for metadata) can be evaluated in the future.</p>
+<h3 id="why-your-own-configuration-file">Why your own configuration file?<a class="headerlink" href="#why-your-own-configuration-file" title="Permanent link">&para;</a></h3>
+<p>Because it gives control and freedom.
+The ERC has more than one building block, and if we want to make any of them configurable, we need a place to get users as well as tools started, an &ldquo;entrypoint&rdquo;.</p>
+<p><strong>Why not use container labels?</strong></p>
+<p>The alternative of putting everything into the container itself (e.g. using image labels for metadata and configuration) can be evaluated in the future.
+The idea is interesting as labels can be named/grouped with &ldquo;namespaces&rdquo; and could contain more complex information than currently prevalent.</p>
+<p>See also <a href="https://github.com/o2r-project/erc-spec/issues/19">#19</a>.</p>
 <h3 id="why-bagit">Why BagIt?<a class="headerlink" href="#why-bagit" title="Permanent link">&para;</a></h3>
 <ul>
 <li>BagIt is something that preservation experts understand and covers what they care about (bitstream preservation), so it seemed a good fit in the first project vision.</li>

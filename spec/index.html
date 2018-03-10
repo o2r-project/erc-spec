@@ -416,7 +416,7 @@ The build SHOULD be done with the option <code>--no-cache=true</code>.</p>
 Nevertheless, using an image tagged &ldquo;latest&rdquo; makes it much more likely to change over time.
 Although there is no guarantee that images tagged differently, e.g. &ldquo;v1.2.3&rdquo; might not change as well, using such tags shall be enforced here.</p>
 </div>
-<p>The Dockerfile SHOULD contain the label <code>maintainer</code> to provide authorship information.</p>
+<p>The Dockerfile SHOULD contain the <a href="https://docs.docker.com/engine/reference/builder/#maintainer-deprecated">label <code>maintainer</code></a> to provide authorship information.</p>
 <p>The Dockerfile MUST have an active instruction <code>CMD</code>, or a combination of the instructions <code>ENTRYPOINT</code> and <code>CMD</code>, which executes the packaged analysis.</p>
 <p>The Dockerfile SHOULD NOT contain <code>EXPOSE</code> instructions.</p>
 <h3 id="system-environment">System environment<a class="headerlink" href="#system-environment" title="Permanent link">&para;</a></h3>
