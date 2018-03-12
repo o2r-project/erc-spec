@@ -53,7 +53,7 @@ Although much of the software we use today (like R) is actually quite "old", we 
 So, valuable software will exists and be maintained outside of ERCs.
 Specific software might only exist in ERCs and can be thoroughly inspected forever, but _potentially_ not be executed anymore after a decade.
 
-We acknowledge a [half life](http://ivory.idyll.org/blog/2017-pof-software-archivability.html) of computations, but the **medium term reproducibility of ERC are already a huge improvement** over [the current state](https://doi.org/10.1016/j.cub.2013.11.014) at the example of research data.
+We acknowledge a [half life](http://ivory.idyll.org/blog/2017-pof-software-archivability.html) of computations and "exact repeatability", but the **medium term reproducibility of ERC are already a huge improvement** over [the current state](https://doi.org/10.1016/j.cub.2013.11.014) at the example of research data.
 The situation for research data might have improved in the last years, but the situation for code is mostly unknown and might be even worse.
 
 ### Notes and decisions to elaborate on...
@@ -129,6 +129,22 @@ Furthermore the origin of Singularity, high performance computing, is out of sco
 We do not see an issue in not using Singulary.
 Most importantly, the concepts _runtime manifest_ and _runtime image_ are abstract, i.e. independent of Docker and the concrete container tool choice could be made flexible in future versions of the specification.
 Singularity can import Docker images and as such make a transition possible, or even let an implementation use Singularity without touch the specification.
+
+### Why R Markdown as the main file?
+
+First of all, there is no alternative to [literate programming]().
+It is _the_ format in the R community, used more and more for [in-line documentation](https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html), [vignettes](http://r-pkgs.had.co.nz/vignettes.html), [blogs](https://bookdown.org/yihui/blogdown/), [software websites](http://pkgdown.r-lib.org/), [books](https://bookdown.org/) and even [scientific articles](https://github.com/rstudio/rticles) in multiple output formats via [Pandoc](https://pandoc.org/) and potentially [Pandoc](https://peerj.com/articles/cs-112/) [Scholar](https://pandoc-scholar.github.io/).
+The uptake in the community alone warrants its usage.
+
+It also supports other languages than just R and is a good basis for agile production of open science literature.
+
+Futhermore, it is a plain text format with comparatively simple syntax, so it facilitates long-term interpretability.
+The structured YAML header also does not hurt for archivability.
+
+### Why HTML outputs?
+
+HTML is text-based and therefore allows automatically comparing and creating difference sets with typical "diffing" tools.
+This is a crucial advantage over PDFs and outweighs the benefits of PDF/A.
 
 ### Why not just use plain R?
 
