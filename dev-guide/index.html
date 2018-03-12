@@ -202,7 +202,7 @@ We follow common guidelines for <em>publishing scientific data</em>, which requi
 <p>Although much of the software we use today (like R) is actually quite &ldquo;old&rdquo;, we do not expect pieces of software that are relevant and useful to disappear for many years and only be preserved in ERCs.
 So, valuable software will exists and be maintained outside of ERCs.
 Specific software might only exist in ERCs and can be thoroughly inspected forever, but <em>potentially</em> not be executed anymore after a decade.</p>
-<p>We acknowledge a <a href="http://ivory.idyll.org/blog/2017-pof-software-archivability.html">half life</a> of computations, but the <strong>medium term reproducibility of ERC are already a huge improvement</strong> over <a href="https://doi.org/10.1016/j.cub.2013.11.014">the current state</a> at the example of research data.
+<p>We acknowledge a <a href="http://ivory.idyll.org/blog/2017-pof-software-archivability.html">half life</a> of computations and &ldquo;exact repeatability&rdquo;, but the <strong>medium term reproducibility of ERC are already a huge improvement</strong> over <a href="https://doi.org/10.1016/j.cub.2013.11.014">the current state</a> at the example of research data.
 The situation for research data might have improved in the last years, but the situation for code is mostly unknown and might be even worse.</p>
 <h3 id="notes-and-decisions-to-elaborate-on">Notes and decisions to elaborate on&hellip;<a class="headerlink" href="#notes-and-decisions-to-elaborate-on" title="Permanent link">&para;</a></h3>
 <ul>
@@ -263,6 +263,16 @@ Furthermore the origin of Singularity, high performance computing, is out of sco
 <p>We do not see an issue in not using Singulary.
 Most importantly, the concepts <em>runtime manifest</em> and <em>runtime image</em> are abstract, i.e. independent of Docker and the concrete container tool choice could be made flexible in future versions of the specification.
 Singularity can import Docker images and as such make a transition possible, or even let an implementation use Singularity without touch the specification.</p>
+<h3 id="why-r-markdown-as-the-main-file">Why R Markdown as the main file?<a class="headerlink" href="#why-r-markdown-as-the-main-file" title="Permanent link">&para;</a></h3>
+<p>First of all, there is no alternative to <a href="">literate programming</a>.
+It is <em>the</em> format in the R community, used more and more for <a href="https://cran.r-project.org/web/packages/roxygen2/vignettes/markdown.html">in-line documentation</a>, <a href="http://r-pkgs.had.co.nz/vignettes.html">vignettes</a>, <a href="https://bookdown.org/yihui/blogdown/">blogs</a>, <a href="http://pkgdown.r-lib.org/">software websites</a>, <a href="https://bookdown.org/">books</a> and even <a href="https://github.com/rstudio/rticles">scientific articles</a> in multiple output formats via <a href="https://pandoc.org/">Pandoc</a> and potentially <a href="https://peerj.com/articles/cs-112/">Pandoc</a> <a href="https://pandoc-scholar.github.io/">Scholar</a>.
+The uptake in the community alone warrants its usage.</p>
+<p>It also supports other languages than just R and is a good basis for agile production of open science literature.</p>
+<p>Futhermore, it is a plain text format with comparatively simple syntax, so it facilitates long-term interpretability.
+The structured YAML header also does not hurt for archivability.</p>
+<h3 id="why-html-outputs">Why HTML outputs?<a class="headerlink" href="#why-html-outputs" title="Permanent link">&para;</a></h3>
+<p>HTML is text-based and therefore allows automatically comparing and creating difference sets with typical &ldquo;diffing&rdquo; tools.
+This is a crucial advantage over PDFs and outweighs the benefits of PDF/A.</p>
 <h3 id="why-not-just-use-plain-r">Why not just use plain R?<a class="headerlink" href="#why-not-just-use-plain-r" title="Permanent link">&para;</a></h3>
 <p>It would be possible to rely solely on R for replication.
 For example, the runtime manifest could be a <a href="https://codemeta.github.io/">codemeta</a> document, and the runtime environment is created based on it outside of the ERC when needed, for example by installing R in the required version.
