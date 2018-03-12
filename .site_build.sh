@@ -14,7 +14,7 @@ mkdir -p site
 )
 
 # Build the documentation
-mkdocs build --clean --verbose
+make build_verbose
 
 # Replace current build version and date
 CURRENT_VERSION=$(git log --pretty=format:'%h' -n 1)

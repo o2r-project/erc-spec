@@ -6,9 +6,15 @@ serve:
 
 build:
 	mkdocs build --clean
+	make clean_newpage_html
 
 build_verbose:
 	mkdocs build --clean --verbose
+	make clean_newpage_html
+
+clean_newpage_html:
+	# remove \newpage paragraphs from HTML
+	find ./site -type f -name '*.html' -exec sed -i -e 's|<p>\\newpage</p>||g' {} \;
 
 # pip install pandoc-latex-admonition (https://github.com/chdemko/pandoc-latex-admonition)
 # https://github.com/chdemko/pandoc-latex-admonition/issues/1
