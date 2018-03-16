@@ -548,6 +548,7 @@ The node's value can be any text string which uniquely identifies a convention, 
 
 A non-exhaustive list of potential conventions and guidelines _for R_ is as follows:
 
+- [Ben Marwick's `rrtools`](https://github.com/benmarwick/rrtools)
 - [ROpenSci rrrpkg](https://github.com/ropensci/rrrpkg)
 - [Jeff Hollister's manuscriptPackage](https://github.com/jhollist/manuscriptPackage)
 - [Carl Boettiger's template](https://github.com/cboettig/template)
