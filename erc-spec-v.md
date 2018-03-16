@@ -36,7 +36,7 @@ The o2r Executable Research Compendium specification is licensed under [Creative
 To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.
 This work is published from: Germany.
 
-<div class="buildinfo">Build 04a154d @ 2018-03-12T09:31:07Z</div>
+<div class="buildinfo">Build 643f094 @ 2018-03-16T08:12:27Z</div>
 
 \newpage
 ## ERC specification
@@ -588,6 +588,7 @@ The node's value can be any text string which uniquely identifies a convention, 
 
 A non-exhaustive list of potential conventions and guidelines _for R_ is as follows:
 
+- [Ben Marwick's `rrtools`](https://github.com/benmarwick/rrtools)
 - [ROpenSci rrrpkg](https://github.com/ropensci/rrrpkg)
 - [Jeff Hollister's manuscriptPackage](https://github.com/jhollist/manuscriptPackage)
 - [Carl Boettiger's template](https://github.com/cboettig/template)
