@@ -866,12 +866,12 @@ The current JSON dummy file to visualises the properties. These elements SHOULD 
     },
   "inputfiles": [],
 	"keywords": [],
-    "license": {"text": None,
-            "data": None,
-            "code": None,
-            "uibindings": None,
-            "md": None
-            },
+    "license": {
+        "text": None,
+        "data": None,
+        "code": None,
+        "md": None
+    },
 	"paperLanguage": [],
 	"paperSource": null,
 	"publicationDate": null,
@@ -924,7 +924,6 @@ and the refined version `metadata_o2r.json`.
 - `license.data `_String_. License information for the data included.
 - `license.md` _String_. License information for the metadata included. Should be cc0 to include in catalogues.
 - `license.text`_String_. License information for the text included.
-- `license.uibindings` _String_. License information for the UI-bindings included.
 - `mainfile` _String_. The suggested main file of workspace
 - `mainfile_candidates` _Array_. Unsorted list of mainfile candidates of the workspace.
 - `paperLanguage` _Array of strings_. List of guessed languages for the workspace.
