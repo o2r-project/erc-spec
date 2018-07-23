@@ -36,7 +36,7 @@ The o2r Executable Research Compendium specification is licensed under [Creative
 To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.
 This work is published from: Germany.
 
-<div class="buildinfo">Build 5a828da @ 2018-07-23T20:59:45Z</div>
+<div class="buildinfo">Build 9c222c3 @ 2018-07-23T21:18:12Z</div>
 
 \newpage
 ## ERC specification
@@ -906,12 +906,12 @@ The current JSON dummy file to visualises the properties. These elements SHOULD 
     },
   "inputfiles": [],
 	"keywords": [],
-    "license": {"text": None,
-            "data": None,
-            "code": None,
-            "uibindings": None,
-            "md": None
-            },
+    "license": {
+        "text": None,
+        "data": None,
+        "code": None,
+        "md": None
+    },
 	"paperLanguage": [],
 	"paperSource": null,
 	"publicationDate": null,
@@ -964,7 +964,6 @@ and the refined version `metadata_o2r.json`.
 - `license.data `_String_. License information for the data included.
 - `license.md` _String_. License information for the metadata included. Should be cc0 to include in catalogues.
 - `license.text`_String_. License information for the text included.
-- `license.uibindings` _String_. License information for the UI-bindings included.
 - `mainfile` _String_. The suggested main file of workspace
 - `mainfile_candidates` _Array_. Unsorted list of mainfile candidates of the workspace.
 - `paperLanguage` _Array of strings_. List of guessed languages for the workspace.
