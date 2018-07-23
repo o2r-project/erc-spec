@@ -48,7 +48,10 @@ When creating the erc manually, you can receive a uuid4 as `id` for the erc conf
 
 ### License metadata
 
-Please consult your employer or legal department for a suitable license for your work. Make sure you hold the copyright for any code that you want to release under a self-chosen license.
+Please consult your employer or legal department for a suitable license for your work.
+Make sure you hold the copyright for any code that you want to release under a self-chosen license and that the license is compatible with the conditions of licenses of used data or software.
+
+A good discussion of the legal aspects of reproducible research is given in Victoria Stodden's ["The Legal Framework for Reproducible Scientific Research: Licensing and Copyright"](https://aip.scitation.org/doi/pdf/10.1109/MCSE.2009.19) ([public preprint](https://web.stanford.edu/~vcs/papers/LFRSR12012008.pdf)) .
 
 Further resources that are linked here without any endorsement or being checked:
 
