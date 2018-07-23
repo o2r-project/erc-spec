@@ -36,7 +36,7 @@ The o2r Executable Research Compendium specification is licensed under [Creative
 To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.
 This work is published from: Germany.
 
-<div class="buildinfo">Build 643f094 @ 2018-03-16T08:12:27Z</div>
+<div class="buildinfo">Build 5a828da @ 2018-07-23T20:59:45Z</div>
 
 \newpage
 ## ERC specification
@@ -249,10 +249,13 @@ A related identifier SHOULD be a globally unique persistent identifier and SHOUL
 The main document MUST include information about the authors.
 It SHOULD contain this information in a structured way so it can be parsed by tools supporting ERCs.
 
+!!! note
+    An example for structured metadata is markup with author names and affiliations in the header of the main document.
+
 The file `erc.yml` MUST contain a first level node `licenses` with licensing information for contained artefacts.
 Each of these artefacts, e.g. code or data, have distinct requirements so it must be possible to apply different licenses.
 
-The node `licenses` MUST have five child nodes: `text`, `data`, `code`, `ui_bindings`, and `metadata`.
+The node `licenses` MUST have four child nodes: `text`, `data`, `code`, and `metadata`.
 
 !!! note
     There is currently no mechanism to define the licenses of all the used libraries and software in a structured format.
@@ -272,7 +275,6 @@ The content of each of these child nodes MUST be a string with one of the follow
         code: Apache-2.0
         data: ODbL-1.0
         text: CC0-1.0
-        ui_bindings: CC0-1.0
         metadata: CC0-1.0
     ```
 
@@ -284,7 +286,6 @@ The content of each of these child nodes MUST be a string with one of the follow
         code: Apache-2.0
         data: data-licenses.txt
         text: "Creative Commons Attribution 2.0 Generic (CC BY 2.0)"
-        ui_bindings: CC0-1.0
         metadata: "see metadata license headers"
     ```
 
@@ -550,9 +551,9 @@ Each mount MUST include the following nodes:
 - `source`: mount source file or directory.
 - `destination`: mount target path within the container; MUST be an absolute path.
 
-The binds MUST be configured as read only.
+The binds used for substitution MUST be configured as read only.
 
-If a list of mounts is configured, it MAY include the mandatory bind mount.
+If a list of mounts is configured, it MAY NOT include the mandatory bind mount.
 
 !!! tip "Example: data file replacement with bind mounts"
     The following example includes an explicit definition of the mandatory mount to `/erc` and an overlay bind mount of a CSV file.
@@ -638,6 +639,7 @@ Therefore this section defines metadata to support two goals:
 - allow supporting software tools to create interactive renderings of ERC contents for [manipulation](../glossary.md#manipulate).
 
 These goals are manifested in the **UI bindings** as part of the ERC configuration file under the root level property `ui_bindings`.
+The license of code specifically included to support UI bindings MUST be the same as the `code` license.
 
 An ERC MUST denote if UI bindings are present using the boolean property `interactive`.
 If the property is missing it defaults to `false`.
@@ -891,7 +893,6 @@ The current JSON dummy file to visualises the properties. These elements SHOULD 
 		"packageSystem": null
 	}],
 	"description": null,
-	"ercIdentifier": null,
 	"file": {
 		"filename": null,
 		"filepath": null,
@@ -954,7 +955,6 @@ and the refined version `metadata_o2r.json`.
 - `description` _String_. A text representation conveying the purpose and scope of the asset (the abstract).
 - `displayfile` _String_. The suggested file for viewing the text of the workspace, i.e. a rendering of the suggested mainfile.
 - `displayfile_candidates` _Array of strings_. An unsorted list of candidates for displayfiles.
-- `ercIdentifier` _String_. A universally unique character string associated with the asset as executable research compendium, provided by the o2r service.
 - `identifier` _Object_.
 - `inputfiles` _Array of strings_. A compiled list of files from the extracted workspace that is called or used in the extracted code of the workspace.
 - `interaction` TBD
@@ -1052,7 +1052,6 @@ licenses:
   code: MIT
   data: ODbL-1.0
   text: "data_licenses_info.pdf"
-  ui_bindings: CC0-1.0
   metadata: CC0-1.0
 convention: https://github.com/ropensci/rrrpkg
 ui_bindings:

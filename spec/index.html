@@ -344,9 +344,13 @@ A related identifier SHOULD be a globally unique persistent identifier and SHOUL
 <h3 id="author-and-license-metadata">Author and license metadata<a class="headerlink" href="#author-and-license-metadata" title="Permanent link">&para;</a></h3>
 <p>The main document MUST include information about the authors.
 It SHOULD contain this information in a structured way so it can be parsed by tools supporting ERCs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>An example for structured metadata is markup with author names and affiliations in the header of the main document.</p>
+</div>
 <p>The file <code>erc.yml</code> MUST contain a first level node <code>licenses</code> with licensing information for contained artefacts.
 Each of these artefacts, e.g. code or data, have distinct requirements so it must be possible to apply different licenses.</p>
-<p>The node <code>licenses</code> MUST have five child nodes: <code>text</code>, <code>data</code>, <code>code</code>, <code>ui_bindings</code>, and <code>metadata</code>.</p>
+<p>The node <code>licenses</code> MUST have four child nodes: <code>text</code>, <code>data</code>, <code>code</code>, and <code>metadata</code>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There is currently no mechanism to define the licenses of all the used libraries and software in a structured format.
@@ -366,7 +370,6 @@ licenses:
     code: Apache-2.0
     data: ODbL-1.0
     text: CC0-1.0
-    ui_bindings: CC0-1.0
     metadata: CC0-1.0</code></pre>
 
 </div>
@@ -378,7 +381,6 @@ licenses:
     code: Apache-2.0
     data: data-licenses.txt
     text: &quot;Creative Commons Attribution 2.0 Generic (CC BY 2.0)&quot;
-    ui_bindings: CC0-1.0
     metadata: &quot;see metadata license headers&quot;</code></pre>
 
 </div>
@@ -603,8 +605,8 @@ Each mount MUST include the following nodes:</p>
 <li><code>source</code>: mount source file or directory.</li>
 <li><code>destination</code>: mount target path within the container; MUST be an absolute path.</li>
 </ul>
-<p>The binds MUST be configured as read only.</p>
-<p>If a list of mounts is configured, it MAY include the mandatory bind mount.</p>
+<p>The binds used for substitution MUST be configured as read only.</p>
+<p>If a list of mounts is configured, it MAY NOT include the mandatory bind mount.</p>
 <div class="admonition tip">
 <p class="admonition-title">Example: data file replacement with bind mounts</p>
 <p>The following example includes an explicit definition of the mandatory mount to <code>/erc</code> and an overlay bind mount of a CSV file. 
@@ -670,7 +672,8 @@ Therefore this section defines metadata to support two goals:</p>
 <li>aide <a href="../glossary/#inspect">inspecting</a> users to identify core functions and parameters of an analysis, and</li>
 <li>allow supporting software tools to create interactive renderings of ERC contents for <a href="../glossary/#manipulate">manipulation</a>.</li>
 </ul>
-<p>These goals are manifested in the <strong>UI bindings</strong> as part of the ERC configuration file under the root level property <code>ui_bindings</code>.</p>
+<p>These goals are manifested in the <strong>UI bindings</strong> as part of the ERC configuration file under the root level property <code>ui_bindings</code>.
+The license of code specifically included to support UI bindings MUST be the same as the <code>code</code> license.</p>
 <p>An ERC MUST denote if UI bindings are present using the boolean property <code>interactive</code>.
 If the property is missing it defaults to <code>false</code>.
 An implementation MAY use the indicator <code>interactive: true</code> to provide other means of displaying the display file.</p>
@@ -891,7 +894,6 @@ This bundle most importantly would not include the <em>runtime image</em>, which
         &quot;packageSystem&quot;: null
     }],
     &quot;description&quot;: null,
-    &quot;ercIdentifier&quot;: null,
     &quot;file&quot;: {
         &quot;filename&quot;: null,
         &quot;filepath&quot;: null,
@@ -950,7 +952,6 @@ This bundle most importantly would not include the <em>runtime image</em>, which
 <li><code>description</code> <em>String</em>. A text representation conveying the purpose and scope of the asset (the abstract).</li>
 <li><code>displayfile</code> <em>String</em>. The suggested file for viewing the text of the workspace, i.e. a rendering of the suggested mainfile.</li>
 <li><code>displayfile_candidates</code> <em>Array of strings</em>. An unsorted list of candidates for displayfiles.</li>
-<li><code>ercIdentifier</code> <em>String</em>. A universally unique character string associated with the asset as executable research compendium, provided by the o2r service.</li>
 <li><code>identifier</code> <em>Object</em>.</li>
 <li><code>inputfiles</code> <em>Array of strings</em>. A compiled list of files from the extracted workspace that is called or used in the extracted code of the workspace.</li>
 <li><code>interaction</code> TBD</li>
@@ -1030,7 +1031,6 @@ licenses:
   code: MIT
   data: ODbL-1.0
   text: &quot;data_licenses_info.pdf&quot;
-  ui_bindings: CC0-1.0
   metadata: CC0-1.0
 convention: https://github.com/ropensci/rrrpkg
 ui_bindings:
