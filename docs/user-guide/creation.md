@@ -71,10 +71,9 @@ Properties for the content metadata are defined in the [specification](../spec/i
 _As of now, we do not recommend creating secondary metadata by hand._
 
 Secondary metadata are used for third party services, e.g. repositories that define their own obligatory metadata.
-In general they can be added in different formats to support different use cases.
+In general they can be added in different formats to support different use cases and they should be stored in a directory `.erc`.
 
 More information on secondary metadata can be found in the [preservation section](../spec/index.md#preservation-of-erc).
-
 
 ## Step 4: validate
 
@@ -85,7 +84,6 @@ Run the analysis in the container, then copy the analysis output to a temporary 
 
 To create a package that is suitable for being stored in an archive or repository, ERCs must be bundled as BagIt bags.
 Take a look at the [preservation section](../spec/index.md#preservation-of-erc) for a detailed background about the purpose of BagIt and other digital preservation aspects.
-
 
 ### Third party tools for creating BagIt bags
 
@@ -109,9 +107,10 @@ A file tree for the final bagged ERC may look like this:
 ├── bag-info.txt
 ├── bagit.txt
 ├── data
-│   ├── 2016-07-17-myPaper.Rmd
+│   ├── .erc/metadata.json
 │   ├── erc.yml
-│   ├── metadata.json
+│   ├── manuscript.Rmd
+│   ├── display.html
 │   ├── Dockerfile
 │   └── image.tar
 ├── manifest-md5.txt

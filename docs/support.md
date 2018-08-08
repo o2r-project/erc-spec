@@ -11,7 +11,7 @@ If you have questions about the ERC specification and its usage which are not an
 <div id="disqus_thread" style="margin:auto; width:auto; text-align=center"></div>
 <script>
     var disqus_config = function () {
-        this.page.url = "http://o2r.info/erc-spec/support";
+        this.page.url = "https://o2r.info/erc-spec/support";
         this.page.identifier = "erc-spec-support";
     };
     (function() {

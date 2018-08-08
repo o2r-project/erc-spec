@@ -20,7 +20,7 @@ theme_dir: custom_theme
 repo_url: https://github.com/o2r-project/erc-spec
 repo_name: GitHub
 edit_uri: tree/master/docs/
-site_url: http://o2r.info/erc-spec/
+site_url: https://o2r.info/erc-spec/
 site_dir: site
 extra_css: [erc.css]
 markdown_extensions:

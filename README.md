@@ -2,9 +2,9 @@
 
 Executable Research Compendium (ERC) specification and guides
 
-Project description: [http://o2r.info](http://o2r.info)
+Project description: [https://o2r.info](https://o2r.info)
 
-**Read online: [http://o2r.info/erc-spec](http://o2r.info/erc-spec)**
+**Read online: [https://o2r.info/erc-spec](https://o2r.info/erc-spec)**
 
 ## Guidelines
 

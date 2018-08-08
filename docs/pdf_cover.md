@@ -6,7 +6,7 @@ The normative version is available in Markdown format in the online repository: 
 
 This specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research
 
-[![Opening Reproducible Research](img/o2r-logo.png)](http://o2r.info)
+[![Opening Reproducible Research](img/o2r-logo.png)](https://o2r.info)
 
 ## License
 

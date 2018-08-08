@@ -353,7 +353,7 @@ An implementation SHOULD notify the user if the required system environment is i
             "Container": "840b75b48121012a0847bbae148ed96df7...",
             "ContainerConfig": { ... },
             "DockerVersion": "17.05.0-ce",
-            "Author": "<http://o2r.info>",
+            "Author": "<https://o2r.info>",
             "Config": { ... },
             "Architecture": "amd64",
             "Os": "linux",
@@ -700,7 +700,7 @@ The BagIt Profiles Specification Draft allows users of BagIt bags to coordinate 
 ```json
 {
   "BagIt-Profile-Info":{
-  "BagIt-Profile-Identifier":"http://o2r.info/erc-bagit-v1.json",
+  "BagIt-Profile-Identifier":"https://o2r.info/erc-bagit-v1.json",
   "Source-Organization":"o2r.info",
   "Contact-Name":"o2r Team",
   "Contact-Email":"o2r@uni-muenster.de",

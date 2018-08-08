@@ -5,8 +5,8 @@ This documents is targeted at **developers** who wish to create tools for creati
 
 More information about the software developed by o2r:
 
-- [o2r Web API specification](http://o2r.info/o2r-web-api)
-- [o2r Architecture documentation](http://o2r.info/architecture/)
+- [o2r Web API specification](https://o2r.info/api)
+- [o2r Architecture documentation](https://o2r.info/architecture/)
 - [o2r Reference Implementation](https://github.com/o2r-project/reference-implementation)
 
 !!! note
@@ -109,7 +109,7 @@ Let's consider **Docker**.
 Docker containers have by now been [standardised by the OCI](https://www.opencontainers.org/release-notices/v1-0-0) and ERCs [should rely on the open standard in the future](https://github.com/o2r-project/erc-spec/issues/7) (contributions welcome).
 The [maintenance lifecycle](https://success.docker.com/article/Maintenance_Lifecycle) and [compatibility matrix](https://success.docker.com/article/Compatibility_Matrix) of Docker do not imply they are suitable for the targeted time frame for ERCs.
 
-However, all these projects are Open Source software or documentation, and a long term provider for ERC (i.e. not a small research project) can handle these limitations in different ways, for example **organisationally** with long term maintenance contracts or **technically** as outlined in the o2r architecture [in the production architecture sketch](http://o2r.info/architecture/#72-production-sketch).
+However, all these projects are Open Source software or documentation, and a long term provider for ERC (i.e. not a small research project) can handle these limitations in different ways, for example **organisationally** with long term maintenance contracts or **technically** as outlined in the o2r architecture [in the production architecture sketch](https://o2r.info/architecture/#72-production-sketch).
 These include specialised hardware and operating system specifics.
 
 ### Why Docker?
