@@ -2,7 +2,7 @@ default:
 	make serve
 
 serve:
-	mkdocs serve --verbose
+	mkdocs serve --verbose --dev-addr localhost:8001
 
 build:
 	mkdocs build --clean
