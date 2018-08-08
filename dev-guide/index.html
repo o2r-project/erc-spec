@@ -13,19 +13,20 @@
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="../css/highlight.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
   <link href="../erc.css" rel="stylesheet">
   
   <script>
     // Current page data
     var mkdocs_page_name = "Developer guide";
     var mkdocs_page_input_path = "dev-guide/index.md";
-    var mkdocs_page_url = "/dev-guide/";
+    var mkdocs_page_url = "/erc-spec/dev-guide/";
   </script>
   
-  <script src="../js/jquery-2.1.1.min.js"></script>
-  <script src="../js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
   
 </head>
 
@@ -39,7 +40,7 @@
         <a href=".." class="icon icon-home"> Executable Reserach Compendium (ERC) Specification</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
@@ -50,7 +51,7 @@
           
             <li class="toctree-l1">
 		
-    <a class="" href="..">Home</a>
+    <span class="caption-text">Home</span>
 	    </li>
           
             <li class="toctree-l1">
@@ -165,8 +166,8 @@
 This documents is targeted at <strong>developers</strong> who wish to create tools for creating, validating, and consuming ERC or who wonder about why specific tools or approaches were taken in designing the ERC specification.</p>
 <p>More information about the software developed by o2r:</p>
 <ul>
-<li><a href="http://o2r.info/o2r-web-api">o2r Web API specification</a></li>
-<li><a href="http://o2r.info/architecture/">o2r Architecture documentation</a></li>
+<li><a href="https://o2r.info/api">o2r Web API specification</a></li>
+<li><a href="https://o2r.info/architecture/">o2r Architecture documentation</a></li>
 <li><a href="https://github.com/o2r-project/reference-implementation">o2r Reference Implementation</a></li>
 </ul>
 <div class="admonition note">
@@ -246,7 +247,7 @@ Those breaking changes are <a href="https://www.reddit.com/r/linux/comments/3jys
 <p>Let&rsquo;s consider <strong>Docker</strong>.
 Docker containers have by now been <a href="https://www.opencontainers.org/release-notices/v1-0-0">standardised by the OCI</a> and ERCs <a href="https://github.com/o2r-project/erc-spec/issues/7">should rely on the open standard in the future</a> (contributions welcome).
 The <a href="https://success.docker.com/article/Maintenance_Lifecycle">maintenance lifecycle</a> and <a href="https://success.docker.com/article/Compatibility_Matrix">compatibility matrix</a> of Docker do not imply they are suitable for the targeted time frame for ERCs.</p>
-<p>However, all these projects are Open Source software or documentation, and a long term provider for ERC (i.e. not a small research project) can handle these limitations in different ways, for example <strong>organisationally</strong> with long term maintenance contracts or <strong>technically</strong> as outlined in the o2r architecture <a href="http://o2r.info/architecture/#72-production-sketch">in the production architecture sketch</a>.
+<p>However, all these projects are Open Source software or documentation, and a long term provider for ERC (i.e. not a small research project) can handle these limitations in different ways, for example <strong>organisationally</strong> with long term maintenance contracts or <strong>technically</strong> as outlined in the o2r architecture <a href="https://o2r.info/architecture/#72-production-sketch">in the production architecture sketch</a>.
 These include specialised hardware and operating system specifics.</p>
 <h3 id="why-docker">Why Docker?<a class="headerlink" href="#why-docker" title="Permanent link">&para;</a></h3>
 <ul>
@@ -400,9 +401,8 @@ It is unlikely this ever makes it into an ERC specification, but it can be a cru
     </span>
 </div>
     <script>var base_url = '..';</script>
-    <script src="../js/theme.js"></script>
-      <script src="../search/require.js"></script>
-      <script src="../search/search.js"></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
 
 </body>
 </html>

@@ -7,25 +7,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Executable Research Compendium technical specification, user guides, developer guides, and support.">
   <meta name="author" content="Daniel Nüst, Marc Schutzeichel, Markus Konkol">
-  <link rel="shortcut icon" href="./img/favicon.ico">
+  <link rel="shortcut icon" href="img/favicon.ico">
   <title>Home - Executable Reserach Compendium (ERC) Specification</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="./css/highlight.css">
-  <link href="./erc.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <link href="erc.css" rel="stylesheet">
   
   <script>
     // Current page data
     var mkdocs_page_name = "Home";
     var mkdocs_page_input_path = "index.md";
-    var mkdocs_page_url = "/";
+    var mkdocs_page_url = "/erc-spec/";
   </script>
   
-  <script src="./js/jquery-2.1.1.min.js"></script>
-  <script src="./js/modernizr-2.8.3.min.js"></script>
-  <script type="text/javascript" src="./js/highlight.pack.js"></script> 
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
   
 </head>
 
@@ -39,7 +40,7 @@
         <a href="." class="icon icon-home"> Executable Reserach Compendium (ERC) Specification</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
   </form>
 </div>
       </div>
@@ -50,7 +51,7 @@
           
             <li class="toctree-l1 current">
 		
-    <a class="current" href=".">Home</a>
+    <span class="caption-text">Home</span>
     <ul class="subnav">
             
     <li class="toctree-l2"><a href="#executable-research-compendium">Executable Research Compendium</a></li>
@@ -157,7 +158,7 @@
                 
 <h1 id="executable-research-compendium">Executable Research Compendium<a class="headerlink" href="#executable-research-compendium" title="Permanent link">&para;</a></h1>
 <p>This is the technical specification of the Executable Research Compendium (ERC).</p>
-<p><strong>Read the <a href="spec/">specification</a></strong> (<a href="./erc-spec.pdf">PDF download</a>) and <strong>get <a href="support/">support</a></strong>.</p>
+<p><strong>Read the <a href="spec/">specification</a></strong> (<a href="erc-spec.pdf">PDF download</a>) and <strong>get <a href="support/">support</a></strong>.</p>
 <h2 id="guides">Guides<a class="headerlink" href="#guides" title="Permanent link">&para;</a></h2>
 <p>Are you a <strong>scientist</strong> and want to publish your research as an ERC? Read <strong>user guides for authors</strong>:</p>
 <ul>
@@ -176,13 +177,13 @@
 
 <h2 id="credits">Credits<a class="headerlink" href="#credits" title="Permanent link">&para;</a></h2>
 <p>This specification and guides are developed by the members of the DFG-funded project Opening Reproducible Research</p>
-<p><a href="http://o2r.info"><img alt="Opening Reproducible Research" src="./o2r-logo.png" /></a></p>
+<p><a href="https://o2r.info"><img alt="Opening Reproducible Research" src="o2r-logo.png" /></a></p>
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p><img alt="CC-0 Button" src="https://licensebuttons.net/p/zero/1.0/88x31.png" /></p>
 <p>The o2r Executable Research Compendium specification is licensed under <a href="https://creativecommons.org/publicdomain/zero/1.0/">Creative Commons CC0 1.0 Universal License</a>, see file <code>LICENSE</code>.
 To the extent possible under law, the people who associated CC0 with this work have waived all copyright and related or neighboring rights to this work.
 This work is published from: Germany.</p>
-<div class="buildinfo">Build 9c222c3 @ 2018-07-23 23:12:50 +0200</div>
+<div class="buildinfo">Build c2081e4 @ 2018-08-08 16:45:41 +0200</div>
               
             </div>
           </div>
@@ -227,14 +228,13 @@ This work is published from: Germany.</p>
     </span>
 </div>
     <script>var base_url = '.';</script>
-    <script src="./js/theme.js"></script>
-      <script src="./search/require.js"></script>
-      <script src="./search/search.js"></script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
 
 </body>
 </html>
 
 <!--
-MkDocs version : 0.17.5
-Build Date UTC : 2018-07-23 21:18:11
+MkDocs version : 1.0
+Build Date UTC : 2018-08-08 14:50:12
 -->
