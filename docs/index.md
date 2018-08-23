@@ -7,15 +7,16 @@ This is the technical specification of the Executable Research Compendium (ERC).
 
 ## Guides
 
-Are you a **scientist** and want to publish your research as an ERC? Read **user guides for authors**:
+Are you a **scientist** and want to publish your research as an ERC? Read **user guides for authors, reviewers, and readers**:
 
 - [ERC creation](user-guide/creation.md)
 - [ERC examination](user-guide/examination.md)
 - [ERC template](user-guide/template.md)
 
-Are you a **developer** and want to build applications for ERCs? Read **user guides for developers**:
+Are you a **developer** or architect and want to build applications using ERCs? Read our developer documentation:
 
 - [Developer guide](dev-guide/index.md)
+- [o2r System Architecture](https://o2r.info/architecture/)
 
 Are your a **librarian** or **preservationist** and want to use ERCs for archival of scholarly works? Read **user guides for librarians and preservationists**:
 

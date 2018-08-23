@@ -29,11 +29,13 @@ abstract:
   A concise description of your publication
 keywords: [lorem, ipsum, dolor, sit, amet]
 date: 2017-01-13
-license: cc-by
+license:
+  text: cc-by
+  code: GPLv2
+  data: "public domain"
+  metadata: CC0
 ---
 ```
-
-
 
 **Filename** | **Template** | **ERC-Spec** 
 ------ | ------ | ------ |

@@ -5,15 +5,15 @@ copyright: "Licensed under Creative Commons CC0 1.0 Universal License."
 pages:
   - Home: index.md
   - ERC specification: spec/index.md
+  - Glossary: glossary.md
   - User guides:
     - Creation guide for authors: user-guide/creation.md
-    - Examination guide for authors: user-guide/examination.md
+    - Examination guide for readers and reviewers: user-guide/examination.md
     - ERC template for authors: user-guide/template.md
     - Minimal ERC examples: user-guide/minimal.md
     - ERC & OAIS: user-guide/oais.md
     - ERC as supplement: user-guide/erc_journal_supplement.md
     - Developer guide: dev-guide/index.md
-  - Glossary: glossary.md
   - Support: support.md
 theme:  readthedocs # cinder # material readthedocs # flatly
 theme_dir: custom_theme
