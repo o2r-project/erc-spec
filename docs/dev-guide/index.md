@@ -35,6 +35,8 @@ All processing and configuration shall be scripted, no "click" interaction requi
 
 ## Reasoning and decisions
 
+<a name="lifespan"></a>
+
 ### What is the life span of an ERC?
 
 Short answer: 10 years.
@@ -42,6 +44,7 @@ Short answer: 10 years.
 Software that is "archived" is _not_ intended to be "used" anymore.
 In 50 or 60 years time we cannot imagine how software or computers will look like.
 Science historians might still find a lot of valuable information in ERC, though.
+We also think it is reasonable to assume that an organisation (e.g. a journal) which bases their workflow on ERCs is able to support time ranges going well beyond 10 years.
 
 The ERC focusses on providing a **usable environment for research workflows** in the context of scholarly publishing (reviews etc.).
 Two aspects have an impact on the time frame we target for ERCs: (a) the nature of financing science and (b) the requirement to actually have a piece of code and data that is still interesting to use.
