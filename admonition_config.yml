@@ -1,0 +1,30 @@
+---
+# https://github.com/chdemko/pandoc-latex-admonition/wiki
+# classes: the set of classes of the divs to which the transformation will be applied. This parameter is mandatory.
+# color: property taken from the X11 color collection.
+# position: the position of the admonition (left by default or right)
+# liwewidth: The line width (2 by default)
+# margin: the margin from the text (-4 by default. See https://www.ctan.org/pkg/mdframed)
+# innermargin: the innermargin from the text (5 by default. See https://www.ctan.org/pkg/mdframed)
+latex-admonition:
+  - color: DarkBlue
+    classes: [admonition, note]
+    position: left
+    linewidth: 2
+    margin: 0
+  - color: DarkGreen
+    classes: [admonition, tip]
+    position: left
+    linewidth: 2
+    margin: 0
+  - color: DarkOrange
+    classes: [admonition, warning]
+    position: left
+    linewidth: 2
+    margin: 0
+  - color: DarkGray
+    classes: [admonition]
+    position: left
+    linewidth: 2
+    margin: 0
+--- 

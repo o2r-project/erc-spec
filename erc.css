@@ -1,0 +1,91 @@
+/* readthedocs */
+.wy-side-nav-search {
+    background-color: #004286;
+}
+
+.wy-nav-side {
+    background-color: #434553;
+}
+
+.wy-menu a {
+    color: #ffffff;
+}
+
+.wy-menu-vertical a:hover {
+	background:#004286;
+    color: #ffffff;
+}
+
+/* cinder */
+.navbar-default {
+    background-color: #004286;
+}
+
+footer small {
+    font-size: 0.7em;
+}
+
+.navbar-brand {
+    font-weight: 500;
+}
+
+.nav {
+    font-weight: 500;
+}
+
+.alert {
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    font-size: 1em;
+}
+
+.alert a {
+    color: #008cba;
+    text-decoration: none;
+}
+
+a:hover, a:focus {
+    color: #00526e;
+    text-decoration: underline;
+}
+
+.buildinfo {
+    font-size: 0.7em;
+    color: #343838;
+}
+
+.codehilite {
+    width:100%;
+    height: auto;
+    overflow: auto;
+    font-size: 0.8em;
+    border: 1px solid #c9c9c9;
+    margin-bottom: 1.5em;
+    padding-left: 1em;
+}
+
+.admonition .codehilite {
+    width:100%;
+    height: auto;
+    overflow: auto;
+    font-size: 0.8em;
+    border: 1px solid #c9c9c9;
+    background-color: #FFFFFF;
+    margin-bottom: 1.5em;
+    padding-left: 1em;
+}
+
+h2 {
+    border-top: 1px solid #004286;
+    margin-top: 2em;
+    padding-top: 1em;
+}
+
+.caption {
+    font-size: 0.95em;
+    margin-top: -1em;
+    color: rgba(67,69,83,1);
+    text-align: center;
+    font-style: italic;
+    border-bottom: 1px solid rgba(67,69,83,0.4);
+}

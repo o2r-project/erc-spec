@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Daniel Nüst, Marc Schutzeichel, Markus Konkol">
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>ERC & OAIS - Executable Reserach Compendium (ERC) Specification</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+  <link href="../../erc.css" rel="stylesheet">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "ERC & OAIS";
+    var mkdocs_page_input_path = "user-guide/oais.md";
+    var mkdocs_page_url = "/erc-spec/user-guide/oais/";
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Executable Reserach Compendium (ERC) Specification</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../..">Home</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../spec/">ERC specification</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../glossary/">Glossary</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <span class="caption-text">User guides</span>
+    <ul class="subnav">
+                <li class="">
+                    
+    <a class="" href="../creation/">Creation guide for authors</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../examination/">Examination guide for readers and reviewers</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../template/">ERC template for authors</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../minimal/">Minimal ERC examples</a>
+                </li>
+                <li class=" current">
+                    
+    <a class="current" href="./">ERC & OAIS</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l3"><a href="#erc-preservation-aspects-in-the-light-of-oais">ERC preservation aspects in the light of OAIS</a></li>
+    
+
+    <li class="toctree-l3"><a href="#interpretability-of-the-archived-software">Interpretability of the archived software</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l4" href="#references">References</a></li>
+        
+        </ul>
+    
+
+    </ul>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../erc_journal_supplement/">ERC as supplement</a>
+                </li>
+                <li class="">
+                    
+    <a class="" href="../../dev-guide/">Developer guide</a>
+                </li>
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../../support/">Support</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Executable Reserach Compendium (ERC) Specification</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>User guides &raquo;</li>
+        
+      
+    
+    <li>ERC & OAIS</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/o2r-project/erc-spec/tree/master/docs/user-guide/oais.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="erc-preservation-aspects-in-the-light-of-oais">ERC preservation aspects in the light of OAIS<a class="headerlink" href="#erc-preservation-aspects-in-the-light-of-oais" title="Permanent link">&para;</a></h1>
+<p>The Open Archival Information System (OAIS) reference model is a framework for the preservation and dissemination of digital objects (assets). It has been created by the Consultative Committee for Space Data Systems (CCSDS) and has since been adopted by a wide range of international institutions. The OAIS provides the terminology and concept of the <em>information package</em> as primitive of the digital preservation workflow. Submission information packages (SIP), Dissemination information packages (DIP) and Archival information packages (AIP) refer to different functional roles and stages of a digital object within long term preservation.</p>
+<p>Where does the ERC fit into long term preservation? ERCs contain software. They could be abstracted as recipes for the reproduction of a scientific analysis be it a stand alone version or a supplement for a scholarly paper. As such every ERC has a bit stream aspect and is suitable for digital preservation in general.</p>
+<p>But the ERC was also specifically designed to be represented as an information package in the sense of the OAIS model: the data inside the ERC are valid Bagit bags, making it easy to validate their bitwise integrity with checksums. Additionally the ERC comprises several facets of metadata and a governing &ldquo;package slip&rdquo; that preserves the standards and schemas used for these metadata. The elicitation of metadata as well as the creation of valid Bagit bags are fully integrated into the creation process of the ERC.</p>
+<h1 id="interpretability-of-the-archived-software">Interpretability of the archived software<a class="headerlink" href="#interpretability-of-the-archived-software" title="Permanent link">&para;</a></h1>
+<p>The representation information object within OAIS consists of structural and semantic information and is itself linked to other units of representation information, building a representation network. The information contained within the ERC and its metadata serves as representation information and enables the interpretability of the archived software, environment, code, data, text and UI bindings. Standards used for representation are included as local copy of the underlying schema and as reference to their persistent identifiers. The network of information objects describes how the parts of the ERC relate to each other and how they are to be used and understood.</p>
+<p>By providing a &ldquo;package slip&rdquo; for the standards and schemas used in the ERC a vital step for the preservation of software interpretability is completed. As the ERC is designed to transport every information necessary to recreate the original piece of software as represented by a scientific workspace to serve as supplement for a publication or as a repository publication itself, there is often several metadata standards involved (e.g. Datacite, Codemeta, &hellip;). The long term interpretability of these information is ensured by including the metadata and their governing schemas on a second order meta level. They allow for interpreting the original data, but also the semantics of the metadata elements describing the original data assets.</p>
+<p>The concept of archival interpretability adds significant scientific value as it enables multi-level reproducibility and addionally a future historical perspective on the scientific analysis of today.</p>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li>CCSDS (2012): RECOMMENDED PRACTICE FOR AN OAIS REFERENCE MODEL. CCSDS 650.0-M-2 (Magenta Book). <a href="http://public.ccsds.org/publications/archive/650x0m2.pdf">http://public.ccsds.org/publications/archive/650x0m2.pdf</a></li>
+<li>Maack, M.N. (2015). The Open Archival Information System (oais) Reference Model.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../erc_journal_supplement/" class="btn btn-neutral float-right" title="ERC as supplement">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../minimal/" class="btn btn-neutral" title="Minimal ERC examples"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Licensed under Creative Commons CC0 1.0 Universal License.</p>
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/o2r-project/erc-spec/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../minimal/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../erc_journal_supplement/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+
+</body>
+</html>
