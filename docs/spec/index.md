@@ -299,6 +299,15 @@ The Dockerfile SHOULD contain the [label `maintainer`](https://docs.docker.com/e
 
 The Dockerfile MUST have an active instruction `CMD`, or a combination of the instructions `ENTRYPOINT` and `CMD`, which executes the packaged analysis.
 
+The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC base directory within the container.
+This mount point MUST be `/erc` and the bind MUST be configured as with _read and write access_.
+Implementations SHOULD make sure an execution does not interfere with original uploaded files, but a write access is required to store the created display file outside of the container.
+
+The Dockerfile MUST contain a `WORKDIR` instruction with the value `/erc`.
+
+The Dockerfile SHOULD NOT contain a `COPY` or `ADD` command to include data, code or text from the ERC into the image.
+These commands MAY be used to copy code or libraries which must be available during the image build.
+
 The Dockerfile SHOULD NOT contain `EXPOSE` instructions.
 
 ### System environment
@@ -402,15 +411,6 @@ Especially for large datasets, it in unfeasible to replicate the complete datase
 For archival, it can also be confusing to replicate code and text, albeit them potentially being relatively small in size, within the container.
 
 Therefore a host directory MUST be [**mounted**](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) (also "bind-mounted") into the compendium container at runtime using a [data volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
-
-The Dockerfile MUST contain a `VOLUME` instruction to define the mount point of the ERC base directory within the container.
-This mount point MUST be `/erc` and the bind MUST be configured as with _read and write access_.
-Implementations SHOULD make sure an execution does not interfere with original uploaded files, but a write access is required to store the created display file outside of the container.
-
-The Dockerfile MUST contain a `WORKDIR` instruction with the value `/erc`.
-
-The Dockerfile SHOULD NOT contain a `COPY` or `ADD` command to include data, code or text from the ERC into the image.
-These commands MAY be used to copy code or libraries which must be available during the image build.
 
 !!! tip "Example Dockerfile"
     In this example we use a [_Rocker_](https://github.com/rocker-org/rocker) base image to reproduce computations made in R.

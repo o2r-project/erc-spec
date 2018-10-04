@@ -36,7 +36,22 @@ To create a working ERC you must include a complete environment description and 
 
 We recommend using Docker, so a Dockerfile and a Docker image tarball archive file, to achieve these goals.
 
-See the [runtime section](../spec/index.md#nested-runtime) for detailed requirements, including links to the relevant Docker commands.
+See the [runtime section](../spec/index.md#untime-manifest-and-image) for detailed requirements.
+
+Practically speaking, our tool [`containerit`](https://o2r.info/containerit/) may help you in creating a first Dockerfile and then make necessary adjustments, e.g. installing a dependency from an unsupported source.
+It is important that the Dockerfile includes a command that creates the display file from the main file, i.e. executing the workflow and rendering of the output document, and uses a suitable working directory within the container.
+The working directory is important to support features such as file substitution.
+
+The following `Dockerfile` snippet switches to the required working `/erc` directory and uses `rmarkdown::render(..)` to generate the display file `display.html` (output to the working directory, just to be sure) from the main file `main.Rmd`.
+
+```Dockerfile
+WORKDIR /erc/
+CMD ["R", "--vanilla", "-e", "rmarkdown::render(
+    input = \"/erc/main.Rmd\",
+    output_format = rmarkdown::html_document(),
+    output_dir = \"/erc\",
+    output_file = \"display.html\")"]
+```
 
 ## Step 3: create metadata
 
