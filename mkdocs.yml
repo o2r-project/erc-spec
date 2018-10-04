@@ -2,7 +2,7 @@ site_name: "Executable Reserach Compendium (ERC) Specification"
 site_author: "Daniel Nüst, Marc Schutzeichel, Markus Konkol"
 site_description: "Executable Research Compendium technical specification, user guides, developer guides, and support."
 copyright: "Licensed under Creative Commons CC0 1.0 Universal License."
-pages:
+nav:
   - Home: index.md
   - ERC specification: spec/index.md
   - Glossary: glossary.md
@@ -15,8 +15,8 @@ pages:
     - ERC as supplement: user-guide/erc_journal_supplement.md
     - Developer guide: dev-guide/index.md
   - Support: support.md
-theme:  readthedocs # cinder # material readthedocs # flatly
-theme_dir: custom_theme
+theme:  readthedocs
+docs_dir: docs
 repo_url: https://github.com/o2r-project/erc-spec
 repo_name: GitHub
 edit_uri: tree/master/docs/
@@ -28,7 +28,6 @@ markdown_extensions:
   - smarty
   - codehilite(guess_lang=False)
   - toc(permalink=true)
-  #- pymdownx.inlinehilite
   - pymdownx.tilde
   - pymdownx.superfences # does not work with guess_lang=True
   - def_list
