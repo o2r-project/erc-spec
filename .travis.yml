@@ -13,6 +13,7 @@ before_install:
   - tlmgr install xcolor mdframed needspace unicode-math filehook lm-math # https://github.com/travis-ci/travis-ci/issues/7863
   - pip install --upgrade pip
 install:
+  - pip install pygments --user
   - pip install mkdocs --user
   - pip install pymdown-extensions --user
   - pip install mkdocs-pandoc --user
