@@ -15,7 +15,9 @@ nav:
     - ERC as supplement: user-guide/erc_journal_supplement.md
     - Developer guide: dev-guide/index.md
   - Support: support.md
-theme:  readthedocs
+theme:
+    name: readthedocs
+    custom_dir: custom_theme
 docs_dir: docs
 repo_url: https://github.com/o2r-project/erc-spec
 repo_name: GitHub
