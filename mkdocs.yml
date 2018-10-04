@@ -28,7 +28,8 @@ markdown_extensions:
   - smarty
   - codehilite:
       guess_lang: False
-  - toc(permalink=true)
+  - toc:
+      permalink: True
   - pymdownx.tilde
   - pymdownx.superfences # does not work with guess_lang=True
   - def_list
