@@ -3,18 +3,18 @@ site_author: "Daniel Nüst, Marc Schutzeichel, Markus Konkol"
 site_description: "Executable Research Compendium technical specification, user guides, developer guides, and support."
 copyright: "Licensed under Creative Commons CC0 1.0 Universal License."
 nav:
-  - Home: index.md
-  - ERC specification: spec/index.md
-  - Glossary: glossary.md
-  - User guides:
-    - Creation guide for authors: user-guide/creation.md
-    - Examination guide for readers and reviewers: user-guide/examination.md
-    - ERC template for authors: user-guide/template.md
-    - Minimal ERC examples: user-guide/minimal.md
-    - ERC & OAIS: user-guide/oais.md
-    - ERC as supplement: user-guide/erc_journal_supplement.md
-    - Developer guide: dev-guide/index.md
-  - Support: support.md
+    - Home: index.md
+    - ERC specification: spec/index.md
+    - Glossary: glossary.md
+    - User guides:
+        - Creation guide for authors: user-guide/creation.md
+        - Examination guide for readers and reviewers: user-guide/examination.md
+        - ERC template for authors: user-guide/template.md
+        - Minimal ERC examples: user-guide/minimal.md
+        - ERC & OAIS: user-guide/oais.md
+        - ERC as supplement: user-guide/erc_journal_supplement.md
+        - Developer guide: dev-guide/index.md
+    - Support: support.md
 theme:
     name: readthedocs
     custom_dir: custom_theme
@@ -26,12 +26,12 @@ site_url: https://o2r.info/erc-spec/
 site_dir: site
 extra_css: [erc.css]
 markdown_extensions:
-  - admonition
-  - smarty
-  - codehilite:
-      guess_lang: False
-  - toc:
-      permalink: True
-  - pymdownx.tilde
-  - pymdownx.superfences # does not work with guess_lang=True
-  - def_list
+    - admonition
+    - smarty
+    - codehilite:
+        guess_lang: False
+    - toc:
+        permalink: True
+    - def_list
+    - pymdownx.tilde
+    - pymdownx.superfences # need >= 5.0
