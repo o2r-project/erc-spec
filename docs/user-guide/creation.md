@@ -36,7 +36,7 @@ To create a working ERC you must include a complete environment description and 
 
 We recommend using Docker, so a Dockerfile and a Docker image tarball archive file, to achieve these goals.
 
-See the [runtime section](../spec/index.md#untime-manifest-and-image) for detailed requirements.
+See the [runtime manifest and image](../spec/index.md#runtime-manifest-and-image) for detailed requirements.
 
 Practically speaking, our tool [`containerit`](https://o2r.info/containerit/) may help you in creating a first Dockerfile and then make necessary adjustments, e.g. installing a dependency from an unsupported source.
 It is important that the Dockerfile includes a command that creates the display file from the main file, i.e. executing the workflow and rendering of the output document, and uses a suitable working directory within the container.
