@@ -29,6 +29,12 @@ This specification and guides are developed by the members of the DFG-funded pro
 
 [![Opening Reproducible Research](./o2r-logo.png)](https://o2r.info)
 
+To cite this specification please use
+
+> _Nüst, Daniel, 2018. Reproducibility Service for Executable Research Compendia: Technical Specifications and Reference Implementation. Zenodo. doi:[10.5281/zenodo.2203844](http://doi.org/10.5281/zenodo.2203844)_
+
+For a complete list of publications, posters, presentations, and software projects from th2 o2r project please visit [https://o2r.info/results/](https://o2r.info/results/).
+
 ## License
 
 ![CC-0 Button](https://licensebuttons.net/p/zero/1.0/88x31.png)
