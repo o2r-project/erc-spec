@@ -166,13 +166,13 @@
 <h3 id="main-file-mainr">Main file <code>main.R</code><a class="headerlink" href="#main-file-mainr" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="c1"># http://www.budgetshippingcontainers.co.uk/info/</span>
 <span class="c1"># how-many-shipping-containers-are-there-in-the-world/</span>
-containers <span class="o">&lt;-</span> <span class="kt">c</span><span class="p">(</span><span class="m">23000000</span><span class="p">,</span><span class="m">14000000</span><span class="p">,</span><span class="m">6000000</span><span class="p">)</span>
-<span class="kp">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
-barplot<span class="p">(</span>containers<span class="p">,</span>
-    names.arg <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;in service&quot;</span><span class="p">,</span> <span class="s">&quot;ex-service&quot;</span><span class="p">,</span> <span class="s">&quot;new&quot;</span><span class="p">),</span>
-    col <span class="o">=</span> <span class="kp">sample</span><span class="p">(</span>colors<span class="p">(),</span> <span class="m">3</span><span class="p">),</span>
-    main <span class="o">=</span> <span class="kp">paste0</span><span class="p">(</span>
-        <span class="kp">format</span><span class="p">(</span><span class="kp">sum</span><span class="p">(</span>containers<span class="p">),</span> scientific <span class="o">=</span> <span class="kc">FALSE</span><span class="p">),</span>
+<span class="n">containers</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">23000000</span><span class="p">,</span><span class="m">14000000</span><span class="p">,</span><span class="m">6000000</span><span class="p">)</span>
+<span class="nf">set.seed</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+<span class="nf">barplot</span><span class="p">(</span><span class="n">containers</span><span class="p">,</span>
+    <span class="n">names.arg</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;in service&quot;</span><span class="p">,</span> <span class="s">&quot;ex-service&quot;</span><span class="p">,</span> <span class="s">&quot;new&quot;</span><span class="p">),</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="nf">sample</span><span class="p">(</span><span class="nf">colors</span><span class="p">(),</span> <span class="m">3</span><span class="p">),</span>
+    <span class="n">main</span> <span class="o">=</span> <span class="nf">paste0</span><span class="p">(</span>
+        <span class="nf">format</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">containers</span><span class="p">),</span> <span class="n">scientific</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">),</span>
         <span class="s">&quot; containers in the world&quot;</span><span class="p">)</span>
     <span class="p">)</span>
 </pre></div>

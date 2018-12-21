@@ -558,16 +558,16 @@ For archival, it can also be confusing to replicate code and text, albeit them p
 <span class="c"># Save installed packages to file</span>
 <span class="k">RUN</span> dpkg -l &gt; /dpkg-list.txt
 
-LABEL <span class="nv">maintainer</span><span class="o">=</span>o2r <span class="se">\</span>
+<span class="k">LABEL</span> <span class="nv">maintainer</span><span class="o">=</span>o2r <span class="se">\</span>
   <span class="nv">description</span><span class="o">=</span><span class="s2">&quot;This is an ERC image.&quot;</span> <span class="se">\</span>
     info.o2r.bag.id<span class="o">=</span><span class="s2">&quot;123456&quot;</span>
 
-<span class="k">VOLUME</span><span class="s"> [&quot;/erc&quot;]</span>
+<span class="k">VOLUME</span> <span class="p">[</span><span class="s2">&quot;/erc&quot;</span><span class="p">]</span>
 <span class="k">WORKDIR</span><span class="s"> [&quot;/erc&quot;]</span>
 
-<span class="k">ENTRYPOINT</span><span class="s"> [&quot;sh&quot;, &quot;-c&quot;]</span>
-<span class="k">CMD</span><span class="s"> [&quot;R --vanilla -e \&quot;rmarkdown::render(input = &#39;/erc/myPaper.rmd&#39;, \</span>
-    <span class="nv">output_dir</span> <span class="o">=</span> <span class="s1">&#39;/erc&#39;</span>, <span class="nv">output_format</span> <span class="o">=</span> rmarkdown::html_document<span class="o">())</span><span class="se">\&quot;</span><span class="s2">&quot;]</span>
+<span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&quot;sh&quot;</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">]</span>
+<span class="k">CMD</span> <span class="o">[</span><span class="s2">&quot;R --vanilla -e \&quot;rmarkdown::render(input = &#39;/erc/myPaper.rmd&#39;, \</span>
+<span class="s2">    output_dir = &#39;/erc&#39;, output_format = rmarkdown::html_document())\&quot;&quot;</span><span class="o">]</span>
 </pre></div>
 
 </div>
@@ -676,7 +676,7 @@ While the previously cached files (<code>.rdb</code> and <code>.rdx</code>) MAY 
 </div>
 <h3 id="fixing-the-environment-in-code">Fixing the environment in code<a class="headerlink" href="#fixing-the-environment-in-code" title="Permanent link">&para;</a></h3>
 <p>The time zone MUST be fixed to <code>UTC</code> <a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">Coordinated Universal Time</a>) to allow validation of output times (potentially broken by different output formats) by using the following code within the RMarkdown document, or other code to that effect.</p>
-<div class="codehilite"><pre><span></span><span class="kp">Sys.setenv</span><span class="p">(</span><span class="s">&quot;TZ&quot;</span> <span class="o">=</span> <span class="s">&quot;UTC&quot;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="nf">Sys.setenv</span><span class="p">(</span><span class="s">&quot;TZ&quot;</span> <span class="o">=</span> <span class="s">&quot;UTC&quot;</span><span class="p">)</span>
 </pre></div>
 
 <p>The manifest file (i.e. <code>Dockerfile</code>) MUST run a plain R session without loading <code>.RData</code> files or profiles at startup, i.e. use <code>R --vanilla</code>.</p>
@@ -1123,5 +1123,5 @@ ui_bindings:
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2018-10-04 14:11:16
+Build Date UTC : 2018-12-21 08:51:17
 -->
