@@ -1,32 +1,34 @@
 language: R # https://github.com/jgm/pandoc/wiki/Using-pandoc-in-Travis-CI
 sudo: false
 script: true
-pandoc_version: 2.1.2
+# pandoc_version: 2.1.2 # default is 2.2
 addons:
   apt:
     packages:
       - texlive-xetex
 before_install:
   - shopt -s expand_aliases
-  - pyenv versions
-  - pyenv global 3.6.3
+  - |
+      if [[ -n "$PYENV_VERSION" ]]; then
+        wget https://github.com/praekeltfoundation/travis-pyenv/releases/download/0.4.0/setup-pyenv.sh
+        source setup-pyenv.sh
+      fi
   - tlmgr install xcolor mdframed needspace unicode-math filehook lm-math # https://github.com/travis-ci/travis-ci/issues/7863
-  - pip install --upgrade pip
 install:
-  - pip install pygments --user
-  - pip install mkdocs --user
-  - pip install pymdown-extensions --user
-  - pip install mkdocs-pandoc --user
-  - pip install pandoc-latex-admonition --user
-  - pip install git+https://github.com/o2r-project/mkdocs-combine.git --user
+  - pip install pygments
+  - pip install mkdocs
+  - pip install pymdown-extensions
+  - pip install mkdocs-pandoc
+  - pip install pandoc-latex-admonition
+  - pip install git+https://github.com/o2r-project/mkdocs-combine.git
 after_success:
   - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.site_build.sh ; fi
   - make travis_pdf travis_md
   - if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then ./.site_deploy.sh ; fi
 env:
   global:
+    - PYENV_VERSION: "3.6.3"
     - SITE_URL: https://o2r.info/erc-spec
-    #- SITE_URL: https://o2r-project.github.io/erc-spec
     - GH_USER_NAME: "Opening Reproducible Research"
     - GH_USER_EMAIL: openingrr@uni-muenster.de
     - GH_REF: github.com/o2r-project/erc-spec
