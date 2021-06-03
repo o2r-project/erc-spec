@@ -7,14 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <meta name="author" content="Daniel Nüst, Marc Schutzeichel, Markus Konkol">
+  <link rel="canonical" href="https://o2r.info/erc-spec/user-guide/creation/">
   <link rel="shortcut icon" href="../../img/favicon.ico">
   <title>Creation guide for authors - Executable Reserach Compendium (ERC) Specification</title>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-  <link href="../../erc.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../../erc.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -25,7 +26,7 @@
   
   <script src="../../js/jquery-2.1.1.min.js" defer></script>
   <script src="../../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
 </head>
@@ -36,6 +37,7 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
         <a href="../.." class="icon icon-home"> Executable Reserach Compendium (ERC) Specification</a>
         <div role="search">
@@ -46,87 +48,77 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../..">Home</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../../spec/">ERC specification</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../../glossary/">Glossary</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">User guides</span>
-    <ul class="subnav">
-                <li class=" current">
-                    
-    <a class="current" href="./">Creation guide for authors</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#user-guide-erc-creation">User guide: ERC creation</a></li>
-    
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../spec/">ERC specification</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../glossary/">Glossary</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">User guides</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Creation guide for authors</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#step-1-create-workspace">Step 1: create workspace</a>
         <ul>
-        
-            <li><a class="toctree-l4" href="#step-1-create-workspace">Step 1: create workspace</a></li>
-        
-            <li><a class="toctree-l4" href="#step-2-create-image-container-for-runtime">Step 2: create image container for runtime</a></li>
-        
-            <li><a class="toctree-l4" href="#step-3-create-metadata">Step 3: create metadata</a></li>
-        
-            <li><a class="toctree-l4" href="#step-4-validate">Step 4: validate</a></li>
-        
-            <li><a class="toctree-l4" href="#step-5-create-bag">Step 5: create bag</a></li>
-        
+    <li class="toctree-l3"><a class="reference internal" href="#code-and-versioning">Code and versioning</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#workspace-structure">Workspace structure</a>
+    </li>
         </ul>
-    
-
-    </ul>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../examination/">Examination guide for readers and reviewers</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../template/">ERC template for authors</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../minimal/">Minimal ERC examples</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../oais/">ERC & OAIS</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../erc_journal_supplement/">ERC as supplement</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../../dev-guide/">Developer guide</a>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../../support/">Support</a>
-	    </li>
-          
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-2-create-image-container-for-runtime">Step 2: create image container for runtime</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-3-create-metadata">Step 3: create metadata</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#erc-metadata">ERC metadata</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#license-metadata">License metadata</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#content-metadata">Content metadata</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#secondary-metadata">Secondary metadata</a>
+    </li>
         </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-4-validate">Step 4: validate</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#step-5-create-bag">Step 5: create bag</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#third-party-tools-for-creating-bagit-bags">Third party tools for creating BagIt bags</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#creating-the-bag">Creating the bag</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#validating-the-bag">Validating the bag</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../examination/">Examination guide for readers and reviewers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../template/">ERC template for authors</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../minimal/">Minimal ERC examples</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../oais/">ERC & OAIS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../erc_journal_supplement/">ERC as supplement</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../dev-guide/">Developer guide</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../support/">Support</a>
+                    </li>
+                </ul>
       </div>
-      &nbsp;
+    </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -158,6 +150,7 @@
       
     </li>
   </ul>
+  
   <hr/>
 </div>
           <div role="main">
@@ -197,14 +190,13 @@ Some useful resources are</p>
 It is important that the Dockerfile includes a command that creates the display file from the main file, i.e. executing the workflow and rendering of the output document, and uses a suitable working directory within the container.
 The working directory is important to support features such as file substitution.</p>
 <p>The following <code>Dockerfile</code> snippet switches to the required working <code>/erc</code> directory and uses <code>rmarkdown::render(..)</code> to generate the display file <code>display.html</code> (output to the working directory, just to be sure) from the main file <code>main.Rmd</code>.</p>
-<div class="codehilite"><pre><span></span><span class="k">WORKDIR</span><span class="s"> /erc/</span>
+<div class="highlight"><pre><span></span><code><span class="k">WORKDIR</span><span class="s"> /erc/</span>
 <span class="k">CMD</span> <span class="o">[</span><span class="s2">&quot;R&quot;</span>, <span class="s2">&quot;--vanilla&quot;</span>, <span class="s2">&quot;-e&quot;</span>, <span class="s2">&quot;rmarkdown::render(</span>
     <span class="nv">input</span> <span class="o">=</span> <span class="se">\&quot;</span>/erc/main.Rmd<span class="se">\&quot;</span>,
     <span class="nv">output_format</span> <span class="o">=</span> rmarkdown::html_document<span class="o">()</span>,
     <span class="nv">output_dir</span> <span class="o">=</span> <span class="se">\&quot;</span>/erc<span class="se">\&quot;</span>,
     <span class="nv">output_file</span> <span class="o">=</span> <span class="se">\&quot;</span>display.html<span class="se">\&quot;</span><span class="o">)</span><span class="s2">&quot;]</span>
-</pre></div>
-
+</code></pre></div>
 <h2 id="step-3-create-metadata">Step 3: create metadata<a class="headerlink" href="#step-3-create-metadata" title="Permanent link">&para;</a></h2>
 <h3 id="erc-metadata">ERC metadata<a class="headerlink" href="#erc-metadata" title="Permanent link">&para;</a></h3>
 <p>Structural &amp; administrative metadata must be put into the ERC configuration file <code>erc.yml</code> as defined in the <a href="../../spec/#erc-configuration-file">specification</a>.</p>
@@ -249,7 +241,7 @@ Take a look at the <a href="../../spec/#preservation-of-erc">preservation sectio
 </ol>
 <h3 id="validating-the-bag">Validating the bag<a class="headerlink" href="#validating-the-bag" title="Permanent link">&para;</a></h3>
 <p>A file tree for the final bagged ERC may look like this:</p>
-<div class="codehilite"><pre><span></span>├── bag-info.txt
+<div class="highlight"><pre><span></span><code>├── bag-info.txt
 ├── bagit.txt
 ├── data
 │   ├── .erc/metadata.json
@@ -260,8 +252,7 @@ Take a look at the <a href="../../spec/#preservation-of-erc">preservation sectio
 │   └── image.tar
 ├── manifest-md5.txt
 └── tagmanifest-md5.txt
-</pre></div>
-
+</code></pre></div>
 <p>You can validate your bag with <em>Bagger</em> by loading the bag and then clicking on &ldquo;Validate Bag&rdquo; in the main menu.
 The programme will check for completeness of BagIt-related files and verify the integrity of the data files by computing their checksums (hashes) and report any potential issues.</p>
               
@@ -288,7 +279,7 @@ The programme will check for completeness of BagIt-related files and verify the 
     
   </div>
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
       
         </div>
@@ -298,7 +289,7 @@ The programme will check for completeness of BagIt-related files and verify the 
 
   </div>
 
-  <div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
           <a href="https://github.com/o2r-project/erc-spec/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
@@ -314,6 +305,11 @@ The programme will check for completeness of BagIt-related files and verify the 
     <script>var base_url = '../..';</script>
     <script src="../../js/theme.js" defer></script>
       <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
 
 </body>
 </html>

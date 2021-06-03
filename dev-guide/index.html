@@ -7,14 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <meta name="author" content="Daniel Nüst, Marc Schutzeichel, Markus Konkol">
+  <link rel="canonical" href="https://o2r.info/erc-spec/dev-guide/">
   <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Developer guide - Executable Reserach Compendium (ERC) Specification</title>
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-  <link href="../erc.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  <link href="../erc.css" rel="stylesheet" />
   
   <script>
     // Current page data
@@ -25,7 +26,7 @@
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
   <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <script>hljs.initHighlightingOnLoad();</script> 
   
 </head>
@@ -36,6 +37,7 @@
 
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
         <a href=".." class="icon icon-home"> Executable Reserach Compendium (ERC) Specification</a>
         <div role="search">
@@ -46,85 +48,83 @@
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-	<ul class="current">
-	  
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="..">Home</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../spec/">ERC specification</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../glossary/">Glossary</a>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <span class="caption-text">User guides</span>
-    <ul class="subnav">
-                <li class="">
-                    
-    <a class="" href="../user-guide/creation/">Creation guide for authors</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../user-guide/examination/">Examination guide for readers and reviewers</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../user-guide/template/">ERC template for authors</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../user-guide/minimal/">Minimal ERC examples</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../user-guide/oais/">ERC & OAIS</a>
-                </li>
-                <li class="">
-                    
-    <a class="" href="../user-guide/erc_journal_supplement/">ERC as supplement</a>
-                </li>
-                <li class=" current">
-                    
-    <a class="current" href="./">Developer guide</a>
-    <ul class="subnav">
-            
-    <li class="toctree-l3"><a href="#erc-developer-guide">ERC developer guide</a></li>
-    
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../spec/">ERC specification</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../glossary/">Glossary</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">User guides</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../user-guide/creation/">Creation guide for authors</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../user-guide/examination/">Examination guide for readers and reviewers</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../user-guide/template/">ERC template for authors</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../user-guide/minimal/">Minimal ERC examples</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../user-guide/oais/">ERC & OAIS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../user-guide/erc_journal_supplement/">ERC as supplement</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Developer guide</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#convention-over-configuration-and-devops">Convention over configuration and DevOps</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#related-initiatives-specifications">Related initiatives, specifications, ...</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#reasoning-and-decisions">Reasoning and decisions</a>
         <ul>
-        
-            <li><a class="toctree-l4" href="#convention-over-configuration-and-devops">Convention over configuration and DevOps</a></li>
-        
-            <li><a class="toctree-l4" href="#related-initiatives-specifications">Related initiatives, specifications, ...</a></li>
-        
-            <li><a class="toctree-l4" href="#reasoning-and-decisions">Reasoning and decisions</a></li>
-        
-            <li><a class="toctree-l4" href="#erc-completeness-score">ERC completeness score</a></li>
-        
+    <li class="toctree-l3"><a class="reference internal" href="#what-is-the-life-span-of-an-erc">What is the life span of an ERC?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#notes-and-decisions-to-elaborate-on">Notes and decisions to elaborate on...</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-nested-containers">Why nested containers?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-your-own-configuration-file">Why your own configuration file?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-bagit">Why BagIt?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#what-about-the-limitations-of-containers">What about the limitations of containers?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-docker">Why Docker?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-not-singularity">Why not Singularity?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-r-markdown-as-the-main-file">Why R Markdown as the main file?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-html-outputs">Why HTML outputs?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-not-just-use-plain-r">Why not just use plain R?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#what-if-licensing-information-is-not-detailed-enough">What if licensing information is not detailed enough?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-not-put-x-into-the-erc-configuration-file">Why (not) put "X" into the ERC configuration file?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-is-validation-happening-outside-the-container-and-not-in-the-container">Why is validation happening outside the container and not in the container?</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#why-is-the-data-not-in-the-image-inner-container-but-in-the-outer-container">Why is the data not in the image (inner container) but in the outer container?</a>
+    </li>
         </ul>
-    
-
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#erc-completeness-score">ERC completeness score</a>
+    </li>
     </ul>
-                </li>
-    </ul>
-	    </li>
-          
-            <li class="toctree-l1">
-		
-    <a class="" href="../support/">Support</a>
-	    </li>
-          
-        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../support/">Support</a>
+                    </li>
+                </ul>
       </div>
-      &nbsp;
+    </div>
     </nav>
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
@@ -156,6 +156,7 @@
       
     </li>
   </ul>
+  
   <hr/>
 </div>
           <div role="main">
@@ -299,7 +300,7 @@ Therefore we rather have the extra work for authors to define a couple of licens
 Probably this is better solved in specialised formats, though.</p>
 <div class="admonition tip">
 <p class="admonition-title">Example using specific licenses</p>
-<div class="codehilite"><pre><span></span>---
+<div class="highlight"><pre><span></span><code>---
 id: b9b0099e-9f8d-4a33-8acf-cb0c062efaec
 spec_version: 1
 licenses:
@@ -312,8 +313,7 @@ licenses:
         README.md: CC0-1.0
         paper.Rmd: CC-BY-4.0
     metadata: CC0-1.0
-</pre></div>
-
+</code></pre></div>
 </div>
 <p>It could even be possible to assign one license to a directory and override that assignment for a single file within that directory, or use globs or regular expressions.</p>
 <h3 id="why-not-put-x-into-the-erc-configuration-file">Why (not) put &ldquo;X&rdquo; into the ERC configuration file?<a class="headerlink" href="#why-not-put-x-into-the-erc-configuration-file" title="Permanent link">&para;</a></h3>
@@ -380,7 +380,7 @@ It is unlikely this ever makes it into an ERC specification, but it can be a cru
     
   </div>
 
-  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
 </footer>
       
         </div>
@@ -390,7 +390,7 @@ It is unlikely this ever makes it into an ERC specification, but it can be a cru
 
   </div>
 
-  <div class="rst-versions" role="note" style="cursor: pointer">
+  <div class="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       
           <a href="https://github.com/o2r-project/erc-spec/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
@@ -406,6 +406,11 @@ It is unlikely this ever makes it into an ERC specification, but it can be a cru
     <script>var base_url = '..';</script>
     <script src="../js/theme.js" defer></script>
       <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
 
 </body>
 </html>
