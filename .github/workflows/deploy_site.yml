@@ -1,0 +1,100 @@
+name: Deploy site
+
+on:
+  push:
+    branches:
+    - master
+  workflow_dispatch:
+
+jobs:
+  deploy_site:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+
+    # Action for collection of short branchname in commit mesage
+    - name: Inject short variables
+      uses: rlespinasse/github-slug-action@v3.x
+
+    - name: Install python packages
+      run: |
+        pip install pygments
+        pip install mkdocs
+        pip install pymdown-extensions
+        pip install mkdocs-pandoc
+        sudo apt-get update 
+        wget https://github.com/jgm/pandoc/releases/download/2.2.3.2/pandoc-2.2.3.2-1-amd64.deb
+        sudo dpkg -i pandoc-2.2.3.2-1-amd64.deb
+        sudo apt-get install -y texlive-latex-extra
+        pip install panflute==1.12.5
+        pip install pandoc-latex-admonition==1.2.2
+        pip install git+https://github.com/o2r-project/mkdocs-combine.git
+
+    - name: build documentation
+      run: |
+        mkdocs build --clean --verbose
+        # remove \newpage paragraphs from HTML
+        find ./site -type f -name '*.html' -exec sed -i -e 's|<p>\\newpage</p>||g' {} \;
+
+    - name: Make PDF
+      run: |
+        VCS_REF=$( git rev-parse --short HEAD)
+        # Quite convoluted env variable for pdf filename with version number from docs/spec/index.md  
+        echo "SPEC_FILE_NAME_PDF=$(echo erc-spec-v`grep -Po '(Specification version: \*\*\`)\K([0-9]|\.)*' docs/spec/index.md`.pdf)" >> $GITHUB_ENV
+        mkdocscombine --outfile erc.tmp --no-titles --admonitions-md --verbose
+        # fix image paths
+        sed -i 's:/img/:docs/img/:g' erc.tmp
+        # remove unwanted content: nothing after the first user guide
+        sed -i '/User\ guide:\ ERC\ creation/Q' erc.tmp
+        # BROKEN: remove unwanted content: nothing before the spec title
+        #sed -n -i '/ERC\ specification/,$$p' erc.pd
+        #sed -i '/ERC\ specification/,$$!d' erc.pd
+        # remove multiple empty lines:
+        sed -i 'N;/^\n$$/D;P;D;' erc.tmp
+        # update dates
+        sed -i 's/@@VERSION@@/${VCS_REF}/g' erc.tmp
+        sed -i 's/@@TIMESTAMP@@/${CURRENT_DATE}/g' erc.tmp
+        # add config for admonitions:
+        cat docs/admonition_config.yml erc.tmp > erc.tmp2
+        mv erc.tmp2 erc.tmp
+
+        # update version in cover page
+        sed -i 's/@@VCSREF@@/${VCS_REF}/g' docs/pdf_cover.tex
+
+        pip list
+        pandoc -v
+
+    - name: create PDF
+      run: >-  # allows you to break string into multiple lines#
+          pandoc
+          --toc
+          -f markdown
+          -V colorlinks
+          --include-before-body docs/pdf_cover.tex
+          --highlight-style pygments 
+          --output ${{env.SPEC_FILE_NAME_PDF}}
+          --filter pandoc-latex-admonition
+          --verbose erc.tmp
+
+    - name: Cleanup PDF
+      run: |
+        mv erc-spec*.pdf site/
+        # create unversioned file for current spec PDF
+        cp `ls site/erc-spec-v*.pdf | sort | tail -n 1` site/erc-spec.pdf
+        rm erc.tmp
+
+    - name: Deploy to Github pages
+      uses: JamesIves/github-pages-deploy-action@4.1.3
+      with:
+        branch: gh-pages # The branch the action should deploy to.
+        folder: site # The folder the action should deploy.
+        commit-message: Rebuild pages at ${{github.sha}} with branch ${{ env.GITHUB_REF_SLUG }}
+        git-config-name: Build bot <o2r.projekt@uni-muenster.de>
+        git-config-email: o2r.projekt@uni-muenster.de
