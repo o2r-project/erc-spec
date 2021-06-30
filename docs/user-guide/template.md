@@ -1,4 +1,4 @@
-# User guide: ERC template - WORK IN PROGRESS
+# User guide: ERC template
 
 If you want to create an ERC for your research already at the beginning, and not "post-hoc" after your research is complete, these templates can hopefully help.
 They are divided into specific domains to be more concrete.
@@ -17,23 +17,23 @@ The yaml header of the `document.md` file is the right place to enter your meta 
 
 ```yml
 ---
+title: "The title of your publication: with a colon"
 author:
   - name: Your Name
     affiliation: Your affiliation
-    orcid: Your ORCid
-  - name: Your co-author's name
+    orcid: Your ORCID
+  - name: "Your co-author's name"
     affiliation: Their affiliation
-    orcid: Their ORCid
-title: The title of your publication
-abstract:
+    orcid: Their ORCID
+abstract: |
   A concise description of your publication
 keywords: [lorem, ipsum, dolor, sit, amet]
 date: 2017-01-13
+# use SÜDX identifiers, see https://spdx.org/licenses/
 license:
-  text: cc-by
-  code: GPLv2
+  text: CC-BY-4.0
+  code: GPL-2.0-or-later
   data: "public domain"
-  metadata: CC0
 ---
 ```
 
