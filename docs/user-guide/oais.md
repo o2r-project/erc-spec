@@ -19,5 +19,5 @@ The concept of archival interpretability adds significant scientific value as it
 
 ## References
 
-- CCSDS (2012): RECOMMENDED PRACTICE FOR AN OAIS REFERENCE MODEL. CCSDS 650.0-M-2 (Magenta Book). [http://public.ccsds.org/publications/archive/650x0m2.pdf](http://public.ccsds.org/publications/archive/650x0m2.pdf)
+- CCSDS (2012): RECOMMENDED PRACTICE FOR AN OAIS REFERENCE MODEL. CCSDS 650.0-M-2 (Magenta Book). [https://public.ccsds.org/pubs/650x0m2.pdf](https://public.ccsds.org/pubs/650x0m2.pdf)
 - Maack, M.N. (2015). The Open Archival Information System (oais) Reference Model.
